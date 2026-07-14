@@ -1,0 +1,780 @@
+/*
+ * DOOR EXPERT — Hero Slider
+ * ============================================================
+ * Design philosophy: warm restrained minimalism
+ * Two manual slides (no auto-rotation — NN/g + Baymard)
+ * Slide 1: Inspirational brand statement + category routing
+ * Slide 2: Promotional/urgency — aktuelna ponuda + countdown
+ *
+ * Research sources:
+ * - UX Research for Navigation.md: manual slider, no auto-rotate
+ * - Visual research: layered image system, warm neutrals
+ * - Website Conversion Strategy.md: CTA copy, phone prominence
+ * - Discounts and Urgency Psychology.md: calm countdown, real deadline
+ * ============================================================
+ */
+
+/* ── Container ─────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  /* Prevent the 200%-wide track from causing page-level horizontal scroll */
+  contain: layout style;
+  background: var(--color-antracit);
+  /* Height: viewport minus header (top bar + main bar) */
+  height: calc(100vh - var(--header-height) - var(--header-top-height));
+  min-height: 520px;
+  max-height: 820px;
+}
+
+/* ── Track (holds all slides side by side) ──────────────────── */
+.hero__track {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 700ms var(--ease-inout);
+  will-change: transform;
+}
+
+.hero__track.is-slide-2 {
+  transform: translateX(-50%);
+}
+
+/* ── Individual slide ───────────────────────────────────────── */
+.hero__slide {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* ── Background image ───────────────────────────────────────── */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.04);
+  transition: transform 1200ms var(--ease-out);
+}
+
+.hero__slide.is-active .hero__bg {
+  transform: scale(1);
+}
+
+/* ── Gradient overlay (ensures text contrast) ──────────────── */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Slide 1: gradient from left (content side) */
+.hero__slide--1 .hero__overlay {
+  background: linear-gradient(
+    105deg,
+    rgba(30, 26, 22, 0.72) 0%,
+    rgba(30, 26, 22, 0.40) 52%,
+    rgba(30, 26, 22, 0.08) 100%
+  );
+}
+
+/* Slide 2: darker, more dramatic for promo */
+.hero__slide--2 .hero__overlay {
+  background: linear-gradient(
+    105deg,
+    rgba(30, 26, 22, 0.80) 0%,
+    rgba(30, 26, 22, 0.50) 55%,
+    rgba(30, 26, 22, 0.15) 100%
+  );
+}
+
+/* ── Content wrapper ────────────────────────────────────────── */
+.hero__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+.hero__inner {
+  max-width: 580px;
+}
+
+/* ── Eyebrow label ──────────────────────────────────────────── */
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sampanjac);
+  margin-bottom: var(--space-4);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease-out) 200ms,
+              transform 500ms var(--ease-out) 200ms;
+}
+
+.hero__eyebrow::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-jantar);
+}
+
+.hero__slide.is-active .hero__eyebrow {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Main headline ──────────────────────────────────────────── */
+.hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 600;
+  line-height: 1.12;
+  color: var(--color-white);
+  margin: 0 0 var(--space-5) 0;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 550ms var(--ease-out) 320ms,
+              transform 550ms var(--ease-out) 320ms;
+}
+
+.hero__slide.is-active .hero__title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Accent word in gold */
+.hero__title em {
+  font-style: normal;
+  color: var(--color-sampanjac);
+}
+
+/* ── Subtext ────────────────────────────────────────────────── */
+.hero__sub {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(255,255,255,0.82);
+  margin: 0 0 var(--space-8) 0;
+  max-width: 440px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease-out) 440ms,
+              transform 500ms var(--ease-out) 440ms;
+}
+
+.hero__slide.is-active .hero__sub {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── CTA group ──────────────────────────────────────────────── */
+.hero__cta-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease-out) 560ms,
+              transform 500ms var(--ease-out) 560ms;
+}
+
+.hero__slide.is-active .hero__cta-group {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Primary CTA button */
+.hero__btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 14px 28px;
+  background: var(--color-jantar);
+  color: var(--color-white);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-base) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.hero__btn-primary:hover {
+  background: var(--color-accent-hover);
+}
+
+.hero__btn-primary:active {
+  transform: scale(0.97);
+}
+
+/* Secondary CTA — ghost */
+.hero__btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 13px 24px;
+  background: transparent;
+  color: var(--color-white);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color var(--duration-base) var(--ease-out),
+              background var(--duration-base) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.hero__btn-secondary:hover {
+  border-color: rgba(255,255,255,0.80);
+  background: rgba(255,255,255,0.08);
+}
+
+.hero__btn-secondary:active {
+  transform: scale(0.97);
+}
+
+/* ── Trust micro-badge (stock availability) ─────────────────── */
+/* Research: Trust Signals doc — "Na lageru — odmah isporuka" as unclaimed territory */
+.hero__trust {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.70);
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out) 700ms;
+}
+
+.hero__slide.is-active .hero__trust {
+  opacity: 1;
+}
+
+.hero__trust-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5CB85C;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(92,184,92,0.30);
+  animation: pulse-green 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(92,184,92,0.30); }
+  50%       { box-shadow: 0 0 0 5px rgba(92,184,92,0.10); }
+}
+
+/* ── Category quick-links (Slide 1 only) ────────────────────── */
+.hero__categories {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  background: rgba(30, 26, 22, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.hero__categories-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  display: flex;
+  align-items: stretch;
+}
+
+.hero__cat-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  text-decoration: none;
+  color: rgba(255,255,255,0.80);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  transition: background var(--duration-base) var(--ease-out),
+              color var(--duration-base) var(--ease-out);
+  position: relative;
+}
+
+.hero__cat-item:last-child {
+  border-right: none;
+}
+
+.hero__cat-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-jantar);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.hero__cat-item:hover {
+  background: rgba(255,255,255,0.06);
+  color: var(--color-white);
+}
+
+.hero__cat-item:hover::after {
+  transform: scaleX(1);
+}
+
+.hero__cat-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(160,120,64,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--duration-base) var(--ease-out);
+}
+
+.hero__cat-item:hover .hero__cat-icon {
+  background: rgba(160,120,64,0.45);
+}
+
+.hero__cat-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-sampanjac);
+}
+
+.hero__cat-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.hero__cat-name {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--color-white);
+  line-height: 1.2;
+}
+
+.hero__cat-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.50);
+  font-weight: 400;
+}
+
+/* ── Slide 2: Promo block ───────────────────────────────────── */
+/* Research: Discounts doc — calm countdown, real deadline, monetary savings */
+.hero__promo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-jantar);
+  color: var(--color-white);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 450ms var(--ease-out) 150ms,
+              transform 450ms var(--ease-out) 150ms;
+}
+
+.hero__slide.is-active .hero__promo-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Savings highlight */
+.hero__savings {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 500ms var(--ease-out) 480ms,
+              transform 500ms var(--ease-out) 480ms;
+}
+
+.hero__slide.is-active .hero__savings {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__savings-amount {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 700;
+  color: var(--color-sampanjac);
+  line-height: 1;
+}
+
+.hero__savings-label {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.70);
+  line-height: 1.4;
+}
+
+/* Countdown timer — calm, minimal (per research guidance) */
+.hero__countdown {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  opacity: 0;
+  transition: opacity 500ms var(--ease-out) 720ms;
+}
+
+.hero__slide.is-active .hero__countdown {
+  opacity: 1;
+}
+
+.hero__countdown-label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hero__countdown-units {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero__countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hero__countdown-num {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-white);
+  line-height: 1;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.hero__countdown-unit-label {
+  font-family: var(--font-ui);
+  font-size: 9px;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero__countdown-sep {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  color: rgba(255,255,255,0.30);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+/* ── Slide navigation controls ──────────────────────────────── */
+.hero__nav {
+  position: absolute;
+  bottom: 80px; /* above category bar on slide 1 */
+  right: var(--space-8);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* On slide 2, no category bar so nav sits lower */
+.hero--slide-2 .hero__nav {
+  bottom: var(--space-8);
+}
+
+.hero__nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.30);
+  background: rgba(30,26,22,0.40);
+  backdrop-filter: blur(4px);
+  color: var(--color-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--duration-base) var(--ease-out),
+              border-color var(--duration-base) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+
+.hero__nav-btn:hover {
+  background: rgba(160,120,64,0.55);
+  border-color: var(--color-jantar);
+}
+
+.hero__nav-btn:active {
+  transform: scale(0.93);
+}
+
+.hero__nav-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Dots indicator */
+.hero__dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hero__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+
+.hero__dot.is-active {
+  background: var(--color-jantar);
+  transform: scale(1.4);
+}
+
+/* ── Slide counter (e.g. "01 / 02") ────────────────────────── */
+.hero__counter {
+  position: absolute;
+  top: 50%;
+  right: var(--space-8);
+  transform: translateY(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.hero__counter-num {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.50);
+  writing-mode: vertical-rl;
+  letter-spacing: 0.08em;
+}
+
+.hero__counter-num.is-current {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.hero__counter-line {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.20);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__counter-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--color-jantar);
+  transition: height 700ms var(--ease-inout);
+}
+
+.hero--slide-1 .hero__counter-line::after { height: 50%; }
+.hero--slide-2 .hero__counter-line::after { height: 100%; }
+
+/* ── Right-side image panel (Slide 2 only) ──────────────────── */
+.hero__image-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 42%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero__image-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 800ms var(--ease-out) 200ms,
+              transform 1200ms var(--ease-out) 200ms;
+}
+
+.hero__slide.is-active .hero__image-panel img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hero__image-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(30,26,22,0.60) 0%, transparent 40%);
+  z-index: 1;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero__categories-inner {
+    padding: 0 var(--space-6);
+  }
+  .hero__content {
+    padding: 0 var(--space-6);
+  }
+  .hero__counter {
+    display: none;
+  }
+  .hero__image-panel {
+    width: 38%;
+    opacity: 0.5;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile: one image, one message, one CTA (per Visual research) */
+  .hero {
+    height: calc(100svh - var(--header-height));
+    min-height: 480px;
+    max-height: 700px;
+  }
+
+  .hero__content {
+    padding: 0 var(--space-5);
+    align-items: flex-end;
+    padding-bottom: 100px;
+  }
+
+  .hero__inner {
+    max-width: 100%;
+  }
+
+  .hero__title {
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+  }
+
+  .hero__sub {
+    font-size: var(--text-sm);
+    max-width: 100%;
+  }
+
+  .hero__cta-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero__btn-primary,
+  .hero__btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__categories {
+    display: none; /* simplified on mobile per research */
+  }
+
+  .hero__nav {
+    bottom: var(--space-5);
+    right: var(--space-5);
+  }
+
+  .hero__image-panel {
+    display: none;
+  }
+
+  .hero__slide--1 .hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(30,26,22,0.20) 0%,
+      rgba(30,26,22,0.75) 100%
+    );
+  }
+
+  .hero__slide--2 .hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(30,26,22,0.30) 0%,
+      rgba(30,26,22,0.85) 100%
+    );
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__categories-inner {
+    flex-direction: column;
+  }
+  .hero__cat-item {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: var(--space-3) var(--space-4);
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero__track { transition: none; }
+  .hero__bg { transition: none; transform: scale(1); }
+  .hero__eyebrow,
+  .hero__title,
+  .hero__sub,
+  .hero__cta-group,
+  .hero__trust,
+  .hero__promo-badge,
+  .hero__savings,
+  .hero__countdown { transition: none; opacity: 1; transform: none; }
+  .hero__image-panel img { transition: none; opacity: 1; transform: none; }
+  .hero__trust-dot { animation: none; }
+}

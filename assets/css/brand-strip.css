@@ -1,0 +1,261 @@
+/*
+ * DOOR EXPERT — Brand Strip (Section 7)
+ * ============================================================
+ * Research sources:
+ * - Business Facts: "Spanish origin is the single biggest selling
+ *   advantage and must be prominent."
+ * - Business Facts: "Brand strip placed LOWER on the page —
+ *   visible but not dominating the top."
+ * - Business Facts: "Door brands NOT highlighted (factories in
+ *   Russia/Ukraine, no public brand names). Ceramic and washbasin
+ *   brands ARE highlighted."
+ * - Trust Signals doc: "Poznati brendovi keramike i sanitarija
+ *   (španski proizvođači) trebaju se predstaviti preko logoa i
+ *   naslova... 'direktan uvoz iz Španije — garancija originalnog
+ *   kvaliteta'."
+ * - Zapisnik sastanka: "Brand strip (ceramic brands + Bathco)
+ *   placed LOWER on the page — visible but not dominating."
+ * ============================================================
+ */
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+.brand-strip {
+  background: #fff;
+  padding: var(--space-14, 3.5rem) 0;
+  border-top: 1px solid var(--color-pesak, #DDD5C4);
+  border-bottom: 1px solid var(--color-pesak, #DDD5C4);
+}
+
+.brand-strip__inner {
+  max-width: var(--container-max, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--space-8, 2rem);
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.brand-strip__header {
+  text-align: center;
+  margin-bottom: var(--space-10, 2.5rem);
+}
+
+.brand-strip__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft, #5A5248);
+  margin-bottom: var(--space-3, 0.75rem);
+}
+
+/* Spain flag accent */
+.brand-strip__eyebrow::before,
+.brand-strip__eyebrow::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--color-pesak, #DDD5C4);
+}
+
+.brand-strip__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.brand-strip__title em {
+  font-style: normal;
+  color: var(--color-jantar, #A07840);
+}
+
+/* ── Brand grid ──────────────────────────────────────────────── */
+.brand-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-4, 1rem);
+  align-items: stretch;
+}
+
+/* ── Brand card ──────────────────────────────────────────────── */
+.brand-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  padding: var(--space-6, 1.5rem) var(--space-4, 1rem);
+  border: 1px solid var(--color-pesak, #DDD5C4);
+  border-radius: 3px;
+  text-decoration: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-card:hover {
+  border-color: var(--color-jantar, #A07840);
+  box-shadow: 0 4px 20px rgba(160, 120, 64, 0.10);
+  transform: translateY(-2px);
+}
+
+/* Spain badge — top right corner */
+.brand-card__spain-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-jantar, #A07840);
+  background: rgba(160, 120, 64, 0.08);
+  border-radius: 2px;
+}
+
+/* Brand logo area */
+.brand-card__logo-wrap {
+  width: 100%;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text-based logo (used when no image available) */
+.brand-card__logo-text {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  font-weight: 700;
+  color: var(--color-antracit, #1E1A16);
+  text-align: center;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  transition: color 200ms ease;
+}
+
+.brand-card:hover .brand-card__logo-text {
+  color: var(--color-jantar, #A07840);
+}
+
+/* Divider */
+.brand-card__divider {
+  width: 32px;
+  height: 1px;
+  background: var(--color-pesak, #DDD5C4);
+  flex-shrink: 0;
+  transition: background 200ms ease, width 200ms ease;
+}
+
+.brand-card:hover .brand-card__divider {
+  background: var(--color-jantar, #A07840);
+  width: 48px;
+}
+
+/* Category label */
+.brand-card__category {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft, #5A5248);
+  text-align: center;
+}
+
+/* Description */
+.brand-card__desc {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.75rem;
+  color: var(--color-antracit-soft, #5A5248);
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Bottom note ─────────────────────────────────────────────── */
+.brand-strip__note {
+  margin-top: var(--space-8, 2rem);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3, 0.75rem);
+  flex-wrap: wrap;
+}
+
+.brand-strip__note-text {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  color: var(--color-antracit-soft, #5A5248);
+  margin: 0;
+}
+
+.brand-strip__note-link {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-jantar, #A07840);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid var(--color-jantar, #A07840);
+  padding-bottom: 1px;
+  transition: opacity 180ms ease;
+}
+
+.brand-strip__note-link:hover {
+  opacity: 0.75;
+}
+
+.brand-strip__note-link svg {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .brand-strip__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .brand-strip__inner {
+    padding: 0 var(--space-4, 1rem);
+  }
+
+  .brand-strip__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .brand-card {
+    padding: var(--space-5, 1.25rem) var(--space-3, 0.75rem);
+  }
+
+  .brand-card__logo-wrap {
+    height: 40px;
+  }
+
+  .brand-card__desc {
+    display: none;
+  }
+}

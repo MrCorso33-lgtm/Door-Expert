@@ -1,0 +1,993 @@
+/*
+ * DOOR EXPERT — AKCIJE (PROMOTIONS) PAGE STYLES
+ * ============================================================
+ * Design philosophy: Premium showroom, not bargain shop.
+ * Research basis: Discounts and Urgency Psychology.md
+ *   - Monetary savings as primary signal (González et al.)
+ *   - Countdown timers: minimal, quiet, real deadlines only
+ *   - Curated narrative: "Izdvojena kolekcija", not "SVE NA POPUSTU"
+ *   - Legal: previous price = lowest in last 30 days (CG consumer law)
+ *
+ * Color system (4 colors):
+ *   Alabaster  #F0EBE0  — 60% backgrounds
+ *   Antracit   #1E1A16  — 30% text/structure
+ *   Tamni Orah #2C1A0E  — hero overlays, dark accents
+ *   Jantar     #A07840  — 10% accent/CTA
+ *
+ * Tints/shades allowed:
+ *   Biser      #F7F3EC  — lightest bg
+ *   Sampanjac  #EDE0C8  — warm mid
+ *   Pesak      #DDD5C4  — borders
+ *   Svetli Jantar #C9A96E — hover states
+ * ============================================================
+ */
+
+/* ============================================================
+   PAGE HERO — CAMPAIGN BANNER
+   Research: One curated campaign, not "everything on sale"
+   ============================================================ */
+
+.akcije-hero {
+  position: relative;
+  background-color: var(--color-espreso, #2C1A0E);
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+}
+
+.akcije-hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1400&q=80');
+  background-size: cover;
+  background-position: center 40%;
+  opacity: 0.35;
+}
+
+.akcije-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(44, 26, 14, 0.92) 0%,
+    rgba(44, 26, 14, 0.65) 55%,
+    rgba(44, 26, 14, 0.20) 100%
+  );
+}
+
+.akcije-hero__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+.akcije-hero__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-jantar, #A07840);
+  margin-bottom: 16px;
+}
+
+.akcije-hero__label-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-jantar, #A07840);
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.akcije-hero__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 500;
+  color: #F7F3EC;
+  line-height: 1.15;
+  margin: 0 0 12px;
+  max-width: 560px;
+}
+
+.akcije-hero__subtitle {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: rgba(240, 235, 224, 0.75);
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 0 32px;
+}
+
+.akcije-hero__cta-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.akcije-hero__cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--color-jantar, #A07840);
+  color: #F7F3EC;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.akcije-hero__cta-primary:hover {
+  background: var(--color-sampanjac, #C9A96E);
+  transform: translateY(-1px);
+}
+
+.akcije-hero__cta-primary:active {
+  transform: scale(0.98);
+}
+
+.akcije-hero__cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: transparent;
+  color: #F7F3EC;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid rgba(240, 235, 224, 0.35);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.akcije-hero__cta-secondary:hover {
+  border-color: rgba(240, 235, 224, 0.7);
+  background: rgba(240, 235, 224, 0.08);
+}
+
+/* Hero countdown block — right column */
+.akcije-hero__countdown-block {
+  background: rgba(240, 235, 224, 0.07);
+  border: 1px solid rgba(240, 235, 224, 0.15);
+  padding: 28px 32px;
+  text-align: center;
+  min-width: 220px;
+  backdrop-filter: blur(8px);
+}
+
+.akcije-hero__countdown-label {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(240, 235, 224, 0.55);
+  margin-bottom: 16px;
+}
+
+.akcije-hero__countdown-deadline {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-jantar, #A07840);
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+}
+
+.countdown-units {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.countdown-unit__number {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #F7F3EC;
+  line-height: 1;
+  min-width: 44px;
+  text-align: center;
+}
+
+.countdown-unit__label {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240, 235, 224, 0.45);
+}
+
+.countdown-separator {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1.8rem;
+  color: rgba(240, 235, 224, 0.3);
+  padding-bottom: 8px;
+  line-height: 1;
+}
+
+/* ============================================================
+   FILTER TABS BAR
+   Research: Users actively search "Sales" list — structure it
+   ============================================================ */
+
+.akcije-filters {
+  background: #F7F3EC;
+  border-bottom: 1px solid var(--color-sand, #DDD5C4);
+  position: sticky;
+  top: 72px; /* below fixed header */
+  z-index: 90;
+}
+
+.akcije-filters__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.akcije-filters__inner::-webkit-scrollbar {
+  display: none;
+}
+
+.akcije-filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.55;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+}
+
+.akcije-filter-tab:hover {
+  opacity: 0.85;
+}
+
+.akcije-filter-tab.is-active {
+  opacity: 1;
+  color: var(--color-jantar, #A07840);
+  border-bottom-color: var(--color-jantar, #A07840);
+  font-weight: 600;
+}
+
+.akcije-filter-tab__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  background: var(--color-sand, #DDD5C4);
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.akcije-filter-tab.is-active .akcije-filter-tab__count {
+  background: var(--color-jantar, #A07840);
+  color: #F7F3EC;
+}
+
+/* Sort row */
+.akcije-sort-row {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.akcije-sort-row__results {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.6;
+}
+
+.akcije-sort-row__results strong {
+  opacity: 1;
+  color: var(--color-antracit, #1E1A16);
+  font-weight: 600;
+}
+
+.akcije-sort-select {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-antracit, #1E1A16);
+  background: #F7F3EC;
+  border: 1px solid var(--color-sand, #DDD5C4);
+  padding: 8px 32px 8px 12px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231E1A16' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  transition: border-color 0.2s ease;
+}
+
+.akcije-sort-select:focus {
+  outline: 2px solid var(--color-jantar, #A07840);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   MAIN CONTENT AREA
+   ============================================================ */
+
+.akcije-main {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ============================================================
+   PRODUCT GRID
+   Research: Badge-ovi samo za stvarno snizene SKU-ove
+   ============================================================ */
+
+.akcije-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Product card */
+.akcije-card {
+  background: #fff;
+  border: 1px solid var(--color-sand, #DDD5C4);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  overflow: hidden;
+}
+
+.akcije-card:hover {
+  box-shadow: 0 8px 32px rgba(44, 26, 14, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Card image */
+.akcije-card__image-wrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--color-alabaster, #F0EBE0);
+}
+
+.akcije-card__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.akcije-card:hover .akcije-card__image-wrap img {
+  transform: scale(1.04);
+}
+
+/* Badges container */
+.akcije-card__badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 2;
+}
+
+/* Discount percentage badge — secondary signal */
+.badge-discount {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--color-antracit, #1E1A16);
+  color: #F7F3EC;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* "Novo" badge */
+.badge-novo {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--color-jantar, #A07840);
+  color: #F7F3EC;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Countdown badge on card — minimal, quiet */
+.badge-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  background: rgba(44, 26, 14, 0.85);
+  color: rgba(240, 235, 224, 0.9);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 10px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+}
+
+.badge-countdown svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* Wishlist button */
+.akcije-card__wishlist {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  background: rgba(247, 243, 236, 0.9);
+  border: 1px solid rgba(221, 213, 196, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+}
+
+.akcije-card__wishlist:hover {
+  background: #F7F3EC;
+  border-color: var(--color-jantar, #A07840);
+}
+
+.akcije-card__wishlist.is-active svg {
+  fill: var(--color-jantar, #A07840);
+  stroke: var(--color-jantar, #A07840);
+}
+
+/* Card body */
+.akcije-card__body {
+  padding: 16px 16px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.akcije-card__category {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-jantar, #A07840);
+  margin-bottom: 6px;
+}
+
+.akcije-card__name {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--color-antracit, #1E1A16);
+  line-height: 1.3;
+  margin: 0 0 6px;
+  text-decoration: none;
+  display: block;
+}
+
+.akcije-card__name:hover {
+  color: var(--color-jantar, #A07840);
+}
+
+.akcije-card__desc {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.8rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.6;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  flex: 1;
+}
+
+/* Price block — Research: monetary savings as PRIMARY signal */
+.akcije-card__price-block {
+  margin-bottom: 12px;
+}
+
+.akcije-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.akcije-card__price-old {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.akcije-card__price-new {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  line-height: 1;
+}
+
+/* PRIMARY SIGNAL: monetary savings — González et al. */
+.akcije-card__savings {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2D6A4F; /* deep green — positive, not alarming */
+}
+
+.akcije-card__savings-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Card footer — CTA buttons */
+.akcije-card__footer {
+  padding: 0 16px 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-add-to-cart {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px;
+  background: var(--color-antracit, #1E1A16);
+  color: #F7F3EC;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-add-to-cart:hover {
+  background: var(--color-jantar, #A07840);
+}
+
+.btn-add-to-cart:active {
+  transform: scale(0.97);
+}
+
+.btn-view-product {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  color: var(--color-antracit, #1E1A16);
+  border: 1px solid var(--color-sand, #DDD5C4);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.btn-view-product:hover {
+  border-color: var(--color-jantar, #A07840);
+  background: var(--color-alabaster, #F0EBE0);
+}
+
+/* ============================================================
+   URGENCY SECTION — "Istice uskoro"
+   Research: Urgency comes AFTER quality signals, not before
+   ============================================================ */
+
+.akcije-urgency {
+  background: var(--color-sampanjac-light, #EDE0C8);
+  border-top: 1px solid var(--color-sand, #DDD5C4);
+  border-bottom: 1px solid var(--color-sand, #DDD5C4);
+  padding: 48px 0;
+  margin-top: 48px;
+}
+
+.akcije-urgency__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.akcije-urgency__header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.akcije-urgency__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--color-antracit, #1E1A16);
+  margin: 0;
+}
+
+.akcije-urgency__subtitle {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.6;
+}
+
+/* Urgency cards — horizontal strip */
+.akcije-urgency__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.urgency-card {
+  background: #fff;
+  border: 1px solid var(--color-sand, #DDD5C4);
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  align-items: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.urgency-card:hover {
+  box-shadow: 0 4px 16px rgba(44, 26, 14, 0.1);
+}
+
+.urgency-card__image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--color-alabaster, #F0EBE0);
+}
+
+.urgency-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.urgency-card__name {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-antracit, #1E1A16);
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.urgency-card__deadline {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.75rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.urgency-card__deadline strong {
+  color: #8B4513;
+  opacity: 1;
+  font-weight: 600;
+}
+
+.urgency-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.urgency-card__price-old {
+  font-size: 0.8rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.4;
+  text-decoration: line-through;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+}
+
+.urgency-card__price-new {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+}
+
+/* Progress bar — days remaining */
+.urgency-card__progress {
+  margin-top: 8px;
+}
+
+.urgency-card__progress-bar {
+  height: 3px;
+  background: var(--color-sand, #DDD5C4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.urgency-card__progress-fill {
+  height: 100%;
+  background: var(--color-jantar, #A07840);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.urgency-card__progress-label {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 10px;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.5;
+  margin-top: 4px;
+}
+
+/* ============================================================
+   TRANSPARENCY / LEGAL NOTE
+   Research: CG consumer law — previous price = lowest in 30 days
+   ============================================================ */
+
+.akcije-legal {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+.akcije-legal__note {
+  background: #F7F3EC;
+  border: 1px solid var(--color-sand, #DDD5C4);
+  border-left: 3px solid var(--color-jantar, #A07840);
+  padding: 16px 20px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.akcije-legal__icon {
+  flex-shrink: 0;
+  color: var(--color-jantar, #A07840);
+  margin-top: 1px;
+}
+
+.akcije-legal__text {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.8rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.7;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.akcije-legal__text strong {
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* ============================================================
+   EMPTY STATE (when filter returns 0 results)
+   ============================================================ */
+
+.akcije-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 64px 24px;
+}
+
+.akcije-empty__icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  opacity: 0.25;
+  color: var(--color-antracit, #1E1A16);
+}
+
+.akcije-empty__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-antracit, #1E1A16);
+  margin: 0 0 8px;
+}
+
+.akcije-empty__text {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  color: var(--color-antracit, #1E1A16);
+  opacity: 0.55;
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET (max 1024px)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .akcije-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .akcije-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 60px 24px;
+  }
+
+  .akcije-hero__countdown-block {
+    max-width: 320px;
+  }
+
+  .akcije-urgency__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE (max 768px)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .akcije-hero {
+    min-height: 340px;
+  }
+
+  .akcije-hero__inner {
+    padding: 48px 16px;
+  }
+
+  .akcije-hero__title {
+    font-size: 1.75rem;
+  }
+
+  .akcije-hero__countdown-block {
+    padding: 20px 24px;
+  }
+
+  .countdown-unit__number {
+    font-size: 1.8rem;
+    min-width: 36px;
+  }
+
+  .akcije-filters {
+    top: 60px;
+  }
+
+  .akcije-filters__inner {
+    padding: 0 16px;
+  }
+
+  .akcije-sort-row {
+    padding: 16px 16px 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .akcije-main {
+    padding: 24px 16px 48px;
+  }
+
+  .akcije-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .akcije-urgency {
+    padding: 36px 0;
+  }
+
+  .akcije-urgency__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .akcije-legal {
+    padding: 24px 16px 0;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE (max 480px)
+   ============================================================ */
+
+@media (max-width: 480px) {
+  .akcije-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .akcije-hero__cta-group {
+    flex-direction: column;
+  }
+
+  .akcije-hero__cta-primary,
+  .akcije-hero__cta-secondary {
+    justify-content: center;
+  }
+
+  .urgency-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .urgency-card__image {
+    width: 100%;
+    height: 160px;
+  }
+}
+
+/* ============================================================
+   HIDDEN STATE for filter JS
+   ============================================================ */
+
+.akcije-card[data-hidden="true"] {
+  display: none;
+}

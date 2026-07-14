@@ -1,0 +1,1112 @@
+/*
+ * korpa.css — Quote Cart / Korpa za ponudu
+ * Door Expert · Luxury Minimalist · Editorial Showroom
+ *
+ * Design philosophy:
+ *   - White canvas so products breathe
+ *   - Cormorant Garamond for headings — editorial, not transactional
+ *   - Zero border-radius on CTAs — luxury signal
+ *   - Thin 1px lines as separators, no card shadows
+ *   - Amber (#A07840) as sole accent — never overused
+ *   - Two-column desktop: items left (60%), sticky summary right (40%)
+ *
+ * Sections:
+ *   1. Page layout & breadcrumb
+ *   2. Cart tabs (Korpa / Sačuvano)
+ *   3. Cart items table
+ *   4. Item row: photo, details, quantity, subtotal
+ *   5. Sticky summary panel
+ *   6. Quote form
+ *   7. Thank-you state
+ *   8. Empty cart recovery
+ *   9. Mobile sticky bar
+ *  10. Responsive overrides
+ */
+
+/* ─────────────────────────────────────────────
+   1. PAGE LAYOUT
+───────────────────────────────────────────── */
+.korpa-page {
+  background: var(--color-white);
+  min-height: 70vh;
+  padding-bottom: var(--space-20);
+}
+
+.korpa-breadcrumb {
+  padding: var(--space-6) 0 var(--space-4);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+}
+
+.korpa-breadcrumb a {
+  color: var(--color-antracit-soft);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.korpa-breadcrumb a:hover { color: var(--color-jantar); }
+.korpa-breadcrumb span { margin: 0 var(--space-2); opacity: 0.5; }
+
+.korpa-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--color-antracit);
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+  line-height: 1.1;
+}
+
+.korpa-heading em {
+  font-style: italic;
+  color: var(--color-jantar);
+}
+
+.korpa-subheading {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-8);
+}
+
+/* Two-column layout */
+.korpa-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--space-12);
+  align-items: start;
+  margin-top: var(--space-8);
+}
+
+/* ─────────────────────────────────────────────
+   2. CART TABS
+───────────────────────────────────────────── */
+.korpa-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-sand);
+  margin-bottom: var(--space-8);
+}
+
+.korpa-tab {
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--space-3) var(--space-6) var(--space-3) 0;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  margin-bottom: -1px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.korpa-tab:hover { color: var(--color-antracit); }
+
+.korpa-tab.active {
+  color: var(--color-antracit);
+  border-bottom-color: var(--color-jantar);
+}
+
+.korpa-tab__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background: var(--color-jantar);
+  color: var(--color-white);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  border-radius: 50%;
+  font-family: var(--font-ui);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Tab panels */
+.korpa-panel { display: none; }
+.korpa-panel.active { display: block; }
+
+/* ─────────────────────────────────────────────
+   3. CART ITEMS TABLE
+───────────────────────────────────────────── */
+.korpa-items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.korpa-items__header {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px 80px 100px 40px;
+  gap: var(--space-4);
+  padding: 0 0 var(--space-3);
+  border-bottom: 1px solid var(--color-sand);
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+}
+
+/* ─────────────────────────────────────────────
+   4. ITEM ROW
+───────────────────────────────────────────── */
+.korpa-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 120px 80px 100px 40px;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--color-sand);
+  transition: background 0.2s;
+}
+
+.korpa-item:hover { background: var(--color-pearl); margin: 0 calc(-1 * var(--space-4)); padding-left: var(--space-4); padding-right: var(--space-4); }
+
+/* Thumbnail */
+.korpa-item__thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+  background: var(--color-pearl);
+}
+
+/* Product info */
+.korpa-item__info { min-width: 0; }
+
+.korpa-item__name {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-1);
+  line-height: 1.3;
+}
+
+.korpa-item__variant {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-2);
+}
+
+.korpa-item__variant span {
+  display: inline-block;
+  background: var(--color-pearl);
+  border: 1px solid var(--color-sand);
+  padding: 2px var(--space-2);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  margin-right: var(--space-1);
+}
+
+/* Note field per item */
+.korpa-item__note-toggle {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-jantar);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  letter-spacing: 0.02em;
+}
+
+.korpa-item__note-field {
+  display: none;
+  margin-top: var(--space-2);
+}
+
+.korpa-item__note-field.open { display: block; }
+
+.korpa-item__note-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-antracit);
+  border: 1px solid var(--color-sand);
+  border-radius: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-white);
+  resize: none;
+  min-height: 56px;
+  transition: border-color 0.2s;
+}
+
+.korpa-item__note-input:focus {
+  outline: none;
+  border-color: var(--color-jantar);
+}
+
+/* Unit price */
+.korpa-item__price {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-antracit-mid);
+  padding-top: var(--space-1);
+}
+
+/* Quantity control */
+.korpa-item__qty {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--color-sand);
+  width: fit-content;
+}
+
+.korpa-item__qty-btn {
+  width: 28px;
+  height: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--color-antracit-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+
+.korpa-item__qty-btn:hover {
+  background: var(--color-pearl);
+  color: var(--color-jantar);
+}
+
+.korpa-item__qty-input {
+  width: 32px;
+  height: 28px;
+  text-align: center;
+  border: none;
+  border-left: 1px solid var(--color-sand);
+  border-right: 1px solid var(--color-sand);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-antracit);
+  background: var(--color-white);
+  -moz-appearance: textfield;
+}
+.korpa-item__qty-input::-webkit-outer-spin-button,
+.korpa-item__qty-input::-webkit-inner-spin-button { -webkit-appearance: none; }
+.korpa-item__qty-input:focus { outline: none; }
+
+/* Subtotal */
+.korpa-item__subtotal {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-antracit);
+  padding-top: var(--space-1);
+}
+
+/* Remove button */
+.korpa-item__remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-antracit-soft);
+  padding: var(--space-1);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--space-1);
+}
+.korpa-item__remove:hover { color: #C0392B; }
+.korpa-item__remove svg { width: 16px; height: 16px; }
+
+/* ─────────────────────────────────────────────
+   WISHLIST ITEMS (saved panel)
+───────────────────────────────────────────── */
+.wishlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-4);
+}
+
+.wishlist-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-sand);
+  position: relative;
+}
+
+.wishlist-card__img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  background: var(--color-pearl);
+}
+
+.wishlist-card__body {
+  padding: var(--space-4);
+}
+
+.wishlist-card__name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-1);
+  line-height: 1.3;
+}
+
+.wishlist-card__price {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-4);
+}
+
+.wishlist-card__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.wishlist-card__move {
+  flex: 1;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--color-jantar);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0;
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.wishlist-card__move:hover { background: var(--color-accent-hover, #8A6430); }
+
+.wishlist-card__remove-wish {
+  width: 36px;
+  background: none;
+  border: 1px solid var(--color-sand);
+  border-radius: 0;
+  cursor: pointer;
+  color: var(--color-antracit-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.wishlist-card__remove-wish:hover { border-color: #C0392B; color: #C0392B; }
+.wishlist-card__remove-wish svg { width: 14px; height: 14px; }
+
+.wishlist-card__remove-wish-abs {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  width: 28px;
+  height: 28px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  cursor: pointer;
+  color: var(--color-antracit-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+.wishlist-card__remove-wish-abs:hover { color: #C0392B; }
+
+/* Share wishlist */
+.wishlist-share {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-sand);
+}
+
+.wishlist-share__label {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+}
+
+.wishlist-share__btn {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-antracit-mid);
+  background: none;
+  border: 1px solid var(--color-sand);
+  border-radius: 0;
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  transition: border-color 0.2s, color 0.2s;
+}
+.wishlist-share__btn:hover { border-color: var(--color-jantar); color: var(--color-jantar); }
+.wishlist-share__btn svg { width: 14px; height: 14px; }
+
+/* ─────────────────────────────────────────────
+   5. STICKY SUMMARY PANEL
+───────────────────────────────────────────── */
+.korpa-summary {
+  position: sticky;
+  top: 100px;
+  background: var(--color-pearl);
+  padding: var(--space-8);
+  border-top: 3px solid var(--color-jantar);
+}
+
+.korpa-summary__title {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 300;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-6);
+  letter-spacing: -0.01em;
+}
+
+/* Line items in summary */
+.korpa-summary__lines {
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+  border-bottom: 1px solid var(--color-sand);
+  padding-bottom: var(--space-6);
+}
+
+.korpa-summary__line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-antracit-mid);
+  margin-bottom: var(--space-3);
+}
+
+.korpa-summary__line--total {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-antracit);
+  margin-top: var(--space-4);
+  margin-bottom: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-sand);
+}
+
+.korpa-summary__total-label {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.korpa-summary__total-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-antracit);
+  letter-spacing: -0.01em;
+}
+
+/* Disclaimer under total */
+.korpa-summary__disclaimer {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-antracit-soft);
+  line-height: 1.5;
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(160,120,64,0.06);
+  border-left: 2px solid var(--color-jantar);
+}
+
+/* ─────────────────────────────────────────────
+   6. QUOTE FORM
+───────────────────────────────────────────── */
+.korpa-form { margin-top: var(--space-6); }
+
+.korpa-form__title {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.korpa-form__field {
+  margin-bottom: var(--space-4);
+}
+
+.korpa-form__label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-2);
+}
+
+.korpa-form__label span {
+  color: var(--color-jantar);
+  margin-left: 2px;
+}
+
+.korpa-form__input,
+.korpa-form__textarea {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-antracit);
+  background: var(--color-white);
+  border: 1px solid var(--color-sand);
+  border-radius: 0;
+  padding: var(--space-3) var(--space-4);
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+}
+
+.korpa-form__input:focus,
+.korpa-form__textarea:focus {
+  outline: none;
+  border-color: var(--color-jantar);
+}
+
+.korpa-form__input::placeholder,
+.korpa-form__textarea::placeholder {
+  color: var(--color-antracit-soft);
+  opacity: 0.6;
+}
+
+.korpa-form__textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.korpa-form__hint {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  color: var(--color-antracit-soft);
+  margin-top: var(--space-1);
+  line-height: 1.4;
+}
+
+/* Consent checkbox */
+.korpa-form__consent {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-bottom: var(--space-5);
+}
+
+.korpa-form__checkbox {
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 1px solid var(--color-sand);
+  border-radius: 0;
+  accent-color: var(--color-jantar);
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+.korpa-form__consent-text {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--color-antracit-soft);
+  line-height: 1.5;
+}
+
+.korpa-form__consent-text a {
+  color: var(--color-jantar);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Submit CTA */
+.korpa-form__submit {
+  width: 100%;
+  font-family: var(--font-ui);
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: var(--color-jantar);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0;
+  padding: var(--space-4) var(--space-6);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.korpa-form__submit:hover { background: #8A6430; }
+.korpa-form__submit:active { transform: scale(0.98); }
+
+.korpa-form__submit svg { width: 16px; height: 16px; }
+
+/* Secondary: call CTA */
+.korpa-form__call {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-antracit-mid);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.korpa-form__call:hover { color: var(--color-jantar); }
+.korpa-form__call svg { width: 14px; height: 14px; }
+
+/* "What happens after click" block */
+.korpa-next-steps {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-sand);
+}
+
+.korpa-next-steps__title {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-4);
+}
+
+.korpa-next-steps__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.korpa-next-steps__item {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.korpa-next-steps__num {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 1px solid var(--color-jantar);
+  color: var(--color-jantar);
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+
+.korpa-next-steps__text {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-antracit-mid);
+  line-height: 1.5;
+}
+
+.korpa-next-steps__text strong {
+  color: var(--color-antracit);
+  font-weight: 500;
+}
+
+/* ─────────────────────────────────────────────
+   7. THANK-YOU STATE
+───────────────────────────────────────────── */
+.korpa-thankyou {
+  display: none;
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+}
+
+.korpa-thankyou.visible { display: block; }
+
+.korpa-thankyou__icon {
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--color-jantar);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-6);
+  color: var(--color-jantar);
+}
+
+.korpa-thankyou__icon svg { width: 24px; height: 24px; }
+
+.korpa-thankyou__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
+}
+
+.korpa-thankyou__ref {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-6);
+}
+
+.korpa-thankyou__text {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-antracit-mid);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto var(--space-8);
+}
+
+.korpa-thankyou__summary {
+  background: var(--color-pearl);
+  border: 1px solid var(--color-sand);
+  padding: var(--space-6);
+  max-width: 480px;
+  margin: 0 auto var(--space-8);
+  text-align: left;
+}
+
+.korpa-thankyou__summary-title {
+  font-family: var(--font-ui);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-4);
+}
+
+.korpa-thankyou__summary-item {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-antracit-mid);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-sand);
+}
+
+.korpa-thankyou__summary-item:last-child { border-bottom: none; }
+
+.korpa-thankyou__steps {
+  display: flex;
+  gap: var(--space-6);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+
+.korpa-thankyou__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: 140px;
+  text-align: center;
+}
+
+.korpa-thankyou__step-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-jantar);
+}
+.korpa-thankyou__step-icon svg { width: 18px; height: 18px; }
+
+.korpa-thankyou__step-text {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  color: var(--color-antracit-mid);
+  line-height: 1.4;
+}
+
+.korpa-thankyou__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-antracit);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-sand);
+  padding-bottom: 2px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.korpa-thankyou__cta:hover { color: var(--color-jantar); border-color: var(--color-jantar); }
+
+/* ─────────────────────────────────────────────
+   8. EMPTY CART RECOVERY
+───────────────────────────────────────────── */
+.korpa-empty {
+  display: none;
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+}
+
+.korpa-empty.visible { display: block; }
+
+.korpa-empty__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-6);
+  color: var(--color-sand);
+}
+.korpa-empty__icon svg { width: 64px; height: 64px; }
+
+.korpa-empty__title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 300;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-3);
+  font-style: italic;
+}
+
+.korpa-empty__text {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-10);
+}
+
+.korpa-empty__cats {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-10);
+}
+
+.korpa-empty__cat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-antracit);
+  padding: var(--space-6);
+  border: 1px solid var(--color-sand);
+  width: 160px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.korpa-empty__cat:hover { border-color: var(--color-jantar); color: var(--color-jantar); }
+
+.korpa-empty__cat-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  display: block;
+  background: var(--color-pearl);
+}
+
+.korpa-empty__cat-name {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─────────────────────────────────────────────
+   9. MOBILE STICKY BAR
+───────────────────────────────────────────── */
+.korpa-sticky-mobile {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--color-white);
+  border-top: 1px solid var(--color-sand);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: 0 -4px 20px rgba(30,26,22,0.12);
+}
+
+.korpa-sticky-mobile__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.korpa-sticky-mobile__total {
+  flex: 1;
+}
+
+.korpa-sticky-mobile__total-label {
+  font-family: var(--font-ui);
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+  display: block;
+}
+
+.korpa-sticky-mobile__total-value {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--color-antracit);
+}
+
+.korpa-sticky-mobile__btn {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--color-jantar);
+  color: var(--color-white);
+  border: none;
+  border-radius: 0;
+  padding: var(--space-3) var(--space-5);
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.korpa-sticky-mobile__btn:hover { background: #8A6430; }
+
+/* ─────────────────────────────────────────────
+   10. RESPONSIVE
+───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .korpa-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .korpa-summary {
+    position: static;
+    border-top: 3px solid var(--color-jantar);
+  }
+
+  .korpa-sticky-mobile { display: flex; }
+
+  /* Hide desktop submit on mobile — use sticky bar */
+  .korpa-form__submit { display: none; }
+  .korpa-form__call { display: none; }
+}
+
+@media (max-width: 700px) {
+  .korpa-items__header { display: none; }
+
+  .korpa-item {
+    grid-template-columns: 72px 1fr;
+    grid-template-rows: auto auto auto;
+    gap: var(--space-3);
+  }
+
+  .korpa-item__thumb { width: 72px; height: 72px; }
+
+  .korpa-item__price { display: none; } /* shown inline in subtotal on mobile */
+
+  .korpa-item__qty {
+    grid-column: 2;
+  }
+
+  .korpa-item__subtotal {
+    grid-column: 2;
+    font-size: 0.875rem;
+  }
+
+  .korpa-item__remove {
+    grid-column: 1;
+    grid-row: 2;
+    justify-content: flex-start;
+    padding: 0;
+    margin-top: 0;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .korpa-empty__cats {
+    gap: var(--space-3);
+  }
+
+  .korpa-empty__cat {
+    width: 130px;
+    padding: var(--space-4);
+  }
+
+  .korpa-thankyou__steps {
+    gap: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .korpa-heading { font-size: 1.75rem; }
+  .korpa-summary { padding: var(--space-6); }
+  .korpa-form__submit { display: flex; } /* show on very small — sticky bar may be hidden */
+}
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .korpa-item {
+    animation: fadeInUp 0.3s ease-out both;
+  }
+
+  .korpa-item:nth-child(1) { animation-delay: 0.05s; }
+  .korpa-item:nth-child(2) { animation-delay: 0.10s; }
+  .korpa-item:nth-child(3) { animation-delay: 0.15s; }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .korpa-thankyou__icon {
+    animation: scaleIn 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
+  }
+
+  @keyframes scaleIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+}

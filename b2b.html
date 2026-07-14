@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Za investitore i izvođače — Door Expert Podgorica</title>
+  <meta name="description" content="Snabdijevanje vrata i keramike za investicione projekte u Crnoj Gori. 20–40+ vrata po projektu, fiksne cijene, isporuka bez čekanja. Kontaktirajte nas za B2B ponudu." />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/footer.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; }
+    body { font-family: var(--font-body); background: var(--color-white); color: var(--color-antracit); }
+
+    /* ── BREADCRUMB ── */
+    .page-breadcrumb {
+      background: var(--color-alabaster);
+      border-bottom: 1px solid var(--color-sand);
+      padding: var(--space-3) 0;
+    }
+    .page-breadcrumb__inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 var(--space-8);
+      display: flex; align-items: center; gap: var(--space-2);
+      font-family: var(--font-ui); font-size: var(--text-xs); color: var(--color-antracit-soft);
+    }
+    .page-breadcrumb a { color: var(--color-antracit-soft); text-decoration: none; }
+    .page-breadcrumb a:hover { color: var(--color-jantar); }
+
+    /* ── HERO ── */
+    .b2b-hero {
+      position: relative;
+      min-height: 580px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: var(--color-antracit);
+    }
+    .b2b-hero__bg {
+      position: absolute; inset: 0;
+      background-image: url('/manus-storage/b2b-hero-building_8f77313d.png');
+      background-size: cover; background-position: center;
+      opacity: 0.45;
+    }
+    .b2b-hero__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(12,7,3,0.92) 45%, rgba(12,7,3,0.4) 100%);
+    }
+    .b2b-hero__inner {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto; padding: var(--space-20) var(--space-8);
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: end;
+    }
+    .b2b-hero__eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--color-sampanjac); margin-bottom: var(--space-5);
+    }
+    .b2b-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 400; line-height: 1.1;
+      color: var(--color-white); margin-bottom: var(--space-6);
+    }
+    .b2b-hero__title em { font-style: italic; color: var(--color-sampanjac); }
+    .b2b-hero__lead {
+      font-family: var(--font-body); font-size: var(--text-md);
+      line-height: 1.7; color: rgba(255,255,255,0.75);
+      margin-bottom: var(--space-8); max-width: 500px;
+    }
+    .b2b-hero__actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+    .b2b-hero__btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: var(--space-4) var(--space-8);
+      font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600;
+      text-decoration: none; transition: all 200ms;
+    }
+    .b2b-hero__btn--primary { background: var(--color-jantar); color: var(--color-white); }
+    .b2b-hero__btn--primary:hover { background: var(--color-jantar-dark, #8a6430); }
+    .b2b-hero__btn--ghost {
+      background: transparent; color: var(--color-white);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .b2b-hero__btn--ghost:hover { border-color: var(--color-white); background: rgba(255,255,255,0.08); }
+
+    /* Stats panel */
+    .b2b-hero__stats {
+      display: flex; flex-direction: column; gap: var(--space-5); align-self: center;
+    }
+    .b2b-stat {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-left: 3px solid var(--color-sampanjac);
+      padding: var(--space-5) var(--space-6);
+    }
+    .b2b-stat__num {
+      font-family: var(--font-display); font-size: 2.8rem; font-weight: 400;
+      color: var(--color-sampanjac); line-height: 1;
+    }
+    .b2b-stat__label {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); margin-top: var(--space-1);
+    }
+
+    /* ── WHY B2B ── */
+    .b2b-why {
+      background: var(--color-white);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .b2b-why__inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 var(--space-8);
+    }
+    .b2b-why__header {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);
+      align-items: start; margin-bottom: var(--space-14);
+    }
+    .b2b-why__eyebrow {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-jantar); margin-bottom: var(--space-3);
+    }
+    .b2b-why__title {
+      font-family: var(--font-display); font-size: var(--text-4xl);
+      font-weight: 400; color: var(--color-antracit); line-height: 1.2;
+    }
+    .b2b-why__desc {
+      font-family: var(--font-body); font-size: var(--text-md);
+      line-height: 1.75; color: var(--color-antracit-soft);
+      padding-top: var(--space-8);
+    }
+    .b2b-why__grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6);
+    }
+    .b2b-advantage {
+      padding: var(--space-8);
+      border: 1px solid var(--color-sand);
+      background: var(--color-pearl);
+      position: relative;
+    }
+    .b2b-advantage::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--color-jantar), transparent);
+    }
+    .b2b-advantage__icon {
+      width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-jantar); margin-bottom: var(--space-5);
+    }
+    .b2b-advantage__title {
+      font-family: var(--font-display); font-size: var(--text-xl);
+      font-weight: 500; color: var(--color-antracit);
+      margin-bottom: var(--space-3);
+    }
+    .b2b-advantage__desc {
+      font-family: var(--font-body); font-size: var(--text-base);
+      line-height: 1.65; color: var(--color-antracit-soft);
+    }
+
+    /* ── PROCESS ── */
+    .b2b-process {
+      background: var(--color-antracit);
+      padding: var(--space-20) 0;
+    }
+    .b2b-process__inner {
+      max-width: 1000px; margin: 0 auto; padding: 0 var(--space-8);
+    }
+    .b2b-process__header {
+      text-align: center; margin-bottom: var(--space-14);
+    }
+    .b2b-process__eyebrow {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-sampanjac); margin-bottom: var(--space-3);
+    }
+    .b2b-process__title {
+      font-family: var(--font-display); font-size: var(--text-4xl);
+      font-weight: 400; color: var(--color-white); margin-bottom: var(--space-4);
+    }
+    .b2b-process__desc {
+      font-family: var(--font-body); font-size: var(--text-md);
+      color: rgba(255,255,255,0.6); line-height: 1.7;
+    }
+    .b2b-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-1);
+    }
+    .b2b-step {
+      padding: var(--space-7) var(--space-6);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+    }
+    .b2b-step::after {
+      content: '→';
+      position: absolute; right: -14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-sampanjac); font-size: 1.2rem;
+      z-index: 1;
+    }
+    .b2b-step:last-child::after { display: none; }
+    .b2b-step__num {
+      font-family: var(--font-display); font-size: 3rem; font-weight: 400;
+      color: rgba(201,169,110,0.2); line-height: 1;
+      margin-bottom: var(--space-3);
+    }
+    .b2b-step__title {
+      font-family: var(--font-display); font-size: var(--text-lg);
+      font-weight: 500; color: var(--color-white);
+      margin-bottom: var(--space-2);
+    }
+    .b2b-step__desc {
+      font-family: var(--font-body); font-size: var(--text-sm);
+      line-height: 1.6; color: rgba(255,255,255,0.55);
+    }
+
+    /* ── PRODUCTS ── */
+    .b2b-products {
+      background: var(--color-alabaster);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .b2b-products__inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 var(--space-8);
+    }
+    .b2b-products__header {
+      text-align: center; margin-bottom: var(--space-12);
+    }
+    .b2b-products__eyebrow {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-jantar); margin-bottom: var(--space-3);
+    }
+    .b2b-products__title {
+      font-family: var(--font-display); font-size: var(--text-4xl);
+      font-weight: 400; color: var(--color-antracit); margin-bottom: var(--space-4);
+    }
+    .b2b-products__desc {
+      font-family: var(--font-body); font-size: var(--text-md);
+      color: var(--color-antracit-soft); line-height: 1.7;
+    }
+    .b2b-products__grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-6);
+    }
+    .b2b-product-card {
+      background: var(--color-white);
+      border: 1px solid var(--color-sand);
+      display: grid; grid-template-columns: 200px 1fr;
+      overflow: hidden;
+    }
+    .b2b-product-card__img {
+      height: 100%; min-height: 200px;
+      background-size: cover; background-position: center;
+    }
+    .b2b-product-card__body {
+      padding: var(--space-7);
+    }
+    .b2b-product-card__category {
+      font-family: var(--font-ui); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-jantar); margin-bottom: var(--space-2);
+    }
+    .b2b-product-card__title {
+      font-family: var(--font-display); font-size: var(--text-2xl);
+      font-weight: 500; color: var(--color-antracit);
+      margin-bottom: var(--space-3);
+    }
+    .b2b-product-card__desc {
+      font-family: var(--font-body); font-size: var(--text-sm);
+      line-height: 1.65; color: var(--color-antracit-soft);
+      margin-bottom: var(--space-5);
+    }
+    .b2b-product-card__specs {
+      list-style: none; padding: 0;
+      display: flex; flex-direction: column; gap: var(--space-2);
+      margin-bottom: var(--space-5);
+      border-top: 1px solid var(--color-sand); padding-top: var(--space-4);
+    }
+    .b2b-product-card__specs li {
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--font-body); font-size: var(--text-sm);
+      color: var(--color-antracit-soft);
+    }
+    .b2b-product-card__specs li strong {
+      color: var(--color-antracit); font-weight: 600;
+    }
+    .b2b-product-card__link {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      font-family: var(--font-ui); font-size: var(--text-sm); font-weight: 600;
+      color: var(--color-jantar); text-decoration: none;
+    }
+    .b2b-product-card__link:hover { text-decoration: underline; }
+
+    /* ── PRICING ── */
+    .b2b-pricing {
+      background: var(--color-white);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .b2b-pricing__inner {
+      max-width: 900px; margin: 0 auto; padding: 0 var(--space-8);
+    }
+    .b2b-pricing__header {
+      text-align: center; margin-bottom: var(--space-12);
+    }
+    .b2b-pricing__eyebrow {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-jantar); margin-bottom: var(--space-3);
+    }
+    .b2b-pricing__title {
+      font-family: var(--font-display); font-size: var(--text-4xl);
+      font-weight: 400; color: var(--color-antracit); margin-bottom: var(--space-4);
+    }
+    .b2b-pricing__desc {
+      font-family: var(--font-body); font-size: var(--text-md);
+      color: var(--color-antracit-soft); line-height: 1.7;
+    }
+    .b2b-tiers {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5);
+      margin-bottom: var(--space-8);
+    }
+    .b2b-tier {
+      border: 1px solid var(--color-sand);
+      padding: var(--space-7);
+      background: var(--color-pearl);
+      position: relative;
+    }
+    .b2b-tier--featured {
+      background: var(--color-antracit);
+      border-color: var(--color-jantar);
+    }
+    .b2b-tier__badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--color-jantar); color: var(--color-white);
+      font-family: var(--font-ui); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 3px 12px;
+    }
+    .b2b-tier__label {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--color-jantar); margin-bottom: var(--space-2);
+    }
+    .b2b-tier__range {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 500;
+      color: var(--color-antracit); margin-bottom: var(--space-1);
+    }
+    .b2b-tier--featured .b2b-tier__range { color: var(--color-white); }
+    .b2b-tier__unit {
+      font-family: var(--font-body); font-size: var(--text-sm);
+      color: var(--color-antracit-soft); margin-bottom: var(--space-5);
+    }
+    .b2b-tier--featured .b2b-tier__unit { color: rgba(255,255,255,0.6); }
+    .b2b-tier__perks {
+      list-style: none; padding: 0;
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .b2b-tier__perks li {
+      display: flex; align-items: flex-start; gap: var(--space-2);
+      font-family: var(--font-body); font-size: var(--text-sm);
+      line-height: 1.5; color: var(--color-antracit-mid);
+    }
+    .b2b-tier--featured .b2b-tier__perks li { color: rgba(255,255,255,0.75); }
+    .b2b-tier__perks li svg { color: var(--color-jantar); flex-shrink: 0; margin-top: 2px; }
+    .b2b-pricing__note {
+      text-align: center;
+      font-family: var(--font-body); font-size: var(--text-sm);
+      color: var(--color-antracit-soft); font-style: italic;
+    }
+
+    /* ── CONTACT FORM ── */
+    .b2b-contact {
+      background: var(--color-alabaster);
+      padding: var(--space-20) 0;
+    }
+    .b2b-contact__inner {
+      max-width: 1000px; margin: 0 auto; padding: 0 var(--space-8);
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--space-16);
+      align-items: start;
+    }
+    .b2b-contact__info-eyebrow {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-jantar); margin-bottom: var(--space-3);
+    }
+    .b2b-contact__info-title {
+      font-family: var(--font-display); font-size: var(--text-4xl);
+      font-weight: 400; color: var(--color-antracit);
+      margin-bottom: var(--space-5);
+    }
+    .b2b-contact__info-desc {
+      font-family: var(--font-body); font-size: var(--text-md);
+      line-height: 1.75; color: var(--color-antracit-soft);
+      margin-bottom: var(--space-8);
+    }
+    .b2b-contact__direct {
+      display: flex; flex-direction: column; gap: var(--space-4);
+    }
+    .b2b-contact__direct-item {
+      display: flex; align-items: center; gap: var(--space-3);
+      font-family: var(--font-body); font-size: var(--text-base);
+      color: var(--color-antracit-mid);
+    }
+    .b2b-contact__direct-item svg { color: var(--color-jantar); flex-shrink: 0; }
+    .b2b-contact__direct-item a { color: var(--color-jantar); text-decoration: none; font-weight: 600; }
+    .b2b-contact__direct-item a:hover { text-decoration: underline; }
+
+    /* Form */
+    .b2b-form {
+      background: var(--color-white);
+      border: 1px solid var(--color-sand);
+      padding: var(--space-10);
+    }
+    .b2b-form__title {
+      font-family: var(--font-display); font-size: var(--text-2xl);
+      font-weight: 500; color: var(--color-antracit);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-5);
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .b2b-form__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);
+    }
+    .b2b-form__field {
+      display: flex; flex-direction: column; gap: var(--space-2);
+    }
+    .b2b-form__field--full { grid-column: 1 / -1; }
+    .b2b-form__label {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--color-antracit-mid);
+    }
+    .b2b-form__label span { color: var(--color-jantar); }
+    .b2b-form__input,
+    .b2b-form__select,
+    .b2b-form__textarea {
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--color-sand);
+      background: var(--color-alabaster);
+      font-family: var(--font-body); font-size: var(--text-base);
+      color: var(--color-antracit);
+      outline: none; transition: border-color 200ms;
+      border-radius: 0;
+      appearance: none;
+    }
+    .b2b-form__input:focus,
+    .b2b-form__select:focus,
+    .b2b-form__textarea:focus { border-color: var(--color-jantar); background: var(--color-white); }
+    .b2b-form__textarea { resize: vertical; min-height: 120px; }
+    .b2b-form__select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A07840' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center;
+      padding-right: 36px;
+    }
+    .b2b-form__submit {
+      width: 100%;
+      padding: var(--space-4) var(--space-8);
+      background: var(--color-jantar); color: var(--color-white);
+      border: none; cursor: pointer;
+      font-family: var(--font-ui); font-size: var(--text-base); font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: all 200ms; margin-top: var(--space-2);
+    }
+    .b2b-form__submit:hover { background: #8a6430; }
+    .b2b-form__submit:active { transform: scale(0.98); }
+    .b2b-form__disclaimer {
+      margin-top: var(--space-4);
+      font-family: var(--font-body); font-size: var(--text-xs);
+      color: var(--color-antracit-soft); line-height: 1.6; text-align: center;
+    }
+
+    /* Thank you state */
+    .b2b-form__thankyou {
+      display: none;
+      text-align: center; padding: var(--space-12) var(--space-8);
+    }
+    .b2b-form__thankyou-icon {
+      width: 60px; height: 60px;
+      background: var(--color-jantar); color: var(--color-white);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto var(--space-5);
+    }
+    .b2b-form__thankyou h3 {
+      font-family: var(--font-display); font-size: var(--text-3xl);
+      font-weight: 400; color: var(--color-antracit); margin-bottom: var(--space-3);
+    }
+    .b2b-form__thankyou p {
+      font-family: var(--font-body); font-size: var(--text-base);
+      color: var(--color-antracit-soft); line-height: 1.7;
+    }
+
+    /* ── FAQ ── */
+    .b2b-faq {
+      background: var(--color-white);
+      padding: var(--space-20) 0;
+      border-top: 1px solid var(--color-sand);
+    }
+    .b2b-faq__inner {
+      max-width: 800px; margin: 0 auto; padding: 0 var(--space-8);
+    }
+    .b2b-faq__header {
+      text-align: center; margin-bottom: var(--space-12);
+    }
+    .b2b-faq__eyebrow {
+      font-family: var(--font-ui); font-size: var(--text-xs); font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--color-jantar); margin-bottom: var(--space-3);
+    }
+    .b2b-faq__title {
+      font-family: var(--font-display); font-size: var(--text-4xl);
+      font-weight: 400; color: var(--color-antracit);
+    }
+    .b2b-faq__list { border-top: 1px solid var(--color-sand); }
+    .b2b-faq__item { border-bottom: 1px solid var(--color-sand); }
+    .b2b-faq__item summary {
+      list-style: none; display: flex; justify-content: space-between; align-items: center;
+      padding: var(--space-6) 0; cursor: pointer;
+      font-family: var(--font-body); font-size: var(--text-md); font-weight: 500;
+      color: var(--color-antracit); transition: color 200ms; user-select: none;
+    }
+    .b2b-faq__item summary::-webkit-details-marker { display: none; }
+    .b2b-faq__item summary:hover { color: var(--color-jantar); }
+    .b2b-faq__icon {
+      font-family: var(--font-body); font-size: var(--text-xl); font-weight: 300;
+      color: var(--color-jantar); flex-shrink: 0;
+      transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .b2b-faq__item[open] .b2b-faq__icon { transform: rotate(45deg); }
+    .b2b-faq__answer { padding: 0 0 var(--space-6); }
+    .b2b-faq__answer p {
+      font-family: var(--font-body); font-size: var(--text-base);
+      line-height: 1.75; color: var(--color-antracit-soft);
+    }
+    .b2b-faq__answer p + p { margin-top: var(--space-3); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .b2b-hero__inner { grid-template-columns: 1fr; }
+      .b2b-hero__stats { flex-direction: row; flex-wrap: wrap; }
+      .b2b-stat { flex: 1; min-width: 140px; }
+      .b2b-why__header { grid-template-columns: 1fr; gap: var(--space-6); }
+      .b2b-why__grid { grid-template-columns: 1fr; }
+      .b2b-steps { grid-template-columns: 1fr 1fr; }
+      .b2b-step::after { display: none; }
+      .b2b-products__grid { grid-template-columns: 1fr; }
+      .b2b-product-card { grid-template-columns: 1fr; }
+      .b2b-product-card__img { height: 200px; }
+      .b2b-tiers { grid-template-columns: 1fr; }
+      .b2b-contact__inner { grid-template-columns: 1fr; }
+      .b2b-form__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .b2b-hero__inner,
+      .b2b-why__inner,
+      .b2b-process__inner,
+      .b2b-products__inner,
+      .b2b-pricing__inner,
+      .b2b-contact__inner,
+      .b2b-faq__inner { padding: 0 var(--space-5); }
+      .b2b-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- ════ HEADER ════ -->
+<header class="site-header" role="banner">
+
+  <!-- Top utility bar -->
+  <div class="header-top" role="complementary" aria-label="Korisne informacije">
+    <div class="header-top__inner">
+      <div class="header-top__left">
+        <span class="header-top__promo">
+          <span class="header-top__promo-dot" aria-hidden="true"></span>
+          Vrata odmah dostupna — isporuka bez cekanja
+        </span>
+        <span class="header-top__hours">Pon–Sub: 08:00–17:00</span>
+      </div>
+      <div class="header-top__right">
+        <a href="o-nama.html" class="header-top__link">O nama</a>
+        <a href="kontakt.html" class="header-top__link">Posjetite salon</a>
+        <a href="b2b.html" class="header-top__link">Za investitore</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main header bar -->
+  <div class="header-main">
+    <div class="header-main__inner">
+
+      <!-- Logo -->
+      <a href="header-demo.html" class="header-logo" aria-label="Door Expert — pocetna stranica">
+        <img src="assets/images/logo.webp" alt="Door Expert" height="44" />
+      </a>
+
+      <!-- Primary navigation -->
+      <nav class="header-nav" role="navigation" aria-label="Glavna navigacija">
+        <ul class="header-nav__list" role="list">
+
+          <!-- 1. Sobna vrata -->
+          <li class="header-nav__item">
+            <a href="sobna-vrata.html" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
+              Sobna vrata
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </a>
+
+            <!-- Mega menu: Sobna vrata -->
+            <div class="mega-menu mega-menu--sobna" role="region" aria-label="Sobna vrata podmeni">
+              <div class="mega-menu__inner">
+
+                <!-- Hero card -->
+                <a href="sobna-vrata.html" class="mega-menu__hero">
+                  <img
+                    class="mega-menu__hero-img"
+                    src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
+                    alt="Sobna vrata — enterijer"
+                    loading="lazy"
+                  />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Kategorija</span>
+                    <h3 class="mega-menu__hero-title">Sobna vrata</h3>
+                    <span class="mega-menu__hero-cta">
+                      Pogledaj sve modele
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                  </div>
+                </a>
+
+                <!-- Subcategories -->
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+
+                    <a href="klizna-vrata.html" class="mega-menu__subcat-link">
+                      <img
+                        class="mega-menu__subcat-thumb"
+                        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=120&q=75"
+                        alt="Klizna vrata"
+                        loading="lazy"
+                      />
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Klizna vrata</span>
+                        <span class="mega-menu__subcat-desc">Sina, klizaci i maska ukljuceni</span>
+                      </div>
+                    </a>
+
+                    <a href="staklena-vrata.html" class="mega-menu__subcat-link">
+                      <img
+                        class="mega-menu__subcat-thumb"
+                        src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=120&q=75"
+                        alt="Staklena vrata"
+                        loading="lazy"
+                      />
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Staklena vrata</span>
+                        <span class="mega-menu__subcat-desc">Elegantni dizajn, vise svjetlosti</span>
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+
+                <!-- Footer strip -->
+                <div class="mega-menu__footer">
+                  <a href="sobna-vrata.html" class="mega-menu__view-all">
+                    Sva sobna vrata
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <span class="mega-menu__trust">
+                    <span class="mega-menu__trust-dot" aria-hidden="true"></span>
+                    Odmah dostupno — bez cekanja
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+
+          <!-- 2. Sigurnosna vrata -->
+          <li class="header-nav__item">
+            <a href="sigurnosna-vrata.html" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
+              Sigurnosna vrata
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </a>
+
+            <!-- Mega menu: Sigurnosna vrata -->
+            <div class="mega-menu mega-menu--sigurnosna" role="region" aria-label="Sigurnosna vrata podmeni">
+              <div class="mega-menu__inner">
+
+                <a href="sigurnosna-vrata.html" class="mega-menu__hero">
+                  <img
+                    class="mega-menu__hero-img"
+                    src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80"
+                    alt="Sigurnosna vrata"
+                    loading="lazy"
+                  />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Kategorija</span>
+                    <h3 class="mega-menu__hero-title">Sigurnosna (blind) vrata</h3>
+                    <span class="mega-menu__hero-cta">
+                      Pogledaj sve modele
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                  </div>
+                </a>
+
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+
+                    <a href="sigurnosna-vrata-za-stan.html" class="mega-menu__subcat-link">
+                      <img
+                        class="mega-menu__subcat-thumb"
+                        src="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?w=120&q=75"
+                        alt="Sigurnosna vrata za stan"
+                        loading="lazy"
+                      />
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Za stan</span>
+                        <span class="mega-menu__subcat-desc">Standard, Premium, Deluxe klasa</span>
+                      </div>
+                    </a>
+
+                    <a href="sigurnosna-vrata-za-kucu.html" class="mega-menu__subcat-link">
+                      <img
+                        class="mega-menu__subcat-thumb"
+                        src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=120&q=75"
+                        alt="Sigurnosna vrata za kucu"
+                        loading="lazy"
+                      />
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Za kucu</span>
+                        <span class="mega-menu__subcat-desc">Deluxe klasa, antracit i wenge</span>
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+
+                <div class="mega-menu__footer">
+                  <a href="sigurnosna-vrata.html" class="mega-menu__view-all">
+                    Sva sigurnosna vrata
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <span class="mega-menu__trust">
+                    <span class="mega-menu__trust-dot" aria-hidden="true"></span>
+                    Cijene od 649 EUR
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+
+          <!-- 3. Keramicke plocice -->
+          <li class="header-nav__item">
+            <a href="keramicke-plocice.html" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
+              Keramicke plocice
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </a>
+
+            <!-- Mega menu: Keramicke plocice -->
+            <div class="mega-menu mega-menu--keramika" role="region" aria-label="Keramicke plocice podmeni">
+              <div class="mega-menu__inner">
+
+                <a href="keramicke-plocice.html" class="mega-menu__hero">
+                  <img
+                    class="mega-menu__hero-img"
+                    src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80"
+                    alt="Spanske keramicke plocice"
+                    loading="lazy"
+                  />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Spanska keramika</span>
+                    <h3 class="mega-menu__hero-title">Keramicke plocice</h3>
+                    <span class="mega-menu__hero-cta">
+                      Pogledaj sve kolekcije
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                  </div>
+                </a>
+
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+
+                    <a href="keramicke-plocice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=120&q=75" alt="Podne plocice" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Podne plocice</span>
+                        <span class="mega-menu__subcat-desc">Granitna keramika, veliki formati</span>
+                      </div>
+                    </a>
+
+                    <a href="keramicke-plocice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=120&q=75" alt="Zidne plocice" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Zidne plocice</span>
+                        <span class="mega-menu__subcat-desc">Dekorativni modeli za svaki prostor</span>
+                      </div>
+                    </a>
+
+                    <a href="plocice-za-kupatilo.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Plocice za kupatilo" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Plocice za kupatilo</span>
+                        <span class="mega-menu__subcat-desc">Podne i zidne, mozaici</span>
+                      </div>
+                    </a>
+
+                    <a href="keramicke-plocice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=120&q=75" alt="Plocice za kuhinju" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Plocice za kuhinju</span>
+                        <span class="mega-menu__subcat-desc">Otporne i lake za odrzavanje</span>
+                      </div>
+                    </a>
+
+                    <a href="keramicke-plocice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=75" alt="Spoljne plocice" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Spoljne plocice</span>
+                        <span class="mega-menu__subcat-desc">Terase, dvorista, protivklizne</span>
+                      </div>
+                    </a>
+
+                    <a href="plocice-za-bazen.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=120&q=75" alt="Plocice za bazen" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Plocice za bazen</span>
+                        <span class="mega-menu__subcat-desc">Mozaik program, otpornost na hemikalije</span>
+                      </div>
+                    </a>
+
+                    <a href="gaziste-za-stepenice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=120&q=75" alt="Gaziste za stepenice" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Gaziste za stepenice</span>
+                        <span class="mega-menu__subcat-desc">Granitna gazista i profili</span>
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+
+                <div class="mega-menu__footer">
+                  <a href="keramicke-plocice.html" class="mega-menu__view-all">
+                    Sve keramicke plocice
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <span class="mega-menu__trust">
+                    <span class="mega-menu__trust-dot" aria-hidden="true"></span>
+                    Spanski brendovi: New Tiles, Tau, Arcana, Ribesalbes
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+
+          <!-- 4. Dekorativni umivaonici -->
+          <li class="header-nav__item">
+            <a href="umivaonici.html" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
+              Umivaonici
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </a>
+
+            <!-- Mega menu: Umivaonici -->
+            <div class="mega-menu mega-menu--umivaonici" role="region" aria-label="Umivaonici podmeni">
+              <div class="mega-menu__inner">
+
+                <a href="umivaonici.html" class="mega-menu__hero">
+                  <img
+                    class="mega-menu__hero-img"
+                    src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80"
+                    alt="Dekorativni umivaonici Bathco"
+                    loading="lazy"
+                  />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Brend Bathco — Spanija</span>
+                    <h3 class="mega-menu__hero-title">Dekorativni umivaonici</h3>
+                    <span class="mega-menu__hero-cta">
+                      Pogledaj sve modele
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </span>
+                  </div>
+                </a>
+
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+
+                    <a href="kameni-umivaonici.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=120&q=75" alt="Kameni umivaonici" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Kameni umivaonici</span>
+                        <span class="mega-menu__subcat-desc">Prirodni kamen, rucna izrada</span>
+                      </div>
+                    </a>
+
+                    <a href="umivaonici.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Samostojeci umivaonici" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Samostojeci umivaonici</span>
+                        <span class="mega-menu__subcat-desc">Luksuzni, unikatni dizajn</span>
+                      </div>
+                    </a>
+
+                    <a href="umivaonici.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=120&q=75" alt="Nadgradni umivaonici" loading="lazy"/>
+                      <div class="mega-menu__subcat-info">
+                        <span class="mega-menu__subcat-name">Nadgradni umivaonici</span>
+                        <span class="mega-menu__subcat-desc">Porcelanski i kameni modeli</span>
+                      </div>
+                    </a>
+
+                  </div>
+                </div>
+
+                <div class="mega-menu__footer">
+                  <a href="umivaonici.html" class="mega-menu__view-all">
+                    Svi umivaonici
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <span class="mega-menu__trust">
+                    <span class="mega-menu__trust-dot" aria-hidden="true"></span>
+                    Iskljucivo Bathco — Spanija
+                  </span>
+                </div>
+
+              </div>
+            </div>
+          </li>
+
+          <!-- 5. Akcije (no mega menu, gold highlight) -->
+          <li class="header-nav__item">
+            <a href="akcije.html" class="header-nav__link header-nav__link--akcije">
+              Akcije
+            </a>
+          </li>
+          <!-- 6. Brendovi -->
+          <li class="header-nav__item">
+            <a href="brendovi.html" class="header-nav__link">
+              Brendovi
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+
+      <!-- Actions -->
+      <div class="header-actions" role="group" aria-label="Akcije">
+
+        <!-- Search -->
+        <button
+          class="header-btn"
+          data-action="open-search"
+          aria-label="Pretraga proizvoda"
+          title="Pretraga"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+
+        <!-- Cart -->
+        <a href="korpa.html" class="header-btn" aria-label="Korpa za ponudu">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="header-btn__badge" aria-label="0 stavki u korpi" style="display:none;">0</span>
+        </a>
+
+        <!-- Phone CTA (desktop) -->
+        <a href="tel:+38269123456" class="header-phone" aria-label="Pozovite nas: +382 69 123 456">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          +382 69 123 456
+        </a>
+
+        <!-- Hamburger (mobile) -->
+        <button
+          class="header-hamburger"
+          aria-label="Otvori meni"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <span class="header-hamburger__line" aria-hidden="true"></span>
+          <span class="header-hamburger__line" aria-hidden="true"></span>
+          <span class="header-hamburger__line" aria-hidden="true"></span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- ════════════════════════════════════════════════
+     SEARCH OVERLAY
+════════════════════════════════════════════════ -->
+<div class="search-overlay" role="dialog" aria-modal="true" aria-label="Pretraga">
+  <div class="search-overlay__box">
+    <div class="search-overlay__inner">
+      <span class="search-overlay__label">Pretrazite proizvode</span>
+      <form class="search-overlay__form" action="/pretraga/" method="get" role="search">
+        <input
+          class="search-overlay__input"
+          type="search"
+          name="q"
+          placeholder="Npr. klizna vrata, bijele plocice, 60x120, kameni lavabo..."
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Unesite pojam za pretragu"
+        />
+        <button class="search-overlay__submit" type="submit" aria-label="Pretrazi">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </form>
+      <div class="search-overlay__hints" aria-label="Popularni pojmovi">
+        <span class="search-overlay__hint-label">Popularno:</span>
+        <span class="search-overlay__hint" role="button" tabindex="0">klizna vrata</span>
+        <span class="search-overlay__hint" role="button" tabindex="0">bijela vrata</span>
+        <span class="search-overlay__hint" role="button" tabindex="0">plocice za kupatilo</span>
+        <span class="search-overlay__hint" role="button" tabindex="0">kameni lavabo</span>
+        <span class="search-overlay__hint" role="button" tabindex="0">sigurnosna vrata za stan</span>
+        <span class="search-overlay__hint" role="button" tabindex="0">60x120</span>
+      </div>
+    </div>
+    <button class="search-overlay__close" aria-label="Zatvori pretragu">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     MOBILE NAVIGATION
+════════════════════════════════════════════════ -->
+<div class="mobile-nav__backdrop" aria-hidden="true"></div>
+
+<nav class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobilna navigacija">
+  <div class="mobile-nav__header">
+    <a href="header-demo.html" class="mobile-nav__logo" aria-label="Door Expert — pocetna">
+      <img src="assets/images/logo.webp" alt="Door Expert" height="36" />
+    </a>
+    <button class="mobile-nav__close" aria-label="Zatvori meni">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="mobile-nav__body">
+
+    <!-- Sobna vrata -->
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">
+        Sobna vrata
+        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="mobile-nav__subcats">
+        <a href="sobna-vrata.html" class="mobile-nav__subcat-link">Sva sobna vrata</a>
+        <a href="klizna-vrata.html" class="mobile-nav__subcat-link">Klizna vrata</a>
+        <a href="staklena-vrata.html" class="mobile-nav__subcat-link">Staklena vrata</a>
+      </div>
+    </div>
+
+    <!-- Sigurnosna vrata -->
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">
+        Sigurnosna vrata
+        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="mobile-nav__subcats">
+        <a href="sigurnosna-vrata.html" class="mobile-nav__subcat-link">Sva sigurnosna vrata</a>
+        <a href="sigurnosna-vrata-za-stan.html" class="mobile-nav__subcat-link">Za stan</a>
+        <a href="sigurnosna-vrata-za-kucu.html" class="mobile-nav__subcat-link">Za kucu</a>
+      </div>
+    </div>
+
+    <!-- Keramicke plocice -->
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">
+        Keramicke plocice
+        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="mobile-nav__subcats">
+        <a href="keramicke-plocice.html" class="mobile-nav__subcat-link">Sve keramicke plocice</a>
+        <a href="keramicke-plocice.html" class="mobile-nav__subcat-link">Podne plocice</a>
+        <a href="keramicke-plocice.html" class="mobile-nav__subcat-link">Zidne plocice</a>
+        <a href="plocice-za-kupatilo.html" class="mobile-nav__subcat-link">Plocice za kupatilo</a>
+        <a href="keramicke-plocice.html" class="mobile-nav__subcat-link">Plocice za kuhinju</a>
+        <a href="keramicke-plocice.html" class="mobile-nav__subcat-link">Spoljne plocice</a>
+        <a href="plocice-za-bazen.html" class="mobile-nav__subcat-link">Plocice za bazen</a>
+        <a href="gaziste-za-stepenice.html" class="mobile-nav__subcat-link">Gaziste za stepenice</a>
+      </div>
+    </div>
+
+    <!-- Umivaonici -->
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">
+        Umivaonici
+        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+      <div class="mobile-nav__subcats">
+        <a href="umivaonici.html" class="mobile-nav__subcat-link">Svi umivaonici</a>
+        <a href="kameni-umivaonici.html" class="mobile-nav__subcat-link">Kameni umivaonici</a>
+        <a href="umivaonici.html" class="mobile-nav__subcat-link">Samostojeci umivaonici</a>
+        <a href="umivaonici.html" class="mobile-nav__subcat-link">Nadgradni umivaonici</a>
+      </div>
+    </div>
+
+    <!-- Utility links -->
+    <div class="mobile-nav__utils">
+      <a href="akcije.html" class="mobile-nav__util-link" style="color: var(--color-jantar); font-weight: 700;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Akcije i popusti
+      </a>
+      <a href="o-nama.html" class="mobile-nav__util-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        O nama
+      </a>
+      <a href="kontakt.html" class="mobile-nav__util-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Posjetite salon
+      </a>
+      <a href="b2b.html" class="mobile-nav__util-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        Za investitore i izvodjace
+      </a>
+      <a href="korpa.html" class="mobile-nav__util-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Korpa za ponudu
+      </a>
+    </div>
+
+  </div>
+
+  <div class="mobile-nav__footer">
+    <a href="tel:+38269123456" class="mobile-nav__phone">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      Pozovite: +382 69 123 456
+    </a>
+  </div>
+</nav>
+
+<!-- Sticky mobile phone bar -->
+<div class="mobile-phone-bar" aria-hidden="true">
+  <a href="tel:+38269123456" class="mobile-phone-bar__link">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+    </svg>
+    +382 69 123 456 — Pozovite odmah
+  </a>
+</div>
+
+<!-- ════════════════════════════════════════════════
+     HERO SLIDER
+     Slide 1: Inspirational brand statement + category routing
+     Slide 2: Aktuelna ponuda + calm countdown
+     Research: UX Research for Navigation (manual slider, no auto-rotate)
+              Visual research (layered image, warm minimalism)
+              Conversion Strategy (CTA copy, phone, stock messaging)
+              Discounts doc (real deadline, calm countdown)
+════════════════════════════════════════════════ -->
+  <div class="page-breadcrumb__inner">
+    <a href="header-demo.html">Početna</a>
+    <span>›</span>
+    <span>Za investitore i izvođače</span>
+  </div>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section class="b2b-hero">
+  <div class="b2b-hero__bg"></div>
+  <div class="b2b-hero__overlay"></div>
+  <div class="b2b-hero__inner">
+    <div>
+      <p class="b2b-hero__eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        B2B · Investitori · Izvođači
+      </p>
+      <h1 class="b2b-hero__title">
+        Snabdijevanje za<br>
+        <em>investicione projekte</em><br>
+        u Crnoj Gori
+      </h1>
+      <p class="b2b-hero__lead">
+        Vrata, keramika i umivaonici za stambene i poslovne objekte. Fiksne B2B cijene, isporuka bez čekanja, faktura i garancija. Za projekte od 20 do 200+ jedinica.
+      </p>
+      <div class="b2b-hero__actions">
+        <a href="#b2b-kontakt" class="b2b-hero__btn b2b-hero__btn--primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Zatražite B2B ponudu
+        </a>
+        <a href="tel:+38269123456" class="b2b-hero__btn b2b-hero__btn--ghost">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Pozovite direktno
+        </a>
+      </div>
+    </div>
+    <div class="b2b-hero__stats">
+      <div class="b2b-stat">
+        <div class="b2b-stat__num">0 dana</div>
+        <div class="b2b-stat__label">čekanja na robu (na stanju)</div>
+      </div>
+      <div class="b2b-stat">
+        <div class="b2b-stat__num">20+</div>
+        <div class="b2b-stat__label">vrata po projektu — B2B uslovi</div>
+      </div>
+      <div class="b2b-stat">
+        <div class="b2b-stat__num">4</div>
+        <div class="b2b-stat__label">kategorije — vrata, keramika, umivaonici</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ WHY DOOR EXPERT FOR B2B ════ -->
+<section class="b2b-why">
+  <div class="b2b-why__inner">
+    <div class="b2b-why__header">
+      <div>
+        <p class="b2b-why__eyebrow">Zašto Door Expert</p>
+        <h2 class="b2b-why__title">Prednosti za investitore i izvođače</h2>
+      </div>
+      <p class="b2b-why__desc">
+        Konkurencija ima rok isporuke od 45 dana. Mi imamo robu na stanju — odmah. Za investicioni projekat to znači razliku između poštovanja rokova i kašnjenja. Uz to: fiksne B2B cijene, faktura sa PDV-om, i jedan kontakt za sve kategorije.
+      </p>
+    </div>
+    <div class="b2b-why__grid">
+      <div class="b2b-advantage">
+        <div class="b2b-advantage__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="b2b-advantage__title">Isporuka odmah</h3>
+        <p class="b2b-advantage__desc">Roba je na stanju u Podgorici. Nema čekanja 45 dana kao kod konkurencije. Kritično za projekte sa fiksnim rokovima predaje.</p>
+      </div>
+      <div class="b2b-advantage">
+        <div class="b2b-advantage__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <h3 class="b2b-advantage__title">Fiksne B2B cijene</h3>
+        <p class="b2b-advantage__desc">Za projekte od 20+ vrata — fiksna cijena po komadu, bez pregovaranja po svakoj narudžbi. Budžet je predvidiv od prvog dana.</p>
+      </div>
+      <div class="b2b-advantage">
+        <div class="b2b-advantage__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3 class="b2b-advantage__title">Faktura i PDV</h3>
+        <p class="b2b-advantage__desc">Formalna faktura sa PDV-om za svaku narudžbu. Garancija na robu. Dokumentacija za investitore i revizore.</p>
+      </div>
+      <div class="b2b-advantage">
+        <div class="b2b-advantage__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3 class="b2b-advantage__title">Jedan kontakt za sve</h3>
+        <p class="b2b-advantage__desc">Vrata, keramika i umivaonici — sve iz jednog izvora. Jedan predračun, jedna isporuka, jedna faktura. Manje koordinacije za vas.</p>
+      </div>
+      <div class="b2b-advantage">
+        <div class="b2b-advantage__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3 class="b2b-advantage__title">Preporuka montažera</h3>
+        <p class="b2b-advantage__desc">Mreža provjerenih montažera za projekte. Koordinacija termina za više stanova istovremeno — po dogovoru.</p>
+      </div>
+      <div class="b2b-advantage">
+        <div class="b2b-advantage__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="b2b-advantage__title">Narudžba po mjeri</h3>
+        <p class="b2b-advantage__desc">Za projekte od 40+ vrata — moguća narudžba nestandardnih dimenzija direktno iz fabrike. Rok: 60–90 dana. Samo za B2B.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PROCESS ════ -->
+<section class="b2b-process">
+  <div class="b2b-process__inner">
+    <div class="b2b-process__header">
+      <p class="b2b-process__eyebrow">Kako funkcioniše</p>
+      <h2 class="b2b-process__title">B2B proces u 4 koraka</h2>
+      <p class="b2b-process__desc">Od prvog kontakta do isporuke na gradilište — jasno i predvidivo.</p>
+    </div>
+    <div class="b2b-steps">
+      <div class="b2b-step">
+        <div class="b2b-step__num">01</div>
+        <h3 class="b2b-step__title">Upit i specifikacija</h3>
+        <p class="b2b-step__desc">Pošaljete upit sa brojem jedinica, dimenzijama i željenim modelima. Možete koristiti formu ispod ili nas direktno pozvati.</p>
+      </div>
+      <div class="b2b-step">
+        <div class="b2b-step__num">02</div>
+        <h3 class="b2b-step__title">B2B predračun</h3>
+        <p class="b2b-step__desc">U roku od 24h šaljemo formalni predračun sa B2B cijenama, specifikacijom i rokovima isporuke.</p>
+      </div>
+      <div class="b2b-step">
+        <div class="b2b-step__num">03</div>
+        <h3 class="b2b-step__title">Potvrda i plaćanje</h3>
+        <p class="b2b-step__desc">Prihvatate predračun i plaćate (virman, gotovina, rate). Roba se rezerviše za vas odmah.</p>
+      </div>
+      <div class="b2b-step">
+        <div class="b2b-step__num">04</div>
+        <h3 class="b2b-step__title">Isporuka i montaža</h3>
+        <p class="b2b-step__desc">Isporuka na adresu projekta. Po potrebi koordiniramo montažere za više stanova istovremeno.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRODUCTS FOR B2B ════ -->
+<section class="b2b-products">
+  <div class="b2b-products__inner">
+    <div class="b2b-products__header">
+      <p class="b2b-products__eyebrow">Asortiman za projekte</p>
+      <h2 class="b2b-products__title">Šta nudimo investitorima</h2>
+      <p class="b2b-products__desc">Sve četiri kategorije dostupne su po B2B uslovima za projekte od 20+ jedinica.</p>
+    </div>
+    <div class="b2b-products__grid">
+      <!-- Sobna vrata -->
+      <div class="b2b-product-card">
+        <div class="b2b-product-card__img" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80')"></div>
+        <div class="b2b-product-card__body">
+          <div class="b2b-product-card__category">Sobna vrata</div>
+          <h3 class="b2b-product-card__title">Unutrašnja vrata za stanove</h3>
+          <p class="b2b-product-card__desc">Standardni modeli za stambene projekte — bijela, drveni dekor, staklo. 3 dimenzije po modelu. Tipičan stan: 4–5 vrata.</p>
+          <ul class="b2b-product-card__specs">
+            <li><span>B2B cijena od</span><strong>od 220 EUR/kom</strong></li>
+            <li><span>Minimalna narudžba</span><strong>20 komada</strong></li>
+            <li><span>Isporuka</span><strong>odmah (na stanju)</strong></li>
+            <li><span>Narudžba po mjeri</span><strong>od 40 kom, 60–90 dana</strong></li>
+          </ul>
+          <a href="sobna-vrata.html" class="b2b-product-card__link">
+            Pogledajte katalog →
+          </a>
+        </div>
+      </div>
+      <!-- Sigurnosna vrata -->
+      <div class="b2b-product-card">
+        <div class="b2b-product-card__img" style="background-image: url('/manus-storage/security-door-main_d8e8d3a4.png'); background-size: cover;"></div>
+        <div class="b2b-product-card__body">
+          <div class="b2b-product-card__category">Sigurnosna vrata</div>
+          <h3 class="b2b-product-card__title">Ulazna vrata za stanove</h3>
+          <p class="b2b-product-card__desc">RC2 i RC3 klasa prema EN 1627. Skoro svi modeli za stanove. Svaki stan u projektu treba jedno sigurnosno vrata.</p>
+          <ul class="b2b-product-card__specs">
+            <li><span>B2B cijena od</span><strong>od 480 EUR/kom</strong></li>
+            <li><span>Minimalna narudžba</span><strong>10 komada</strong></li>
+            <li><span>Isporuka</span><strong>odmah (na stanju)</strong></li>
+            <li><span>Certifikat</span><strong>EN 1627 — RC2/RC3</strong></li>
+          </ul>
+          <a href="sigurnosna-vrata.html" class="b2b-product-card__link">
+            Pogledajte katalog →
+          </a>
+        </div>
+      </div>
+      <!-- Keramika -->
+      <div class="b2b-product-card">
+        <div class="b2b-product-card__img" style="background-image: url('/manus-storage/tile-hero-bathroom_a1b2c3d4.png'); background-size: cover;"></div>
+        <div class="b2b-product-card__body">
+          <div class="b2b-product-card__category">Keramičke pločice</div>
+          <h3 class="b2b-product-card__title">Španska keramika za projekte</h3>
+          <p class="b2b-product-card__desc">Tau Ceramica, Arcana, New Tiles, Ceramica Ribesalbes. Pločice za kupatila, hodnik, dnevni boravak. Bulk narudžbe sa popustom.</p>
+          <ul class="b2b-product-card__specs">
+            <li><span>B2B cijena od</span><strong>od 22 EUR/m²</strong></li>
+            <li><span>Minimalna narudžba</span><strong>50 m²</strong></li>
+            <li><span>Isporuka</span><strong>odmah (na stanju)</strong></li>
+            <li><span>Porijeklo</span><strong>🇪🇸 Španija</strong></li>
+          </ul>
+          <a href="keramicke-plocice.html" class="b2b-product-card__link">
+            Pogledajte katalog →
+          </a>
+        </div>
+      </div>
+      <!-- Umivaonici -->
+      <div class="b2b-product-card">
+        <div class="b2b-product-card__img" style="background-image: url('/manus-storage/basin-hero-bathroom_a1b2c3d4.png'); background-size: cover;"></div>
+        <div class="b2b-product-card__body">
+          <div class="b2b-product-card__category">Umivaonici Bathco</div>
+          <h3 class="b2b-product-card__title">Dekorativni umivaonici za projekte</h3>
+          <p class="b2b-product-card__desc">Bathco — ekskluzivni distributer za Crnu Goru. Oval, okrugli, pravougaoni, kameni. Premium segment za luksuzne projekte.</p>
+          <ul class="b2b-product-card__specs">
+            <li><span>B2B cijena od</span><strong>od 180 EUR/kom</strong></li>
+            <li><span>Minimalna narudžba</span><strong>5 komada</strong></li>
+            <li><span>Isporuka</span><strong>odmah (na stanju)</strong></li>
+            <li><span>Brend</span><strong>Bathco 🇪🇸 Španija</strong></li>
+          </ul>
+          <a href="umivaonici.html" class="b2b-product-card__link">
+            Pogledajte katalog →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRICING TIERS ════ -->
+<section class="b2b-pricing">
+  <div class="b2b-pricing__inner">
+    <div class="b2b-pricing__header">
+      <p class="b2b-pricing__eyebrow">B2B uslovi</p>
+      <h2 class="b2b-pricing__title">Cijene po obimu projekta</h2>
+      <p class="b2b-pricing__desc">Što je veći projekat, bolji su uslovi. Sve cifre su orijentacione — konačna cijena se dogovara individualno.</p>
+    </div>
+    <div class="b2b-tiers">
+      <!-- Tier 1 -->
+      <div class="b2b-tier">
+        <div class="b2b-tier__label">Manji projekat</div>
+        <div class="b2b-tier__range">20–40</div>
+        <div class="b2b-tier__unit">vrata ili ekvivalent</div>
+        <ul class="b2b-tier__perks">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> B2B cijena (5–8% ispod retail)</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Formalni predračun u 24h</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Faktura sa PDV-om</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Isporuka odmah (na stanju)</li>
+        </ul>
+      </div>
+      <!-- Tier 2 — Featured -->
+      <div class="b2b-tier b2b-tier--featured">
+        <div class="b2b-tier__badge">Najpopularnije</div>
+        <div class="b2b-tier__label">Srednji projekat</div>
+        <div class="b2b-tier__range">40–100</div>
+        <div class="b2b-tier__unit">vrata ili ekvivalent</div>
+        <ul class="b2b-tier__perks">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> B2B cijena (8–12% ispod retail)</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Prioritetna obrada upita</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Etapna isporuka po fazama</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Koordinacija montažera</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Narudžba po mjeri (40+ kom)</li>
+        </ul>
+      </div>
+      <!-- Tier 3 -->
+      <div class="b2b-tier">
+        <div class="b2b-tier__label">Veliki projekat</div>
+        <div class="b2b-tier__range">100+</div>
+        <div class="b2b-tier__unit">vrata ili ekvivalent</div>
+        <ul class="b2b-tier__perks">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Individualni ugovor</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Maksimalni B2B popust</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Odloženo plaćanje (po dogovoru)</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Dedicirani kontakt</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Narudžba po mjeri dostupna</li>
+        </ul>
+      </div>
+    </div>
+    <p class="b2b-pricing__note">* Svi popusti su orijentacioni i zavise od konkretnog asortimana, roka isporuke i uslova plaćanja. Kontaktirajte nas za individualni predračun.</p>
+  </div>
+</section>
+
+<!-- ════ CONTACT FORM ════ -->
+<section class="b2b-contact" id="b2b-kontakt">
+  <div class="b2b-contact__inner">
+    <div>
+      <p class="b2b-contact__info-eyebrow">Kontaktirajte nas</p>
+      <h2 class="b2b-contact__info-title">Zatražite B2B ponudu</h2>
+      <p class="b2b-contact__info-desc">
+        Popunite formu sa osnovnim podacima o projektu — odgovaramo u roku od 24 sata sa formalnim predračunom. Za hitne upite, pozovite direktno.
+      </p>
+      <div class="b2b-contact__direct">
+        <div class="b2b-contact__direct-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>Telefon: <a href="tel:+38269123456">+382 69 123 456</a></span>
+        </div>
+        <div class="b2b-contact__direct-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Email: <a href="mailto:b2b@doorexpert.me">b2b@doorexpert.me</a></span>
+        </div>
+        <div class="b2b-contact__direct-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Radno vrijeme: Pon–Sub, 08:00–17:00</span>
+        </div>
+        <div class="b2b-contact__direct-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Bulevar Džordža Vašingtona bb, Podgorica</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="b2b-form" id="b2b-form-wrapper">
+      <h3 class="b2b-form__title">Upit za B2B ponudu</h3>
+      <form id="b2b-inquiry-form" novalidate>
+        <div class="b2b-form__grid">
+          <div class="b2b-form__field">
+            <label class="b2b-form__label" for="b2b-name">Ime i prezime <span>*</span></label>
+            <input class="b2b-form__input" type="text" id="b2b-name" name="name" placeholder="Marko Petrović" required />
+          </div>
+          <div class="b2b-form__field">
+            <label class="b2b-form__label" for="b2b-company">Firma / Projekat</label>
+            <input class="b2b-form__input" type="text" id="b2b-company" name="company" placeholder="ABC Invest d.o.o." />
+          </div>
+          <div class="b2b-form__field">
+            <label class="b2b-form__label" for="b2b-phone">Telefon <span>*</span></label>
+            <input class="b2b-form__input" type="tel" id="b2b-phone" name="phone" placeholder="+382 69 ..." required />
+          </div>
+          <div class="b2b-form__field">
+            <label class="b2b-form__label" for="b2b-email">Email <span>*</span></label>
+            <input class="b2b-form__input" type="email" id="b2b-email" name="email" placeholder="marko@firma.me" required />
+          </div>
+          <div class="b2b-form__field">
+            <label class="b2b-form__label" for="b2b-category">Kategorija</label>
+            <select class="b2b-form__select" id="b2b-category" name="category">
+              <option value="">Odaberite kategoriju</option>
+              <option value="sobna-vrata">Sobna vrata</option>
+              <option value="sigurnosna-vrata">Sigurnosna vrata</option>
+              <option value="keramika">Keramičke pločice</option>
+              <option value="umivaonici">Umivaonici Bathco</option>
+              <option value="kombinovano">Kombinovano (više kategorija)</option>
+            </select>
+          </div>
+          <div class="b2b-form__field">
+            <label class="b2b-form__label" for="b2b-quantity">Broj jedinica (okvirno)</label>
+            <select class="b2b-form__select" id="b2b-quantity" name="quantity">
+              <option value="">Odaberite obim</option>
+              <option value="20-40">20–40 komada/m²</option>
+              <option value="40-100">40–100 komada/m²</option>
+              <option value="100+">100+ komada/m²</option>
+              <option value="nisam-siguran">Nisam siguran — trebam savjet</option>
+            </select>
+          </div>
+          <div class="b2b-form__field b2b-form__field--full">
+            <label class="b2b-form__label" for="b2b-message">Opis projekta</label>
+            <textarea class="b2b-form__textarea" id="b2b-message" name="message" placeholder="Npr: Stambeni objekat u Podgorici, 20 stanova, predaja u septembru. Trebamo sobna i sigurnosna vrata za svaki stan..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="b2b-form__submit">
+          Pošaljite B2B upit →
+        </button>
+        <p class="b2b-form__disclaimer">Odgovaramo u roku od 24 sata radnim danom. Vaši podaci se koriste isključivo za pripremu ponude.</p>
+      </form>
+      <!-- Thank you state -->
+      <div class="b2b-form__thankyou" id="b2b-thankyou">
+        <div class="b2b-form__thankyou-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Upit primljen</h3>
+        <p>Hvala na upitu. Odgovaramo u roku od 24 sata sa formalnim predračunom. Ako ste hitni, pozovite nas na <a href="tel:+38269123456" style="color:var(--color-jantar)">+382 69 123 456</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FAQ ════ -->
+<section class="b2b-faq">
+  <div class="b2b-faq__inner">
+    <div class="b2b-faq__header">
+      <p class="b2b-faq__eyebrow">Česta pitanja</p>
+      <h2 class="b2b-faq__title">B2B pitanja i odgovori</h2>
+    </div>
+    <div class="b2b-faq__list">
+      <details class="b2b-faq__item">
+        <summary>Koja je minimalna narudžba za B2B uslove?<span class="b2b-faq__icon">+</span></summary>
+        <div class="b2b-faq__answer">
+          <p>Za sobna vrata: minimalno 20 komada. Za sigurnosna vrata: minimalno 10 komada. Za keramiku: minimalno 50 m². Za umivaonike: minimalno 5 komada. Kombinovane narudžbe (više kategorija) se računaju zajedno.</p>
+        </div>
+      </details>
+      <details class="b2b-faq__item">
+        <summary>Da li je moguća narudžba nestandardnih dimenzija?<span class="b2b-faq__icon">+</span></summary>
+        <div class="b2b-faq__answer">
+          <p>Da, ali samo za narudžbe od 40+ vrata. Vrata se naručuju direktno iz fabrike po specifikaciji. Rok isporuke za narudžbe po mjeri je 60–90 dana. Za standardne dimenzije — roba je na stanju i dostupna odmah.</p>
+        </div>
+      </details>
+      <details class="b2b-faq__item">
+        <summary>Koji su uslovi plaćanja za B2B narudžbe?<span class="b2b-faq__answer">+</span></summary>
+        <div class="b2b-faq__answer">
+          <p>Standardno: avansno plaćanje ili plaćanje pri preuzimanju (gotovina, kartica, virman). Za veće projekte (100+ jedinica) — mogući su individualni uslovi plaćanja (odloženo plaćanje, etapno) po dogovoru.</p>
+        </div>
+      </details>
+      <details class="b2b-faq__item">
+        <summary>Da li nudite etapnu isporuku za faze projekta?<span class="b2b-faq__icon">+</span></summary>
+        <div class="b2b-faq__answer">
+          <p>Da. Za projekte sa više faza — možemo dogovoriti etapnu isporuku prema vašem rasporedu. Roba se rezerviše odmah, a isporuka se vrši u dogovorenim terminima.</p>
+        </div>
+      </details>
+      <details class="b2b-faq__item">
+        <summary>Da li Door Expert vrši montažu za projekte?<span class="b2b-faq__icon">+</span></summary>
+        <div class="b2b-faq__answer">
+          <p>Door Expert ne vrši montažu. Možemo preporučiti i koordinirati montažere za projekte — ekipe koje imaju iskustvo sa višestrukim stanovima istovremeno. Montaža se naplaćuje direktno montažerima, odvojeno od cijene robe.</p>
+        </div>
+      </details>
+      <details class="b2b-faq__item">
+        <summary>Koji dokumenti su dostupni za investitore?<span class="b2b-faq__icon">+</span></summary>
+        <div class="b2b-faq__answer">
+          <p>Za svaku narudžbu: formalni predračun, faktura sa PDV-om, garancija na robu (2 godine). Za sigurnosna vrata: certifikat EN 1627 (RC2/RC3). Za keramiku: tehnički listovi španskih brendova. Sva dokumentacija dostupna na zahtjev.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PRE-FOOTER + FOOTER ════ -->
+<section class="pre-footer" aria-label="Poziv na akciju">
+  <div class="pre-footer__inner">
+    <div class="pre-footer__text">
+      <span class="pre-footer__eyebrow">Door Expert · Podgorica</span>
+      <h2 class="pre-footer__title">Posjetite nas ili zatražite ponudu</h2>
+      <p class="pre-footer__subtitle">Roba na stanju. Formalna ponuda mejlom — bez obaveze.</p>
+    </div>
+    <div class="pre-footer__actions">
+      <a href="#b2b-kontakt" class="pre-footer__btn pre-footer__btn--primary">Zatražite B2B ponudu</a>
+      <a href="tel:+38269123456" class="pre-footer__btn pre-footer__btn--secondary">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Pozovite nas
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+
+    <!-- Brand statement row -->
+    <div class="footer-brand-statement">
+      <a href="header-demo.html" class="footer-brand__logo" aria-label="Door Expert pocetna">
+        <div class="footer-brand__wordmark">Door <span>Expert</span></div>
+        <div class="footer-brand__tagline">Uvoznik &amp; distributer · Podgorica</div>
+      </a>
+      <div class="footer-brand__contact-block">
+        <a href="tel:+38269123456" class="footer-brand__phone">+382 69 123 456</a>
+        <span class="footer-brand__hours">Pon–Pet 08:00–17:00 · Sub 09:00–14:00</span>
+      </div>
+    </div>
+
+    <!-- Gold hairline divider -->
+    <div class="footer-divider" aria-hidden="true"></div>
+
+    <!-- 4-column grid -->
+    <div class="footer-grid">
+
+      <!-- Col 1: Brand desc + social -->
+      <div class="footer-col footer-brand">
+        <p class="footer-brand__desc">
+          Uvoznik i distributer vrata, španske keramike i Bathco umivaonika.
+          Roba na stanju — isporuka odmah, bez čekanja.
+        </p>
+        <div class="footer-social">
+          <a href="https://instagram.com/doorexpert.me" target="_blank" rel="noopener" class="footer-social__link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a href="https://facebook.com/doorexpert" target="_blank" rel="noopener" class="footer-social__link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 2: Proizvodi -->
+      <div class="footer-col">
+        <h3 class="footer-nav__title">Proizvodi</h3>
+        <ul class="footer-nav__list">
+          <li><a href="sobna-vrata.html">Sobna vrata</a></li>
+          <li class="sub"><a href="klizna-vrata.html">Klizna vrata</a></li>
+          <li class="sub"><a href="staklena-vrata.html">Staklena vrata</a></li>
+          <li><a href="sigurnosna-vrata.html">Sigurnosna vrata</a></li>
+          <li class="sub"><a href="sigurnosna-vrata-za-stan.html">Za stan</a></li>
+          <li class="sub"><a href="sigurnosna-vrata-za-kucu.html">Za kuću</a></li>
+          <li><a href="keramicke-plocice.html">Keramičke pločice</a></li>
+          <li class="sub"><a href="keramicke-plocice.html">Podne pločice</a></li>
+          <li class="sub"><a href="keramicke-plocice.html">Zidne pločice</a></li>
+          <li class="sub"><a href="plocice-za-bazen.html">Za bazen</a></li>
+          <li><a href="umivaonici.html">Dekorativni umivaonici</a></li>
+          <li class="sub"><a href="kameni-umivaonici.html">Kameni umivaonici</a></li>
+          <li class="sub"><a href="umivaonici.html">Nadgradni</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Informacije + Brendovi -->
+      <div class="footer-col">
+        <h3 class="footer-nav__title">Informacije</h3>
+        <ul class="footer-nav__list">
+          <li><a href="o-nama.html">O nama</a></li>
+          <li><a href="kontakt.html">Posjetite salon</a></li>
+          <li><a href="akcije.html">Aktuelne akcije</a></li>
+          <li><a href="montaza.html">Kako funkcioniše montaža</a></li>
+          <li><a href="b2b.html">Za investitore i izvođače</a></li>
+          <li><a href="inspiracija.html">Blog i inspiracija</a></li>
+          <li><a href="brendovi.html">Naši brendovi</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+        <h3 class="footer-nav__title" style="margin-top:2rem;"><a href="brendovi.html" style="color:inherit;text-decoration:none;">Brendovi</a></h3>
+        <ul class="footer-nav__list">
+          <li><a href="new-tiles.html">New Tiles</a></li>
+          <li><a href="tau-ceramica.html">Tau Ceramica</a></li>
+          <li><a href="arcana-ceramica.html">Arcana Ceramica</a></li>
+          <li><a href="ribesalbes.html">Ceramica Ribesalbes</a></li>
+          <li><a href="bathco.html">Bathco</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Mapa + radno vrijeme -->
+      <div class="footer-col">
+        <h3 class="footer-nav__title">Pronađite nas</h3>
+        <div class="footer-map">
+          <div class="footer-map__placeholder">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p>Google Maps<br>Podgorica, Crna Gora</p>
+          </div>
+        </div>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="footer-map__link">
+          Otvori u Google Maps
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+
+    </div><!-- /footer-grid -->
+
+    <!-- Installation disclaimer -->
+    <div class="footer-disclaimer">
+      <p>
+        Door Expert je uvoznik i distributer — prodajemo vrata, keramiku i kupatilske elemente.
+        Montažu vrše nezavisni majstori koji naplaćuju direktno klijentu.
+        <a href="montaza.html">Saznajte više o procesu montaže.</a>
+      </p>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-bottom__copy">&copy; 2025 Door Expert. Sva prava zadržana.</p>
+      <div class="footer-bottom__links">
+        <a href="#">Politika privatnosti</a>
+        <a href="#">Uslovi korišćenja</a>
+        <a href="#">Kolačići</a>
+      </div>
+    </div>
+
+  </div><!-- /site-footer__inner -->
+<!-- /site-footer -->
+
+<!-- Mobile sticky CTA bar -->
+<!-- Research: Conversion Strategy — max 2 dugmeta, min 44x44px,
+     sticky donja traka na mobilnom povecava konverzije 5-25% -->
+<div class="mobile-sticky-cta" role="toolbar" aria-label="Brze akcije">
+  <a href="tel:+38269123456" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--call">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Pozovite nas
+  </a>
+  <a href="korpa.html" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--quote">
+    <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    Zatrazite ponudu
+  </a>
+</div>
+
+</main>
+
+
+<!-- Mobile sticky bar -->
+<div class="mobile-sticky-bar" id="mobile-sticky-bar">
+  <a href="tel:+38269123456" class="mobile-sticky-bar__call">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    Pozovite
+  </a>
+  <a href="#b2b-kontakt" class="mobile-sticky-bar__cart">
+    B2B upit
+  </a>
+</div>
+
+<script src="assets/js/header.js"></script>
+<script>
+  // B2B form submit
+  document.getElementById('b2b-inquiry-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('b2b-name').value.trim();
+    const phone = document.getElementById('b2b-phone').value.trim();
+    const email = document.getElementById('b2b-email').value.trim();
+    if (!name || !phone || !email) {
+      alert('Molimo popunite obavezna polja: Ime, Telefon i Email.');
+      return;
+    }
+    // Show thank you
+    document.getElementById('b2b-inquiry-form').style.display = 'none';
+    document.getElementById('b2b-thankyou').style.display = 'block';
+    document.querySelector('.b2b-form__title').style.display = 'none';
+  });
+</script>
+</body>
+</html>
