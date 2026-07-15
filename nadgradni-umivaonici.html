@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="sr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nadgradni umivaonici Podgorica | Bathco keramički umivaonici na ploču | Door Expert</title>
+  <meta name="description" content="Bathco nadgradni (countertop) umivaonici odmah dostupni u Podgorici. Španski dizajn, keramika i porcelan. Ovalni, pravougaoni, okrugli oblici. Cijene od 180€. Pogledajte u salonu." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/category.css?v=3" />
+  <link rel="stylesheet" href="assets/css/footer.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { overflow-x: hidden; }
+    body { background: var(--color-alabaster); font-family: var(--font-body); color: var(--color-antracit); }
+    img { display: block; max-width: 100%; }
+
+    /* ═══════════════════════════════════════════════
+       NADGRADNI UMIVAONICI — Sub-category Specific Styles
+       Design: Mid-premium, clean white/ceramic aesthetic
+       Accent: Jantar gold — Spanish brand authority
+    ═══════════════════════════════════════════════ */
+
+    /* ── Breadcrumb ── */
+    .subcat-breadcrumb {
+      padding: var(--space-4) 0;
+      background: var(--color-pearl);
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .subcat-breadcrumb__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-8);
+    }
+    .subcat-breadcrumb__list {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      list-style: none;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+    .subcat-breadcrumb__list a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      transition: color 180ms;
+    }
+    .subcat-breadcrumb__list a:hover { color: var(--color-accent); }
+    .subcat-breadcrumb__sep { opacity: 0.5; }
+    .subcat-breadcrumb__current { color: var(--color-antracit); font-weight: 500; }
+
+    /* ── Sub-category Hero ── */
+    .subcat-hero {
+      position: relative;
+      padding: var(--space-16) 0 var(--space-12);
+      background: linear-gradient(135deg, var(--color-white) 0%, var(--color-pearl) 60%, var(--color-alabaster) 100%);
+      overflow: hidden;
+    }
+    .subcat-hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, var(--color-sampanjac-light) 0%, transparent 70%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .subcat-hero__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-8);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .subcat-hero__label {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-ui);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-4);
+    }
+    .subcat-hero__label svg { width: 14px; height: 14px; }
+    .subcat-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--color-antracit);
+      line-height: 1.15;
+      margin-bottom: var(--space-4);
+    }
+    .subcat-hero__title em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+    .subcat-hero__desc {
+      font-size: var(--text-md);
+      color: var(--color-antracit-mid);
+      line-height: 1.7;
+      margin-bottom: var(--space-6);
+      max-width: 520px;
+    }
+    .subcat-hero__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+    .subcat-hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      background: var(--color-white);
+      border: 1px solid var(--color-sand);
+      border-radius: 100px;
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--color-antracit-mid);
+    }
+    .subcat-hero__badge .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .subcat-hero__badge--accent {
+      background: var(--color-sampanjac-light);
+      border-color: var(--color-sampanjac);
+      color: var(--color-espreso);
+    }
+    .subcat-hero__visual { position: relative; }
+    .subcat-hero__img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+    }
+    .subcat-hero__img-badge {
+      position: absolute;
+      bottom: var(--space-4);
+      left: var(--space-4);
+      background: var(--color-white);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-md);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ── Benefits ── */
+    .subcat-benefits {
+      padding: var(--space-16) 0;
+      background: var(--color-white);
+      border-top: 1px solid var(--color-sand);
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .subcat-benefits__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-8);
+    }
+    .subcat-benefits__header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+    .subcat-benefits__eyebrow {
+      font-family: var(--font-ui);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+    .subcat-benefits__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 500;
+      color: var(--color-antracit);
+    }
+    .subcat-benefits__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-8);
+    }
+    .benefit-card {
+      text-align: center;
+      padding: var(--space-8) var(--space-4);
+      background: var(--color-pearl);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-sand);
+      transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .benefit-card__icon {
+      width: 48px; height: 48px;
+      margin: 0 auto var(--space-4);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--color-sampanjac-light);
+      border-radius: 50%;
+      color: var(--color-accent);
+    }
+    .benefit-card__icon svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .benefit-card__title {
+      font-family: var(--font-ui);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-antracit);
+      margin-bottom: var(--space-2);
+    }
+    .benefit-card__text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── Shape Types Section ── */
+    .subcat-types {
+      padding: var(--space-16) 0;
+      background: var(--color-alabaster);
+    }
+    .subcat-types__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-8);
+    }
+    .subcat-types__header {
+      text-align: center;
+      margin-bottom: var(--space-12);
+    }
+    .subcat-types__eyebrow {
+      font-family: var(--font-ui);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+    .subcat-types__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 500;
+      color: var(--color-antracit);
+    }
+    .subcat-types__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+    .type-card {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-sand);
+      overflow: hidden;
+      transition: box-shadow 200ms var(--ease-out), transform 200ms var(--ease-out);
+    }
+    .type-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .type-card__img { width: 100%; height: 220px; object-fit: cover; }
+    .type-card__body { padding: var(--space-6); }
+    .type-card__name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      color: var(--color-antracit);
+      margin-bottom: var(--space-2);
+    }
+    .type-card__desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: var(--space-4);
+    }
+    .type-card__features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .type-card__feature {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-antracit-mid);
+    }
+    .type-card__feature svg { width: 16px; height: 16px; color: var(--color-accent); flex-shrink: 0; }
+    .type-card__price {
+      margin-top: var(--space-4);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--color-sand);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+    }
+    .type-card__price strong { font-size: var(--text-lg); color: var(--color-antracit); font-weight: 700; }
+
+    /* ── FAQ ── */
+    .subcat-faq {
+      padding: var(--space-16) 0;
+      background: var(--color-white);
+      border-top: 1px solid var(--color-sand);
+    }
+    .subcat-faq__inner { max-width: 800px; margin: 0 auto; padding: 0 var(--space-8); }
+    .subcat-faq__header { text-align: center; margin-bottom: var(--space-10); }
+    .subcat-faq__eyebrow {
+      font-family: var(--font-ui);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-3);
+    }
+    .subcat-faq__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 500;
+      color: var(--color-antracit);
+    }
+    .faq-list { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-8); }
+    .faq-item {
+      border: 1px solid var(--color-sand);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-pearl);
+    }
+    .faq-item__toggle {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      padding: var(--space-5) var(--space-6);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: var(--text-base);
+      font-weight: 500;
+      color: var(--color-antracit);
+      text-align: left;
+      transition: background var(--duration-fast) var(--ease-out);
+    }
+    .faq-item__toggle:hover { background: var(--color-sand); }
+    .faq-item__chevron { width: 18px; height: 18px; flex-shrink: 0; transition: transform var(--duration-fast) var(--ease-out); }
+    .faq-item.open .faq-item__chevron { transform: rotate(180deg); }
+    .faq-item__body {
+      display: none;
+      padding: 0 var(--space-6) var(--space-5);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-item__body { display: block; }
+    .subcat-faq__cta {
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      color: var(--color-text-muted);
+      font-size: var(--text-sm);
+    }
+
+    /* ── Cross-sell ── */
+    .subcat-crosssell {
+      padding: var(--space-16) 0;
+      background: var(--color-alabaster);
+      border-top: 1px solid var(--color-sand);
+    }
+    .subcat-crosssell__inner { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-8); }
+    .subcat-crosssell__header { margin-bottom: var(--space-8); }
+    .subcat-crosssell__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 500;
+      color: var(--color-antracit);
+    }
+    .crosssell-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+    .crosssell-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-white);
+      border: 1px solid var(--color-sand);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      text-decoration: none;
+      transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    }
+    .crosssell-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .crosssell-card__img-wrap { height: 180px; overflow: hidden; }
+    .crosssell-card__img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 300ms var(--ease-out); }
+    .crosssell-card:hover .crosssell-card__img-wrap img { transform: scale(1.05); }
+    .crosssell-card__body { padding: var(--space-5); flex: 1; display: flex; flex-direction: column; }
+    .crosssell-card__title { font-family: var(--font-ui); font-size: var(--text-base); font-weight: 600; color: var(--color-antracit); margin-bottom: var(--space-2); }
+    .crosssell-card__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6; flex: 1; margin-bottom: var(--space-3); }
+    .crosssell-card__link { font-size: var(--text-sm); font-weight: 600; color: var(--color-accent); }
+
+    /* ── CTA Banner ── */
+    .subcat-cta-banner {
+      padding: var(--space-16) 0;
+      background: var(--color-antracit);
+      position: relative;
+      overflow: hidden;
+    }
+    .subcat-cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1600&q=80') center/cover no-repeat;
+      opacity: 0.08;
+    }
+    .subcat-cta-banner__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--space-8);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .subcat-cta-banner__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 500;
+      color: var(--color-white);
+      margin-bottom: var(--space-4);
+    }
+    .subcat-cta-banner__desc {
+      font-size: var(--text-md);
+      color: rgba(255,255,255,0.75);
+      max-width: 600px;
+      margin: 0 auto var(--space-8);
+      line-height: 1.7;
+    }
+    .subcat-cta-banner__actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .btn--outline-light {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-6);
+      border: 1.5px solid rgba(255,255,255,0.5);
+      border-radius: var(--radius-md);
+      color: var(--color-white);
+      font-family: var(--font-ui);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      text-decoration: none;
+      transition: border-color 200ms, background 200ms;
+    }
+    .btn--outline-light:hover { border-color: var(--color-white); background: rgba(255,255,255,0.1); }
+    .btn--outline-light svg { width: 16px; height: 16px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .subcat-hero__inner { grid-template-columns: 1fr; gap: var(--space-8); }
+      .subcat-hero__visual { order: -1; }
+      .subcat-hero__img { height: 280px; }
+      .subcat-benefits__grid { grid-template-columns: repeat(2, 1fr); }
+      .subcat-types__grid { grid-template-columns: 1fr 1fr; }
+      .crosssell-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .subcat-hero { padding: var(--space-10) 0 var(--space-8); }
+      .subcat-hero__img { height: 220px; }
+      .subcat-benefits__grid { grid-template-columns: 1fr; gap: var(--space-4); }
+      .subcat-types__grid { grid-template-columns: 1fr; }
+      .subcat-cta-banner__actions { flex-direction: column; }
+      .crosssell-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header class="site-header" role="banner">
+
+  <!-- Top utility bar -->
+  <div class="header-top" role="complementary" aria-label="Korisne informacije">
+    <div class="header-top__inner">
+      <div class="header-top__left">
+        <span class="header-top__promo">
+          <span class="header-top__promo-dot" aria-hidden="true"></span>
+          Vrata odmah dostupna — isporuka bez čekanja
+        </span>
+        <span class="header-top__hours">Pon–Sub: 08:00–17:00</span>
+      </div>
+      <div class="header-top__right">
+        <a href="o-nama.html" class="header-top__link">O nama</a>
+        <a href="kontakt.html" class="header-top__link">Posjetite salon</a>
+        <a href="b2b.html" class="header-top__link">Za investitore</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main header bar -->
+  <div class="header-main">
+    <div class="header-main__inner">
+      <a href="header-demo.html" class="header-logo" aria-label="Door Expert — pocetna stranica">
+        <img src="assets/images/logo.webp" alt="Door Expert" height="44" />
+      </a>
+      <nav class="header-nav" role="navigation" aria-label="Glavna navigacija">
+        <ul class="header-nav__list" role="list">
+          <li class="header-nav__item">
+            <a href="sobna-vrata.html" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
+              Sobna vrata
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="mega-menu mega-menu--sobna" role="region" aria-label="Sobna vrata podmeni">
+              <div class="mega-menu__inner">
+                <a href="sobna-vrata.html" class="mega-menu__hero">
+                  <img class="mega-menu__hero-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Sobna vrata" loading="lazy" />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Kategorija</span>
+                    <h3 class="mega-menu__hero-title">Sobna vrata</h3>
+                    <span class="mega-menu__hero-cta">Pogledaj sve modele <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  </div>
+                </a>
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+                    <a href="klizna-vrata.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=120&q=75" alt="Klizna vrata" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Klizna vrata</span><span class="mega-menu__subcat-count">12 modela</span></div>
+                    </a>
+                    <a href="staklena-vrata.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=120&q=75" alt="Staklena vrata" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Staklena vrata</span><span class="mega-menu__subcat-count">8 modela</span></div>
+                    </a>
+                  </div>
+                  <a href="sobna-vrata.html" class="mega-menu__view-all">Sva sobna vrata <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="mega-menu__footer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Odmah dostupno — isporuka bez čekanja</div>
+              </div>
+            </div>
+          </li>
+          <li class="header-nav__item">
+            <a href="sigurnosna-vrata.html" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
+              Sigurnosna vrata
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="mega-menu mega-menu--sigurnosna" role="region" aria-label="Sigurnosna vrata podmeni">
+              <div class="mega-menu__inner">
+                <a href="sigurnosna-vrata.html" class="mega-menu__hero">
+                  <img class="mega-menu__hero-img" src="https://images.unsplash.com/photo-1558618047-f4e60cef5c5c?w=600&q=80" alt="Sigurnosna vrata" loading="lazy" />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Kategorija</span>
+                    <h3 class="mega-menu__hero-title">Sigurnosna (blind) vrata</h3>
+                    <span class="mega-menu__hero-cta">Pogledaj sve modele <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  </div>
+                </a>
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+                    <a href="sigurnosna-vrata-za-stan.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1558618047-f4e60cef5c5c?w=120&q=75" alt="Za stan" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Za stan</span><span class="mega-menu__subcat-count">18 modela</span></div>
+                    </a>
+                    <a href="sigurnosna-vrata-za-kucu.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=120&q=75" alt="Za kuću" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Za kuću</span><span class="mega-menu__subcat-count">4 modela</span></div>
+                    </a>
+                  </div>
+                  <a href="sigurnosna-vrata.html" class="mega-menu__view-all">Sva sigurnosna vrata <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="mega-menu__footer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> RC2 i RC3 klase zaštite — certifikovano</div>
+              </div>
+            </div>
+          </li>
+          <li class="header-nav__item">
+            <a href="keramicke-plocice.html" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
+              Keramičke pločice
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="mega-menu mega-menu--plocice" role="region" aria-label="Keramicke plocice podmeni">
+              <div class="mega-menu__inner">
+                <a href="keramicke-plocice.html" class="mega-menu__hero">
+                  <img class="mega-menu__hero-img" src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=600&q=80" alt="Keramičke pločice" loading="lazy" />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Kategorija</span>
+                    <h3 class="mega-menu__hero-title">Keramičke pločice</h3>
+                    <span class="mega-menu__hero-cta">Pogledaj sve kolekcije <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  </div>
+                </a>
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+                    <a href="keramicke-plocice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1615873968403-89e068629265?w=120&q=75" alt="Podne pločice" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Podne pločice</span><span class="mega-menu__subcat-count">40+ kolekcija</span></div>
+                    </a>
+                    <a href="keramicke-plocice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=120&q=75" alt="Zidne pločice" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Zidne pločice</span><span class="mega-menu__subcat-count">30+ kolekcija</span></div>
+                    </a>
+                    <a href="plocice-za-kupatilo.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Za kupatilo" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Za kupatilo</span><span class="mega-menu__subcat-count">Komplet setovi</span></div>
+                    </a>
+                    <a href="plocice-za-bazen.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=120&q=75" alt="Za bazen" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Za bazen</span><span class="mega-menu__subcat-count">Protivklizne</span></div>
+                    </a>
+                    <a href="gaziste-za-stepenice.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=120&q=75" alt="Gazišta za stepenice" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Gazišta za stepenice</span><span class="mega-menu__subcat-count">Granitne ivice</span></div>
+                    </a>
+                  </div>
+                  <a href="keramicke-plocice.html" class="mega-menu__view-all">Sve keramičke pločice <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="mega-menu__footer"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Španski brendovi: New Tiles, Tau, Arcana, Ribesalbes</div>
+              </div>
+            </div>
+          </li>
+          <li class="header-nav__item">
+            <a href="umivaonici.html" class="header-nav__link header-nav__link--active" aria-haspopup="true" aria-expanded="false">
+              Umivaonici
+              <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="mega-menu mega-menu--umivaonici" role="region" aria-label="Umivaonici podmeni">
+              <div class="mega-menu__inner">
+                <a href="umivaonici.html" class="mega-menu__hero">
+                  <img class="mega-menu__hero-img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Dekorativni umivaonici" loading="lazy" />
+                  <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
+                  <div class="mega-menu__hero-content">
+                    <span class="mega-menu__hero-label">Kategorija</span>
+                    <h3 class="mega-menu__hero-title">Dekorativni umivaonici</h3>
+                    <span class="mega-menu__hero-cta">Pogledaj sve modele <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                  </div>
+                </a>
+                <div class="mega-menu__subcats">
+                  <span class="mega-menu__subcats-label">Potkategorije</span>
+                  <div class="mega-menu__grid">
+                    <a href="nadgradni-umivaonici.html" class="mega-menu__subcat-link mega-menu__subcat-link--active">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Nadgradni umivaonici" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Nadgradni umivaonici</span><span class="mega-menu__subcat-count">8 modela</span></div>
+                    </a>
+                    <a href="kameni-umivaonici.html" class="mega-menu__subcat-link">
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=120&q=75" alt="Kameni umivaonici" loading="lazy" />
+                      <div class="mega-menu__subcat-info"><span class="mega-menu__subcat-name">Kameni umivaonici</span><span class="mega-menu__subcat-count">4 modela</span></div>
+                    </a>
+                  </div>
+                  <a href="umivaonici.html" class="mega-menu__view-all">Svi umivaonici <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+                </div>
+                <div class="mega-menu__footer">🇪🇸 Bathco — španski brend, direktan uvoz</div>
+              </div>
+            </div>
+          </li>
+          <!-- 5. Akcije -->
+          <li class="header-nav__item">
+            <a href="akcije.html" class="header-nav__link header-nav__link--promo">
+              Akcije
+              <span class="header-nav__badge">%</span>
+            </a>
+          </li>
+          <!-- 6. Brendovi -->
+          <li class="header-nav__item">
+            <a href="brendovi.html" class="header-nav__link">Brendovi</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Header actions -->
+      <div class="header-actions">
+        <button class="header-search-btn" aria-label="Pretraga">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <a href="korpa.html" class="header-cart-btn" aria-label="Korpa za ponudu (0 stavki)">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="header-cart-btn__count" aria-live="polite">0</span>
+        </a>
+        <a href="tel:+38269123456" class="header-phone-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.8a16 16 0 006.29 6.29l.95-.95a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span class="header-phone-btn__text">+382 69 123 456</span>
+        </a>
+        <button class="header-mobile-toggle" aria-label="Otvori meni" aria-expanded="false" aria-controls="mobile-nav">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search overlay -->
+  <div class="search-overlay" id="search-overlay" role="search" aria-label="Pretraga" aria-hidden="true">
+    <div class="search-overlay__inner">
+      <input type="search" class="search-overlay__input" placeholder="Pretražite proizvode..." aria-label="Unesite pojam za pretragu" autocomplete="off" />
+      <button class="search-overlay__close" aria-label="Zatvori pretragu">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav backdrop + drawer -->
+<div class="mobile-nav__backdrop" aria-hidden="true"></div>
+<nav class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobilna navigacija">
+  <div class="mobile-nav__header">
+    <a href="header-demo.html" class="mobile-nav__logo" aria-label="Door Expert — pocetna">
+      <img src="assets/images/logo.webp" alt="Door Expert" height="36" />
+    </a>
+    <button class="mobile-nav__close" aria-label="Zatvori meni">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav__body">
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">Sobna vrata <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mobile-nav__subcats">
+        <a href="sobna-vrata.html" class="mobile-nav__subcat-link">Sva sobna vrata</a>
+        <a href="klizna-vrata.html" class="mobile-nav__subcat-link">Klizna vrata</a>
+        <a href="staklena-vrata.html" class="mobile-nav__subcat-link">Staklena vrata</a>
+      </div>
+    </div>
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">Sigurnosna vrata <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mobile-nav__subcats">
+        <a href="sigurnosna-vrata.html" class="mobile-nav__subcat-link">Sva sigurnosna vrata</a>
+        <a href="sigurnosna-vrata-za-stan.html" class="mobile-nav__subcat-link">Za stan</a>
+        <a href="sigurnosna-vrata-za-kucu.html" class="mobile-nav__subcat-link">Za kuću</a>
+      </div>
+    </div>
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">Keramičke pločice <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mobile-nav__subcats">
+        <a href="keramicke-plocice.html" class="mobile-nav__subcat-link">Sve keramičke pločice</a>
+        <a href="plocice-za-kupatilo.html" class="mobile-nav__subcat-link">Pločice za kupatilo</a>
+        <a href="plocice-za-bazen.html" class="mobile-nav__subcat-link">Pločice za bazen</a>
+        <a href="gaziste-za-stepenice.html" class="mobile-nav__subcat-link">Gazišta za stepenice</a>
+      </div>
+    </div>
+    <div class="mobile-nav__cat">
+      <button class="mobile-nav__cat-btn" aria-expanded="false">Umivaonici <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg></button>
+      <div class="mobile-nav__subcats">
+        <a href="umivaonici.html" class="mobile-nav__subcat-link">Svi umivaonici</a>
+        <a href="nadgradni-umivaonici.html" class="mobile-nav__subcat-link" style="font-weight:600;">Nadgradni umivaonici</a>
+        <a href="kameni-umivaonici.html" class="mobile-nav__subcat-link">Kameni umivaonici</a>
+      </div>
+    </div>
+    <div class="mobile-nav__utils">
+      <a href="akcije.html" class="mobile-nav__util-link" style="color: var(--color-jantar); font-weight: 700;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Akcije i popusti
+      </a>
+      <a href="kontakt.html" class="mobile-nav__util-link">Posjetite salon</a>
+      <a href="b2b.html" class="mobile-nav__util-link">Za investitore</a>
+    </div>
+    <div class="mobile-nav__footer">
+      <a href="tel:+38269123456" class="mobile-nav__phone">+382 69 123 456</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     BREADCRUMB
+════════════════════════════════════════════════ -->
+<nav class="subcat-breadcrumb" aria-label="Navigacioni put">
+  <div class="subcat-breadcrumb__inner">
+    <ol class="subcat-breadcrumb__list">
+      <li><a href="header-demo.html">Početna</a></li>
+      <li class="subcat-breadcrumb__sep" aria-hidden="true">›</li>
+      <li><a href="umivaonici.html">Umivaonici</a></li>
+      <li class="subcat-breadcrumb__sep" aria-hidden="true">›</li>
+      <li><span class="subcat-breadcrumb__current">Nadgradni umivaonici</span></li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<section class="subcat-hero">
+  <div class="subcat-hero__inner">
+    <div class="subcat-hero__content">
+      <p class="subcat-hero__label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+        🇪🇸 Bathco · Direktan uvoz iz Španije
+      </p>
+      <h1 class="subcat-hero__title">Nadgradni<br><em>umivaonici</em></h1>
+      <p class="subcat-hero__desc">
+        Keramički i porcelanski umivaonici na ploču — Bathco dizajn koji transformiše kupatilo u privatni spa. Ovalni, pravougaoni i okrugli oblici u bijeloj, sivoj, antracit i bež boji. Svi modeli odmah dostupni u salonu u Podgorici.
+      </p>
+      <div class="subcat-hero__badges">
+        <span class="subcat-hero__badge">
+          <span class="dot" aria-hidden="true"></span>
+          Na stanju — odmah dostupno
+        </span>
+        <span class="subcat-hero__badge subcat-hero__badge--accent">
+          🇪🇸 Španski dizajn
+        </span>
+        <span class="subcat-hero__badge">
+          8 modela
+        </span>
+        <span class="subcat-hero__badge">
+          Od 180 €
+        </span>
+      </div>
+    </div>
+    <div class="subcat-hero__visual">
+      <img
+        class="subcat-hero__img"
+        src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=85"
+        alt="Bathco nadgradni umivaonik — keramički countertop"
+        loading="eager"
+      />
+      <span class="subcat-hero__img-badge">Bathco · Španija</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     BENEFITS
+════════════════════════════════════════════════ -->
+<section class="subcat-benefits">
+  <div class="subcat-benefits__inner">
+    <div class="subcat-benefits__header">
+      <p class="subcat-benefits__eyebrow">Zašto Bathco nadgradni</p>
+      <h2 class="subcat-benefits__title">Španski dizajn, odmah dostupno</h2>
+    </div>
+    <div class="subcat-benefits__grid">
+      <div class="benefit-card">
+        <div class="benefit-card__icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <h3 class="benefit-card__title">Lako čišćenje</h3>
+        <p class="benefit-card__text">Vitrifikovan porcelan — glatka površina koja odbija nečistoću. Bez pora, bez mrlja.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="benefit-card__title">Otpornost</h3>
+        <p class="benefit-card__text">Keramika i porcelan otporni na ogrebotine, hemikalije i promjene temperature.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3 class="benefit-card__title">Španski dizajn</h3>
+        <p class="benefit-card__text">Bathco je španski brend s dugom tradicijom — svaki model je rezultat studioznog dizajnerskog procesa.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-card__icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3 class="benefit-card__title">Odmah dostupno</h3>
+        <p class="benefit-card__text">Svi modeli na stanju u Podgorici — bez čekanja, bez narudžbine iz inostranstva.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SHAPE TYPES
+════════════════════════════════════════════════ -->
+<section class="subcat-types">
+  <div class="subcat-types__inner">
+    <div class="subcat-types__header">
+      <p class="subcat-types__eyebrow">Oblici i stilovi</p>
+      <h2 class="subcat-types__title">Odaberite oblik koji odgovara vašem kupatilu</h2>
+    </div>
+    <div class="subcat-types__grid">
+      <!-- Ovalni -->
+      <div class="type-card">
+        <img
+          class="type-card__img"
+          src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80"
+          alt="Ovalni nadgradni umivaonik"
+          loading="lazy"
+        />
+        <div class="type-card__body">
+          <h3 class="type-card__name">Ovalni</h3>
+          <p class="type-card__desc">Meke, zaobljene linije koje unose toplinu i eleganciju. Najpopularniji oblik — odgovara klasičnim i modernim kupatilima.</p>
+          <ul class="type-card__features">
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Dimenzije: 50×35 cm, 60×40 cm
+            </li>
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Bijela, siva, antracit boja
+            </li>
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Klasičan i moderan enterijer
+            </li>
+          </ul>
+          <div class="type-card__price">Od <strong>180 €</strong></div>
+        </div>
+      </div>
+      <!-- Pravougaoni -->
+      <div class="type-card">
+        <img
+          class="type-card__img"
+          src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80"
+          alt="Pravougaoni nadgradni umivaonik"
+          loading="lazy"
+        />
+        <div class="type-card__body">
+          <h3 class="type-card__name">Pravougaoni</h3>
+          <p class="type-card__desc">Čiste, geometrijske linije za minimalistički i savremeni dizajn. Idealan za kupatila s ravnim linijama i modernim namještajem.</p>
+          <ul class="type-card__features">
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Dimenzije: 60×40 cm, 70×45 cm
+            </li>
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Bijela, crna, bež boja
+            </li>
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Minimalistički i industrijski stil
+            </li>
+          </ul>
+          <div class="type-card__price">Od <strong>210 €</strong></div>
+        </div>
+      </div>
+      <!-- Okrugli -->
+      <div class="type-card">
+        <img
+          class="type-card__img"
+          src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80"
+          alt="Okrugli nadgradni umivaonik"
+          loading="lazy"
+        />
+        <div class="type-card__body">
+          <h3 class="type-card__name">Okrugli</h3>
+          <p class="type-card__desc">Savršen krug — dekorativni statement koji postaje fokalna tačka kupatila. Ženstveno, elegantno, upečatljivo.</p>
+          <ul class="type-card__features">
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Dimenzije: 40×40 cm, 45×45 cm
+            </li>
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Bijela, siva boja
+            </li>
+            <li class="type-card__feature">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+              Skandinavski i boutique stil
+            </li>
+          </ul>
+          <div class="type-card__price">Od <strong>195 €</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     PRODUCT CATALOG
+════════════════════════════════════════════════ -->
+<main class="cat-main">
+  <aside class="cat-sidebar" role="complementary" aria-label="Filteri">
+    <div class="filter-group open">
+      <button class="filter-group__toggle" aria-expanded="true">
+        Oblik
+        <svg class="filter-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="filter-group__body">
+        <ul class="filter-options">
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" checked /><span class="filter-option__text">Ovalni</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Pravougaoni</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Okrugli</span></label></li>
+        </ul>
+      </div>
+    </div>
+    <div class="filter-group open">
+      <button class="filter-group__toggle" aria-expanded="true">
+        Boja
+        <svg class="filter-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="filter-group__body">
+        <ul class="filter-options">
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" checked /><span class="filter-option__text">Bijela</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Siva</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Antracit</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Bež</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Crna</span></label></li>
+        </ul>
+      </div>
+    </div>
+    <div class="filter-group open">
+      <button class="filter-group__toggle" aria-expanded="true">
+        Veličina
+        <svg class="filter-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="filter-group__body">
+        <ul class="filter-options">
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" checked /><span class="filter-option__text">Do 50 cm</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">50–65 cm</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Preko 65 cm</span></label></li>
+        </ul>
+      </div>
+    </div>
+    <div class="filter-group open">
+      <button class="filter-group__toggle" aria-expanded="true">
+        Cijena (EUR)
+        <svg class="filter-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="filter-group__body">
+        <div class="price-range">
+          <div class="price-range__inputs">
+            <input type="number" class="price-range__input" placeholder="Od" min="0" />
+            <span>—</span>
+            <input type="number" class="price-range__input" placeholder="Do" max="9999" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filter-group open">
+      <button class="filter-group__toggle" aria-expanded="true">
+        Dostupnost
+        <svg class="filter-group__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="filter-group__body">
+        <ul class="filter-options">
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" checked /><span class="filter-option__text">Na stanju</span></label></li>
+          <li class="filter-option"><label class="filter-option__label"><input type="checkbox" class="filter-option__checkbox" /><span class="filter-option__text">Samo na akciji</span></label></li>
+        </ul>
+      </div>
+    </div>
+    <button class="filter-reset">Resetuj filtere</button>
+  </aside>
+
+  <div class="cat-content">
+    <div class="cat-toolbar">
+      <p class="cat-count">8 modela</p>
+      <div class="cat-sort">
+        <label class="cat-sort__label" for="sort-nadgradni">Sortiraj:</label>
+        <select class="cat-sort__select" id="sort-nadgradni">
+          <option value="popular">Najpopularniji</option>
+          <option value="price-asc">Cijena: niža → viša</option>
+          <option value="price-desc">Cijena: viša → niža</option>
+          <option value="newest">Najnoviji</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="product-grid">
+
+      <!-- 1 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Bathco Oval Blanco Matt" loading="lazy" />
+          <span class="product-badge badge--bestseller">Bestseller</span>
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Oval Blanco Matt</h3>
+          <p class="product-card__desc">Ovalni bijeli mat umivaonik na ploču. Nježna, mat površina bez odsjaja — savremeni klasik.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">50×35 cm</button>
+            <button class="dim-pill" type="button">60×40 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__old">240 €</span>
+            <span class="product-price__current">180 €</span>
+            <span class="product-price__saving">Ušteda 60 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Bathco Oval Gris Perla" loading="lazy" />
+          <span class="product-badge badge--new">Novo</span>
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Oval Gris Perla</h3>
+          <p class="product-card__desc">Ovalni umivaonik u toploj bisernoj sivoj. Suptilna elegancija koja se uklapa u svaki enterijer.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">50×35 cm</button>
+            <button class="dim-pill" type="button">60×40 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__current">210 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Bathco Rect Blanco Brillo" loading="lazy" />
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Rect Blanco Brillo</h3>
+          <p class="product-card__desc">Pravougaoni bijeli sjajni umivaonik. Čiste linije, refleksivna površina — moderan minimalistički stil.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">60×40 cm</button>
+            <button class="dim-pill" type="button">70×45 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__current">230 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Bathco Rect Negro Matt" loading="lazy" />
+          <span class="product-badge badge--premium">Premium</span>
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Rect Negro Matt</h3>
+          <p class="product-card__desc">Pravougaoni crni mat umivaonik. Dramatičan, upečatljiv — savršen za tamne i kontrastne enterijere.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">60×40 cm</button>
+            <button class="dim-pill" type="button">70×45 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__current">280 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Bathco Round Blanco Matt" loading="lazy" />
+          <span class="product-badge badge--sale">Akcija</span>
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Round Blanco Matt</h3>
+          <p class="product-card__desc">Okrugli bijeli mat umivaonik. Mekane linije, ženstveni karakter — dekorativni fokus kupatila.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">40×40 cm</button>
+            <button class="dim-pill" type="button">45×45 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__old">260 €</span>
+            <span class="product-price__current">195 €</span>
+            <span class="product-price__saving">Ušteda 65 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Bathco Oval Antracita" loading="lazy" />
+          <span class="product-badge badge--new">Novo</span>
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Oval Antracita</h3>
+          <p class="product-card__desc">Ovalni antracit umivaonik. Tamna, sofisticirana boja koja daje dubinu i karakter kupatilu.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">50×35 cm</button>
+            <button class="dim-pill" type="button">60×40 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__current">245 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Bathco Rect Beige Mate" loading="lazy" />
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Rect Beige Mate</h3>
+          <p class="product-card__desc">Pravougaoni bež mat umivaonik. Topla, neutralna boja koja se savršeno uklapa uz drvo i prirodne materijale.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">60×40 cm</button>
+            <button class="dim-pill" type="button">70×45 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__current">220 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="product-card">
+        <div class="product-card__img-wrap">
+          <img class="product-card__img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Bathco Round Gris Oscuro" loading="lazy" />
+          <span class="product-badge badge--premium">Premium</span>
+          <span class="product-stock product-stock--in">Na stanju</span>
+        </div>
+        <div class="product-card__body">
+          <p class="product-card__brand">🇪🇸 Bathco</p>
+          <h3 class="product-card__name">Bathco Round Gris Oscuro</h3>
+          <p class="product-card__desc">Okrugli tamno sivi umivaonik. Snažan karakter, premium osjećaj — za kupatila koja ne kompromituju.</p>
+          <div class="product-card__dims">
+            <button class="dim-pill" type="button">40×40 cm</button>
+            <button class="dim-pill" type="button">45×45 cm</button>
+          </div>
+          <div class="product-price">
+            <span class="product-price__current">265 €</span>
+          </div>
+          <div class="product-card__actions">
+            <a href="product.html?tip=umivaonik" class="btn btn--primary btn--sm">Dodaj u ponudu</a>
+            <button class="btn btn--ghost btn--sm btn--icon" aria-label="Wishlist">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /product-grid -->
+  </div>
+</main>
+
+<!-- ═══════════════════════════════════════════════
+     FAQ
+════════════════════════════════════════════════ -->
+<section class="subcat-faq">
+  <div class="subcat-faq__inner">
+    <div class="subcat-faq__header">
+      <p class="subcat-faq__eyebrow">Česta pitanja</p>
+      <h2 class="subcat-faq__title">Odgovori na vaša pitanja</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-item__toggle" aria-expanded="false">
+          <span>Šta je nadgradni (countertop) umivaonik?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-item__body">
+          <p>Nadgradni umivaonik se postavlja na ploču ili pult — ne ugrađuje se u ploču kao standardni umivaonik. Vidljiv je u cijelosti, što ga čini dekorativnim elementom kupatila. Zahtijeva ploču ili konzolu na kojoj stoji, i slavinu koja se montira na ploču ili zid.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__toggle" aria-expanded="false">
+          <span>Da li je montaža uključena u cijenu?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-item__body">
+          <p>Montaža nije uključena u cijenu. Ugradnju obavlja majstor koji naplaćuje direktno. Door Expert je uvoznik i distributer — prodajemo proizvod, a ugradnju preporučujemo provjerenim majstorima u Podgorici. Možemo vam preporučiti pouzdane majstore.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__toggle" aria-expanded="false">
+          <span>Da li su slavine uključene?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-item__body">
+          <p>Slavine nisu uključene u cijenu umivaonika. Prodajemo samo umivaonik. Slavinu kupujete posebno — preporučujemo da odaberete slavinu koja odgovara stilu umivaonika. Naš tim vam može savjetovati koje slavine dobro idu uz određeni model.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__toggle" aria-expanded="false">
+          <span>Kako se čisti keramički nadgradni umivaonik?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-item__body">
+          <p>Keramički i porcelanski umivaonici su izuzetno laki za čišćenje. Koristite neutralna sredstva za čišćenje — izbjegavajte abrazivne spužve i agresivne kiseline. Mat površine zahtijevaju malo više pažnje jer mogu pokazivati tragove sapuna — brišite ih mekom krpom.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__toggle" aria-expanded="false">
+          <span>Mogu li vidjeti umivaonik uživo u salonu?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-item__body">
+          <p>Da — svi modeli su izloženi u našem salonu u Podgorici. Preporučujemo posjetu jer fotografija ne prenosi pravi ton i teksturu površine. Donesete uzorak pločica ili fotografiju kupatila — pomažemo vam da odaberete pravi model i boju.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__toggle" aria-expanded="false">
+          <span>Koja je razlika između mat i sjajne površine?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-item__body">
+          <p>Sjajna površina reflektuje svjetlost i vizuelno povećava prostor — lakša je za čišćenje ali pokazuje tragove prstiju i kapljice. Mat površina daje sofisticiraniji, moderniji izgled — manje odsjaja, ali zahtijeva redovnije brisanje. Oba tipa su jednako trajna.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-item__toggle" aria-expanded="false">
+          <span>Koja je razlika između nadgradnih i kamenih umivaonika?</span>
+          <svg class="faq-item__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-item__body">
+          <p>Nadgradni umivaonici su od keramike ili porcelana — uniformna boja, lako čišćenje, niža cijena. Kameni umivaonici su od prirodnog kamena (mramor, granit, travertin) — svaki je jedinstven, premium osjećaj, ali zahtijevaju više njege i impregnacije. Kameni su dekorativni statement, keramički su praktičan premium izbor.</p>
+        </div>
+      </div>
+    </div>
+    <div class="subcat-faq__cta">
+      <p>Niste pronašli odgovor?</p>
+      <a href="tel:+38269123456" class="btn btn--outline">Pozovite nas</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CROSS-SELL
+════════════════════════════════════════════════ -->
+<section class="subcat-crosssell">
+  <div class="subcat-crosssell__inner">
+    <div class="subcat-crosssell__header">
+      <h2 class="subcat-crosssell__title">Kompletite kupatilo</h2>
+    </div>
+    <div class="crosssell-grid">
+      <a href="kameni-umivaonici.html" class="crosssell-card">
+        <div class="crosssell-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80" alt="Kameni umivaonici" loading="lazy" />
+        </div>
+        <div class="crosssell-card__body">
+          <h3 class="crosssell-card__title">Kameni umivaonici</h3>
+          <p class="crosssell-card__desc">Bathco kameni umivaonici od prirodnog mramora, granita i travertina — svaki jedinstven.</p>
+          <span class="crosssell-card__link">Pogledaj →</span>
+        </div>
+      </a>
+      <a href="plocice-za-kupatilo.html" class="crosssell-card">
+        <div class="crosssell-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&q=80" alt="Pločice za kupatilo" loading="lazy" />
+        </div>
+        <div class="crosssell-card__body">
+          <h3 class="crosssell-card__title">Pločice za kupatilo</h3>
+          <p class="crosssell-card__desc">Španske pločice za kupatilo — koordinirani izgled sa Bathco umivaonicima.</p>
+          <span class="crosssell-card__link">Pogledaj →</span>
+        </div>
+      </a>
+      <a href="staklena-vrata.html" class="crosssell-card">
+        <div class="crosssell-card__img-wrap">
+          <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" alt="Staklena vrata za kupatilo" loading="lazy" />
+        </div>
+        <div class="crosssell-card__body">
+          <h3 class="crosssell-card__title">Staklena vrata za kupatilo</h3>
+          <p class="crosssell-card__desc">Satinato staklena vrata za privatnost i svjetlost — savršen završetak kupatila.</p>
+          <span class="crosssell-card__link">Pogledaj →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CTA BANNER
+════════════════════════════════════════════════ -->
+<section class="subcat-cta-banner">
+  <div class="subcat-cta-banner__inner">
+    <h2 class="subcat-cta-banner__title">Posjetite salon — vidite Bathco kolekciju uživo</h2>
+    <p class="subcat-cta-banner__desc">Svi modeli su izloženi u našem salonu u Podgorici. Donesete uzorak pločica ili fotografiju kupatila — pomažemo vam da odaberete savršen umivaonik koji se uklapa u vaš prostor.</p>
+    <div class="subcat-cta-banner__actions">
+      <a href="korpa.html" class="btn btn--primary btn--lg">Zatražite ponudu</a>
+      <a href="tel:+38269123456" class="btn btn--outline-light btn--lg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Pozovite nas
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+    <div class="footer-brand-statement">
+      <a href="header-demo.html" class="footer-brand__logo" aria-label="Door Expert pocetna">
+        <div class="footer-brand__wordmark">Door <span>Expert</span></div>
+        <div class="footer-brand__tagline">Uvoznik &amp; distributer · Podgorica</div>
+      </a>
+      <div class="footer-brand__contact-block">
+        <a href="tel:+38269123456" class="footer-brand__phone">+382 69 123 456</a>
+        <span class="footer-brand__hours">Pon–Pet 08:00–17:00 · Sub 09:00–14:00</span>
+      </div>
+    </div>
+    <div class="footer-divider" aria-hidden="true"></div>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <p class="footer-brand__desc">Uvoznik i distributer vrata, španske keramike i Bathco umivaonika. Roba na stanju — isporuka odmah, bez čekanja.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/doorexpert.me" target="_blank" rel="noopener" class="footer-social__link" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://facebook.com/doorexpert" target="_blank" rel="noopener" class="footer-social__link" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-nav__title">Proizvodi</h3>
+        <ul class="footer-nav__list">
+          <li><a href="sobna-vrata.html">Sobna vrata</a></li>
+          <li class="sub"><a href="klizna-vrata.html">Klizna vrata</a></li>
+          <li class="sub"><a href="staklena-vrata.html">Staklena vrata</a></li>
+          <li><a href="sigurnosna-vrata.html">Sigurnosna vrata</a></li>
+          <li class="sub"><a href="sigurnosna-vrata-za-stan.html">Za stan</a></li>
+          <li class="sub"><a href="sigurnosna-vrata-za-kucu.html">Za kuću</a></li>
+          <li><a href="keramicke-plocice.html">Keramičke pločice</a></li>
+          <li class="sub"><a href="plocice-za-bazen.html">Za bazen</a></li>
+          <li><a href="umivaonici.html">Dekorativni umivaonici</a></li>
+          <li class="sub"><a href="nadgradni-umivaonici.html" style="font-weight:600;">Nadgradni umivaonici</a></li>
+          <li class="sub"><a href="kameni-umivaonici.html">Kameni umivaonici</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-nav__title">Informacije</h3>
+        <ul class="footer-nav__list">
+          <li><a href="o-nama.html">O nama</a></li>
+          <li><a href="kontakt.html">Posjetite salon</a></li>
+          <li><a href="akcije.html">Aktuelne akcije</a></li>
+          <li><a href="montaza.html">Kako funkcioniše montaža</a></li>
+          <li><a href="b2b.html">Za investitore i izvođače</a></li>
+          <li><a href="inspiracija.html">Blog i inspiracija</a></li>
+          <li><a href="brendovi.html">Naši brendovi</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+        <h3 class="footer-nav__title" style="margin-top:2rem;"><a href="brendovi.html" style="color:inherit;text-decoration:none;">Brendovi</a></h3>
+        <ul class="footer-nav__list">
+          <li><a href="new-tiles.html">New Tiles</a></li>
+          <li><a href="tau-ceramica.html">Tau Ceramica</a></li>
+          <li><a href="arcana-ceramica.html">Arcana Ceramica</a></li>
+          <li><a href="ribesalbes.html">Ceramica Ribesalbes</a></li>
+          <li><a href="bathco.html">Bathco</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3 class="footer-nav__title">Pronađite nas</h3>
+        <div class="footer-map">
+          <div class="footer-map__placeholder">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <p>Google Maps<br>Podgorica, Crna Gora</p>
+          </div>
+        </div>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" class="footer-map__link">
+          Otvori u Google Maps
+          <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-disclaimer">
+      <p>Door Expert je uvoznik i distributer — prodajemo vrata, keramiku i kupatilske elemente. Montažu vrše nezavisni majstori koji naplaćuju direktno klijentu. <a href="montaza.html">Saznajte više o procesu montaže.</a></p>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-bottom__copy">&copy; 2025 Door Expert. Sva prava zadržana.</p>
+      <div class="footer-bottom__links">
+        <a href="#">Politika privatnosti</a>
+        <a href="#">Uslovi korišćenja</a>
+        <a href="#">Kolačići</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile sticky CTA bar -->
+<div class="mobile-sticky-cta" role="toolbar" aria-label="Brze akcije">
+  <a href="tel:+38269123456" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--call">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Pozovite nas
+  </a>
+  <a href="korpa.html" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--quote">
+    <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    Zatražite ponudu
+  </a>
+</div>
+
+<script src="assets/js/header.js"></script>
+<script src="assets/js/category.js"></script>
+<script>
+// FAQ accordion
+document.querySelectorAll(".faq-item__toggle").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var item = this.closest(".faq-item");
+    var isOpen = item.classList.contains("open");
+    document.querySelectorAll(".faq-item.open").forEach(function(el) {
+      el.classList.remove("open");
+      el.querySelector(".faq-item__toggle").setAttribute("aria-expanded", "false");
+    });
+    if (!isOpen) {
+      item.classList.add("open");
+      this.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+// Filter group toggles
+document.querySelectorAll(".filter-group__toggle").forEach(function(btn) {
+  btn.addEventListener("click", function() {
+    var group = this.closest(".filter-group");
+    group.classList.toggle("open");
+    this.setAttribute("aria-expanded", group.classList.contains("open").toString());
+  });
+});
+</script>
+</body>
+</html>
