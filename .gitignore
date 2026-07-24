@@ -1,0 +1,14 @@
+# ── Lokalno samo — ne ide u repo ────────────────────────────────────
+# Reusable kit/templejti za nove projekte. Nije vezan za Door Expert,
+# drži se lokalno; u repo idu samo WP fajlovi i projektna dokumentacija.
+_NOVI-PROJEKTI/
+
+# ── OS / IDE ────────────────────────────────────────────────────────
+Thumbs.db
+desktop.ini
+.DS_Store
+.idea/
+
+# ── Logovi i privremeni fajlovi ─────────────────────────────────────
+*.log
+*.tmp
