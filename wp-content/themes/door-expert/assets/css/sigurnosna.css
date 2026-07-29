@@ -1,0 +1,685 @@
+/*
+ * DOOR EXPERT — Sigurnosna vrata page
+ * ============================================================
+ * Design: Luxury-minimalist, but with added gravitas/authority
+ * compared to sobna-vrata. Dark hero, trust-heavy layout.
+ * Research: UX Research — high-emotion purchase (safety/family),
+ * certifications must be prominent, RC class education needed.
+ * ============================================================
+ */
+
+/* ── Security Hero ── */
+.sec-hero {
+  position: relative;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-antracit);
+}
+.sec-hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.sec-hero__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+  opacity: 0.35;
+}
+.sec-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    rgba(30, 26, 22, 0.92) 0%,
+    rgba(30, 26, 22, 0.75) 50%,
+    rgba(30, 26, 22, 0.3) 100%
+  );
+}
+.sec-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--space-20) var(--space-8);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-12);
+  align-items: center;
+  width: 100%;
+}
+.sec-hero__content {
+  max-width: 600px;
+}
+.sec-hero__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-sampanjac);
+  margin-bottom: var(--space-4);
+}
+.sec-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: #FFFFFF;
+  margin-bottom: var(--space-5);
+}
+.sec-hero__title em {
+  font-style: italic;
+  color: var(--color-sampanjac);
+}
+.sec-hero__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: rgba(255,255,255,0.75);
+  line-height: 1.65;
+  margin-bottom: var(--space-8);
+  max-width: 480px;
+}
+
+/* RC Class cert badges in hero */
+.sec-hero__certs {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-8);
+}
+.sec-cert-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  background: rgba(201, 169, 110, 0.08);
+  min-width: 80px;
+}
+.sec-cert-badge--premium {
+  border-color: var(--color-sampanjac);
+  background: rgba(201, 169, 110, 0.15);
+}
+.sec-cert-badge--eu {
+  flex-direction: row;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+}
+.sec-cert-badge--eu svg {
+  color: var(--color-sampanjac);
+  flex-shrink: 0;
+}
+.sec-cert-badge__class {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-sampanjac);
+  line-height: 1;
+}
+.sec-cert-badge__label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  text-align: center;
+}
+
+/* Hero action buttons */
+.sec-hero__actions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.sec-hero__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.sec-hero__btn--primary {
+  background: var(--color-jantar);
+  color: #FFFFFF;
+  border: 1px solid var(--color-jantar);
+}
+.sec-hero__btn--primary:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+.sec-hero__btn--secondary {
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.sec-hero__btn--secondary:hover {
+  border-color: rgba(255,255,255,0.6);
+  color: #FFFFFF;
+}
+
+/* Floating trust card (right side of hero) */
+.sec-hero__trust-card {
+  background: rgba(247, 243, 236, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 280px;
+}
+.sec-trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.sec-trust-item svg {
+  color: var(--color-sampanjac);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.sec-trust-item strong {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+.sec-trust-item span {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+}
+
+/* ── RC Explainer Section ── */
+.rc-explainer {
+  background: var(--color-pearl);
+  padding: var(--space-20) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.rc-explainer__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+.rc-explainer__header {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto var(--space-12);
+}
+.rc-explainer__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+.rc-explainer__title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-4);
+}
+.rc-explainer__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+.rc-explainer__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1.3fr;
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+.rc-explainer__note {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+.rc-explainer__note svg {
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+/* RC Cards */
+.rc-card {
+  position: relative;
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.rc-card--basic {
+  opacity: 0.7;
+}
+.rc-card--recommended {
+  border-color: var(--color-jantar);
+  box-shadow: 0 0 0 1px var(--color-jantar);
+}
+.rc-card--premium {
+  background: var(--color-antracit);
+  border-color: var(--color-antracit);
+}
+.rc-card__badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-jantar);
+  color: #FFFFFF;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  white-space: nowrap;
+}
+.rc-card__badge--premium {
+  background: var(--color-sampanjac);
+  color: var(--color-antracit);
+}
+.rc-card__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+.rc-card__class {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-jantar);
+  line-height: 1;
+}
+.rc-card--premium .rc-card__class {
+  color: var(--color-sampanjac);
+}
+.rc-card__level {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+.rc-card--premium .rc-card__level {
+  color: rgba(255,255,255,0.6);
+}
+.rc-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+.rc-card--premium .rc-card__desc {
+  color: rgba(255,255,255,0.65);
+}
+.rc-card__note {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--color-border);
+  font-style: italic;
+}
+.rc-card__features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+.rc-card__features li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--color-antracit);
+}
+.rc-card--premium .rc-card__features li {
+  color: rgba(255,255,255,0.85);
+}
+.rc-card__features svg {
+  color: var(--color-jantar);
+  flex-shrink: 0;
+}
+.rc-card--premium .rc-card__features svg {
+  color: var(--color-sampanjac);
+}
+.rc-card__cta {
+  display: block;
+  text-align: center;
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+  border: 1px solid var(--color-jantar);
+  color: var(--color-jantar);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+  margin-top: auto;
+}
+.rc-card__cta:hover {
+  background: var(--color-jantar);
+  color: #FFFFFF;
+}
+.rc-card__cta--premium {
+  background: var(--color-sampanjac);
+  border-color: var(--color-sampanjac);
+  color: var(--color-antracit);
+}
+.rc-card__cta--premium:hover {
+  background: var(--color-jantar);
+  border-color: var(--color-jantar);
+  color: #FFFFFF;
+}
+
+/* ── RC badge on product cards ── */
+.prod-badge--rc {
+  background: var(--color-antracit);
+  color: var(--color-sampanjac);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.prod-badge--rc3 {
+  background: var(--color-espreso);
+  color: var(--color-sampanjac);
+}
+
+/* ── Security Features Strip ── */
+.sec-features {
+  background: var(--color-antracit);
+  padding: var(--space-10) 0;
+}
+.sec-features__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-8);
+}
+.sec-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+.sec-feature__icon {
+  color: var(--color-sampanjac);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.sec-feature__text strong {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+.sec-feature__text span {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+/* ── FAQ Section ── */
+.sec-faq {
+  background: var(--color-alabaster);
+  padding: var(--space-20) 0;
+}
+.sec-faq__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+.sec-faq__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+.sec-faq__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+.sec-faq__title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+}
+.sec-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.sec-faq__item {
+  border-bottom: 1px solid var(--color-border);
+}
+.sec-faq__item:first-child {
+  border-top: 1px solid var(--color-border);
+}
+.sec-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-antracit);
+  gap: var(--space-4);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+.sec-faq__question::-webkit-details-marker { display: none; }
+.sec-faq__question:hover { color: var(--color-accent); }
+.sec-faq__icon {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--color-accent);
+  flex-shrink: 0;
+  transition: transform var(--duration-base) var(--ease-out);
+  font-family: var(--font-body);
+}
+.sec-faq__item[open] .sec-faq__icon {
+  transform: rotate(45deg);
+}
+.sec-faq__answer {
+  padding: 0 0 var(--space-5) 0;
+}
+.sec-faq__answer p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.sec-faq__cta {
+  margin-top: var(--space-10);
+  text-align: center;
+  padding: var(--space-8);
+  background: var(--color-pearl);
+  border: 1px solid var(--color-border);
+}
+.sec-faq__cta p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+.sec-faq__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  background: var(--color-jantar);
+  color: #FFFFFF;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background var(--duration-base) var(--ease-out);
+}
+.sec-faq__btn:hover {
+  background: var(--color-accent-hover);
+}
+
+/* ── Cross-sell Section ── */
+.sec-crosssell {
+  background: var(--color-pearl);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-16) 0;
+}
+.sec-crosssell__inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  text-align: center;
+}
+.sec-crosssell__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+.sec-crosssell__title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-4);
+}
+.sec-crosssell__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+  max-width: 520px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.65;
+}
+.sec-crosssell__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  border: 1px solid var(--color-antracit);
+  color: var(--color-antracit);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.sec-crosssell__btn:hover {
+  background: var(--color-antracit);
+  color: #FFFFFF;
+}
+
+/* ── Load more button ── */
+.cat-load-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-antracit);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-out);
+}
+.cat-load-more:hover {
+  border-color: var(--color-antracit);
+  background: var(--color-pearl);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .sec-hero__inner {
+    grid-template-columns: 1fr;
+  }
+  .sec-hero__trust-card {
+    display: none;
+  }
+  .rc-explainer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .rc-card--basic {
+    display: none;
+  }
+  .sec-features__inner {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+}
+@media (max-width: 768px) {
+  .sec-hero {
+    min-height: 480px;
+  }
+  .sec-hero__inner {
+    padding: var(--space-16) var(--space-5);
+  }
+  .sec-hero__title {
+    font-size: 2rem;
+  }
+  .sec-hero__certs {
+    gap: var(--space-2);
+  }
+  .sec-cert-badge {
+    padding: var(--space-2) var(--space-4);
+  }
+  .rc-explainer__grid {
+    grid-template-columns: 1fr;
+  }
+  .rc-card--basic {
+    display: flex;
+  }
+  .sec-features__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  .rc-explainer__inner,
+  .sec-faq__inner,
+  .sec-crosssell__inner {
+    padding: 0 var(--space-5);
+  }
+}

@@ -1,0 +1,246 @@
+/*
+ * DOOR EXPERT — Instagram Feed (Section 8)
+ * ============================================================
+ * Research sources:
+ * - Zapisnik sastanka: "Instagram feed pri dnu stranice (iznad
+ *   footera), s automatskim ažuriranjem. NIKAD na vrhu."
+ * - Website UX Research: "Instagram donosi 70% kupaca — bez
+ *   njega ne bi bilo prodaje."
+ * - Website Conversion Strategy: "Instagram feed near the BOTTOM
+ *   (above footer), auto-updating — never at the top (don't send
+ *   users off-site early)."
+ *
+ * PRODUKCIJA NAPOMENA ZA DEVELOPERA:
+ * Koristiti Behold.so widget (https://behold.so) — besplatni plan
+ * pokriva osnovne potrebe. Ubaciti jedan <div id="behold-widget">
+ * i odgovarajuci <script> tag. Nema potrebe za API kljucevima.
+ * ============================================================
+ */
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+.instagram-section {
+  background: var(--color-alabaster, #F0EBE0);
+  padding: var(--space-14, 3.5rem) 0 var(--space-16, 4rem);
+  border-top: 1px solid var(--color-pesak, #DDD5C4);
+}
+
+.instagram-section__inner {
+  max-width: var(--container-max, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--space-8, 2rem);
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.instagram-section__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-4, 1rem);
+  margin-bottom: var(--space-8, 2rem);
+  flex-wrap: wrap;
+}
+
+.instagram-section__header-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.instagram-section__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft, #5A5248);
+}
+
+.instagram-section__eyebrow svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--color-jantar, #A07840);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.instagram-section__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.instagram-section__handle {
+  font-style: normal;
+  color: var(--color-jantar, #A07840);
+}
+
+.instagram-section__follow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  border: 1.5px solid var(--color-antracit, #1E1A16);
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  white-space: nowrap;
+}
+
+.instagram-section__follow-link:hover {
+  background: var(--color-antracit, #1E1A16);
+  color: #fff;
+}
+
+.instagram-section__follow-link svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Photo grid ──────────────────────────────────────────────── */
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+/* ── Photo item ──────────────────────────────────────────────── */
+.instagram-item {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: var(--color-pesak, #DDD5C4);
+  border-radius: 2px;
+  display: block;
+  text-decoration: none;
+}
+
+.instagram-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.instagram-item:hover img {
+  transform: scale(1.06);
+}
+
+/* Hover overlay */
+.instagram-item__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 26, 22, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.instagram-item:hover .instagram-item__overlay {
+  opacity: 1;
+}
+
+.instagram-item__overlay-icon {
+  width: 28px;
+  height: 28px;
+  stroke: #fff;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.instagram-item__overlay-text {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* Featured item (first, larger) */
+.instagram-item--featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* ── Behold.so placeholder notice ───────────────────────────── */
+.instagram-dev-note {
+  margin-top: var(--space-6, 1.5rem);
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  background: rgba(160, 120, 64, 0.07);
+  border: 1px dashed var(--color-jantar, #A07840);
+  border-radius: 3px;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.75rem;
+  color: var(--color-antracit-soft, #5A5248);
+  line-height: 1.6;
+}
+
+.instagram-dev-note strong {
+  color: var(--color-jantar, #A07840);
+}
+
+.instagram-dev-note a {
+  color: var(--color-jantar, #A07840);
+  font-weight: 600;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .instagram-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .instagram-item--featured {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+@media (max-width: 640px) {
+  .instagram-section__inner {
+    padding: 0 var(--space-4, 1rem);
+  }
+
+  .instagram-section__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .instagram-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  .instagram-item--featured {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .instagram-item__overlay {
+    display: none;
+  }
+}

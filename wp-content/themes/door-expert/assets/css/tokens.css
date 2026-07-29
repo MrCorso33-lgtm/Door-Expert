@@ -1,0 +1,94 @@
+/*
+ * DOOR EXPERT — Design Tokens
+ * ============================================================
+ * Color system: 60/30/10 rule
+ * 60% — Alabaster   (warm off-white backgrounds)
+ * 30% — Antracit    (dark charcoal text & structure)
+ * 10% — Jantar      (amber-gold accent from logo)
+ *
+ * Header/Footer: Sampanjac (lightest logo tone)
+ * Logo icon gradient: Sampanjac → Jantar → Espreso
+ * ============================================================
+ */
+
+:root {
+  /* ── 60% DOMINANT: Backgrounds & Surfaces ── */
+  --color-alabaster:       #F0EBE0;   /* main page background */
+  --color-pearl:           #F7F3EC;   /* card / elevated surface */
+  --color-sand:            #DDD5C4;   /* borders, dividers, input lines */
+
+  /* ── 30% SECONDARY: Text & Structure ── */
+  --color-antracit:        #1E1A16;   /* primary text, headings */
+  --color-antracit-mid:    #3A3530;   /* secondary text, nav items */
+  --color-antracit-soft:   #5A5248;   /* muted text, captions */
+
+  /* ── 10% ACCENT: Gold family from logo icon ── */
+  --color-jantar:          #A07840;   /* primary CTA, badges, hover */
+  --color-sampanjac:       #C9A96E;   /* header/footer bg, light accent */
+  --color-sampanjac-light: #EDE0C8;   /* very light tint, hover states */
+  --color-espreso:         #4A2E1A;   /* dark accent, logo shadow tone */
+
+  /* ── Semantic aliases ── */
+  --color-bg:              var(--color-alabaster);
+  --color-bg-card:         var(--color-pearl);
+  --color-bg-header:       var(--color-sampanjac-light);
+  --color-bg-footer:       var(--color-espreso);
+  --color-text:            var(--color-antracit);
+  --color-text-muted:      var(--color-antracit-soft);
+  --color-accent:          var(--color-jantar);
+  --color-accent-hover:    #8A6430;
+  --color-border:          var(--color-sand);
+  --color-white:           #FFFFFF;
+
+  /* ── Typography ── */
+  --font-display:   'Cormorant Garamond', Georgia, serif;
+  --font-body:      'DM Sans', system-ui, sans-serif;
+  --font-ui:        'DM Sans', system-ui, sans-serif;
+
+  /* ── Type scale ── */
+  --text-xs:    0.75rem;    /* 12px */
+  --text-sm:    0.875rem;   /* 14px */
+  --text-base:  1rem;       /* 16px */
+  --text-md:    1.125rem;   /* 18px */
+  --text-lg:    1.25rem;    /* 20px */
+  --text-xl:    1.5rem;     /* 24px */
+  --text-2xl:   1.875rem;   /* 30px */
+  --text-3xl:   2.25rem;    /* 36px */
+  --text-4xl:   3rem;       /* 48px */
+
+  /* ── Spacing ── */
+  --space-1:   0.25rem;
+  --space-2:   0.5rem;
+  --space-3:   0.75rem;
+  --space-4:   1rem;
+  --space-5:   1.25rem;
+  --space-6:   1.5rem;
+  --space-8:   2rem;
+  --space-10:  2.5rem;
+  --space-12:  3rem;
+  --space-16:  4rem;
+  --space-20:  5rem;
+
+  /* ── Layout ── */
+  --container-max: 1320px;
+  --header-height: 80px;
+  --header-top-height: 36px;
+
+  /* ── Radius ── */
+  --radius-sm:  2px;
+  --radius-md:  4px;
+  --radius-lg:  8px;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 3px rgba(30,26,22,0.08);
+  --shadow-md:  0 4px 16px rgba(30,26,22,0.10);
+  --shadow-lg:  0 8px 32px rgba(30,26,22,0.14);
+  --shadow-mega: 0 12px 48px rgba(30,26,22,0.16);
+
+  /* ── Transitions ── */
+  --ease-out:   cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-fast:   150ms;
+  --duration-base:   220ms;
+  --duration-slow:   350ms;
+}

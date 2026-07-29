@@ -3,6 +3,9 @@
 # drži se lokalno; u repo idu samo WP fajlovi i projektna dokumentacija.
 _NOVI-PROJEKTI/
 
+# Jednokratne setup skripte (blueprint sekcija 10) — nikad u repo, obrisati sa servera posle
+_setup/
+
 # ── OS / IDE ────────────────────────────────────────────────────────
 Thumbs.db
 desktop.ini

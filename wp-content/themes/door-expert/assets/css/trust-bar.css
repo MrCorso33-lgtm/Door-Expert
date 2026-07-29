@@ -1,0 +1,191 @@
+/*
+ * DOOR EXPERT — Trust Bar (compact light strip)
+ * ============================================================
+ * Sits immediately below the hero as a clearly separated section.
+ * Light alabaster background to contrast with the dark hero above
+ * and lead naturally into the category section below.
+ *
+ * Design: single row, compact height (~72px), icon + title only.
+ * Subtitles hidden to keep it fast to scan — this is a trust
+ * reinforcement strip, not a feature section.
+ *
+ * Research sources:
+ * - Trust Signals DoorExpert.md: stock advantage, Spanish brands,
+ *   physical address, process transparency
+ * - Business Facts: "45-day competitor wait — unclaimed territory"
+ * - UX Research line 28: address, brands, phone as Balkan trust essentials
+ * ============================================================
+ */
+
+/* ── Wrapper ─────────────────────────────────────────────────── */
+.trust-bar {
+  background: var(--color-white, #fff);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-top: 3px solid var(--color-jantar, #A07840);
+}
+
+.trust-bar__inner {
+  max-width: var(--container-max, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--space-8, 2rem);
+  display: flex;
+  align-items: stretch;
+}
+
+/* ── Individual item ─────────────────────────────────────────── */
+.trust-bar__item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3, 0.75rem);
+  padding: 1.1rem var(--space-4, 1rem);
+  border-right: 1px solid rgba(0,0,0,0.07);
+  text-decoration: none;
+  transition: background 180ms cubic-bezier(0.23,1,0.32,1);
+  cursor: default;
+}
+
+.trust-bar__item:last-child {
+  border-right: none;
+}
+
+.trust-bar__item--link {
+  cursor: pointer;
+}
+
+.trust-bar__item--link:hover {
+  background: rgba(160,120,64,0.05);
+}
+
+/* ── Icon ────────────────────────────────────────────────────── */
+.trust-bar__icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(160,120,64,0.10);
+}
+
+.trust-bar__item--link:hover .trust-bar__icon {
+  background: rgba(160,120,64,0.18);
+}
+
+.trust-bar__icon svg {
+  width: 17px;
+  height: 17px;
+  stroke: var(--color-jantar, #A07840);
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── Text ────────────────────────────────────────────────────── */
+.trust-bar__text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.trust-bar__title {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;   /* 13px — compact but readable */
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  line-height: 1.3;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trust-bar__sub {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;   /* 11px */
+  color: var(--color-antracit-soft, #6B6560);
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Stock dot ───────────────────────────────────────────────── */
+.trust-bar__stock-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4CAF50;
+  flex-shrink: 0;
+  animation: trust-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes trust-pulse {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(76,175,80,0.25); }
+  50%       { box-shadow: 0 0 0 5px rgba(76,175,80,0.06); }
+}
+
+/* ── Tablet (hide subtitle) ──────────────────────────────────── */
+@media (max-width: 1024px) {
+  .trust-bar__inner {
+    padding: 0 var(--space-5, 1.25rem);
+  }
+
+  .trust-bar__item {
+    padding: 1rem var(--space-3, 0.75rem);
+    gap: var(--space-2, 0.5rem);
+  }
+
+  .trust-bar__sub {
+    display: none;
+  }
+
+  .trust-bar__title {
+    font-size: 0.75rem;
+  }
+}
+
+/* ── Mobile: 2×2 grid ────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .trust-bar__inner {
+    flex-wrap: wrap;
+    padding: 0;
+  }
+
+  .trust-bar__item {
+    flex: 0 0 50%;
+    justify-content: flex-start;
+    border-right: none;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    padding: 0.85rem 1rem;
+  }
+
+  .trust-bar__item:nth-child(odd) {
+    border-right: 1px solid rgba(0,0,0,0.07);
+  }
+
+  .trust-bar__item:nth-child(3),
+  .trust-bar__item:nth-child(4) {
+    border-bottom: none;
+  }
+
+  .trust-bar__sub {
+    display: block;
+    font-size: 0.625rem;
+  }
+
+  .trust-bar__icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .trust-bar__icon svg {
+    width: 15px;
+    height: 15px;
+  }
+}

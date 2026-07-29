@@ -1,0 +1,342 @@
+/*
+ * DOOR EXPERT — Promo Banner with Countdown
+ * ============================================================
+ * Section 5 on homepage.
+ *
+ * Research sources:
+ * - Discounts research (line 36): "Vizuelni stil tajmera treba da
+ *   bude minimalan i tih: neutralna pozadina, tanki obrub, bez
+ *   treptanja, bez crvenih alarma."
+ * - Discounts research (line 37): "Za skuplje proizvode preferiraj
+ *   formulacije poput 'Ponuda važi do 10. jula' ili 'Aktuelna
+ *   kolekcijska cena još 4 dana' umesto hiperagresivnog 'POSLEDNJA
+ *   ŠANSA'."
+ * - Discounts research (line 39): "Tajmer nikada ne sme da bude
+ *   najupadljiviji element hero sekcije; prvo treba da se vide
+ *   proizvod, brendovi, materijali i showroom kredibilitet."
+ * - Discounts research (line 53): "Promocije uokviri kao kurirane
+ *   prilike: 'Izdvojena kolekcija', 'Showroom izbor'..."
+ * - Discounts research (line 63): "amount off" creates stronger
+ *   purchase intent for high-ticket items — show EUR saved, not
+ *   just percentage.
+ * - Business Facts: "new products go on promotion every ~2 weeks;
+ *   countdown urgency element is essential."
+ * ============================================================
+ */
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+/* Dark orah background — uses the logo's darkest tone.
+   Creates visual contrast between the light featured section above
+   and the light room-navigation section below. */
+.promo-banner {
+  background: var(--color-orah, #2C1A0E);
+  padding: var(--space-16, 4rem) 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle texture overlay — warm grain, not flat dark */
+.promo-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(160,120,64,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 80% at 5% 50%, rgba(201,169,110,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.promo-banner__inner {
+  max-width: var(--container-max, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--space-8, 2rem);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-12, 3rem);
+  align-items: center;
+}
+
+/* ── Left: content ───────────────────────────────────────────── */
+.promo-banner__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 1rem);
+}
+
+.promo-banner__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-sampanjac, #C9A96E);
+}
+
+.promo-banner__label-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-sampanjac, #C9A96E);
+  flex-shrink: 0;
+}
+
+.promo-banner__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.promo-banner__title em {
+  font-style: normal;
+  color: var(--color-sampanjac, #C9A96E);
+}
+
+.promo-banner__desc {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.9375rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.6;
+  max-width: 520px;
+  margin: 0;
+}
+
+/* ── Savings highlight ───────────────────────────────────────── */
+/* Discounts research (line 63): show EUR amount saved, not just % */
+.promo-banner__savings {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  flex-wrap: wrap;
+}
+
+.promo-banner__saving-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.promo-banner__saving-amount {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-sampanjac, #C9A96E);
+  line-height: 1;
+}
+
+.promo-banner__saving-label {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.promo-banner__saving-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.12);
+  align-self: center;
+}
+
+/* ── CTAs ────────────────────────────────────────────────────── */
+.promo-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  flex-wrap: wrap;
+}
+
+.promo-banner__cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-orah, #2C1A0E);
+  background: var(--color-sampanjac, #C9A96E);
+  border: none;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 180ms ease, transform 160ms ease;
+}
+
+.promo-banner__cta-primary:hover {
+  background: var(--color-jantar, #A07840);
+}
+
+.promo-banner__cta-primary:active {
+  transform: scale(0.97);
+}
+
+.promo-banner__cta-primary svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
+}
+
+.promo-banner__cta-primary:hover svg {
+  transform: translateX(3px);
+}
+
+.promo-banner__cta-secondary {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 1px;
+  transition: color 180ms ease, border-color 180ms ease;
+}
+
+.promo-banner__cta-secondary:hover {
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.5);
+}
+
+/* ── Right: countdown ────────────────────────────────────────── */
+/* Discounts research: minimal, calm, no blinking, no red alarms */
+.promo-banner__countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  min-width: 260px;
+}
+
+.promo-banner__countdown-label {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+}
+
+.countdown-units {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3, 0.75rem);
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.countdown-unit__value {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 300;
+  color: #fff;
+  line-height: 1;
+  min-width: 2ch;
+  text-align: center;
+  /* Subtle box — calm, not alarming */
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 3px;
+  padding: 10px 14px;
+  letter-spacing: -0.02em;
+  /* Smooth number flip */
+  transition: opacity 120ms ease;
+}
+
+.countdown-unit__label {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.5625rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.countdown-separator {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 200;
+  color: rgba(255,255,255,0.25);
+  line-height: 1;
+  margin-top: 10px;
+  align-self: flex-start;
+}
+
+/* Deadline text — "Ponuda važi do 31. jula" */
+.promo-banner__deadline {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  font-style: italic;
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .promo-banner__inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-10, 2.5rem);
+    padding: 0 var(--space-6, 1.5rem);
+  }
+
+  .promo-banner__countdown {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    min-width: 0;
+    gap: var(--space-6, 1.5rem);
+  }
+
+  .promo-banner__countdown-label {
+    width: 100%;
+    text-align: left;
+    margin-bottom: -0.5rem;
+  }
+
+  .promo-banner__deadline {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .promo-banner {
+    padding: var(--space-12, 3rem) 0;
+  }
+
+  .promo-banner__inner {
+    padding: 0 var(--space-4, 1rem);
+  }
+
+  .countdown-unit__value {
+    font-size: 1.75rem;
+    padding: 8px 10px;
+  }
+
+  .promo-banner__savings {
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .promo-banner__saving-amount {
+    font-size: 1.125rem;
+  }
+}

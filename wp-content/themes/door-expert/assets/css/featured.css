@@ -1,0 +1,414 @@
+/*
+ * DOOR EXPERT — Featured / New Products Section
+ * ============================================================
+ * Section 4 on homepage — curated product cards, not a catalogue.
+ *
+ * Research sources:
+ * - Visual research (line 87): "Use editorial curation on landing
+ *   pages — featured collections, new arrivals, favourite finishes,
+ *   real projects, designer picks — and keep exhaustive stock
+ *   browsing one step deeper behind filters."
+ * - Visual research (line 91): "selected projects" as part of the
+ *   curated showroom route.
+ * - Website UX Research (line 71): "inspiracija prvo, specifikacija
+ *   odmah zatim" — big gallery, then price, dimensions, variants, CTA.
+ * - Website UX Research (line 83): "produkt liste treba da prikažu
+ *   ključne atribute već u listingu, posebno kod spec-driven proizvoda."
+ * - Zapisnik (p.8): "'New' collections auto-surface on the homepage."
+ * - Business Facts: real prices shown; quote cart model (no checkout).
+ *   Discounts are essential — base prices set to allow frequent promos.
+ * ============================================================
+ */
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+.featured {
+  background: var(--color-white, #fff);
+  padding: var(--space-16, 4rem) 0 var(--space-20, 5rem);
+}
+
+.featured__inner {
+  max-width: var(--container-max, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--space-8, 2rem);
+}
+
+/* ── Section header ──────────────────────────────────────────── */
+.featured__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6, 1.5rem);
+  margin-bottom: var(--space-10, 2.5rem);
+}
+
+.featured__eyebrow {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-jantar, #A07840);
+  margin-bottom: var(--space-2, 0.5rem);
+}
+
+.featured__title {
+  font-family: var(--font-display, 'Cormorant Garamond', serif);
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.featured__view-all {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-jantar, #A07840);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 180ms ease, gap 180ms ease;
+}
+
+.featured__view-all:hover {
+  border-color: var(--color-jantar, #A07840);
+  gap: 10px;
+}
+
+.featured__view-all svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
+}
+
+.featured__view-all:hover svg {
+  transform: translateX(3px);
+}
+
+/* ── Tab filter ──────────────────────────────────────────────── */
+/* Lets user filter by category without leaving the page */
+.featured__tabs {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+  margin-bottom: var(--space-8, 2rem);
+  flex-wrap: wrap;
+}
+
+.featured__tab {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-antracit-soft, #6B6560);
+  background: transparent;
+  border: 1px solid var(--color-border, #DDD5C4);
+  border-radius: 2px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: all 180ms ease;
+  white-space: nowrap;
+}
+
+.featured__tab:hover {
+  border-color: var(--color-jantar, #A07840);
+  color: var(--color-jantar, #A07840);
+}
+
+.featured__tab.is-active {
+  background: var(--color-antracit, #1E1A16);
+  border-color: var(--color-antracit, #1E1A16);
+  color: #fff;
+}
+
+/* ── Product grid ────────────────────────────────────────────── */
+.featured__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5, 1.25rem);
+}
+
+/* ── Product card ────────────────────────────────────────────── */
+.prod-card {
+  background: var(--color-alabaster, #F0EBE0);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  transition: transform 240ms cubic-bezier(0.23,1,0.32,1),
+              box-shadow 240ms cubic-bezier(0.23,1,0.32,1);
+}
+
+.prod-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+}
+
+/* ── Image wrapper ───────────────────────────────────────────── */
+.prod-card__img-wrap {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #e8e0d4;
+}
+
+.prod-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(0.23,1,0.32,1);
+}
+
+.prod-card:hover .prod-card__img {
+  transform: scale(1.05);
+}
+
+/* ── Badges ──────────────────────────────────────────────────── */
+.prod-card__badges {
+  position: absolute;
+  top: var(--space-3, 0.75rem);
+  left: var(--space-3, 0.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 2;
+}
+
+.prod-badge {
+  display: inline-block;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 2px;
+  line-height: 1.4;
+}
+
+.prod-badge--new {
+  background: var(--color-antracit, #1E1A16);
+  color: #fff;
+}
+
+.prod-badge--sale {
+  /* Discounts research: visible discount is essential on this market */
+  background: #C0392B;
+  color: #fff;
+}
+
+.prod-badge--stock {
+  background: rgba(76,175,80,0.9);
+  color: #fff;
+}
+
+/* ── Wishlist button ─────────────────────────────────────────── */
+.prod-card__wishlist {
+  position: absolute;
+  top: var(--space-3, 0.75rem);
+  right: var(--space-3, 0.75rem);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 200ms ease, transform 200ms cubic-bezier(0.23,1,0.32,1),
+              background 180ms ease;
+  z-index: 2;
+}
+
+.prod-card:hover .prod-card__wishlist {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.prod-card__wishlist:hover {
+  background: #fff;
+}
+
+.prod-card__wishlist svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--color-antracit, #1E1A16);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 180ms ease, fill 180ms ease;
+}
+
+.prod-card__wishlist.is-saved svg {
+  stroke: #C0392B;
+  fill: #C0392B;
+}
+
+/* ── Card body ───────────────────────────────────────────────── */
+.prod-card__body {
+  padding: var(--space-4, 1rem) var(--space-4, 1rem) var(--space-5, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  flex: 1;
+}
+
+.prod-card__cat {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-jantar, #A07840);
+}
+
+.prod-card__name {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.prod-card__attrs {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.75rem;
+  color: var(--color-antracit-soft, #6B6560);
+  line-height: 1.5;
+}
+
+/* ── Price row ───────────────────────────────────────────────── */
+/* UX Research: "transparentnost cijene radi kao trust signal" */
+.prod-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2, 0.5rem);
+  margin-top: auto;
+  padding-top: var(--space-3, 0.75rem);
+}
+
+.prod-card__price {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-antracit, #1E1A16);
+}
+
+.prod-card__price-old {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-antracit-soft, #6B6560);
+  text-decoration: line-through;
+}
+
+.prod-card__discount {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #C0392B;
+  margin-left: auto;
+}
+
+/* ── Add to cart button ──────────────────────────────────────── */
+/* Quote cart model: "Dodaj u korpu za ponudu" */
+.prod-card__add {
+  width: 100%;
+  margin-top: var(--space-3, 0.75rem);
+  padding: 9px var(--space-4, 1rem);
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  background: transparent;
+  border: 1.5px solid var(--color-antracit, #1E1A16);
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  text-decoration: none;
+}
+
+.prod-card__add svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.prod-card__add:hover {
+  background: var(--color-antracit, #1E1A16);
+  color: #fff;
+  border-color: var(--color-antracit, #1E1A16);
+}
+
+.prod-card__add:active {
+  transform: scale(0.97);
+}
+
+/* ── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .featured__inner {
+    padding: 0 var(--space-6, 1.5rem);
+  }
+
+  .featured__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4, 1rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .featured {
+    padding: var(--space-12, 3rem) 0 var(--space-14, 3.5rem);
+  }
+
+  .featured__inner {
+    padding: 0 var(--space-4, 1rem);
+  }
+
+  .featured__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2, 0.5rem);
+    margin-bottom: var(--space-6, 1.5rem);
+  }
+
+  .featured__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .prod-card__add {
+    font-size: 0.75rem;
+    padding: 8px var(--space-3, 0.75rem);
+  }
+
+  /* Show wishlist always on mobile (no hover) */
+  .prod-card__wishlist {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
