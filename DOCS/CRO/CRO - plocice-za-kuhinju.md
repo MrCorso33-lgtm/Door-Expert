@@ -1,106 +1,123 @@
 # CRO — Pločice za kuhinju
 
 ## Primarna konverzijska svrha
-Pretvoriti posjetioce koji traže kuhinjske pločice u kupce koji dodaju proizvode u korpu i šalju upit za ponudu.
+Primarna konverzijska svrha stranice "Pločice za kuhinju" jeste generisanje kvalifikovanih upita putem "Quote cart" (korpe za upite) sistema. S obzirom na to da Door Expert posluje kao uvoznik i distributer u Podgorici, a ne kao klasična e-commerce prodavnica sa online plaćanjem, glavni cilj je motivisati korisnika da doda željene modele kuhinjskih pločica u korpu i pošalje upit za ponudu. Ovaj proces omogućava prodajnom timu da stupi u kontakt sa potencijalnim kupcem, pruži dodatne informacije o dostupnosti "odmah na stanju", ponudi eventualne popuste i zaključi prodaju. Stranica mora jasno komunicirati prednosti španske keramike i olakšati proces odabira pločica za različite kuhinjske zone (pod, splashback, zid, mozaik), kako bi korisnik osjetio sigurnost i povjerenje prilikom slanja upita.
 
 ## Sekundarni ciljevi
-- Edukacija o razlikama između zona (pod, splashback, zid) kako bi korisnik znao šta mu treba
-- Cross-sell prema podnim pločicama i zidnim pločicama za koordinirani izgled
-- Pozicioniranje španske keramike kao premium izbora koji vrijedi svaku euro
+Pored primarne svrhe, stranica ima nekoliko ključnih sekundarnih ciljeva koji direktno doprinose ukupnoj konverziji i poslovnim rezultatima:
+1. **Generisanje telefonskih poziva:** S obzirom na to da telefonski pozivi konvertuju sa izuzetno visokom stopom od oko 70%, jedan od glavnih sekundarnih ciljeva je podsticanje korisnika da pozovu prodajni salon. Broj telefona mora biti istaknut i lako dostupan na svim uređajima, posebno na mobilnim telefonima.
+2. **Posjeta fizičkom salonu u Podgorici:** Kuhinjske pločice su proizvod koji kupci često žele da vide uživo, osjete teksturu i provjere nijansu boje. Stranica treba da motiviše korisnike da posjete salon Door Expert-a, naglašavajući da su proizvodi izloženi i dostupni za pregled.
+3. **Edukacija korisnika o zonama u kuhinji:** Pomoći korisnicima da razumiju razliku između podnih pločica, pločica za zid (splashback) i mozaika, te im olakšati kombinovanje različitih serija za postizanje usklađenog izgleda.
+4. **Isticanje konkurentskih prednosti:** Jasno komuniciranje da su proizvodi "odmah na stanju" (što je glavna prednost na tržištu) i da potiču od renomiranih španskih brendova (Tau Ceramica, Arcana, New Tiles, Ribesalbes).
+5. **Cross-sell i up-sell:** Podsticanje korisnika koji kupuju podne pločice da razmotre i zidne pločice za kuhinju, i obrnuto, čime se povećava prosječna vrijednost upita.
 
 ## Mentalni model korisnika
 
 | Tip korisnika | Namjera dolaska | Emocionalno stanje | Primarni strah |
-|---|---|---|---|
-| Vlasnik koji renovira kuhinju | Traži pločice za pod i splashback | Uzbuđen ali neodlučan | Hoće li pločice izgledati dobro zajedno? |
-| Arhitekta/dizajner | Traži koordinirane kolekcije za projekat | Profesionalan, fokusiran | Dostupnost i rokovi isporuke |
-| Kupac koji gradi novi stan | Traži kompletno rješenje za kuhinju | Preopterećen izborom | Da li je cijena opravdana? |
-| Kupac koji mijenja samo splashback | Traži dekorativni akcenat | Siguran u odluku | Hoće li se uklopiti sa postojećim |
+| :--- | :--- | :--- | :--- |
+| **Renovator kuhinje (Vlasnik stana)** | Traži inspiraciju i konkretne modele pločica za novu kuhinju ili renoviranje postojeće. Želi usklađen dizajn poda i zida. | Uzbuđen, ali pomalo preplavljen izborom i tehničkim detaljima (otpornost na masnoću, održavanje). | Strah od pogrešnog izbora dizajna, strah da pločice neće biti otporne na fleke i toplotu, strah od dugog čekanja na isporuku. |
+| **Praktični kupac (Fokus na budžet)** | Traži kvalitetne, ali cjenovno pristupačne pločice. Reaguje na popuste i akcije. | Racionalan, oprezan, fokusiran na odnos cijene i kvaliteta. | Strah od skrivenih troškova, strah da jeftinije pločice znače lošiji kvalitet, strah od prevare. |
+| **Arhitekta / Dizajner enterijera** | Traži specifične španske brendove (Tau Ceramica, Arcana) za projekte svojih klijenata. Potrebne su mu tačne dimenzije i tehničke specifikacije. | Profesionalan, zahtjevan, fokusiran na estetiku i pouzdanost dobavljača. | Strah da proizvodi nisu na stanju i da će to usporiti projekat, strah od neprofesionalne usluge. |
+| **Hitni kupac (Majstor u kući)** | Majstor je već počeo sa radovima, hitno su mu potrebne pločice za splashback zonu jer su prethodne oštećene ili nedostaju. | Pod stresom, u žurbi, traži brzo rješenje. | Strah da pločice nisu "odmah na stanju", strah od kašnjenja radova. |
 
 ## Konverzijski lijevak — sekcija po sekcija
 
-### Hero sekcija
-**Cilj sekcije:** Potvrditi relevantnost i zadržati korisnika koji je tražio kuhinjske pločice
-**Konverzijski elementi:** Cijena od 16 €/m², badge "Otporne na masnoću i toplotu", CTA "Pogledaj kolekciju"
-**Friction points:** Korisnik ne zna razliku između pločica za pod i splashback
-**Rješenje:** Hero naslov "Pločice za kuhinju — otporne i elegantne" odmah komunicira ključnu prednost
+### 1. subcat-hero
+*   **Cilj sekcije:** Odmah privući pažnju, jasno komunicirati vrijednost (španska keramika, odmah na stanju) i usmjeriti korisnika ka pregledu proizvoda ili slanju upita.
+*   **Konverzijski elementi:** Snažan H1 naslov ("Pločice za kuhinju — otporne i elegantne"), podnaslov koji ističe špansko porijeklo i dostupnost, istaknut CTA dugme ("Zatraži ponudu" ili "Pogledaj asortiman"), vizuelno privlačna slika moderne kuhinje sa jasno vidljivim pločicama.
+*   **Friction points:** Previše generička slika koja ne prikazuje jasno teksturu pločica; nedostatak jasnog poziva na akciju; nejasna informacija o dostupnosti.
+*   **Rješenje:** Koristiti visokokvalitetnu sliku kuhinje sa španskim pločicama iz asortimana Door Expert-a. Dodati bedž "Odmah na stanju" blizu H1 naslova. CTA dugme mora biti u kontrastnoj boji.
 
-### Trust bar
-**Cilj sekcije:** Izgraditi povjerenje prije nego korisnik vidi cijene
-**Konverzijski elementi:** "Španski brendovi", "Na stanju odmah", "Besplatna konsultacija", "Direktan uvoz"
-**Friction points:** Korisnik može misliti da je ovo obični distributer
-**Rješenje:** "Direktan uvoz iz Španije" i "Ovlašćeni distributer" eliminišu sumnju
+### 2. subcat-benefits
+*   **Cilj sekcije:** Edukovati korisnika o ključnim prednostima kuhinjskih pločica iz ponude, rješavajući njihove primarne strahove (održavanje, otpornost).
+*   **Konverzijski elementi:** Ikone i kratki tekstovi koji naglašavaju: "Otporne na masnoću i toplotu", "Lako održavanje", "Španski kvalitet", "Usklađeni setovi (pod + zid)".
+*   **Friction points:** Previše teksta koji korisnici neće čitati; tehnički žargon koji je teško razumljiv; nedostatak vizuelnih dokaza.
+*   **Rješenje:** Koristiti jasne, prepoznatljive ikone uz kratke, benefit-orijentisane naslove. Tekst treba da bude skenabilan. Naglasiti da su pločice idealne za "splashback" zonu iza šporeta zbog otpornosti na toplotu.
 
-### Benefits sekcija
-**Cilj sekcije:** Opravdati premium cijenu španske keramike
-**Konverzijski elementi:** 6 kartica: otpornost na masnoću, lako čišćenje, otpornost na toplotu, koordinirani pod+zid, 4 brenda, odmah dostupno
-**Friction points:** Korisnik ne razumije zašto je špansko bolje od domaćeg
-**Rješenje:** Konkretne tehničke prednosti (otpornost na masnoću, toplotu) su mjerljive i razumljive
+### 3. subcat-types (zones: pod, splashback, zid, mozaik)
+*   **Cilj sekcije:** Olakšati navigaciju i odabir pločica prema specifičnoj zoni u kuhinji, što odgovara mentalnom modelu kupca koji razmišlja u zonama.
+*   **Konverzijski elementi:** Interaktivni filteri ili kartice za zone: "Podne pločice", "Splashback (između elemenata)", "Zidne pločice", "Mozaik". Prikaz proizvoda sa jasnim cijenama (ili oznakama za popust) i dugmetom "Dodaj u upit".
+*   **Friction points:** Korisnik ne zna koje dimenzije su najbolje za splashback; teško mu je da zamisli kako se podne i zidne pločice slažu; prevelik broj proizvoda bez mogućnosti filtriranja.
+*   **Rješenje:** Implementirati "Zones guide" koji kratko objašnjava preporučene dimenzije za svaku zonu (npr. manje formate ili mozaik za splashback, veće formate za pod). Omogućiti vizuelno filtriranje. Pored svakog proizvoda jasno istaći "Odmah na stanju".
 
-### Zones sekcija (Pod/Splashback/Zid/Mozaik)
-**Cilj sekcije:** Pomoći korisniku da razumije šta mu treba za svaku zonu kuhinje
-**Konverzijski elementi:** 4 kartice sa tehničkim preporukama i primjenama
-**Friction points:** Korisnik ne zna da splashback zahtijeva drugačije pločice od poda
-**Rješenje:** Vizuelni vodič po zonama eliminira konfuziju i povećava prosječnu vrijednost narudžbe
+### 4. subcat-faq
+*   **Cilj sekcije:** Odgovoriti na najčešća pitanja i otkloniti preostale sumnje koje bi mogle spriječiti korisnika da pošalje upit.
+*   **Konverzijski elementi:** Harmonika (accordion) dizajn sa pitanjima poput: "Koje su idealne dimenzije za splashback?", "Kako se održavaju pločice oko šporeta?", "Da li su španske pločice zaista bolje?".
+*   **Friction points:** Pitanja nisu relevantna za kuhinjske pločice; odgovori su previše dugi ili nejasni; nema poziva na akciju nakon čitanja FAQ-a.
+*   **Rješenje:** Fokusirati se isključivo na pitanja specifična za kuhinju (masnoća, toplota, dimenzije). Odgovori moraju biti kratki, direktni i napisani na ijekavici. Na kraju sekcije dodati mikro-CTA: "Imate još pitanja? Pozovite nas." uz istaknut broj telefona.
 
-### Product grid
-**Cilj sekcije:** Prikazati konkretne proizvode i pokrenuti dodavanje u korpu
-**Konverzijski elementi:** Filteri (zona, brend, finish, dimenzije, cijena), "Dodaj u korpu", "Dodaj u listu želja"
-**Friction points:** Previše izbora može paralizovati odluku
-**Rješenje:** Default sortiranje po popularnosti, "Preporučeno" badge na bestselerima
+### 5. subcat-crosssell
+*   **Cilj sekcije:** Povećati prosječnu vrijednost upita nudeći komplementarne proizvode.
+*   **Konverzijski elementi:** Prikaz proizvoda pod naslovom "Kompletirajte vašu kuhinju". Ako korisnik gleda podne pločice, prikazati odgovarajuće zidne pločice ili mozaik detalje.
+*   **Friction points:** Predloženi proizvodi se estetski ne slažu sa onim što korisnik trenutno gleda; sekcija izgleda kao nametljiva reklama.
+*   **Rješenje:** Koristiti logiku "Usklađeni setovi". Prikazati kombinacije koje su dizajneri Door Expert-a već uparili (npr. drvo-dekor podne pločice uz bijeli metro splashback).
 
-### FAQ sekcija
-**Cilj sekcije:** Ukloniti preostale prepreke pred konverzijom
-**Konverzijski elementi:** 7 pitanja o dimenzijama splashbacka, otpornosti na masnoću, razlici pod/zid, održavanju
-**Friction points:** Korisnik ima tehničkih pitanja ali ne želi zvati
-**Rješenje:** Proaktivni odgovori na najčešća pitanja smanjuju potrebu za pozivom
+### 6. subcat-cta-banner
+*   **Cilj sekcije:** Finalni podsticaj za konverziju na dnu stranice, hvatanje korisnika koji su skrolovali do kraja.
+*   **Konverzijski elementi:** Snažan naslov ("Posjetite naš salon u Podgorici ili zatražite ponudu online"), istaknut broj telefona, dugme za slanje upita, informacija o radnom vremenu i lokaciji.
+*   **Friction points:** Nedostatak osjećaja hitnosti; nejasno šta korisnik treba sljedeće da uradi.
+*   **Rješenje:** Ponoviti ključne prednosti: "Sve pločice su odmah na stanju. Zatražite ponudu danas i osigurajte najbolje cijene." Broj telefona mora biti klikabilan (tel: link) za mobilne korisnike.
 
 ## Friction Points — Tabela
 
 | Friction Point | Uzrok | Rješenje | Prioritet |
-|---|---|---|---|
-| Ne zna razliku pod vs splashback | Nedostatak edukacije | Zones sekcija sa jasnim opisima | High |
-| Strah da pločice neće biti koordinirane | Kupuje pod i zid odvojeno | "Iz iste kolekcije" badge na koordiniranim modelima | High |
-| Cijena izgleda visoko bez konteksta | Nema poređenja sa alternativama | "Špansko vs domaće" trust element | Medium |
-| Ne zna koliko m² treba | Nema kalkulatora | Link na kalkulator ili formula u FAQ | Medium |
-| Strah od pogrešne dimenzije splashbacka | Nestandardne dimenzije kuhinja | FAQ odgovor sa standardnim dimenzijama | Medium |
-| Nema fizički uzorak | Online kupovina bez taktilnog iskustva | "Posjetite salon — vidite uživo" CTA | Low |
-| Dostava/transport nije jasna | Nema info o dostavi na stranici | Trust bar element ili footer info | Low |
+| :--- | :--- | :--- | :--- |
+| **Korisnik ne zna da li su pločice na stanju** | Informacija o dostupnosti nije dovoljno istaknuta na karticama proizvoda. | Dodati uočljiv zeleni bedž "Odmah na stanju" na svaku karticu proizvoda i u Hero sekciju. | Visok |
+| **Strah od komplikovanog procesa naručivanja** | "Quote cart" model može biti nepoznat nekim korisnicima koji očekuju klasičnu korpu za kupovinu. | Dodati kratko objašnjenje u 3 koraka blizu korpe: 1. Izaberi pločice, 2. Pošalji upit, 3. Dobijaš ponudu sa popustom. | Visok |
+| **Nejasne dimenzije za splashback** | Korisnici nisu sigurni koje dimenzije pločica su prikladne za prostor između kuhinjskih elemenata. | Uvesti "Zones guide" u sekciji sa tipovima pločica koji jasno preporučuje dimenzije za splashback (npr. 10x20, 30x60, mozaik). | Srednji |
+| **Slabo istaknut broj telefona na mobilnim uređajima** | Broj telefona se nalazi samo u footer-u ili je sitan. | Postaviti "sticky" dugme za poziv na dnu ekrana za mobilne korisnike, jer pozivi konvertuju sa 70%. | Visok |
+| **Nedostatak povjerenja u kvalitet** | Korisnik ne prepoznaje brendove ili sumnja u porijeklo. | Jasno istaći logotipe španskih brendova (Tau Ceramica, Arcana) i dodati trust badge "100% Španska keramika". | Srednji |
 
 ## Trust Signali
-- Španski brendovi (Tau Ceramica, Arcana, New Tiles) — porijeklo je ključna diferenciacija
-- "Na stanju odmah" — jedina kompanija u CG koja to komunicira online
-- Fizički salon u Podgorici — mogućnost da se vidi uživo
-- Certifikovana otpornost na masnoću i toplotu — tehnički podaci
-- Koordinirane kolekcije — pod i zid iz iste serije
+Da bi se maksimizirala konverzija, stranica mora komunicirati pouzdanost i autoritet. Ključni trust signali za Door Expert uključuju:
+*   **Fizička lokacija:** Jasno istaknuta adresa salona u Podgorici sa Google Maps integracijom. Ovo dokazuje da je firma stvarna i dostupna.
+*   **Špansko porijeklo:** Isticanje logotipa renomiranih španskih proizvođača (Tau Ceramica, Arcana, New Tiles, Ribesalbes). Španska keramika je sinonim za kvalitet na Balkanu.
+*   **"Odmah na stanju":** Ova tvrdnja ne samo da je konkurentska prednost, već gradi povjerenje jer kupac zna da neće čekati mjesecima na isporuku.
+*   **Transparentnost procesa:** Jasno objašnjen proces slanja upita i dobijanja ponude.
+*   **Lokalizovan jezik:** Korišćenje pravilne ijekavice (porijeklo, rješenje, prijedlozi) stvara osjećaj bliskosti sa lokalnim tržištem u Crnoj Gori.
 
 ## Mobile-Specific CRO
-- Zones sekcija treba biti horizontalno scrollabilna na mobilnom (4 kartice)
-- Filteri trebaju biti u collapsible drawer, ne sidebar
-- "Pozovite nas" sticky bar je kritičan — kuhinjska renovacija je kompleksna kupovina
-- Slike proizvoda moraju biti zoomabilne na mobilnom
+S obzirom na to da veliki broj korisnika pretražuje pločice putem mobilnih uređaja, mobilna optimizacija je kritična:
+*   **Sticky Call Button:** Fiksirano dugme "Pozovite nas" na dnu ekrana tokom cijelog skrolovanja. S obzirom na 70% konverzije putem poziva, ovo je apsolutni prioritet.
+*   **Pojednostavljeni filteri:** Filteri za zone (pod, zid, splashback) moraju biti lako dostupni putem "bottom sheet" menija ili horizontalnog skrolovanja, a ne da zauzimaju previše prostora na ekranu.
+*   **Brzina učitavanja slika:** Slike visoke rezolucije moraju biti optimizovane (WebP format, lazy loading) kako bi se stranica brzo učitavala na mobilnim mrežama.
+*   **Prilagođen Quote Cart:** Proces dodavanja u korpu za upite mora zahtijevati minimalan broj klikova, sa velikim, lako dodirljivim dugmadima.
 
 ## A/B Test Prijedlozi
-1. Hero CTA: "Pogledaj kolekciju" vs "Pronađi pločice za svoju kuhinju"
-2. Zones sekcija: Vizuelni prikaz kuhinje sa označenim zonama vs kartice
-3. Sortiranje grida: Popularnost vs Cijena (rastuće) kao default
-4. FAQ pozicija: Ispod grida vs Između grida i cross-sella
+Za kontinuirano poboljšanje konverzija, predlažu se sljedeći A/B testovi:
+1.  **Testiranje CTA dugmeta u Hero sekciji:**
+    *   Varijacija A: "Zatraži ponudu" (Fokus na quote cart)
+    *   Varijacija B: "Pozovite za cijenu" (Fokus na telefonski poziv)
+    *   *Hipoteza:* S obzirom na visoku stopu konverzije poziva, Varijacija B bi mogla generisati više direktnih prodaja.
+2.  **Prikaz cijena vs. Prikaz popusta:**
+    *   Varijacija A: Prikazana redovna cijena uz dugme "Zatraži ponudu".
+    *   Varijacija B: Prikazana precrtana cijena sa istaknutim procentom popusta (npr. "-20%").
+    *   *Hipoteza:* Cjenovno osjetljivo tržište će bolje reagovati na vizuelno istaknute popuste.
+3.  **Pozicioniranje "Odmah na stanju" bedža:**
+    *   Varijacija A: Bedž na slici proizvoda.
+    *   Varijacija B: Bedž neposredno iznad CTA dugmeta "Dodaj u upit".
+    *   *Hipoteza:* Postavljanje bedža blizu tačke odluke (CTA) smanjiće trenje i povećati dodavanje u korpu.
 
 ## Šta je dobro — ne mijenjati
-- Zones sekcija (Pod/Splashback/Zid/Mozaik) je unikatna edukativna vrijednost
-- Koordinirane kolekcije kao prodajni argument
-- Španski brendovi prominentno istaknuti
+*   **Fokus na špansku keramiku:** Pozicioniranje kao distributera kvalitetne španske keramike je snažan diferencijator koji treba zadržati.
+*   **Quote cart model:** Ovaj model je odličan za B2B i B2C prodaju specifičnih građevinskih materijala gdje su potrebne konsultacije o količini i transportu. Ne treba prelaziti na klasičan e-commerce sa online plaćanjem.
+*   **Lokalno prisustvo:** Isticanje salona u Podgorici je ključno za izgradnju povjerenja.
 
 ## Prioritetni popravci
 
 ### High Priority
-- Dodati "Koordinirani set" filter koji prikazuje pod+zid iz iste kolekcije zajedno
-- Splashback dimenzije u FAQ moraju biti konkretne (standardna visina 60cm)
+1.  **Implementacija "Sticky" dugmeta za poziv na mobilnim uređajima:** Zbog 70% stope konverzije telefonskih poziva, ovo mora biti implementirano odmah.
+2.  **Isticanje "Odmah na stanju" na svim proizvodima:** Ovo je glavna konkurentska prednost i mora biti vizuelno najistaknutiji element na karticama proizvoda.
+3.  **Optimizacija Quote Cart procesa:** Učiniti proces slanja upita maksimalno jednostavnim, sa jasnim objašnjenjem koraka.
 
 ### Medium Priority
-- Kalkulator za m² (unesi dimenzije, dobij potrebnu količinu + 10% rezerve)
-- "Vidjeli ste ovo u salonu?" opcija za korisnike koji su posjetili showroom
+1.  **Kreiranje "Zones guide" sekcije:** Edukacija korisnika o razlikama između podnih, zidnih i splashback pločica značajno će smanjiti konfuziju i olakšati odabir.
+2.  **Dodavanje Trust bedževa:** Postavljanje logotipa španskih brendova i oznaka kvaliteta u Hero sekciju i blizu footer-a.
+3.  **Vizuelno isticanje popusta:** Prilagođavanje prikaza cijena kako bi popusti bili uočljiviji cjenovno osjetljivom tržištu.
 
 ### Low Priority
-- Video prikaz ugradnje splashbacka
-- Inspiracija galerija kuhinja sa ovim pločicama
+1.  **Proširenje FAQ sekcije:** Dodavanje specifičnijih pitanja o održavanju različitih tipova završne obrade (mat vs. sjaj) u kuhinji.
+2.  **Unapređenje Cross-sell logike:** Fino podešavanje algoritma za preporuku komplementarnih proizvoda (npr. predlaganje specifične boje fuge uz odabrane pločice).
+3.  **Dodavanje video materijala:** Kratki video snimci iz salona koji prikazuju teksturu pločica pod različitim osvjetljenjem.
+
+Ovaj CRO dokument pruža sveobuhvatnu strategiju za optimizaciju stranice "Pločice za kuhinju", sa posebnim fokusom na specifičnosti tržišta u Crnoj Gori, poslovni model Door Expert-a i ponašanje ciljne publike. Implementacijom navedenih rješenja, očekuje se značajan rast broja kvalifikovanih upita i telefonskih poziva.
