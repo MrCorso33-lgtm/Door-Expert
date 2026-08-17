@@ -1,0 +1,169 @@
+/*
+ * DOOR EXPERT – Brendovi ("Naši brendovi")
+ * ============================================================
+ * Izvučeno iz inline <style> prototipa brendovi.html.
+ * Tokeni mapirani na tema tokens.css:
+ *   --color-primary       → --color-antracit
+ *   --color-primary-dark  → --color-espreso
+ *   --color-bg-alt        → --color-pearl
+ * (ostali: --color-bg/-text/-accent/-text-muted/-white postoje kao aliasi)
+ *
+ * MOBILE-FIRST: bazni stilovi = mobilni; @media (min-width: 768px) naviše.
+ * ============================================================
+ */
+
+/* ── Hero ── */
+.brands-hero {
+  position: relative;
+  padding: 5rem 1.5rem 3rem;
+  background: linear-gradient(135deg, var(--color-espreso) 0%, #1a1a1a 100%);
+  text-align: center;
+  overflow: hidden;
+}
+.brands-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=1400&q=60") center/cover no-repeat;
+  opacity: 0.12;
+}
+.brands-hero__content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+.brands-hero__badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px; padding: 0.5rem 1.25rem;
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--color-accent); margin-bottom: 1.5rem;
+}
+.brands-hero__title {
+  font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 600; color: #fff; line-height: 1.15; margin: 0 0 1rem;
+}
+.brands-hero__subtitle {
+  font-size: 1.1rem; color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; line-height: 1.6;
+}
+.brands-hero__flag { font-size: 1.4rem; }
+
+/* ── Brand cards grid ── */
+.brands-section { padding: 3.5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+.brands-section--tight { padding-top: 0; }
+.brands-section__header { text-align: center; margin-bottom: 3rem; }
+.brands-section__label {
+  font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--color-accent); font-weight: 600; margin-bottom: 0.5rem;
+}
+.brands-section__title {
+  font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 600; color: var(--color-text); margin: 0;
+}
+
+.brands-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+
+.brand-card {
+  position: relative; border-radius: 1rem; overflow: hidden;
+  background: #fff; box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), box-shadow 0.3s ease;
+  text-decoration: none; color: inherit; display: flex; flex-direction: column;
+}
+.brand-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+
+/* Bathco – full-width istaknuta kartica (bila inline: grid-column/max-width/margin) */
+.brand-card--wide { grid-column: 1 / -1; max-width: 700px; margin: 0 auto; }
+.brand-card--wide .brand-card__image { height: 280px; }
+
+.brand-card__image { position: relative; height: 220px; overflow: hidden; }
+.brand-card__image img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+}
+.brand-card:hover .brand-card__image img { transform: scale(1.05); }
+.brand-card__flag {
+  position: absolute; top: 1rem; left: 1rem;
+  background: rgba(0,0,0,0.7); color: #fff; padding: 0.3rem 0.75rem;
+  border-radius: 100px; font-size: 0.75rem; font-weight: 500;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.brand-card__body { padding: 1.5rem 1.75rem 2rem; flex: 1; display: flex; flex-direction: column; }
+.brand-card__category {
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--color-accent); font-weight: 600; margin-bottom: 0.5rem;
+}
+.brand-card__name {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 600;
+  color: var(--color-text); margin: 0 0 0.75rem;
+}
+.brand-card__desc {
+  font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.6;
+  flex: 1; margin-bottom: 1.25rem;
+}
+.brand-card__meta {
+  display: flex; gap: 1rem; flex-wrap: wrap;
+  font-size: 0.78rem; color: var(--color-text-muted);
+}
+.brand-card__meta-item {
+  display: flex; align-items: center; gap: 0.3rem;
+  background: var(--color-pearl); padding: 0.3rem 0.7rem; border-radius: 4px;
+}
+.brand-card__cta {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.85rem; font-weight: 600; color: var(--color-antracit);
+  margin-top: 1rem;
+}
+.brand-card__cta svg { transition: transform 0.2s ease; }
+.brand-card:hover .brand-card__cta svg { transform: translateX(4px); }
+
+/* ── Origin section ── */
+.brands-origin { background: var(--color-pearl); padding: 3.5rem 1.5rem; }
+.brands-origin__inner {
+  max-width: 1000px; margin: 0 auto; display: grid;
+  grid-template-columns: 1fr; gap: 2rem; align-items: center;
+}
+.brands-origin__text h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600; margin: 0 0 1rem;
+}
+.brands-origin__text p { font-size: 1rem; line-height: 1.7; color: var(--color-text-muted); margin: 0 0 1.5rem; }
+.brands-origin__stats { display: flex; gap: 2rem; margin-top: 2rem; justify-content: center; flex-wrap: wrap; }
+.brands-origin__stat { text-align: center; }
+.brands-origin__stat-num {
+  font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--color-antracit);
+}
+.brands-origin__stat-label { font-size: 0.8rem; color: var(--color-text-muted); }
+.brands-origin__map {
+  position: relative; border-radius: 1rem; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+.brands-origin__map img { width: 100%; height: auto; display: block; }
+
+/* ── CTA ── */
+.brands-cta {
+  text-align: center; padding: 3.5rem 1.5rem;
+  background: linear-gradient(135deg, var(--color-espreso) 0%, #2a2015 100%);
+}
+.brands-cta h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600; color: #fff; margin: 0 0 1rem;
+}
+.brands-cta p { color: rgba(255,255,255,0.7); font-size: 1rem; margin: 0 0 2rem; }
+.brands-cta__buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.brands-cta__btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem;
+  text-decoration: none; transition: all 0.2s ease;
+}
+.brands-cta__btn--primary { background: var(--color-accent); color: #1a1a1a; }
+.brands-cta__btn--primary:hover { background: #e8c547; transform: translateY(-2px); }
+.brands-cta__btn--secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.brands-cta__btn--secondary:hover { border-color: #fff; transform: translateY(-2px); }
+
+/* ── Tablet / desktop ── */
+@media (min-width: 768px) {
+  .brands-hero { padding: 8rem 2rem 5rem; }
+  .brands-section { padding: 5rem 2rem; }
+  .brands-section--tight { padding-top: 0; }
+  .brands-grid { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
+  .brands-origin { padding: 5rem 2rem; }
+  .brands-origin__inner { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .brands-origin__stats { justify-content: flex-start; }
+  .brands-cta { padding: 5rem 2rem; }
+}
