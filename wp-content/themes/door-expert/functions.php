@@ -1,9 +1,9 @@
 <?php
 /**
- * Door Expert — functions.php
+ * Door Expert – functions.php
  *
  * Prati DOCS/WP_CUSTOM_DEV_BLUEPRINT.md (sekcije 1, 4, 7)
- * i DOCS/CSS_ARHITEKTURA.md (sekcija 2 — kondicionalni enqueue).
+ * i DOCS/CSS_ARHITEKTURA.md (sekcija 2 – kondicionalni enqueue).
  *
  * @package DoorExpert
  */
@@ -25,7 +25,7 @@ function door_expert_setup() {
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'html5', array( 'search-form', 'gallery', 'caption', 'style', 'script' ) );
 
-	// WooCommerce — prototip ima korpu i single proizvod (korpa.html, product.html).
+	// WooCommerce – prototip ima korpu i single proizvod (korpa.html, product.html).
 	add_theme_support( 'woocommerce' );
 
 	register_nav_menus(
@@ -44,7 +44,7 @@ function door_expert_setup() {
 /**
  * Verzija asseta = filemtime() -> ?ver se menja na SVAKU izmenu fajla.
  *
- * NIKAD ne koristi wp_get_theme()->get('Version') za asete — ta verzija se
+ * NIKAD ne koristi wp_get_theme()->get('Version') za asete – ta verzija se
  * menja samo ručnim bump-om, pa izmene fajla ne bustaju keš automatski.
  *
  * @param string $rel Relativna putanja od root-a teme (npr. '/assets/css/header.css').
@@ -60,7 +60,7 @@ function door_expert_ver( $rel ) {
  *
  * Tema NAMERNO ne hardkoduje URL kategorija ni bazu (/c/, /product-category/...):
  * WooCommerce sam sklapa pun URL sa trenutno podešenom bazom. Ako se baza promeni
- * (npr. `c` → `.`), tema automatski prati — ništa se ne dira u šablonima.
+ * (npr. `c` → `.`), tema automatski prati – ništa se ne dira u šablonima.
  *
  * @param string $slug product_cat slug (npr. 'klizna', 'sobna-vrata').
  * @return string URL kategorije, ili home_url('/') kao fallback ako term ne postoji.
@@ -72,7 +72,7 @@ function door_expert_cat_url( $slug ) {
 
 add_action( 'wp_enqueue_scripts', 'door_expert_enqueue_assets' );
 /**
- * Kondicionalni enqueue — svaka stranica dobija SAMO CSS koji joj treba.
+ * Kondicionalni enqueue – svaka stranica dobija SAMO CSS koji joj treba.
  *
  * Redosled/zavisnosti: tokens (:root varijable) mora prvi; sve ostalo zavisi
  * od njega da bi varijable bile dostupne. Vidi DOCS/CSS_ARHITEKTURA.md, sekcija 2.
@@ -92,9 +92,9 @@ function door_expert_enqueue_assets() {
 	);
 
 	// ── GLOBAL: svuda ─────────────────────────────────────────
-	// tokens.css nosi :root varijable — baza za sve ostalo.
+	// tokens.css nosi :root varijable – baza za sve ostalo.
 	wp_enqueue_style( 'door-expert-tokens', $uri . '/assets/css/tokens.css', array(), door_expert_ver( '/assets/css/tokens.css' ) );
-	// base.css: bazni body/html stilovi (background, font, boja, overflow) — mora posle tokens-a.
+	// base.css: bazni body/html stilovi (background, font, boja, overflow) – mora posle tokens-a.
 	wp_enqueue_style( 'door-expert-base', $uri . '/assets/css/base.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/base.css' ) );
 	wp_enqueue_style( 'door-expert-header', $uri . '/assets/css/header.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/header.css' ) );
 	wp_enqueue_style( 'door-expert-footer', $uri . '/assets/css/footer.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/footer.css' ) );
@@ -118,19 +118,77 @@ function door_expert_enqueue_assets() {
 		}
 	}
 
-	// ── TODO: ostale stranice ─────────────────────────────────
-	// Dodavati kako se konvertuju, po istom obrascu. Mapiranje prototip -> uslov:
-	//   product.html          -> is_product()          : product.css / product.js
-	//   korpa.html            -> is_cart()             : korpa.css / korpa.js
-	//   kontakt.html          -> is_page('kontakt')    : contact.css
-	//   o-nama.html           -> is_page('o-nama')     : o-nama.css
-	//   akcije.html           -> is_page('akcije')     : akcije.css / akcije.js
-	//   inspiracija.html      -> is_page('inspiracija'): inspiracija.css / inspiracija.js
-	//   sigurnosna-vrata.html -> is_tax(...)           : sigurnosna.css / sigurnosna.js
-	//   umivaonici.html       -> is_tax(...)           : umivaonici.css / umivaonici.js
-	//   plocice-*.html        -> is_tax(...)           : plocice.css / plocice.js
-	//   404.html              -> is_404()              : 404.css / 404.js
-	// Kategorijske/arhive stranice: category.css / category.js.
+	// ── KONDICIONALNO: WooCommerce kategorije (product_cat) ────
+	// category.css/js se učitava na SVIM kategorijama (sadrži i sve subcat- stilove).
+	// Familija-specific (plocice/sigurnosna/umivaonici) SAMO na svom top-level roditelju
+	// (potkategorije i sobna-vrata roditelj koriste samo category.css) – kao u prototipu.
+	if ( function_exists( 'is_product_category' ) && is_product_category() ) {
+		wp_enqueue_style( 'door-expert-category', $uri . '/assets/css/category.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/category.css' ) );
+		// subcat.css: subcat- stilovi (izvučeni iz inline <style> prototipa) – koristi ih
+		// subcategory.php (sve potkategorije + roditelji bez bespoke parta).
+		wp_enqueue_style( 'door-expert-subcat', $uri . '/assets/css/subcat.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/subcat.css' ) );
+		wp_enqueue_script( 'door-expert-category-js', $uri . '/assets/js/category.js', array(), door_expert_ver( '/assets/js/category.js' ), true );
+
+		$term = get_queried_object();
+		if ( $term instanceof WP_Term && 0 === (int) $term->parent ) {
+			$family_assets = array(
+				'keramicke-plocice' => 'plocice',
+				'sigurnosna-vrata'  => 'sigurnosna',
+				'umivaonici'        => 'umivaonici',
+			);
+			if ( isset( $family_assets[ $term->slug ] ) ) {
+				$fam = $family_assets[ $term->slug ];
+				wp_enqueue_style( 'door-expert-' . $fam, $uri . '/assets/css/' . $fam . '.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/' . $fam . '.css' ) );
+				wp_enqueue_script( 'door-expert-' . $fam . '-js', $uri . '/assets/js/' . $fam . '.js', array( 'door-expert-category-js' ), door_expert_ver( '/assets/js/' . $fam . '.js' ), true );
+			}
+		}
+	}
+
+	// ── KONDICIONALNO: WP stranice (page.php router) ──────────
+	// Mapiranje slug → {css, js}. Enqueue SAMO kad asset postoji u temi;
+	// b2b/montaza/brendovi dobijaju CSS tek kad se konvertuju (dodati unos ovdje).
+	if ( is_page() ) {
+		$page_assets = array(
+			'o-nama'      => array( 'css' => array( 'o-nama' ),      'js' => array() ),
+			'kontakt'     => array( 'css' => array( 'contact' ),     'js' => array() ),
+			'akcije'      => array( 'css' => array( 'akcije' ),      'js' => array( 'akcije' ) ),
+			'inspiracija' => array( 'css' => array( 'inspiracija' ), 'js' => array( 'inspiracija' ) ),
+			'brendovi'    => array( 'css' => array( 'brendovi' ),    'js' => array() ),
+			'new-tiles'       => array( 'css' => array( 'brand' ), 'js' => array() ),
+			'tau-ceramica'    => array( 'css' => array( 'brand' ), 'js' => array() ),
+			'arcana-ceramica' => array( 'css' => array( 'brand' ), 'js' => array() ),
+			'ribesalbes'      => array( 'css' => array( 'brand' ), 'js' => array() ),
+			'bathco'          => array( 'css' => array( 'brand' ), 'js' => array() ),
+		);
+		$de_page = get_queried_object();
+		$de_slug = ( $de_page instanceof WP_Post ) ? $de_page->post_name : '';
+		if ( isset( $page_assets[ $de_slug ] ) ) {
+			foreach ( $page_assets[ $de_slug ]['css'] as $handle ) {
+				$rel = '/assets/css/' . $handle . '.css';
+				wp_enqueue_style( 'door-expert-' . $handle, $uri . $rel, array( 'door-expert-tokens' ), door_expert_ver( $rel ) );
+			}
+			foreach ( $page_assets[ $de_slug ]['js'] as $handle ) {
+				$rel = '/assets/js/' . $handle . '.js';
+				wp_enqueue_script( 'door-expert-' . $handle . '-js', $uri . $rel, array(), door_expert_ver( $rel ), true );
+			}
+		}
+	}
+
+	// ── KONDICIONALNO: WooCommerce single proizvod + korpa ────
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		wp_enqueue_style( 'door-expert-product', $uri . '/assets/css/product.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/product.css' ) );
+		wp_enqueue_script( 'door-expert-product-js', $uri . '/assets/js/product.js', array(), door_expert_ver( '/assets/js/product.js' ), true );
+	}
+	if ( function_exists( 'is_cart' ) && is_cart() ) {
+		wp_enqueue_style( 'door-expert-korpa', $uri . '/assets/css/korpa.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/korpa.css' ) );
+		wp_enqueue_script( 'door-expert-korpa-js', $uri . '/assets/js/korpa.js', array(), door_expert_ver( '/assets/js/korpa.js' ), true );
+	}
+
+	// ── KONDICIONALNO: 404 ────────────────────────────────────
+	if ( is_404() ) {
+		wp_enqueue_style( 'door-expert-404', $uri . '/assets/css/404.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/404.css' ) );
+		wp_enqueue_script( 'door-expert-404-js', $uri . '/assets/js/404.js', array(), door_expert_ver( '/assets/js/404.js' ), true );
+	}
 
 	// ── AJAX lokalizacija ─────────────────────────────────────
 	wp_localize_script(
@@ -145,7 +203,7 @@ function door_expert_enqueue_assets() {
 }
 
 // ============================================================
-// 1.1 — Ukloni WP version meta tagove iz <head>
+// 1.1 – Ukloni WP version meta tagove iz <head>
 // ============================================================
 
 remove_action( 'wp_head', 'wp_generator' );
@@ -153,7 +211,7 @@ remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 
 // ============================================================
-// 1.2 — ?ver= cache-busting — NE SKIDATI sa tema aseta!
+// 1.2 – ?ver= cache-busting – NE SKIDATI sa tema aseta!
 // ============================================================
 //
 // ⚠️ NAJČEŠĆA GREŠKA (izgubljen dan na Saya projektu).
@@ -178,7 +236,7 @@ add_action( 'send_headers', 'door_expert_security_headers' );
 /**
  * Osnovni HTTP security headeri.
  *
- * HSTS namerno NIJE ovde — ide u .htaccess (Apache nivo), jer se PHP ne
+ * HSTS namerno NIJE ovde – ide u .htaccess (Apache nivo), jer se PHP ne
  * izvršava za keširane stranice. Vidi blueprint sekcija 5.
  */
 function door_expert_security_headers() {
@@ -191,11 +249,11 @@ function door_expert_security_headers() {
 // 3. ISKLJUČI WP BLOAT (frontend)
 // ============================================================
 
-// Emoji skripte/stilovi — ~10KB + extra request, nepotrebno.
+// Emoji skripte/stilovi – ~10KB + extra request, nepotrebno.
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );
 
-// oEmbed discovery — ne ugrađujemo tuđe postove.
+// oEmbed discovery – ne ugrađujemo tuđe postove.
 remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
 
 add_action( 'wp_footer', 'door_expert_dequeue_embed' );
@@ -221,3 +279,23 @@ function door_expert_dequeue_bloat() {
 	wp_dequeue_style( 'wp-block-library-theme' );
 	wp_dequeue_style( 'global-styles' );
 }
+
+// ============================================================
+// 4. WOOCOMMERCE INTEGRACIJA
+// ============================================================
+
+// Sadržaj kategorijskih stranica – odvojen od prikaza (Faza A: hardkodovano;
+// migracija: get_term_meta). Vidi inc/category-content.php i plan migracije na JetEngine.
+require_once get_template_directory() . '/inc/category-content.php';
+// Sadržaj/dijeljeni podaci WP stranica (page.php router) – isti obrazac razdvajanja.
+require_once get_template_directory() . '/inc/page-content.php';
+// Kontakt forma – custom AJAX handler (nonce + sanitizacija + rate limit + wp_mail).
+require_once get_template_directory() . '/inc/contact-form.php';
+// Sadržaj brend stranica (5 brendova, uniforman prikaz) – ODVOJEN od prikaza.
+require_once get_template_directory() . '/inc/brand-content.php';
+
+// Otkači default WC wrappere – naš <main> (header.php/footer.php) kontroliše layout,
+// a taxonomy-product_cat.php sam renderuje sekcije. Bez ovoga WC ubacuje svoj
+// <div class="woocommerce"> wrapper i duplira strukturu stranice.
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10 );
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
