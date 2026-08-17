@@ -1,5 +1,5 @@
 /*
- * DOOR EXPERT — Header Component
+ * DOOR EXPERT – Header Component
  * ============================================================
  * Design: Warm Sampanjac header (#EDE0C8), near-black text,
  *         amber-gold accents. Premium, light, Mediterranean feel.
@@ -119,7 +119,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-4);
 }
 
 /* ── Logo ── */
@@ -164,7 +164,7 @@
   align-items: center;
   gap: var(--space-1);
   height: 100%;
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-3);
   color: var(--color-antracit);
   text-decoration: none;
   font-size: var(--text-sm);
@@ -180,8 +180,8 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: var(--space-5);
-  right: var(--space-5);
+  left: var(--space-3);
+  right: var(--space-3);
   height: 2px;
   background: var(--color-jantar);
   transform: scaleX(0);
@@ -213,7 +213,7 @@
   opacity: 1;
 }
 
-/* Akcije link — gold highlight */
+/* Akcije link – gold highlight */
 .header-nav__link--akcije {
   color: var(--color-jantar);
   font-weight: 600;
@@ -284,7 +284,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0 var(--space-5);
+  padding: 0 var(--space-4);
   height: 40px;
   background: var(--color-antracit);
   color: var(--color-sampanjac-light);
@@ -1003,8 +1003,35 @@
 
 .mobile-phone-bar__link svg { width: 20px; height: 20px; }
 
-/* ── Responsive ── */
-@media (max-width: 1024px) {
+/* ── Responsive ──
+ * Laptop (1121–1320px): kompaktan horizontalni meni (manji font/padding/ikone) – staje
+ * bez hamburgera, broj telefona ostaje vidljiv. Tablet/mali laptop (≤1120px): hamburger
+ * + sticky phone bar (6 stavki + telefon CTA fizicki ne staju ispod ~1120px). */
+
+/* Laptop kompakcija – stegni meni da stane bez hamburgera */
+@media (min-width: 1121px) and (max-width: 1320px) {
+  .header-main__inner { gap: var(--space-3); }
+  .header-logo img { height: 38px; }
+
+  .header-nav__link {
+    padding: 0 var(--space-2);
+    font-size: 0.8125rem;      /* 13px */
+    letter-spacing: 0.02em;
+  }
+  .header-nav__link::after { left: var(--space-2); right: var(--space-2); }
+  .header-nav__link .chevron { width: 12px; height: 12px; }
+
+  .header-actions { gap: var(--space-1); }
+  .header-btn { width: 36px; height: 36px; }
+  .header-phone {
+    padding: 0 var(--space-3);
+    font-size: 0.8125rem;      /* 13px */
+    height: 38px;
+  }
+}
+
+/* Tablet / mali laptop → hamburger + sticky phone bar */
+@media (max-width: 1120px) {
   .header-nav { display: none; }
   .header-phone { display: none; }
   .header-hamburger { display: flex; }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Header — <head>, site-header (mega meni) i mobilna navigacija.
+ * Header – <head>, site-header (mega meni) i mobilna navigacija.
  *
  * Konvertovano iz prototipa header-demo.html (linije 106-731).
  * Inline <style> iz prototipa: .demo-* scaffolding je izostavljen (0 upotreba
@@ -32,12 +32,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 /*
  * TODO (pre produkcije):
- * 1. Slike u mega meniju su Unsplash placeholderi (18 komada) — zameniti
+ * 1. Slike u mega meniju su Unsplash placeholderi (18 komada) – zameniti
  *    stvarnim fotografijama proizvoda iz WP medija.
  * 2. Navigacija je hardkodirana prema prototipu (verna konverzija). Ako
  *    klijent treba sam da menja meni, prebaciti na wp_nav_menu() + custom
  *    walker ili ACF-driven mega meni. Vidi CLAUDE.md sekcija 2.
- * 3. Link na korpu koristi home_url('/korpa/') — zameniti sa wc_get_cart_url()
+ * 3. Link na korpu koristi home_url('/korpa/') – zameniti sa wc_get_cart_url()
  *    kada WooCommerce bude aktivan.
  */
 ?>
@@ -49,9 +49,9 @@ if ( ! defined( 'ABSPATH' ) ) {
       <div class="header-top__left">
         <span class="header-top__promo">
           <span class="header-top__promo-dot" aria-hidden="true"></span>
-          Vrata odmah dostupna — isporuka bez cekanja
+          Vrata odmah dostupna – isporuka bez cekanja
         </span>
-        <span class="header-top__hours">Pon–Sub: 08:00–17:00</span>
+        <span class="header-top__hours">Pon–Pet 10:00–18:00 · Sub 10:00–14:00</span>
       </div>
       <div class="header-top__right">
         <a href="<?php echo esc_url( home_url( '/o-nama/' ) ); ?>" class="header-top__link">O nama</a>
@@ -66,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="header-main__inner">
 
       <!-- Logo -->
-      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header-logo" aria-label="Door Expert — pocetna stranica">
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header-logo" aria-label="Door Expert – pocetna stranica">
         <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.webp' ); ?>" alt="Door Expert" height="44" />
       </a>
 
@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   <img
                     class="mega-menu__hero-img"
                     src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
-                    alt="Sobna vrata — enterijer"
+                    alt="Sobna vrata – enterijer"
                     loading="lazy"
                   />
                   <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
@@ -148,7 +148,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   </a>
                   <span class="mega-menu__trust">
                     <span class="mega-menu__trust-dot" aria-hidden="true"></span>
-                    Odmah dostupno — bez cekanja
+                    Odmah dostupno – bez cekanja
                   </span>
                 </div>
 
@@ -366,7 +366,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   />
                   <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
                   <div class="mega-menu__hero-content">
-                    <span class="mega-menu__hero-label">Brend Bathco — Spanija</span>
+                    <span class="mega-menu__hero-label">Brend Bathco – Spanija</span>
                     <h3 class="mega-menu__hero-title">Dekorativni umivaonici</h3>
                     <span class="mega-menu__hero-cta">
                       Pogledaj sve modele
@@ -413,7 +413,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   </a>
                   <span class="mega-menu__trust">
                     <span class="mega-menu__trust-dot" aria-hidden="true"></span>
-                    Iskljucivo Bathco — Spanija
+                    Iskljucivo Bathco – Spanija
                   </span>
                 </div>
 
@@ -461,11 +461,11 @@ if ( ! defined( 'ABSPATH' ) ) {
         </a>
 
         <!-- Phone CTA (desktop) -->
-        <a href="tel:+38269123456" class="header-phone" aria-label="Pozovite nas: +382 69 123 456">
+        <a href="tel:+38269234888" class="header-phone" aria-label="Pozovite nas: +382 69 234 888">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
           </svg>
-          +382 69 123 456
+          +382 69 234 888
         </a>
 
         <!-- Hamburger (mobile) -->
@@ -534,7 +534,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <nav class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobilna navigacija">
   <div class="mobile-nav__header">
-    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-nav__logo" aria-label="Door Expert — pocetna">
+    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-nav__logo" aria-label="Door Expert – pocetna">
       <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.webp' ); ?>" alt="Door Expert" height="36" />
     </a>
     <button class="mobile-nav__close" aria-label="Zatvori meni">
@@ -639,22 +639,22 @@ if ( ! defined( 'ABSPATH' ) ) {
   </div>
 
   <div class="mobile-nav__footer">
-    <a href="tel:+38269123456" class="mobile-nav__phone">
+    <a href="tel:+38269234888" class="mobile-nav__phone">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
       </svg>
-      Pozovite: +382 69 123 456
+      Pozovite: +382 69 234 888
     </a>
   </div>
 </nav>
 
 <!-- Sticky mobile phone bar -->
 <div class="mobile-phone-bar" aria-hidden="true">
-  <a href="tel:+38269123456" class="mobile-phone-bar__link">
+  <a href="tel:+38269234888" class="mobile-phone-bar__link">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
     </svg>
-    +382 69 123 456 — Pozovite odmah
+    +382 69 234 888 – Pozovite odmah
   </a>
 </div>
 

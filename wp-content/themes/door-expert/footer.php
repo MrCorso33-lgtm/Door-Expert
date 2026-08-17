@@ -1,10 +1,10 @@
 <?php
 /**
- * Footer — GLOBALNI elementi (na svakoj stranici): site-footer + mobilni
+ * Footer – GLOBALNI elementi (na svakoj stranici): site-footer + mobilni
  * sticky CTA. Zatvara <main> otvoren u header.php.
  *
  * Konvertovano iz prototipa header-demo.html (linije 2034-2165).
- * Napomena: 'pre-footer' NIJE ovde — per-page je (vidi front-page.php).
+ * Napomena: 'pre-footer' NIJE ovde – per-page je (vidi front-page.php).
  *
  * TODO: linkovi korpa/ponuda -> wc_get_cart_url() kad WooCommerce bude aktivan.
  * TODO: linkovi politika/uslovi/kolacici (href="#") -> stvarne WP stranice.
@@ -27,8 +27,8 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="footer-brand__tagline">Uvoznik &amp; distributer · Podgorica</div>
       </a>
       <div class="footer-brand__contact-block">
-        <a href="tel:+38269123456" class="footer-brand__phone">+382 69 123 456</a>
-        <span class="footer-brand__hours">Pon–Pet 08:00–17:00 · Sub 09:00–14:00</span>
+        <a href="tel:+38269234888" class="footer-brand__phone">+382 69 234 888</a>
+        <span class="footer-brand__hours">Pon–Pet 10:00–18:00 · Sub 10:00–14:00</span>
       </div>
     </div>
 
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       <div class="footer-col footer-brand">
         <p class="footer-brand__desc">
           Uvoznik i distributer vrata, španske keramike i Bathco umivaonika.
-          Roba na stanju — isporuka odmah, bez čekanja.
+          Roba na stanju – isporuka odmah, bez čekanja.
         </p>
         <div class="footer-social">
           <a href="https://instagram.com/doorexpert.me" target="_blank" rel="noopener" class="footer-social__link" aria-label="Instagram">
@@ -117,7 +117,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <!-- Installation disclaimer -->
     <div class="footer-disclaimer">
       <p>
-        Door Expert je uvoznik i distributer — prodajemo vrata, keramiku i kupatilske elemente.
+        Door Expert je uvoznik i distributer – prodajemo vrata, keramiku i kupatilske elemente.
         Montažu vrše nezavisni majstori koji naplaćuju direktno klijentu.
         <a href="<?php echo esc_url( home_url( '/montaza/' ) ); ?>">Saznajte više o procesu montaže.</a>
       </p>
@@ -137,10 +137,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <!-- /site-footer -->
 
 <!-- Mobile sticky CTA bar -->
-<!-- Research: Conversion Strategy — max 2 dugmeta, min 44x44px,
+<!-- Research: Conversion Strategy – max 2 dugmeta, min 44x44px,
      sticky donja traka na mobilnom povecava konverzije 5-25% -->
 <div class="mobile-sticky-cta" role="toolbar" aria-label="Brze akcije">
-  <a href="tel:+38269123456" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--call">
+  <a href="tel:+38269234888" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--call">
     <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
     Pozovite nas
   </a>
