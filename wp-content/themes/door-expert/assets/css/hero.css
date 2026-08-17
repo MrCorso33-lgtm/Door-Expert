@@ -1,10 +1,10 @@
 /*
- * DOOR EXPERT — Hero Slider
+ * DOOR EXPERT – Hero Slider
  * ============================================================
  * Design philosophy: warm restrained minimalism
- * Two manual slides (no auto-rotation — NN/g + Baymard)
+ * Two manual slides (no auto-rotation – NN/g + Baymard)
  * Slide 1: Inspirational brand statement + category routing
- * Slide 2: Promotional/urgency — aktuelna ponuda + countdown
+ * Slide 2: Promotional/urgency – aktuelna ponuda + countdown
  *
  * Research sources:
  * - UX Research for Navigation.md: manual slider, no auto-rotate
@@ -227,7 +227,7 @@
   transform: scale(0.97);
 }
 
-/* Secondary CTA — ghost */
+/* Secondary CTA – ghost */
 .hero__btn-secondary {
   display: inline-flex;
   align-items: center;
@@ -257,7 +257,7 @@
 }
 
 /* ── Trust micro-badge (stock availability) ─────────────────── */
-/* Research: Trust Signals doc — "Na lageru — odmah isporuka" as unclaimed territory */
+/* Research: Trust Signals doc – "Na lageru – odmah isporuka" as unclaimed territory */
 .hero__trust {
   display: inline-flex;
   align-items: center;
@@ -289,113 +289,10 @@
   50%       { box-shadow: 0 0 0 5px rgba(92,184,92,0.10); }
 }
 
-/* ── Category quick-links (Slide 1 only) ────────────────────── */
-.hero__categories {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 3;
-  background: rgba(30, 26, 22, 0.55);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-top: 1px solid rgba(255,255,255,0.08);
-}
-
-.hero__categories-inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--space-8);
-  display: flex;
-  align-items: stretch;
-}
-
-.hero__cat-item {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-4) var(--space-5);
-  text-decoration: none;
-  color: rgba(255,255,255,0.80);
-  font-family: var(--font-ui);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  border-right: 1px solid rgba(255,255,255,0.08);
-  transition: background var(--duration-base) var(--ease-out),
-              color var(--duration-base) var(--ease-out);
-  position: relative;
-}
-
-.hero__cat-item:last-child {
-  border-right: none;
-}
-
-.hero__cat-item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--color-jantar);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--duration-base) var(--ease-out);
-}
-
-.hero__cat-item:hover {
-  background: rgba(255,255,255,0.06);
-  color: var(--color-white);
-}
-
-.hero__cat-item:hover::after {
-  transform: scaleX(1);
-}
-
-.hero__cat-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(160,120,64,0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: background var(--duration-base) var(--ease-out);
-}
-
-.hero__cat-item:hover .hero__cat-icon {
-  background: rgba(160,120,64,0.45);
-}
-
-.hero__cat-icon svg {
-  width: 16px;
-  height: 16px;
-  stroke: var(--color-sampanjac);
-}
-
-.hero__cat-label {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.hero__cat-name {
-  font-weight: 600;
-  font-size: var(--text-sm);
-  color: var(--color-white);
-  line-height: 1.2;
-}
-
-.hero__cat-sub {
-  font-size: 11px;
-  color: rgba(255,255,255,0.50);
-  font-weight: 400;
-}
+/* ── Category quick-links (Slide 1) → sklonjeno u _shelf/home-hero-category-strip.md ── */
 
 /* ── Slide 2: Promo block ───────────────────────────────────── */
-/* Research: Discounts doc — calm countdown, real deadline, monetary savings */
+/* Research: Discounts doc – calm countdown, real deadline, monetary savings */
 .hero__promo-badge {
   display: inline-flex;
   align-items: center;
@@ -453,7 +350,7 @@
   line-height: 1.4;
 }
 
-/* Countdown timer — calm, minimal (per research guidance) */
+/* Countdown timer – calm, minimal (per research guidance) */
 .hero__countdown {
   display: flex;
   align-items: center;
@@ -669,9 +566,6 @@
 
 /* ── Responsive ─────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  .hero__categories-inner {
-    padding: 0 var(--space-6);
-  }
   .hero__content {
     padding: 0 var(--space-6);
   }
@@ -722,10 +616,6 @@
     justify-content: center;
   }
 
-  .hero__categories {
-    display: none; /* simplified on mobile per research */
-  }
-
   .hero__nav {
     bottom: var(--space-5);
     right: var(--space-5);
@@ -749,17 +639,6 @@
       rgba(30,26,22,0.30) 0%,
       rgba(30,26,22,0.85) 100%
     );
-  }
-}
-
-@media (max-width: 480px) {
-  .hero__categories-inner {
-    flex-direction: column;
-  }
-  .hero__cat-item {
-    border-right: none;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    padding: var(--space-3) var(--space-4);
   }
 }
 

@@ -9,7 +9,7 @@
  * CSS/JS za ove sekcije se kondicionalno enqueue-uju u functions.php
  * (is_front_page()). <main> otvara header.php, zatvara footer.php.
  *
- * TODO: slike u sekcijama su Unsplash placeholderi — zameniti WP medijom.
+ * TODO: slike u sekcijama su Unsplash placeholderi – zameniti WP medijom.
  * TODO: 'pre-footer' se ponavlja na vise stranica (kontakt, korpa, sigurnosna)
  *       -> kandidat za template-parts/pre-footer.php.
  *
@@ -24,7 +24,7 @@ get_header();
   <div class="hero__track">
 
     <!-- ══════════════════════════════════════
-         SLIDE 1 — Inspirativni / Brand
+         SLIDE 1 – Inspirativni / Brand
          Message: premium showroom, 4 categories, stock advantage
          CTA: Pogledaj kolekcije (primary) + Posjetite salon (secondary)
     ══════════════════════════════════════ -->
@@ -44,7 +44,7 @@ get_header();
           <span class="hero__eyebrow">Premium showroom, Podgorica</span>
 
           <!-- Headline -->
-          <!-- Research: NN/g — homepage must quickly explain who you are and what you sell -->
+          <!-- Research: NN/g – homepage must quickly explain who you are and what you sell -->
           <h1 class="hero__title">
             Vrata, keramika i<br>
             kupatilski elementi<br>
@@ -52,14 +52,14 @@ get_header();
           </h1>
 
           <!-- Subtext -->
-          <!-- Research: UX Research — "uvoznik/distributer" as advantage, not apology -->
+          <!-- Research: UX Research – "uvoznik/distributer" as advantage, not apology -->
           <p class="hero__sub">
             Direktan uvoz iz Spanije i Evrope. Pazljivo odabrani brendovi,
             fizicki salon u Podgorici, formalna ponuda bez obaveze.
           </p>
 
           <!-- CTA group -->
-          <!-- Research: Conversion Strategy — primary "Pogledaj", secondary "Salon" -->
+          <!-- Research: Conversion Strategy – primary "Pogledaj", secondary "Salon" -->
           <div class="hero__cta-group">
             <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="hero__btn-primary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
@@ -72,70 +72,24 @@ get_header();
           </div>
 
           <!-- Trust badge: stock availability -->
-          <!-- Research: Trust Signals doc + Business Facts — unclaimed territory -->
+          <!-- Research: Trust Signals doc + Business Facts – unclaimed territory -->
           <div class="hero__trust">
             <span class="hero__trust-dot" aria-hidden="true"></span>
-            Vrata na stanju — isporuka odmah. Konkurencija ceka 45+ dana.
+            Vrata na stanju – isporuka odmah. Konkurencija ceka 45+ dana.
           </div>
 
         </div>
       </div>
 
-      <!-- Category quick-links bar -->
-      <!-- Research: Visual research — "curated showroom route, hero + three category gateways" -->
-      <div class="hero__categories" role="navigation" aria-label="Brzi pristup kategorijama">
-        <div class="hero__categories-inner">
-
-          <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="hero__cat-item">
-            <span class="hero__cat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="2" width="18" height="20" rx="1"/><line x1="9" y1="12" x2="9" y2="12.5"/></svg>
-            </span>
-            <span class="hero__cat-label">
-              <span class="hero__cat-name">Sobna vrata</span>
-              <span class="hero__cat-sub">Klizna, staklena, standardna</span>
-            </span>
-          </a>
-
-          <a href="<?php echo esc_url( door_expert_cat_url( 'sigurnosna-vrata' ) ); ?>" class="hero__cat-item">
-            <span class="hero__cat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </span>
-            <span class="hero__cat-label">
-              <span class="hero__cat-name">Sigurnosna vrata</span>
-              <span class="hero__cat-sub">Za stan i kucu, sertifikovana</span>
-            </span>
-          </a>
-
-          <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="hero__cat-item">
-            <span class="hero__cat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>
-            </span>
-            <span class="hero__cat-label">
-              <span class="hero__cat-name">Keramicke plocice</span>
-              <span class="hero__cat-sub">Spanski brendovi, 7 kategorija</span>
-            </span>
-          </a>
-
-          <a href="<?php echo esc_url( door_expert_cat_url( 'umivaonici' ) ); ?>" class="hero__cat-item">
-            <span class="hero__cat-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16v4a4 4 0 01-4 4H8a4 4 0 01-4-4v-4z"/><path d="M6 12V7a2 2 0 012-2h8a2 2 0 012 2v5"/><line x1="12" y1="20" x2="12" y2="22"/></svg>
-            </span>
-            <span class="hero__cat-label">
-              <span class="hero__cat-name">Dekorativni umivaonici</span>
-              <span class="hero__cat-sub">Bathco Spanija, kameni, nadgradni</span>
-            </span>
-          </a>
-
-        </div>
-      </div>
+      <?php // [_shelf] Hero traka sa 4 kategorije sklonjena → _shelf/home-hero-category-strip.md ?>
 
     </div>
     <!-- /SLIDE 1 -->
 
     <!-- ══════════════════════════════════════
-         SLIDE 2 — Aktuelna ponuda / Promo
+         SLIDE 2 – Aktuelna ponuda / Promo
          Message: curated selection, real savings, real deadline
-         Research: Discounts doc — "kurirane prilike", monetary savings,
+         Research: Discounts doc – "kurirane prilike", monetary savings,
                    calm countdown, never reset timer
     ══════════════════════════════════════ -->
     <div class="hero__slide hero__slide--2" aria-label="Slide 2 od 2">
@@ -160,7 +114,7 @@ get_header();
         <div class="hero__inner">
 
           <!-- Promo badge -->
-          <!-- Research: Discounts doc — "kurirane prilike", not "SVE NA POPUSTU" -->
+          <!-- Research: Discounts doc – "kurirane prilike", not "SVE NA POPUSTU" -->
           <div class="hero__promo-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
             Izdvojena kolekcija jula
@@ -169,7 +123,7 @@ get_header();
           <!-- Headline -->
           <h2 class="hero__title">
             Spanska keramika<br>
-            za kupatilo —<br>
+            za kupatilo –<br>
             <em>posebna ponuda</em>
           </h2>
 
@@ -180,7 +134,7 @@ get_header();
           </p>
 
           <!-- Savings highlight -->
-          <!-- Research: Discounts doc — monetary amount > percentage for high-ticket items -->
+          <!-- Research: Discounts doc – monetary amount > percentage for high-ticket items -->
           <div class="hero__savings">
             <span class="hero__savings-amount">do 25%</span>
             <span class="hero__savings-label">popusta na<br>odabrane kolekcije</span>
@@ -192,14 +146,14 @@ get_header();
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               Pogledaj ponudu
             </a>
-            <a href="tel:+38269123456" class="hero__btn-secondary">
+            <a href="tel:+38269234888" class="hero__btn-secondary">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
               Pozovite za savjet
             </a>
           </div>
 
           <!-- Countdown -->
-          <!-- Research: Discounts doc — real deadline, calm visual, "Ponuda vazi do" framing -->
+          <!-- Research: Discounts doc – real deadline, calm visual, "Ponuda vazi do" framing -->
           <div class="hero__countdown" role="timer" aria-label="Ponuda istice za">
             <span class="hero__countdown-label">Ponuda vazi jos</span>
             <div class="hero__countdown-units">
@@ -255,15 +209,15 @@ get_header();
 
 <!-- ════════════════════════════════════════════════
      TRUST BAR
-     Immediately below hero — 4 trust signals
+     Immediately below hero – 4 trust signals
      Research: Trust Signals doc, UX Research (line 28),
                Business Facts (stock advantage = unclaimed territory)
 ════════════════════════════════════════════════ -->
 <section class="trust-bar" aria-label="Zasto Door Expert">
   <div class="trust-bar__inner">
 
-    <!-- Item 1: Stock advantage — #1 priority per Business Facts -->
-    <!-- "No local competitor communicates this online — unclaimed territory" -->
+    <!-- Item 1: Stock advantage – #1 priority per Business Facts -->
+    <!-- "No local competitor communicates this online – unclaimed territory" -->
     <div class="trust-bar__item trust-bar__item--stock">
       <div class="trust-bar__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>
@@ -273,11 +227,11 @@ get_header();
           <span class="trust-bar__stock-dot" aria-hidden="true"></span>
           Vrata odmah na stanju
         </span>
-        <span class="trust-bar__sub">Konkurencija ceka 45+ dana — mi isporucujemo odmah</span>
+        <span class="trust-bar__sub">Konkurencija ceka 45+ dana – mi isporucujemo odmah</span>
       </div>
     </div>
 
-    <!-- Item 2: Spanish origin — key differentiator for ceramics -->
+    <!-- Item 2: Spanish origin – key differentiator for ceramics -->
     <!-- Trust Signals: "španski brendovi kao signal kvaliteta porijekla" -->
     <div class="trust-bar__item">
       <div class="trust-bar__icon" aria-hidden="true">
@@ -285,11 +239,11 @@ get_header();
       </div>
       <div class="trust-bar__text">
         <span class="trust-bar__title">Direktan uvoz iz Spanije</span>
-        <span class="trust-bar__sub">Tau, Arcana, Bathco — originalni spanski brendovi</span>
+        <span class="trust-bar__sub">Tau, Arcana, Bathco – originalni spanski brendovi</span>
       </div>
     </div>
 
-    <!-- Item 3: Physical showroom — Balkan trust essential -->
+    <!-- Item 3: Physical showroom – Balkan trust essential -->
     <!-- UX Research: "fizička prodavnica, adresa, mapa" kao Balkanski trust signal -->
     <a href="<?php echo esc_url( home_url( '/kontakt/' ) ); ?>" class="trust-bar__item trust-bar__item--link">
       <div class="trust-bar__icon" aria-hidden="true">
@@ -301,7 +255,7 @@ get_header();
       </div>
     </a>
 
-    <!-- Item 4: Process transparency — reduces anxiety, per Trust Signals + UX Research -->
+    <!-- Item 4: Process transparency – reduces anxiety, per Trust Signals + UX Research -->
     <!-- "transparentnost oko procesa kupovine gradi povjerenje" -->
     <div class="trust-bar__item">
       <div class="trust-bar__icon" aria-hidden="true">
@@ -309,7 +263,7 @@ get_header();
       </div>
       <div class="trust-bar__text">
         <span class="trust-bar__title">Formalna ponuda mejlom</span>
-        <span class="trust-bar__sub">Predracun bez obaveze — vi odlucujete</span>
+        <span class="trust-bar__sub">Predracun bez obaveze – vi odlucujete</span>
       </div>
     </div>
 
@@ -318,7 +272,7 @@ get_header();
 <!-- /trust-bar -->
 
 <!-- ════════════════════════════════════════════════
-     SECTION 3 — CATEGORY GATEWAYS
+     SECTION 3 – CATEGORY GATEWAYS
      4 equal-weight cards routing into each product world.
 
      Research:
@@ -347,8 +301,8 @@ get_header();
 
       <!-- 1. SOBNA VRATA -->
       <!-- Visual research line 83: door pages lead with model families,
-           finishes, opening types — sub-tags reflect this -->
-      <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="cat-card" aria-label="Sobna vrata — pogledaj kolekciju">
+           finishes, opening types – sub-tags reflect this -->
+      <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="cat-card" aria-label="Sobna vrata – pogledaj kolekciju">
         <img
           class="cat-card__img"
           src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
@@ -373,8 +327,8 @@ get_header();
 
       <!-- 2. SIGURNOSNA VRATA -->
       <!-- Visual research line 18: "security doors as architectural
-           products" — darker badge, trust/authority treatment -->
-      <a href="<?php echo esc_url( door_expert_cat_url( 'sigurnosna-vrata' ) ); ?>" class="cat-card cat-card--security" aria-label="Sigurnosna vrata — pogledaj modele">
+           products" – darker badge, trust/authority treatment -->
+      <a href="<?php echo esc_url( door_expert_cat_url( 'sigurnosna-vrata' ) ); ?>" class="cat-card cat-card--security" aria-label="Sigurnosna vrata – pogledaj modele">
         <img
           class="cat-card__img"
           src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80"
@@ -400,7 +354,7 @@ get_header();
       <!-- 3. KERAMICKE PLOCICE -->
       <!-- Visual research line 83: tile pages more exploratory,
            sub-tags show breadth of 7 sub-categories -->
-      <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="cat-card" aria-label="Keramicke plocice — pogledaj kolekcije">
+      <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="cat-card" aria-label="Keramicke plocice – pogledaj kolekcije">
         <img
           class="cat-card__img"
           src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&q=80"
@@ -426,8 +380,8 @@ get_header();
 
       <!-- 4. DEKORATIVNI UMIVAONICI -->
       <!-- Visual research line 19: "decorative washbasins more
-           emotional and editorial — art-object framing" -->
-      <a href="<?php echo esc_url( door_expert_cat_url( 'umivaonici' ) ); ?>" class="cat-card" aria-label="Dekorativni umivaonici — pogledaj kolekciju">
+           emotional and editorial – art-object framing" -->
+      <a href="<?php echo esc_url( door_expert_cat_url( 'umivaonici' ) ); ?>" class="cat-card" aria-label="Dekorativni umivaonici – pogledaj kolekciju">
         <img
           class="cat-card__img"
           src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80"
@@ -456,7 +410,7 @@ get_header();
 <!-- /categories -->
 
 <!-- ════════════════════════════════════════════════
-     SECTION 4 — FEATURED / NEW PRODUCTS
+     SECTION 4 – FEATURED / NEW PRODUCTS
      Curated highlights, not a full catalogue.
      Research: Visual research (line 87, 91), UX Research (line 71, 83),
      Zapisnik (p.8), Business Facts (real prices, quote cart, discounts)
@@ -486,7 +440,7 @@ get_header();
 
     <div class="featured__grid">
 
-      <!-- CARD 1: Sobna vrata — new model -->
+      <!-- CARD 1: Sobna vrata – new model -->
       <article class="prod-card" data-cat="sobna">
         <div class="prod-card__img-wrap">
           <img class="prod-card__img"
@@ -503,7 +457,7 @@ get_header();
         </div>
         <div class="prod-card__body">
           <span class="prod-card__cat">Sobna vrata</span>
-          <h3 class="prod-card__name">Milano — Bijela mat</h3>
+          <h3 class="prod-card__name">Milano – Bijela mat</h3>
           <p class="prod-card__attrs">2000 × 800 mm &middot; MDF &middot; 3 dimenzije</p>
           <div class="prod-card__price-row">
             <span class="prod-card__price">189 €</span>
@@ -515,7 +469,7 @@ get_header();
         </div>
       </article>
 
-      <!-- CARD 2: Sigurnosna vrata — on sale -->
+      <!-- CARD 2: Sigurnosna vrata – on sale -->
       <article class="prod-card" data-cat="sigurnosna">
         <div class="prod-card__img-wrap">
           <img class="prod-card__img"
@@ -531,7 +485,7 @@ get_header();
         </div>
         <div class="prod-card__body">
           <span class="prod-card__cat">Sigurnosna vrata</span>
-          <h3 class="prod-card__name">Forte — Antracit</h3>
+          <h3 class="prod-card__name">Forte – Antracit</h3>
           <p class="prod-card__attrs">Za stan &middot; Klasa 3 &middot; RC3 sertifikat</p>
           <div class="prod-card__price-row">
             <span class="prod-card__price">680 €</span>
@@ -545,7 +499,7 @@ get_header();
         </div>
       </article>
 
-      <!-- CARD 3: Keramicke plocice — new collection -->
+      <!-- CARD 3: Keramicke plocice – new collection -->
       <article class="prod-card" data-cat="keramika">
         <div class="prod-card__img-wrap">
           <img class="prod-card__img"
@@ -573,7 +527,7 @@ get_header();
         </div>
       </article>
 
-      <!-- CARD 4: Umivaonik — art-object framing -->
+      <!-- CARD 4: Umivaonik – art-object framing -->
       <article class="prod-card" data-cat="umivaonici">
         <div class="prod-card__img-wrap">
           <img class="prod-card__img"
@@ -589,7 +543,7 @@ get_header();
         </div>
         <div class="prod-card__body">
           <span class="prod-card__cat">Umivaonici &middot; Bathco</span>
-          <h3 class="prod-card__name">Mueble Oval — Kameni</h3>
+          <h3 class="prod-card__name">Mueble Oval – Kameni</h3>
           <p class="prod-card__attrs">Prirodni kamen &middot; Oval oblik &middot; Bijeli</p>
           <div class="prod-card__price-row">
             <span class="prod-card__price">320 €</span>
@@ -609,7 +563,7 @@ get_header();
 <!-- /featured -->
 
 <!-- ════════════════════════════════════════════════
-     SECTION 5 — PROMO BANNER WITH COUNTDOWN
+     SECTION 5 – PROMO BANNER WITH COUNTDOWN
      Research: Discounts doc (line 36-39, 53, 63)
      Calm, premium urgency. Real deadline. EUR savings shown.
 ════════════════════════════════════════════════ -->
@@ -635,7 +589,7 @@ get_header();
         isporuka odmah.
       </p>
 
-      <!-- EUR savings — Discounts research (line 63):
+      <!-- EUR savings – Discounts research (line 63):
            "amount off" creates stronger purchase intent for
            high-ticket items than percentage alone -->
       <div class="promo-banner__savings">
@@ -660,7 +614,7 @@ get_header();
           Pogledaj ponudu
           <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <a href="tel:+38269123456" class="promo-banner__cta-secondary">
+        <a href="tel:+38269234888" class="promo-banner__cta-secondary">
           Pozovite za savjet
         </a>
       </div>
@@ -711,7 +665,7 @@ get_header();
 <!-- /promo-banner -->
 
 <!-- ════════════════════════════════════════════════
-     SECTION 6 — ROOM-BASED NAVIGATION
+     SECTION 6 – ROOM-BASED NAVIGATION
      Research: UX Navigation (line 7-9), Zapisnik sastanka
      Secondary discovery path: room → atmospheric image + products
      Cross-sell: bathroom = tiles + washbasin + interior door
@@ -1053,7 +1007,7 @@ get_header();
           <p class="room-panel__crosssell-text">
             <strong>Savjet:</strong> Prosječan stan ima 5 unutrašnjih vrata. Pitajte za paketnu cijenu.
           </p>
-          <a href="tel:+38269123456" class="room-panel__crosssell-link">
+          <a href="tel:+38269234888" class="room-panel__crosssell-link">
             Pozovite za paketnu cijenu
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -1078,7 +1032,7 @@ get_header();
 <!-- /room-nav -->
 
 <!-- ════════════════════════════════════════════════
-     SECTION 7 — BRAND STRIP
+     SECTION 7 – BRAND STRIP
      Research: Business Facts (Spanish origin = biggest advantage)
      Trust Signals doc: brendovi kao signal kvaliteta porijekla
      Brands: New Tiles, Arcana Ceramica, Tau Ceramica,
@@ -1165,7 +1119,7 @@ get_header();
 <!-- /brand-strip -->
 
 <!-- ════════════════════════════════════════════════
-     SECTION 8 — INSTAGRAM FEED
+     SECTION 8 – INSTAGRAM FEED
      Research: Zapisnik sastanka (dno stranice, iznad footera)
      Website UX Research: "Instagram donosi 70% kupaca"
      Conversion Strategy: nikad na vrhu (ne slati korisnike sa sajta)
@@ -1288,7 +1242,7 @@ get_header();
 
 <!-- ════════════════════════════════════════════════
      PRE-FOOTER CTA STRIP
-     Research: Conversion Strategy — conversion priority:
+     Research: Conversion Strategy – conversion priority:
      (1) quote inquiry, (2) phone call, (3) showroom visit
 ════════════════════════════════════════════════ -->
 <section class="pre-footer" aria-label="Poziv na akciju">
@@ -1296,14 +1250,14 @@ get_header();
     <div class="pre-footer__text">
       <span class="pre-footer__eyebrow">Door Expert · Podgorica</span>
       <h2 class="pre-footer__title">Posjetite nas ili zatražite ponudu</h2>
-      <p class="pre-footer__subtitle">Roba na stanju. Formalna ponuda mejlom — bez obaveze.</p>
+      <p class="pre-footer__subtitle">Roba na stanju. Formalna ponuda mejlom – bez obaveze.</p>
     </div>
     <div class="pre-footer__actions">
       <a href="<?php echo esc_url( home_url( '/korpa/' ) ); ?>" class="pre-footer__btn pre-footer__btn--primary">
         <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
         Zatražite ponudu
       </a>
-      <a href="tel:+38269123456" class="pre-footer__btn pre-footer__btn--secondary">
+      <a href="tel:+38269234888" class="pre-footer__btn pre-footer__btn--secondary">
         <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         Pozovite nas
       </a>
