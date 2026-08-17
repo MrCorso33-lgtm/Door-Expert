@@ -1,0 +1,148 @@
+/*
+ * DOOR EXPERT – Brand single page (zajednički za svih 5 brendova)
+ * ============================================================
+ * Izvučeno iz inline <style> prototipa {brand}.html (identično kroz sve brendove
+ * osim hero/CTA gradijenta i hero slike). Te tri vrijednosti su per-brend i
+ * postavljaju se preko wrappera `.brand-page` kao custom properties:
+ *   --brand-grad-a, --brand-grad-b  (hero + products-cta gradijent)
+ *   --brand-hero-img                (url() hero pozadinske slike)
+ *
+ * Tokeni: --color-bg-alt → --color-pearl (ostali aliasi postoje u tokens.css).
+ * MOBILE-FIRST: bazni stilovi = mobilni; @media (min-width: 768px) naviše.
+ * ============================================================
+ */
+
+/* ── Hero ── */
+.brand-hero {
+  position: relative; min-height: 420px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--brand-grad-a, #2c1810) 0%, var(--brand-grad-b, #1a1a1a) 100%);
+  overflow: hidden; padding: 5rem 1.5rem 3rem;
+}
+.brand-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--brand-hero-img, none) center/cover no-repeat;
+  opacity: 0.15;
+}
+.brand-hero__content { position: relative; z-index: 2; text-align: center; max-width: 800px; }
+.brand-hero__breadcrumb {
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.brand-hero__breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; }
+.brand-hero__breadcrumb a:hover { color: #fff; }
+.brand-hero__badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 100px; padding: 0.5rem 1.25rem;
+  font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--color-accent); margin-bottom: 1.5rem;
+}
+.brand-hero__title {
+  font-family: var(--font-display); font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 600; color: #fff; margin: 0 0 1rem; line-height: 1.1;
+}
+.brand-hero__subtitle {
+  font-size: 1.1rem; color: rgba(255,255,255,0.8); max-width: 600px;
+  margin: 0 auto; line-height: 1.6;
+}
+
+/* ── About section ── */
+.brand-about { padding: 3.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+.brand-about__grid {
+  display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;
+}
+.brand-about__text h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600; margin: 0 0 1.25rem;
+}
+.brand-about__text p { font-size: 1rem; line-height: 1.7; color: var(--color-text-muted); margin: 0 0 1rem; }
+.brand-about__facts {
+  display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem;
+}
+.brand-about__fact {
+  background: var(--color-pearl); padding: 1.25rem; border-radius: 0.75rem;
+}
+.brand-about__fact-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent); font-weight: 600; margin-bottom: 0.3rem; }
+.brand-about__fact-value { font-size: 0.95rem; font-weight: 500; color: var(--color-text); }
+.brand-about__image { border-radius: 1rem; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+.brand-about__image img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 350px; }
+
+/* ── Collections section ── */
+.brand-collections { padding: 3.5rem 1.5rem; background: var(--color-pearl); }
+.brand-collections__inner { max-width: 1100px; margin: 0 auto; }
+.brand-collections__header { text-align: center; margin-bottom: 3rem; }
+.brand-collections__label {
+  font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.15em;
+  color: var(--color-accent); font-weight: 600; margin-bottom: 0.5rem;
+}
+.brand-collections__title {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600; margin: 0;
+}
+.brand-collections__grid {
+  display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+}
+.collection-card {
+  background: #fff; border-radius: 0.75rem; overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), box-shadow 0.3s ease;
+}
+.collection-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.collection-card__image { height: 180px; overflow: hidden; }
+.collection-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+.collection-card:hover .collection-card__image img { transform: scale(1.05); }
+.collection-card__body { padding: 1.25rem; }
+.collection-card__name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin: 0 0 0.5rem; }
+.collection-card__desc { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0; }
+
+/* ── Values section ── */
+.brand-values { padding: 3.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+.brand-values__header { text-align: center; margin-bottom: 3rem; }
+.brand-values__title {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600; margin: 0;
+}
+.brand-values__grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+.value-card {
+  text-align: center; padding: 2rem 1.5rem;
+  background: var(--color-pearl); border-radius: 1rem;
+}
+.value-card__icon { font-size: 2rem; margin-bottom: 1rem; }
+.value-card__title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin: 0 0 0.75rem; }
+.value-card__desc { font-size: 0.85rem; color: var(--color-text-muted); line-height: 1.5; margin: 0; }
+
+/* ── Products CTA ── */
+.brand-products-cta {
+  padding: 3rem 1.5rem; text-align: center;
+  background: linear-gradient(135deg, var(--brand-grad-a, #2c1810) 0%, var(--brand-grad-b, #1a1a1a) 100%);
+}
+.brand-products-cta h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600; color: #fff; margin: 0 0 1rem;
+}
+.brand-products-cta p { color: rgba(255,255,255,0.75); font-size: 1rem; margin: 0 0 2rem; }
+.brand-products-cta__buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.brand-products-cta__btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.9rem 2rem; border-radius: 6px; font-weight: 600; font-size: 0.9rem;
+  text-decoration: none; transition: all 0.2s ease;
+}
+.brand-products-cta__btn--primary { background: var(--color-accent); color: #1a1a1a; }
+.brand-products-cta__btn--primary:hover { background: #e8c547; transform: translateY(-2px); }
+.brand-products-cta__btn--secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+.brand-products-cta__btn--secondary:hover { border-color: #fff; transform: translateY(-2px); }
+
+/* ── Tablet / desktop ── */
+@media (min-width: 768px) {
+  .brand-hero { padding: 7rem 2rem 4rem; }
+  .brand-about { padding: 5rem 2rem; }
+  .brand-about__grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+  .brand-about__facts { grid-template-columns: 1fr 1fr; }
+  .brand-collections { padding: 5rem 2rem; }
+  .brand-collections__grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .brand-values { padding: 5rem 2rem; }
+  .brand-values__grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .brand-products-cta { padding: 4rem 2rem; }
+}
