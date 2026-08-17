@@ -1,5 +1,5 @@
 /*
- * 404.CSS — Door Expert
+ * 404.CSS – Door Expert
  * REDESIGN: Luxury editorial with cinematic door image
  * Full-page immersive hero + recovery hub
  * ─────────────────────────────────────────────
@@ -18,7 +18,7 @@
   overflow: hidden;
 }
 
-/* Background image — cinematic door */
+/* Background image – cinematic door */
 .e404-hero__bg {
   position: absolute;
   inset: 0;
@@ -78,7 +78,7 @@
   justify-content: center;
 }
 
-/* Large "404" number — right side */
+/* Large "404" number – right side */
 .e404-big-number {
   font-family: var(--font-display, 'Cormorant Garamond', serif);
   font-size: clamp(10rem, 18vw, 20rem);
@@ -352,7 +352,7 @@
   margin: 0;
 }
 
-/* Category grid — 4 columns */
+/* Category grid – 4 columns */
 .e404-categories__grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -397,7 +397,7 @@
   background: linear-gradient(180deg, transparent 20%, rgba(13,6,2,0.9) 100%);
 }
 
-/* Card body — positioned at bottom */
+/* Card body – positioned at bottom */
 .e404-cat-card__body {
   position: absolute;
   bottom: 0;

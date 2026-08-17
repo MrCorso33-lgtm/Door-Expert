@@ -1,5 +1,5 @@
 /**
- * 404.JS — Door Expert
+ * 404.JS – Door Expert
  * Search, chip suggestions, cart count
  */
 

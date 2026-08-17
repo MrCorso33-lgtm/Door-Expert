@@ -1,11 +1,11 @@
 /*
- * DOOR EXPERT — Global base
+ * DOOR EXPERT – Global base
  * ============================================================
  * Bazni stilovi koji se učitavaju SVUDA, odmah posle tokens.css.
  *
  * Izvučeno iz prototipa header-demo.html (inline <style>, linije 27-34).
  * U prototipu je taj blok bio označen kao "Demo page scaffolding only",
- * ali su OVE rule stvarni bazni stilovi (ne demo) — ostatak (.demo-*) je
+ * ali su OVE rule stvarni bazni stilovi (ne demo) – ostatak (.demo-*) je
  * scaffolding i namerno je izostavljen pri konverziji.
  *
  * Varijable (--color-bg, --font-body, --color-text) dolaze iz tokens.css.

@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — Header Interactions
+ * DOOR EXPERT – Header Interactions
  * ============================================================
  * - Scroll-aware sticky header (adds .scrolled class)
  * - Mega menu: hover on desktop, keyboard accessible

@@ -5,7 +5,7 @@
  * WordPress hijerarhija koristi index.php kada nema specifičnijeg templejta.
  * Za ovu temu, specifične stranice imaju svoje templejte (front-page.php i,
  * kako se konvertuju, page-*.php / single-*.php / archive-*.php). Ovaj fajl je
- * sigurnosna mreža — nikad ne sme da bude prazan (WP zahteva index.php).
+ * sigurnosna mreža – nikad ne sme da bude prazan (WP zahteva index.php).
  *
  * @package DoorExpert
  */

@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — Product Page JS
+ * DOOR EXPERT – Product Page JS
  * ============================================================
  * Handles:
  *  1. URL param ?tip= to switch between vrata / plocice / umivaonik
@@ -22,27 +22,27 @@
   'use strict';
 
   /* ============================================================
-     PRODUCT DATA — one object per variant
+     PRODUCT DATA – one object per variant
      ============================================================ */
   const PRODUCTS = {
     vrata: {
       category: 'Sobna vrata',
       name: 'Linea',
-      subname: 'Bijela mat — minimalistička linija',
+      subname: 'Bijela mat – minimalistička linija',
       badge: 'Sobna vrata',
       bcCategory: 'Sobna vrata',
       bcCategoryHref: 'sobna-vrata.html',
-      bcProduct: 'Linea — Bijela mat',
+      bcProduct: 'Linea – Bijela mat',
       priceUnit: 'Cijena po komadu, sa štok-okvirom. PDV uključen.',
       qtyLabel: 'Količina',
       images: [
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-main_c9f69a73.png',
-          alt: 'Linea — Bijela mat, frontalni prikaz'
+          alt: 'Linea – Bijela mat, frontalni prikaz'
         },
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-lifestyle_2446a5fe.png',
-          alt: 'Linea — Bijela mat u enterijeru'
+          alt: 'Linea – Bijela mat u enterijeru'
         },
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-detail_ce9d4153.png',
@@ -50,7 +50,7 @@
         },
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-white_b2dfc901.png',
-          alt: 'Bijela mat varijanta — bočni prikaz'
+          alt: 'Bijela mat varijanta – bočni prikaz'
         }
       ],
       defaultPrice: '285 EUR',
@@ -60,7 +60,7 @@
     plocice: {
       category: 'Keramičke pločice · Tau Ceramica',
       name: 'Marmo Blanco',
-      subname: 'Travertin efekt — bijele nijanse, suptilne žile',
+      subname: 'Travertin efekt – bijele nijanse, suptilne žile',
       badge: 'Keramičke pločice',
       bcCategory: 'Keramičke pločice',
       bcCategoryHref: '/keramicke-plocice/',
@@ -70,7 +70,7 @@
       images: [
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-tile-main_0b3bb677.png',
-          alt: 'Marmo Blanco — prikaz pločica'
+          alt: 'Marmo Blanco – prikaz pločica'
         },
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-tile-lifestyle_a127d64f.png',
@@ -88,17 +88,17 @@
     umivaonik: {
       category: 'Umivaonici · Bathco Španija',
       name: 'Mueble Oval',
-      subname: 'Nadgradni porcelanski umivaonik — oval forma',
+      subname: 'Nadgradni porcelanski umivaonik – oval forma',
       badge: 'Bathco · Španija',
       bcCategory: 'Umivaonici',
       bcCategoryHref: '/umivaonici/',
-      bcProduct: 'Mueble Oval — Bijeli',
+      bcProduct: 'Mueble Oval – Bijeli',
       priceUnit: 'Cijena po komadu. PDV uključen. Slavina nije uključena.',
       qtyLabel: 'Količina',
       images: [
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-basin-main_bc4d382e.png',
-          alt: 'Mueble Oval — bijeli mat, prikaz'
+          alt: 'Mueble Oval – bijeli mat, prikaz'
         },
         {
           src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-basin-lifestyle_9b466068.png',
@@ -116,7 +116,7 @@
   };
 
   /* ============================================================
-     INIT — read URL param and set page state
+     INIT – read URL param and set page state
      ============================================================ */
   function init() {
     const params = new URLSearchParams(window.location.search);
@@ -167,7 +167,7 @@
     }
 
     // Page title
-    document.title = `${p.name} — ${p.subname.split('—')[0].trim()} | Door Expert Podgorica`;
+    document.title = `${p.name} – ${p.subname.split('–')[0].trim()} | Door Expert Podgorica`;
   }
 
   /* ============================================================

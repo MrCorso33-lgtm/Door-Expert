@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — Keramičke pločice page JS
+ * DOOR EXPERT – Keramičke pločice page JS
  * ==========================================
  * - Brand filter (top strip)
  * - Subcategory filter (namjena tabs)
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('result-total').textContent = totalWithWaste.toFixed(2) + ' m²';
       document.getElementById('result-price').textContent = totalPrice
         ? Math.ceil(totalPrice) + ' EUR'
-        : '—';
+        : '–';
 
       if (calcResult) {
         calcResult.style.display = 'block';

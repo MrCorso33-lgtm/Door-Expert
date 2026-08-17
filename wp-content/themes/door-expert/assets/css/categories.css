@@ -1,13 +1,13 @@
 /*
- * DOOR EXPERT — Category Gateways Section
+ * DOOR EXPERT – Category Gateways Section
  * ============================================================
- * Section 3 on homepage — 4 equal-weight category cards.
+ * Section 3 on homepage – 4 equal-weight category cards.
  *
  * Research sources:
  * - Visual research (line 91): "curated showroom route: hero,
- *   three category gateways..." — equal visual weight required.
+ *   three category gateways..." – equal visual weight required.
  * - Zapisnik sastanka (p.1): "Aleksandra želi da se i prodaja
- *   keramike podigne na nivo prodaje vrata — jednaka vizuelna
+ *   keramike podigne na nivo prodaje vrata – jednaka vizuelna
  *   težina."
  * - Website UX Research (line 72): "Homepage i navigacija treba
  *   da daju jednaku vizuelnu težinu vratima i keramici/kupatilu."
@@ -140,7 +140,7 @@
   filter: brightness(0.62) saturate(1.0);
 }
 
-/* ── Gradient overlay — ensures text legibility ──────────────── */
+/* ── Gradient overlay – ensures text legibility ──────────────── */
 /* Visual research common pitfalls: text over images needs gradient */
 .cat-card__overlay {
   position: absolute;
@@ -174,7 +174,7 @@
   z-index: 2;
 }
 
-/* Security door badge gets a special treatment — trust/authority */
+/* Security door badge gets a special treatment – trust/authority */
 /* Visual research line 18: "security doors as architectural products" */
 .cat-card--security .cat-card__badge {
   background: rgba(160,120,64,0.25);
@@ -312,7 +312,7 @@
   }
 
   .cat-card__subs {
-    display: none; /* hide sub-tags on small mobile — keep it clean */
+    display: none; /* hide sub-tags on small mobile – keep it clean */
   }
 
   .cat-card__cta {

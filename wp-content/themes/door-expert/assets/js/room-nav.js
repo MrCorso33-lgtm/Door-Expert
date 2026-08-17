@@ -1,8 +1,8 @@
 /**
- * DOOR EXPERT — Room Navigation Tab Switcher
+ * DOOR EXPERT – Room Navigation Tab Switcher
  * ============================================================
  * Handles animated tab switching for the room-based navigation.
- * Research: UX Research Navigation (line 7-9) — room nav as
+ * Research: UX Research Navigation (line 7-9) – room nav as
  * secondary discovery path, atmospheric image + products.
  * ============================================================
  */

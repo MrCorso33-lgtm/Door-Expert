@@ -1,5 +1,5 @@
 /*
- * DOOR EXPERT — Promo Banner with Countdown
+ * DOOR EXPERT – Promo Banner with Countdown
  * ============================================================
  * Section 5 on homepage.
  *
@@ -17,7 +17,7 @@
  * - Discounts research (line 53): "Promocije uokviri kao kurirane
  *   prilike: 'Izdvojena kolekcija', 'Showroom izbor'..."
  * - Discounts research (line 63): "amount off" creates stronger
- *   purchase intent for high-ticket items — show EUR saved, not
+ *   purchase intent for high-ticket items – show EUR saved, not
  *   just percentage.
  * - Business Facts: "new products go on promotion every ~2 weeks;
  *   countdown urgency element is essential."
@@ -25,7 +25,7 @@
  */
 
 /* ── Section wrapper ─────────────────────────────────────────── */
-/* Dark orah background — uses the logo's darkest tone.
+/* Dark orah background – uses the logo's darkest tone.
    Creates visual contrast between the light featured section above
    and the light room-navigation section below. */
 .promo-banner {
@@ -35,7 +35,7 @@
   overflow: hidden;
 }
 
-/* Subtle texture overlay — warm grain, not flat dark */
+/* Subtle texture overlay – warm grain, not flat dark */
 .promo-banner::before {
   content: '';
   position: absolute;
@@ -252,7 +252,7 @@
   line-height: 1;
   min-width: 2ch;
   text-align: center;
-  /* Subtle box — calm, not alarming */
+  /* Subtle box – calm, not alarming */
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.10);
   border-radius: 3px;
@@ -281,7 +281,7 @@
   align-self: flex-start;
 }
 
-/* Deadline text — "Ponuda važi do 31. jula" */
+/* Deadline text – "Ponuda važi do 31. jula" */
 .promo-banner__deadline {
   font-family: var(--font-ui, 'DM Sans', sans-serif);
   font-size: 0.6875rem;

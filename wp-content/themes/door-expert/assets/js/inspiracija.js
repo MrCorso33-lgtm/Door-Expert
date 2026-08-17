@@ -1,5 +1,5 @@
 /**
- * INSPIRACIJA.JS — Door Expert
+ * INSPIRACIJA.JS – Door Expert
  * Room filter tabs, grid category filter, load more, hotspot tags
  */
 
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadMoreBtn.addEventListener('click', () => {
       // In production, this would fetch more items from the server
       // For prototype: show a toast message
-      showToast('Učitavanje dodatnih projekata — funkcija dostupna u WordPress verziji');
+      showToast('Učitavanje dodatnih projekata – funkcija dostupna u WordPress verziji');
     });
   }
 

@@ -1,5 +1,5 @@
 /**
- * korpa.js — Quote Cart / Korpa za ponudu
+ * korpa.js – Quote Cart / Korpa za ponudu
  * Door Expert · Luxury Minimalist Prototype
  *
  * Features:
@@ -388,7 +388,7 @@
 
         if (navigator.share) {
           navigator.share({
-            title: 'Moja lista — Door Expert',
+            title: 'Moja lista – Door Expert',
             text: 'Pogledaj moju listu sačuvanih proizvoda na Door Expert sajtu.',
             url: url,
           }).catch(function () {
@@ -403,7 +403,7 @@
     const pdfBtn = document.getElementById('share-pdf-btn');
     if (pdfBtn) {
       pdfBtn.addEventListener('click', function () {
-        showToast('PDF export — dostupno u WordPress verziji sajta');
+        showToast('PDF export – dostupno u WordPress verziji sajta');
       });
     }
   }

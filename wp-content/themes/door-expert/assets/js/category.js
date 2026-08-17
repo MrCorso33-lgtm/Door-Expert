@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — Category Page JS
+ * DOOR EXPERT – Category Page JS
  * Handles: subcategory tab switching, filter groups, active filter chips,
  *          mobile filter drawer, sort, wishlist, add-to-cart
  */

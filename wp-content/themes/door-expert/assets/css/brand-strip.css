@@ -1,20 +1,20 @@
 /*
- * DOOR EXPERT — Brand Strip (Section 7)
+ * DOOR EXPERT – Brand Strip (Section 7)
  * ============================================================
  * Research sources:
  * - Business Facts: "Spanish origin is the single biggest selling
  *   advantage and must be prominent."
- * - Business Facts: "Brand strip placed LOWER on the page —
+ * - Business Facts: "Brand strip placed LOWER on the page –
  *   visible but not dominating the top."
  * - Business Facts: "Door brands NOT highlighted (factories in
  *   Russia/Ukraine, no public brand names). Ceramic and washbasin
  *   brands ARE highlighted."
  * - Trust Signals doc: "Poznati brendovi keramike i sanitarija
  *   (španski proizvođači) trebaju se predstaviti preko logoa i
- *   naslova... 'direktan uvoz iz Španije — garancija originalnog
+ *   naslova... 'direktan uvoz iz Španije – garancija originalnog
  *   kvaliteta'."
  * - Zapisnik sastanka: "Brand strip (ceramic brands + Bathco)
- *   placed LOWER on the page — visible but not dominating."
+ *   placed LOWER on the page – visible but not dominating."
  * ============================================================
  */
 
@@ -105,7 +105,7 @@
   transform: translateY(-2px);
 }
 
-/* Spain badge — top right corner */
+/* Spain badge – top right corner */
 .brand-card__spain-badge {
   position: absolute;
   top: 10px;

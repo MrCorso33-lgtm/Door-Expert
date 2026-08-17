@@ -1,6 +1,6 @@
 /*
- * O NAMA — Door Expert
- * Design: Editorial Showroom — luxury/minimalist
+ * O NAMA – Door Expert
+ * Design: Editorial Showroom – luxury/minimalist
  * Tokens: tokens.css (boje, fontovi, spacing)
  * ─────────────────────────────────────────────
  */
@@ -98,7 +98,7 @@
   background: rgba(255,255,255,0.1);
 }
 
-/* ─── HERO — SPLIT SCREEN ────────────────────── */
+/* ─── HERO – SPLIT SCREEN ────────────────────── */
 .onama-hero {
   display: grid;
   grid-template-columns: 55% 45%;

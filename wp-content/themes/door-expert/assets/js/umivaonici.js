@@ -1,5 +1,5 @@
 /**
- * umivaonici.js — Dekorativni umivaonici Bathco
+ * umivaonici.js – Dekorativni umivaonici Bathco
  * Handles: shape navigation, product filters, color swatches, cart
  */
 

@@ -1,12 +1,12 @@
 /*
- * DOOR EXPERT — Footer (Luxury Redesign)
+ * DOOR EXPERT – Footer (Luxury Redesign)
  * ============================================================
  * Design philosophy: "Editorial Showroom"
  * - Deep near-black base with warm espresso undertones
- * - Gold (jantar/sampanjac) as the only accent — used sparingly
+ * - Gold (jantar/sampanjac) as the only accent – used sparingly
  * - Cormorant Garamond for brand wordmark in footer
  * - Generous whitespace, hairline gold dividers
- * - Depth via layered gradients + grain texture — NOT flat
+ * - Depth via layered gradients + grain texture – NOT flat
  * ============================================================
  */
 
@@ -139,7 +139,7 @@
   color: rgba(255,255,255,0.70);
   overflow: hidden;
 }
-/* Grain texture — kills flatness */
+/* Grain texture – kills flatness */
 .site-footer::before {
   content: '';
   position: absolute; inset: 0;
@@ -147,7 +147,7 @@
   background-size: 300px 300px;
   pointer-events: none; z-index: 0;
 }
-/* Warm radial glow — top left */
+/* Warm radial glow – top left */
 .site-footer::after {
   content: '';
   position: absolute;
@@ -338,7 +338,7 @@
   padding-left: 0.875rem;
 }
 .footer-nav__list li.sub a::before {
-  content: '—';
+  content: '–';
   position: absolute; left: 0;
   font-size: 0.6rem;
   color: rgba(160,120,64,0.35);

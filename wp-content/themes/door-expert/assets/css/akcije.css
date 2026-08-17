@@ -1,5 +1,5 @@
 /*
- * DOOR EXPERT — AKCIJE (PROMOTIONS) PAGE STYLES
+ * DOOR EXPERT – AKCIJE (PROMOTIONS) PAGE STYLES
  * ============================================================
  * Design philosophy: Premium showroom, not bargain shop.
  * Research basis: Discounts and Urgency Psychology.md
@@ -9,21 +9,21 @@
  *   - Legal: previous price = lowest in last 30 days (CG consumer law)
  *
  * Color system (4 colors):
- *   Alabaster  #F0EBE0  — 60% backgrounds
- *   Antracit   #1E1A16  — 30% text/structure
- *   Tamni Orah #2C1A0E  — hero overlays, dark accents
- *   Jantar     #A07840  — 10% accent/CTA
+ *   Alabaster  #F0EBE0  – 60% backgrounds
+ *   Antracit   #1E1A16  – 30% text/structure
+ *   Tamni Orah #2C1A0E  – hero overlays, dark accents
+ *   Jantar     #A07840  – 10% accent/CTA
  *
  * Tints/shades allowed:
- *   Biser      #F7F3EC  — lightest bg
- *   Sampanjac  #EDE0C8  — warm mid
- *   Pesak      #DDD5C4  — borders
- *   Svetli Jantar #C9A96E — hover states
+ *   Biser      #F7F3EC  – lightest bg
+ *   Sampanjac  #EDE0C8  – warm mid
+ *   Pesak      #DDD5C4  – borders
+ *   Svetli Jantar #C9A96E – hover states
  * ============================================================
  */
 
 /* ============================================================
-   PAGE HERO — CAMPAIGN BANNER
+   PAGE HERO – CAMPAIGN BANNER
    Research: One curated campaign, not "everything on sale"
    ============================================================ */
 
@@ -167,7 +167,7 @@
   background: rgba(240, 235, 224, 0.08);
 }
 
-/* Hero countdown block — right column */
+/* Hero countdown block – right column */
 .akcije-hero__countdown-block {
   background: rgba(240, 235, 224, 0.07);
   border: 1px solid rgba(240, 235, 224, 0.15);
@@ -239,7 +239,7 @@
 
 /* ============================================================
    FILTER TABS BAR
-   Research: Users actively search "Sales" list — structure it
+   Research: Users actively search "Sales" list – structure it
    ============================================================ */
 
 .akcije-filters {
@@ -429,7 +429,7 @@
   z-index: 2;
 }
 
-/* Discount percentage badge — secondary signal */
+/* Discount percentage badge – secondary signal */
 .badge-discount {
   display: inline-flex;
   align-items: center;
@@ -456,7 +456,7 @@
   text-transform: uppercase;
 }
 
-/* Countdown badge on card — minimal, quiet */
+/* Countdown badge on card – minimal, quiet */
 .badge-countdown {
   display: inline-flex;
   align-items: center;
@@ -546,7 +546,7 @@
   flex: 1;
 }
 
-/* Price block — Research: monetary savings as PRIMARY signal */
+/* Price block – Research: monetary savings as PRIMARY signal */
 .akcije-card__price-block {
   margin-bottom: 12px;
 }
@@ -574,7 +574,7 @@
   line-height: 1;
 }
 
-/* PRIMARY SIGNAL: monetary savings — González et al. */
+/* PRIMARY SIGNAL: monetary savings – González et al. */
 .akcije-card__savings {
   display: inline-flex;
   align-items: center;
@@ -582,7 +582,7 @@
   font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: 0.8rem;
   font-weight: 600;
-  color: #2D6A4F; /* deep green — positive, not alarming */
+  color: #2D6A4F; /* deep green – positive, not alarming */
 }
 
 .akcije-card__savings-icon {
@@ -591,7 +591,7 @@
   flex-shrink: 0;
 }
 
-/* Card footer — CTA buttons */
+/* Card footer – CTA buttons */
 .akcije-card__footer {
   padding: 0 16px 16px;
   display: flex;
@@ -647,7 +647,7 @@
 }
 
 /* ============================================================
-   URGENCY SECTION — "Istice uskoro"
+   URGENCY SECTION – "Istice uskoro"
    Research: Urgency comes AFTER quality signals, not before
    ============================================================ */
 
@@ -687,7 +687,7 @@
   opacity: 0.6;
 }
 
-/* Urgency cards — horizontal strip */
+/* Urgency cards – horizontal strip */
 .akcije-urgency__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -767,7 +767,7 @@
   color: var(--color-antracit, #1E1A16);
 }
 
-/* Progress bar — days remaining */
+/* Progress bar – days remaining */
 .urgency-card__progress {
   margin-top: 8px;
 }
@@ -796,7 +796,7 @@
 
 /* ============================================================
    TRANSPARENCY / LEGAL NOTE
-   Research: CG consumer law — previous price = lowest in 30 days
+   Research: CG consumer law – previous price = lowest in 30 days
    ============================================================ */
 
 .akcije-legal {
@@ -869,7 +869,7 @@
 }
 
 /* ============================================================
-   RESPONSIVE — TABLET (max 1024px)
+   RESPONSIVE – TABLET (max 1024px)
    ============================================================ */
 
 @media (max-width: 1024px) {
@@ -893,7 +893,7 @@
 }
 
 /* ============================================================
-   RESPONSIVE — MOBILE (max 768px)
+   RESPONSIVE – MOBILE (max 768px)
    ============================================================ */
 
 @media (max-width: 768px) {
@@ -956,7 +956,7 @@
 }
 
 /* ============================================================
-   RESPONSIVE — SMALL MOBILE (max 480px)
+   RESPONSIVE – SMALL MOBILE (max 480px)
    ============================================================ */
 
 @media (max-width: 480px) {

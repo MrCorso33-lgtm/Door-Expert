@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — Sigurnosna vrata page JS
+ * DOOR EXPERT – Sigurnosna vrata page JS
  * Handles: subcategory tab switching, RC class filter highlight,
  * smooth scroll to catalog, FAQ accordion enhancement
  */
@@ -87,7 +87,7 @@
     });
   }
 
-  // ── FAQ accordion — close others when one opens ──
+  // ── FAQ accordion – close others when one opens ──
   const faqItems = document.querySelectorAll('.sec-faq__item');
   faqItems.forEach(item => {
     item.addEventListener('toggle', function() {

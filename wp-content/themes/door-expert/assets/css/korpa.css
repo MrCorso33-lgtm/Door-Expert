@@ -1,13 +1,13 @@
 /*
- * korpa.css — Quote Cart / Korpa za ponudu
+ * korpa.css – Quote Cart / Korpa za ponudu
  * Door Expert · Luxury Minimalist · Editorial Showroom
  *
  * Design philosophy:
  *   - White canvas so products breathe
- *   - Cormorant Garamond for headings — editorial, not transactional
- *   - Zero border-radius on CTAs — luxury signal
+ *   - Cormorant Garamond for headings – editorial, not transactional
+ *   - Zero border-radius on CTAs – luxury signal
  *   - Thin 1px lines as separators, no card shadows
- *   - Amber (#A07840) as sole accent — never overused
+ *   - Amber (#A07840) as sole accent – never overused
  *   - Two-column desktop: items left (60%), sticky summary right (40%)
  *
  * Sections:
@@ -1024,7 +1024,7 @@
 
   .korpa-sticky-mobile { display: flex; }
 
-  /* Hide desktop submit on mobile — use sticky bar */
+  /* Hide desktop submit on mobile – use sticky bar */
   .korpa-form__submit { display: none; }
   .korpa-form__call { display: none; }
 }
@@ -1081,7 +1081,7 @@
 @media (max-width: 480px) {
   .korpa-heading { font-size: 1.75rem; }
   .korpa-summary { padding: var(--space-6); }
-  .korpa-form__submit { display: flex; } /* show on very small — sticky bar may be hidden */
+  .korpa-form__submit { display: flex; } /* show on very small – sticky bar may be hidden */
 }
 
 /* ─────────────────────────────────────────────

@@ -2,7 +2,7 @@
 Theme Name: Door Expert
 Theme URI: https://doorexpert.me/
 Author: Dimitri
-Description: Custom tema za Door Expert — bez page buildera. Konverzija HTML prototipa u WP temu. Globalne varijable su u assets/css/tokens.css; ovaj fajl sadrži samo theme header (WordPress zahtev).
+Description: Custom tema za Door Expert – bez page buildera. Konverzija HTML prototipa u WP temu. Globalne varijable su u assets/css/tokens.css; ovaj fajl sadrži samo theme header (WordPress zahtev).
 Version: 1.0.0
 Requires at least: 6.0
 Tested up to: 6.7
@@ -14,7 +14,7 @@ Tags: custom, woocommerce
 */
 
 /*
- * NAPOMENA — ne piši stilove ovde.
+ * NAPOMENA – ne piši stilove ovde.
  * ============================================================
  * Prema DOCS/WP_CUSTOM_DEV_BLUEPRINT.md (sekcija 2), style.css nosi
  * SAMO theme header. Svi stilovi žive u assets/css/:

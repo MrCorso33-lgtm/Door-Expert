@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — Featured Products: Tab Filter + Wishlist
+ * DOOR EXPERT – Featured Products: Tab Filter + Wishlist
  * ============================================================
  */
 

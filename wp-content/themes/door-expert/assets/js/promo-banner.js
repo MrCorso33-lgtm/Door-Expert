@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — Promo Banner Countdown Timer
+ * DOOR EXPERT – Promo Banner Countdown Timer
  * ============================================================
  * Research: Discounts doc (line 38): "Ako se rok produžava,
  * ne resetuj isti countdown; objavi novu akciju ili novi talas
@@ -43,7 +43,7 @@
       var diff = deadline - new Date();
 
       if (diff <= 0) {
-        // Expired — hide countdown section gracefully
+        // Expired – hide countdown section gracefully
         var section = document.querySelector('.promo-banner');
         if (section) {
           section.style.transition = 'opacity 600ms ease';

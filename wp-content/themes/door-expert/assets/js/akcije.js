@@ -1,5 +1,5 @@
 /**
- * DOOR EXPERT — AKCIJE PAGE SCRIPTS
+ * DOOR EXPERT – AKCIJE PAGE SCRIPTS
  * ============================================================
  * Handles:
  *   1. Hero countdown timer (real deadline, never resets)
@@ -9,7 +9,7 @@
  *   5. Add to cart (quote inquiry model)
  *
  * Research basis: Discounts and Urgency Psychology.md
- *   - Real deadlines only — never reset a countdown
+ *   - Real deadlines only – never reset a countdown
  *   - Countdown must NOT be the most prominent element
  *   - Monetary savings as primary signal
  * ============================================================
@@ -20,7 +20,7 @@
 
   /* ============================================================
      1. HERO COUNTDOWN TIMER
-     Research: "Real deadlines only — never reset a countdown"
+     Research: "Real deadlines only – never reset a countdown"
      Deadline: July 20, 2026 at 23:59:59 CET
      ============================================================ */
 
@@ -37,7 +37,7 @@
     if (!daysEl || !hoursEl || !minsEl) return;
 
     if (diff <= 0) {
-      // Campaign has ended — hide countdown block gracefully
+      // Campaign has ended – hide countdown block gracefully
       const block = document.querySelector('.akcije-hero__countdown-block');
       if (block) {
         block.style.opacity = '0';
@@ -57,13 +57,13 @@
   }
 
   // Run immediately, then every 30 seconds (no need for per-second updates
-  // on a premium site — per-second ticking feels aggressive)
+  // on a premium site – per-second ticking feels aggressive)
   updateCountdown();
   setInterval(updateCountdown, 30000);
 
   /* ============================================================
      2. FILTER TABS
-     Research: Baymard — users actively look for "Sales" list;
+     Research: Baymard – users actively look for "Sales" list;
      filter-based category helps reach relevant items faster
      ============================================================ */
 
@@ -238,7 +238,7 @@
 
   /* ============================================================
      5. ADD TO CART (QUOTE MODEL)
-     Research: Quote cart model — no online payment
+     Research: Quote cart model – no online payment
      CTA: "Dodaj u ponudu" → adds to inquiry cart
      ============================================================ */
 
@@ -287,7 +287,7 @@
         updateCartBadge();
       }
 
-      // Visual feedback — button state
+      // Visual feedback – button state
       const originalText = this.innerHTML;
       this.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Dodano';
       this.style.background = '#2D6A4F';
@@ -335,7 +335,7 @@
   setTimeout(animateCardsOnLoad, 100);
 
   /* ============================================================
-     7. URGENCY PROGRESS BARS — animate on scroll into view
+     7. URGENCY PROGRESS BARS – animate on scroll into view
      ============================================================ */
 
   function animateProgressBars() {

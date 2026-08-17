@@ -1,8 +1,8 @@
 /**
- * DOOR EXPERT — Hero Slider
+ * DOOR EXPERT – Hero Slider
  * ============================================================
  * Manual slide navigation only (no auto-rotation)
- * Research: NN/g + Baymard — carousels are skipped; manual is better
+ * Research: NN/g + Baymard – carousels are skipped; manual is better
  *
  * Features:
  * - Manual prev/next + dot navigation
@@ -104,7 +104,7 @@
   }, { passive: true });
 
   // ── Countdown timer (Slide 2) ─────────────────────────────
-  // Research: Discounts doc — only real deadlines; never reset a countdown
+  // Research: Discounts doc – only real deadlines; never reset a countdown
   // End date: last day of current month (real, rolling deadline)
   const countdownEls = {
     days:    document.getElementById('cd-days'),
@@ -130,7 +130,7 @@
     const diff = end - now;
 
     if (diff <= 0) {
-      // Promotion ended — hide countdown gracefully
+      // Promotion ended – hide countdown gracefully
       const cdEl = document.querySelector('.hero__countdown');
       if (cdEl) cdEl.style.display = 'none';
       return;

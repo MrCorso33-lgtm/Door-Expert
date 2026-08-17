@@ -1,17 +1,17 @@
 /*
- * DOOR EXPERT — Instagram Feed (Section 8)
+ * DOOR EXPERT – Instagram Feed (Section 8)
  * ============================================================
  * Research sources:
  * - Zapisnik sastanka: "Instagram feed pri dnu stranice (iznad
  *   footera), s automatskim ažuriranjem. NIKAD na vrhu."
- * - Website UX Research: "Instagram donosi 70% kupaca — bez
+ * - Website UX Research: "Instagram donosi 70% kupaca – bez
  *   njega ne bi bilo prodaje."
  * - Website Conversion Strategy: "Instagram feed near the BOTTOM
- *   (above footer), auto-updating — never at the top (don't send
+ *   (above footer), auto-updating – never at the top (don't send
  *   users off-site early)."
  *
  * PRODUKCIJA NAPOMENA ZA DEVELOPERA:
- * Koristiti Behold.so widget (https://behold.so) — besplatni plan
+ * Koristiti Behold.so widget (https://behold.so) – besplatni plan
  * pokriva osnovne potrebe. Ubaciti jedan <div id="behold-widget">
  * i odgovarajuci <script> tag. Nema potrebe za API kljucevima.
  * ============================================================

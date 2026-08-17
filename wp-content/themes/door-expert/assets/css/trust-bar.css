@@ -1,18 +1,18 @@
 /*
- * DOOR EXPERT — Trust Bar (compact light strip)
+ * DOOR EXPERT – Trust Bar (compact light strip)
  * ============================================================
  * Sits immediately below the hero as a clearly separated section.
  * Light alabaster background to contrast with the dark hero above
  * and lead naturally into the category section below.
  *
  * Design: single row, compact height (~72px), icon + title only.
- * Subtitles hidden to keep it fast to scan — this is a trust
+ * Subtitles hidden to keep it fast to scan – this is a trust
  * reinforcement strip, not a feature section.
  *
  * Research sources:
  * - Trust Signals DoorExpert.md: stock advantage, Spanish brands,
  *   physical address, process transparency
- * - Business Facts: "45-day competitor wait — unclaimed territory"
+ * - Business Facts: "45-day competitor wait – unclaimed territory"
  * - UX Research line 28: address, brands, phone as Balkan trust essentials
  * ============================================================
  */
@@ -94,7 +94,7 @@
 
 .trust-bar__title {
   font-family: var(--font-ui, 'DM Sans', sans-serif);
-  font-size: 0.8125rem;   /* 13px — compact but readable */
+  font-size: 0.8125rem;   /* 13px – compact but readable */
   font-weight: 600;
   color: var(--color-antracit, #1E1A16);
   line-height: 1.3;
