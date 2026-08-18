@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Prodavnica | Door Expert - Svi proizvodi</title>
+  <meta name="description" content="Kompletna ponuda vrata, keramickih plocica i dekorativnih umivaonika. Filtrirajte po kategoriji, brendu, boji i dimenzijama." />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/header.css" />
+  <link rel="stylesheet" href="assets/css/category.css?v=3" />
+  <link rel="stylesheet" href="assets/css/footer.css" />
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       SHOP PAGE HERO
+    ═══════════════════════════════════════════════════════════ */
+    .shop-hero {
+      background: var(--color-espreso);
+      padding: 7rem 2rem 3rem;
+      text-align: center;
+    }
+    .shop-hero__eyebrow {
+      font-size: 0.5625rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-jantar);
+      margin-bottom: 1rem;
+    }
+    .shop-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .shop-hero__desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+      max-width: 50ch;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .shop-hero__cats {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .shop-hero__cat-btn {
+      padding: 10px 20px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 200ms;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .shop-hero__cat-btn:hover,
+    .shop-hero__cat-btn.is-active {
+      background: var(--color-jantar);
+      border-color: var(--color-jantar);
+      color: #fff;
+    }
+    .shop-hero__cat-btn svg {
+      width: 14px; height: 14px;
+      stroke: currentColor; fill: none; stroke-width: 2;
+    }
+    .shop-hero__count {
+      font-size: 0.625rem;
+      opacity: 0.6;
+      margin-left: 4px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SHOP TOOLBAR (sort, view, results count)
+    ═══════════════════════════════════════════════════════════ */
+    .shop-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-sand);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .shop-toolbar__count {
+      font-size: 0.8125rem;
+      color: rgba(30,26,22,0.5);
+    }
+    .shop-toolbar__count strong {
+      color: var(--color-espreso);
+      font-weight: 600;
+    }
+    .shop-toolbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .shop-toolbar__sort {
+      padding: 6px 12px;
+      border: 1px solid var(--color-sand);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: var(--color-espreso);
+      cursor: pointer;
+    }
+    .shop-toolbar__view-btns {
+      display: flex;
+      gap: 4px;
+    }
+    .shop-toolbar__view-btn {
+      width: 32px; height: 32px;
+      border: 1px solid var(--color-sand);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 150ms;
+    }
+    .shop-toolbar__view-btn.is-active {
+      background: var(--color-espreso);
+      border-color: var(--color-espreso);
+    }
+    .shop-toolbar__view-btn.is-active svg { stroke: #fff; }
+    .shop-toolbar__view-btn svg {
+      width: 14px; height: 14px;
+      stroke: var(--color-espreso); fill: none; stroke-width: 2;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SHOP LAYOUT (override cat-main for wider grid)
+    ═══════════════════════════════════════════════════════════ */
+    .shop-main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 2.5rem;
+    }
+    @media (max-width: 1024px) {
+      .shop-main { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SHOP FILTER SIDEBAR
+    ═══════════════════════════════════════════════════════════ */
+    .shop-filters {
+      position: sticky;
+      top: 80px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      padding-right: 1rem;
+    }
+    .shop-filters::-webkit-scrollbar { width: 3px; }
+    .shop-filters::-webkit-scrollbar-thumb { background: var(--color-sand); }
+    .shop-filters__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .shop-filters__title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    .shop-filters__clear {
+      font-size: 0.6875rem;
+      color: var(--color-jantar);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+    }
+    .shop-filter-group {
+      margin-bottom: 1.25rem;
+    }
+    .shop-filter-group__toggle {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border: none;
+      background: none;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--color-espreso);
+      cursor: pointer;
+      border-top: 1px solid var(--color-sand);
+    }
+    .shop-filter-group__toggle svg {
+      width: 14px; height: 14px;
+      stroke: var(--color-espreso); fill: none; stroke-width: 2;
+      transition: transform 200ms;
+    }
+    .shop-filter-group.is-open .shop-filter-group__toggle svg {
+      transform: rotate(180deg);
+    }
+    .shop-filter-group__body {
+      display: none;
+      padding: 0.5rem 0 0.75rem;
+    }
+    .shop-filter-group.is-open .shop-filter-group__body {
+      display: block;
+    }
+    .shop-filter-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 0;
+      cursor: pointer;
+      font-size: 0.8125rem;
+      color: rgba(30,26,22,0.7);
+      transition: color 150ms;
+    }
+    .shop-filter-option:hover { color: var(--color-espreso); }
+    .shop-filter-option input[type="checkbox"] {
+      width: 14px; height: 14px;
+      accent-color: var(--color-jantar);
+    }
+    .shop-filter-option__count {
+      margin-left: auto;
+      font-size: 0.6875rem;
+      color: rgba(30,26,22,0.3);
+    }
+    .shop-filter-colors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding-top: 4px;
+    }
+    .shop-filter-color {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: border-color 150ms, transform 150ms;
+    }
+    .shop-filter-color:hover,
+    .shop-filter-color.is-active {
+      border-color: var(--color-jantar);
+      transform: scale(1.15);
+    }
+    .shop-filter-price {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 8px;
+    }
+    .shop-filter-price input {
+      width: 80px;
+      padding: 6px 10px;
+      border: 1px solid var(--color-sand);
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+    .shop-filter-price span {
+      font-size: 0.75rem;
+      color: rgba(30,26,22,0.4);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PRODUCT GRID (reuse prod-card from category.css)
+    ═══════════════════════════════════════════════════════════ */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 1200px) {
+      .shop-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .shop-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       PAGINATION
+    ═══════════════════════════════════════════════════════════ */
+    .shop-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--color-sand);
+    }
+    .shop-pagination__btn {
+      width: 36px; height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-sand);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-espreso);
+      cursor: pointer;
+      transition: all 150ms;
+    }
+    .shop-pagination__btn:hover,
+    .shop-pagination__btn.is-active {
+      background: var(--color-jantar);
+      border-color: var(--color-jantar);
+      color: #fff;
+    }
+    .shop-pagination__btn--arrow {
+      border: none;
+    }
+    .shop-pagination__btn--arrow svg {
+      width: 16px; height: 16px;
+      stroke: var(--color-espreso); fill: none; stroke-width: 2;
+    }
+
+    /* Mobile filter toggle */
+    .shop-filters-toggle {
+      display: none;
+      width: 100%;
+      padding: 12px;
+      background: var(--color-white);
+      border: 1px solid var(--color-sand);
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    @media (max-width: 1024px) {
+      .shop-filters-toggle { display: block; }
+      .shop-filters { display: none; }
+      .shop-filters.is-open { display: block; position: static; max-height: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HEADER (reuse from other pages)
+════════════════════════════════════════════════ -->
+<div class="promo-bar">
+  <div class="promo-bar__inner">
+    <span class="promo-bar__dot"></span>
+    <span class="promo-bar__text">Vrata odmah dostupna - isporuka bez cekanja</span>
+    <span class="promo-bar__sep">|</span>
+    <span class="promo-bar__hours">Pon-Sub: 08:00-17:00</span>
+    <nav class="promo-bar__links">
+      <a href="o-nama.html">O nama</a>
+      <a href="kontakt.html">Posjetite salon</a>
+      <a href="b2b.html">Za investitore</a>
+    </nav>
+  </div>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="site-header__inner">
+    <a href="header-demo.html" class="site-header__logo" aria-label="Door Expert - pocetna">
+      <span class="logo-text">DOOR<span class="logo-sep">|||</span>EXPERT</span>
+    </a>
+    <nav class="main-nav" aria-label="Glavna navigacija">
+      <ul class="main-nav__list">
+        <li class="main-nav__item has-mega"><a href="sobna-vrata.html">Sobna vrata</a></li>
+        <li class="main-nav__item has-mega"><a href="sigurnosna-vrata.html">Sigurnosna vrata</a></li>
+        <li class="main-nav__item has-mega"><a href="keramicke-plocice.html">Keramicke plocice</a></li>
+        <li class="main-nav__item has-mega"><a href="umivaonici.html">Umivaonici</a></li>
+        <li class="main-nav__item"><a href="akcije.html" class="main-nav__promo">Akcije</a></li>
+        <li class="main-nav__item"><a href="brendovi.html">Brendovi</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__actions">
+      <button class="header-action" aria-label="Pretraga"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <a href="korpa.html" class="header-action" aria-label="Korpa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+      <a href="tel:+38269123456" class="header-phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> +382 69...</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     SHOP HERO
+════════════════════════════════════════════════ -->
+<section class="shop-hero">
+  <div class="shop-hero__eyebrow">Kompletan asortiman</div>
+  <h1 class="shop-hero__title">Prodavnica</h1>
+  <p class="shop-hero__desc">Pregledajte cijelu ponudu vrata, keramickih plocica i dekorativnih umivaonika. Filtrirajte po kategoriji, brendu, boji ili dimenzijama.</p>
+  <div class="shop-hero__cats">
+    <button class="shop-hero__cat-btn is-active" data-cat="all">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Sve <span class="shop-hero__count">86</span>
+    </button>
+    <button class="shop-hero__cat-btn" data-cat="vrata">
+      <svg viewBox="0 0 24 24"><rect x="3" y="2" width="14" height="20" rx="1"/><circle cx="14" cy="12" r="1.5"/></svg>
+      Vrata <span class="shop-hero__count">42</span>
+    </button>
+    <button class="shop-hero__cat-btn" data-cat="keramika">
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="9" height="9"/><rect x="13" y="2" width="9" height="9"/><rect x="2" y="13" width="9" height="9"/><rect x="13" y="13" width="9" height="9"/></svg>
+      Keramika <span class="shop-hero__count">32</span>
+    </button>
+    <button class="shop-hero__cat-btn" data-cat="umivaonici">
+      <svg viewBox="0 0 24 24"><ellipse cx="12" cy="14" rx="9" ry="5"/><path d="M3 14V8a9 5 0 0118 0v6"/></svg>
+      Umivaonici <span class="shop-hero__count">12</span>
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     MAIN: FILTERS + GRID
+════════════════════════════════════════════════ -->
+<div class="shop-main">
+
+  <!-- Mobile filter toggle -->
+  <button class="shop-filters-toggle" id="filterToggle">
+    <svg style="width:14px;height:14px;vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="9" y2="18"/></svg>
+    Prikazi filtere
+  </button>
+
+  <!-- FILTER SIDEBAR -->
+  <aside class="shop-filters" id="shopFilters">
+    <div class="shop-filters__header">
+      <h2 class="shop-filters__title">Filteri</h2>
+      <button class="shop-filters__clear">Ocisti sve</button>
+    </div>
+
+    <!-- Kategorija -->
+    <div class="shop-filter-group is-open">
+      <button class="shop-filter-group__toggle">
+        Kategorija
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="shop-filter-group__body">
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="cat" value="sobna-vrata" />
+          Sobna vrata
+          <span class="shop-filter-option__count">24</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="cat" value="sigurnosna-vrata" />
+          Sigurnosna vrata
+          <span class="shop-filter-option__count">18</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="cat" value="keramicke-plocice" />
+          Keramicke plocice
+          <span class="shop-filter-option__count">32</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="cat" value="umivaonici" />
+          Dekorativni umivaonici
+          <span class="shop-filter-option__count">12</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Brend -->
+    <div class="shop-filter-group is-open">
+      <button class="shop-filter-group__toggle">
+        Brend
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="shop-filter-group__body">
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="brand" value="tau" />
+          Tau Ceramica
+          <span class="shop-filter-option__count">18</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="brand" value="arcana" />
+          Arcana Ceramica
+          <span class="shop-filter-option__count">8</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="brand" value="ribesalbes" />
+          Ceramica Ribesalbes
+          <span class="shop-filter-option__count">4</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="brand" value="newtiles" />
+          New Tiles
+          <span class="shop-filter-option__count">6</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="brand" value="bathco" />
+          Bathco
+          <span class="shop-filter-option__count">12</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Boja -->
+    <div class="shop-filter-group">
+      <button class="shop-filter-group__toggle">
+        Boja
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="shop-filter-group__body">
+        <div class="shop-filter-colors">
+          <button class="shop-filter-color" style="background:#FFFFFF;" title="Bijela" data-color="bijela"></button>
+          <button class="shop-filter-color" style="background:#F5E6C8;" title="Krema" data-color="krema"></button>
+          <button class="shop-filter-color" style="background:#8B5E3C;" title="Orah" data-color="orah"></button>
+          <button class="shop-filter-color" style="background:#3D2B1F;" title="Wenge" data-color="wenge"></button>
+          <button class="shop-filter-color" style="background:#D4C5A9;" title="Hrast" data-color="hrast"></button>
+          <button class="shop-filter-color" style="background:#2C2C2C;" title="Antracit" data-color="antracit"></button>
+          <button class="shop-filter-color" style="background:#C9B896;" title="Beige" data-color="beige"></button>
+          <button class="shop-filter-color" style="background:#6B8E9B;" title="Plava" data-color="plava"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cijena -->
+    <div class="shop-filter-group">
+      <button class="shop-filter-group__toggle">
+        Cijena (EUR)
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="shop-filter-group__body">
+        <div class="shop-filter-price">
+          <input type="number" placeholder="Od" min="0" />
+          <span>-</span>
+          <input type="number" placeholder="Do" min="0" />
+          <span>EUR</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dimenzije -->
+    <div class="shop-filter-group">
+      <button class="shop-filter-group__toggle">
+        Dimenzije
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="shop-filter-group__body">
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="dim" value="60x200" />
+          60 x 200 cm
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="dim" value="70x200" />
+          70 x 200 cm
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="dim" value="80x200" />
+          80 x 200 cm
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="dim" value="30x60" />
+          30 x 60 cm (plocice)
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="dim" value="60x120" />
+          60 x 120 cm (plocice)
+        </label>
+      </div>
+    </div>
+
+    <!-- Dostupnost -->
+    <div class="shop-filter-group">
+      <button class="shop-filter-group__toggle">
+        Dostupnost
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="shop-filter-group__body">
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="stock" value="na-stanju" />
+          Na stanju
+          <span class="shop-filter-option__count">68</span>
+        </label>
+        <label class="shop-filter-option">
+          <input type="checkbox" data-filter="stock" value="po-narudzbi" />
+          Po narudzbi
+          <span class="shop-filter-option__count">18</span>
+        </label>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- CONTENT AREA -->
+  <div class="shop-content">
+
+    <!-- Toolbar -->
+    <div class="shop-toolbar">
+      <div class="shop-toolbar__count">Prikazano <strong>86</strong> proizvoda</div>
+      <div class="shop-toolbar__actions">
+        <select class="shop-toolbar__sort">
+          <option>Sortiraj: Preporuceno</option>
+          <option>Cijena: niza prvo</option>
+          <option>Cijena: visa prvo</option>
+          <option>Najnovije</option>
+          <option>Najpopularnije</option>
+        </select>
+        <div class="shop-toolbar__view-btns">
+          <button class="shop-toolbar__view-btn is-active" title="Grid"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+          <button class="shop-toolbar__view-btn" title="Lista"><svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="shop-grid">
+
+      <!-- VRATA: Snijeg bijela -->
+      <article class="prod-card" data-cat="vrata" data-brand="" data-color="bijela" data-price="330">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Snijeg bijela" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Sobna vrata</span>
+          <h3 class="prod-card__name">Snijeg bijela</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">Medijapan 8mm</span><span class="prod-card__attr">Bijela</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">330 &#8364;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- VRATA: Orah -->
+      <article class="prod-card" data-cat="vrata" data-brand="" data-color="orah" data-price="330">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=500&q=80" alt="Orah" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Sobna vrata</span>
+          <h3 class="prod-card__name">Orah</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">Medijapan 8mm</span><span class="prod-card__attr">Orah</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">330 &#8364;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- KERAMIKA: Travertino Beige -->
+      <article class="prod-card" data-cat="keramika" data-brand="tau" data-color="beige" data-price="28">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80" alt="Travertino Beige" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+            <span class="prod-badge prod-badge--new">Novo</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Keramicke plocice · Tau Ceramica</span>
+          <h3 class="prod-card__name">Travertino Beige</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">60 x 120 cm</span><span class="prod-card__attr">Podne</span><span class="prod-card__attr">Mat</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">28 &#8364;/m&sup2;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- SIGURNOSNA: Standard -->
+      <article class="prod-card" data-cat="vrata" data-brand="" data-color="antracit" data-price="559">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&q=80" alt="Standard sigurnosna vrata" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Sigurnosna vrata</span>
+          <h3 class="prod-card__name">Standard</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">Klasa 3</span><span class="prod-card__attr">RC3 sertifikat</span><span class="prod-card__attr">Antracit</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">559 &#8364;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- UMIVAONIK: Mueble Oval -->
+      <article class="prod-card" data-cat="umivaonici" data-brand="bathco" data-color="bijela" data-price="320">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Mueble Oval" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--new">Novo</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Umivaonici · Bathco</span>
+          <h3 class="prod-card__name">Mueble Oval</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">Prirodni kamen</span><span class="prod-card__attr">Oval</span><span class="prod-card__attr">Bijeli</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price--old">380 &#8364;</span><span class="prod-card__price">320 &#8364;</span><span class="prod-card__discount">-16%</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- KERAMIKA: Aqua Pool -->
+      <article class="prod-card" data-cat="keramika" data-brand="newtiles" data-color="plava" data-price="35">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=500&q=80" alt="Aqua Pool" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Keramicke plocice · New Tiles</span>
+          <h3 class="prod-card__name">Aqua Pool</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">15 x 15 cm</span><span class="prod-card__attr">Bazenske</span><span class="prod-card__attr">Sjaj</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">35 &#8364;/m&sup2;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- VRATA: Klizna Krema -->
+      <article class="prod-card" data-cat="vrata" data-brand="" data-color="krema" data-price="380">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Klizna Krema" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Klizna vrata</span>
+          <h3 class="prod-card__name">Klizna Krema</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">Medijapan 8mm</span><span class="prod-card__attr">Krema</span><span class="prod-card__attr">Klizni sistem</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">380 &#8364;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- KERAMIKA: Marble Luxe -->
+      <article class="prod-card" data-cat="keramika" data-brand="arcana" data-color="bijela" data-price="42">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=500&q=80" alt="Marble Luxe" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--new">Novo</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Keramicke plocice · Arcana Ceramica</span>
+          <h3 class="prod-card__name">Marble Luxe Bianco</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">60 x 120 cm</span><span class="prod-card__attr">Zidne</span><span class="prod-card__attr">Sjaj</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">42 &#8364;/m&sup2;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+      <!-- VRATA: Elena -->
+      <article class="prod-card" data-cat="vrata" data-brand="" data-color="hrast" data-price="285">
+        <div class="prod-card__img-wrap">
+          <img class="prod-card__img" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&q=80" alt="Elena" loading="lazy" />
+          <div class="prod-card__badges">
+            <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+          </div>
+          <button class="prod-card__wishlist" aria-label="Dodaj u listu zelja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+        </div>
+        <div class="prod-card__body">
+          <span class="prod-card__cat">Sobna vrata</span>
+          <h3 class="prod-card__name">Elena</h3>
+          <div class="prod-card__attrs"><span class="prod-card__attr">Medijapan 8mm</span><span class="prod-card__attr">Stilski hrast</span></div>
+          <div class="prod-card__price-row"><span class="prod-card__price">285 &#8364;</span></div>
+          <div class="prod-card__cta"><button class="prod-card__btn-cart"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Dodaj u ponudu</button><a href="product.html" class="prod-card__btn-view" aria-label="Pogledaj"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a></div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Pagination -->
+    <nav class="shop-pagination" aria-label="Stranice">
+      <button class="shop-pagination__btn shop-pagination__btn--arrow" aria-label="Prethodna"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="shop-pagination__btn is-active">1</button>
+      <button class="shop-pagination__btn">2</button>
+      <button class="shop-pagination__btn">3</button>
+      <button class="shop-pagination__btn">4</button>
+      <button class="shop-pagination__btn">...</button>
+      <button class="shop-pagination__btn">9</button>
+      <button class="shop-pagination__btn shop-pagination__btn--arrow" aria-label="Sledeca"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </nav>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER (reuse)
+════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <span class="footer-logo">DOOR<span class="footer-logo-sep">|||</span>EXPERT</span>
+      <p class="footer-desc">Premium vrata i keramika iz Spanije. Salon u Podgorici, isporuka odmah.</p>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Proizvodi</h4>
+      <ul class="footer-links"><li><a href="sobna-vrata.html">Sobna vrata</a></li><li><a href="sigurnosna-vrata.html">Sigurnosna vrata</a></li><li><a href="keramicke-plocice.html">Keramicke plocice</a></li><li><a href="umivaonici.html">Umivaonici</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Informacije</h4>
+      <ul class="footer-links"><li><a href="o-nama.html">O nama</a></li><li><a href="montaza.html">Montaza</a></li><li><a href="b2b.html">Za investitore</a></li><li><a href="kontakt.html">Kontakt</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Kontakt</h4>
+      <p class="footer-contact">+382 69 123 456<br/>info@doorexpert.me<br/>Podgorica, Crna Gora</p>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>&copy; 2024 Door Expert. Sva prava zadrzana.</p></div>
+</footer>
+
+<script>
+  // Filter group toggle
+  document.querySelectorAll('.shop-filter-group__toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.closest('.shop-filter-group').classList.toggle('is-open');
+    });
+  });
+
+  // Mobile filter toggle
+  document.getElementById('filterToggle').addEventListener('click', function() {
+    const filters = document.getElementById('shopFilters');
+    filters.classList.toggle('is-open');
+    this.textContent = filters.classList.contains('is-open') ? 'Sakrij filtere' : 'Prikazi filtere';
+  });
+
+  // Hero category buttons (filter cards)
+  const heroCatBtns = document.querySelectorAll('.shop-hero__cat-btn');
+  const shopCards = document.querySelectorAll('.shop-grid .prod-card');
+
+  heroCatBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      heroCatBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const cat = btn.dataset.cat;
+      shopCards.forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      // Update count
+      const visible = document.querySelectorAll('.shop-grid .prod-card:not([style*="display: none"])').length;
+      document.querySelector('.shop-toolbar__count strong').textContent = visible;
+    });
+  });
+
+  // Color filter
+  document.querySelectorAll('.shop-filter-color').forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      swatch.classList.toggle('is-active');
+    });
+  });
+
+  // Header scroll
+  const header = document.getElementById('siteHeader');
+  if (header) {
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 40);
+    }, { passive: true });
+  }
+</script>
+
+</body>
+</html>
