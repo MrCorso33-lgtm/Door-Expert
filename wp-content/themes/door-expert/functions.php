@@ -154,6 +154,7 @@ function door_expert_enqueue_assets() {
 			'akcije'      => array( 'css' => array( 'akcije' ),      'js' => array( 'akcije' ) ),
 			'inspiracija' => array( 'css' => array( 'inspiracija' ), 'js' => array( 'inspiracija' ) ),
 			'brendovi'    => array( 'css' => array( 'brendovi' ),    'js' => array() ),
+			'montaza'     => array( 'css' => array( 'montaza' ),     'js' => array() ),
 			'new-tiles'       => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'tau-ceramica'    => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'arcana-ceramica' => array( 'css' => array( 'brand' ), 'js' => array() ),

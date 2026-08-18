@@ -1,0 +1,727 @@
+/*
+ * DOOR EXPERT – Montaza ("Sta je ukljuceno u cijenu")
+ * ============================================================
+ * Izvuceno iz inline <style> prototipa montaza.html. Koristi tema tokene direktno
+ * (nema mapiranja). MOBILE-FIRST: bazni stilovi = mobilni; @media (min-width: 769px) navise.
+ * .pre-footer stilovi dolaze iz globalnog footer.css.
+ * ============================================================
+ */
+
+/* ── HERO ── */
+.mont-hero {
+  background: var(--color-antracit);
+  padding: var(--space-16) 0 var(--space-12);
+  position: relative;
+  overflow: hidden;
+}
+.mont-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(160,120,64,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.mont-hero__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  position: relative;
+  z-index: 1;
+}
+.mont-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-sampanjac);
+  margin-bottom: var(--space-5);
+}
+.mont-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--color-white);
+  margin-bottom: var(--space-6);
+}
+.mont-hero__title em {
+  font-style: italic;
+  color: var(--color-sampanjac);
+}
+.mont-hero__lead {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  color: rgba(255,255,255,0.75);
+  max-width: 640px;
+  margin-bottom: var(--space-10);
+}
+.mont-hero__notice {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-left: 3px solid var(--color-sampanjac);
+  padding: var(--space-4) var(--space-6);
+  max-width: 560px;
+}
+.mont-hero__notice svg {
+  color: var(--color-sampanjac);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.mont-hero__notice p {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.8);
+}
+.mont-hero__notice strong { color: var(--color-white); }
+
+/* ── CLARITY ── */
+.mont-clarity {
+  background: var(--color-white);
+  padding: var(--space-16) 0;
+  border-bottom: 1px solid var(--color-sand);
+}
+.mont-clarity__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+.mont-clarity__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+.mont-clarity__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-3);
+}
+.mont-clarity__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+}
+.mont-clarity__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+.mont-clarity-card {
+  padding: var(--space-8);
+  border: 1px solid var(--color-sand);
+}
+.mont-clarity-card--yes { background: #F7FBF5; border-color: #B8D9B0; }
+.mont-clarity-card--no { background: #FBF7F5; border-color: #D9C4B0; }
+.mont-clarity-card__icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+}
+.mont-clarity-card--yes .mont-clarity-card__icon { color: #3A7D44; }
+.mont-clarity-card--no .mont-clarity-card__icon { color: #A07840; }
+.mont-clarity-card__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  margin-bottom: var(--space-5);
+  color: var(--color-antracit);
+}
+.mont-clarity-card__list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.mont-clarity-card__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  color: var(--color-antracit-mid);
+}
+.mont-clarity-card__list li svg { flex-shrink: 0; margin-top: 2px; }
+.mont-clarity-card--yes .mont-clarity-card__list li svg { color: #3A7D44; }
+.mont-clarity-card--no .mont-clarity-card__list li svg { color: #A07840; }
+
+/* ── PROCESS FLOW ── */
+.mont-process {
+  background: var(--color-alabaster);
+  padding: var(--space-16) 0;
+}
+.mont-process__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+.mont-process__header {
+  text-align: center;
+  margin-bottom: var(--space-14);
+}
+.mont-process__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-3);
+}
+.mont-process__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-4);
+}
+.mont-process__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--color-antracit-soft);
+  line-height: 1.7;
+}
+.mont-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+.mont-steps::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 40px;
+  bottom: 40px;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--color-jantar), var(--color-sand));
+  display: none;
+}
+.mont-step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: var(--space-6);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-sand);
+  position: relative;
+}
+.mont-step:last-child { border-bottom: none; }
+.mont-step__num {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-sand);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--color-jantar);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.mont-step--highlight .mont-step__num {
+  background: var(--color-jantar);
+  color: var(--color-white);
+  border-color: var(--color-jantar);
+}
+.mont-step__body { padding-top: var(--space-2); }
+.mont-step__who {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  margin-bottom: var(--space-2);
+}
+.mont-step__who--de { background: var(--color-jantar); color: var(--color-white); }
+.mont-step__who--kupac { background: var(--color-antracit); color: var(--color-white); }
+.mont-step__who--majstor { background: var(--color-sand); color: var(--color-antracit-mid); }
+.mont-step__title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-3);
+}
+.mont-step__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-antracit-soft);
+}
+.mont-step__note {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-pearl);
+  border-left: 2px solid var(--color-jantar);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-antracit-mid);
+}
+.mont-step__note svg { color: var(--color-jantar); flex-shrink: 0; margin-top: 1px; }
+
+/* ── INSTALLERS ── */
+.mont-installers {
+  background: var(--color-white);
+  padding: var(--space-16) 0;
+  border-top: 1px solid var(--color-sand);
+}
+.mont-installers__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+.mont-installers__header { margin-bottom: var(--space-12); }
+.mont-installers__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-3);
+}
+.mont-installers__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-4);
+}
+.mont-installers__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.7;
+  color: var(--color-antracit-soft);
+  max-width: 640px;
+}
+.mont-installers__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+  margin-top: var(--space-10);
+}
+.mont-installer-card {
+  border: 1px solid var(--color-sand);
+  padding: var(--space-7);
+  background: var(--color-pearl);
+}
+.mont-installer-card__avatar {
+  width: 56px;
+  height: 56px;
+  background: var(--color-sand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  color: var(--color-jantar);
+}
+.mont-installer-card__name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-1);
+}
+.mont-installer-card__spec {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-4);
+}
+.mont-installer-card__prices {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  border-top: 1px solid var(--color-sand);
+  padding-top: var(--space-4);
+}
+.mont-installer-card__prices li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-antracit-mid);
+}
+.mont-installer-card__prices li strong { font-weight: 600; color: var(--color-antracit); }
+.mont-installer-card__disclaimer {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--color-antracit-soft);
+  font-style: italic;
+  line-height: 1.5;
+}
+.mont-installer-card__contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-jantar);
+  text-decoration: none;
+}
+.mont-installer-card__contact:hover { text-decoration: underline; }
+.mont-installers__legal {
+  margin-top: var(--space-8);
+  padding: var(--space-5) var(--space-6);
+  background: var(--color-alabaster);
+  border: 1px solid var(--color-sand);
+  border-left: 3px solid var(--color-sand);
+}
+.mont-installers__legal p {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--color-antracit-soft);
+}
+.mont-installers__legal strong { color: var(--color-antracit-mid); }
+
+/* ── PRICING TABLE ── */
+.mont-pricing {
+  background: var(--color-alabaster);
+  padding: var(--space-16) 0;
+  border-top: 1px solid var(--color-sand);
+}
+.mont-pricing__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+.mont-pricing__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+.mont-pricing__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-3);
+}
+.mont-pricing__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-4);
+}
+.mont-pricing__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  color: var(--color-antracit-soft);
+  line-height: 1.7;
+}
+/* Mobilni: horizontalni scroll da tabela ne pravi overflow stranice */
+.mont-price-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.mont-price-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  background: var(--color-white);
+  border: 1px solid var(--color-sand);
+}
+.mont-price-table thead { background: var(--color-antracit); }
+.mont-price-table thead th {
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-sampanjac);
+  text-align: left;
+}
+.mont-price-table tbody tr { border-bottom: 1px solid var(--color-sand); }
+.mont-price-table tbody tr:last-child { border-bottom: none; }
+.mont-price-table tbody tr:hover { background: var(--color-pearl); }
+.mont-price-table tbody td {
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-antracit-mid);
+}
+.mont-price-table tbody td:first-child { font-weight: 500; color: var(--color-antracit); }
+.mont-price-table tbody td strong { color: var(--color-antracit); }
+.mont-price-note {
+  margin-top: var(--space-5);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--color-antracit-soft);
+  font-style: italic;
+}
+
+/* ── FAQ ── */
+.mont-faq {
+  background: var(--color-white);
+  padding: var(--space-16) 0;
+  border-top: 1px solid var(--color-sand);
+}
+.mont-faq__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+.mont-faq__header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+.mont-faq__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-3);
+}
+.mont-faq__title {
+  font-family: var(--font-display);
+  font-size: var(--text-4xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+}
+.mont-faq__list { border-top: 1px solid var(--color-sand); }
+.mont-faq__item { border-bottom: 1px solid var(--color-sand); }
+.mont-faq__item summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  font-weight: 500;
+  color: var(--color-antracit);
+  transition: color 200ms;
+  user-select: none;
+}
+.mont-faq__item summary::-webkit-details-marker { display: none; }
+.mont-faq__item summary:hover { color: var(--color-jantar); }
+.mont-faq__icon {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  font-weight: 300;
+  color: var(--color-jantar);
+  flex-shrink: 0;
+  transition: transform 250ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.mont-faq__item[open] .mont-faq__icon { transform: rotate(45deg); }
+.mont-faq__answer { padding: 0 0 var(--space-6); }
+.mont-faq__answer p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.75;
+  color: var(--color-antracit-soft);
+}
+.mont-faq__answer p + p { margin-top: var(--space-3); }
+.mont-faq__answer a { color: var(--color-jantar); text-decoration: underline; }
+
+/* ── REVIEWS ── */
+.mont-reviews {
+  background: var(--color-pearl);
+  padding: var(--space-16) 0;
+  border-top: 1px solid var(--color-sand);
+}
+.mont-reviews__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  align-items: center;
+}
+.mont-reviews__eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-jantar);
+  margin-bottom: var(--space-3);
+}
+.mont-reviews__title {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  color: var(--color-antracit);
+  margin-bottom: var(--space-5);
+}
+.mont-reviews__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-antracit-soft);
+  margin-bottom: var(--space-6);
+}
+.mont-reviews__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--color-antracit);
+  background: transparent;
+  color: var(--color-antracit);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 200ms;
+}
+.mont-reviews__cta:hover { background: var(--color-antracit); color: var(--color-white); }
+.mont-review-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-sand);
+  padding: var(--space-6);
+}
+.mont-review-card__stars {
+  color: #F4B942;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  margin-bottom: var(--space-3);
+}
+.mont-review-card__text {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.7;
+  color: var(--color-antracit-mid);
+  font-style: italic;
+  margin-bottom: var(--space-4);
+}
+.mont-review-card__author {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-antracit-soft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.mont-review-card__source {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-antracit-soft);
+}
+
+/* ── CTA STRIP ── */
+.mont-cta {
+  background: var(--color-jantar);
+  padding: var(--space-14) 0;
+}
+.mont-cta__inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+.mont-cta__text h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  color: var(--color-white);
+  margin-bottom: var(--space-2);
+}
+.mont-cta__text p {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.8);
+}
+.mont-cta__actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.mont-cta__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-8);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 200ms;
+}
+.mont-cta__btn--primary { background: var(--color-white); color: var(--color-jantar); }
+.mont-cta__btn--primary:hover { background: var(--color-pearl); }
+.mont-cta__btn--ghost {
+  background: transparent;
+  color: var(--color-white);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+.mont-cta__btn--ghost:hover { border-color: var(--color-white); background: rgba(255,255,255,0.1); }
+
+/* ── Tablet / desktop (min-width: 769px) ── */
+@media (min-width: 769px) {
+  .mont-hero { padding: var(--space-20) 0 var(--space-16); }
+  .mont-clarity,
+  .mont-installers,
+  .mont-pricing,
+  .mont-faq { padding: var(--space-20) 0; }
+  .mont-process { padding: var(--space-20) 0; }
+  .mont-reviews { padding: var(--space-16) 0; }
+
+  .mont-hero__inner,
+  .mont-clarity__inner,
+  .mont-process__inner,
+  .mont-installers__inner,
+  .mont-pricing__inner,
+  .mont-faq__inner,
+  .mont-reviews__inner,
+  .mont-cta__inner { padding: 0 var(--space-8); }
+
+  .mont-clarity__grid { grid-template-columns: 1fr 1fr; }
+  .mont-installers__grid { grid-template-columns: repeat(3, 1fr); }
+  .mont-reviews__inner { grid-template-columns: 1fr 1fr; gap: var(--space-12); }
+  .mont-steps::before { display: block; }
+
+  .mont-price-table thead th,
+  .mont-price-table tbody td { padding: var(--space-4) var(--space-6); }
+}
