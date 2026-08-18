@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Saya Group - Featured Products Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════
+           SAYA GROUP DESIGN TOKENS
+           ═══════════════════════════════════════════════════════════ */
+        :root {
+            --primary: #C52669;
+            --primary-dark: #A01E54;
+            --secondary: #1A1A1A;
+            --accent: #D4AF37;
+            --background: #F7F2EC;
+            --white: #FFFFFF;
+            --gray-light: #F5F5F5;
+            --gray-medium: #E0E0E0;
+            --gray-dark: #666666;
+            --border: #E0E0E0;
+            --text-primary: #1A1A1A;
+            --text-secondary: #666666;
+            --success: #4CAF50;
+            --error: #E74C3C;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --text-xs: 0.72rem;
+            --text-sm: 0.82rem;
+            --text-base: 0.95rem;
+            --text-2xl: clamp(1.5rem, 4vw, 2.2rem);
+            --container-max: 1200px;
+            --radius: 8px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.14);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background: var(--background);
+            color: var(--secondary);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           CONTEXT ELEMENTS
+           ═══════════════════════════════════════════════════════════ */
+        .page-header {
+            background: var(--white);
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .page-header__logo {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .page-header__badge {
+            font-family: var(--font-sans);
+            font-size: var(--text-xs);
+            background: var(--primary);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-weight: 600;
+        }
+
+        .context-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .context-label {
+            font-family: var(--font-sans);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--gray-dark);
+            background: var(--gray-light);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        .context-title {
+            font-family: var(--font-serif);
+            font-size: 1.25rem;
+            color: var(--secondary);
+        }
+
+        .bento-placeholder {
+            background: var(--white);
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .bento-placeholder__grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .bento-placeholder__item {
+            background: var(--gray-light);
+            border-radius: 12px;
+            padding: 24px 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .bento-placeholder__item span {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .section-divider {
+            text-align: center;
+            padding: 12px;
+            background: var(--gray-light);
+            border: 1px dashed var(--border);
+            font-family: var(--font-sans);
+            font-size: var(--text-xs);
+            color: var(--gray-dark);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           FEATURED PRODUCTS SECTION
+           ═══════════════════════════════════════════════════════════ */
+        .featured-products {
+            background: var(--white);
+            padding: clamp(48px, 8vw, 80px) 0;
+        }
+
+        .featured-products__inner {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .featured-products__header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .featured-products__eyebrow {
+            font-family: var(--font-sans);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin: 0 0 6px;
+        }
+
+        .featured-products__title {
+            font-family: var(--font-serif);
+            font-size: var(--text-2xl);
+            font-weight: 700;
+            color: var(--secondary);
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .featured-products__view-all {
+            font-family: var(--font-sans);
+            font-size: var(--text-sm);
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            padding-bottom: 3px;
+            border-bottom: 1px solid transparent;
+            transition: border-color 200ms ease, gap 200ms ease;
+        }
+
+        .featured-products__view-all:hover {
+            border-color: var(--primary);
+            gap: 10px;
+        }
+
+        .featured-products__view-all svg {
+            stroke: currentColor;
+            fill: none;
+            transition: transform 200ms ease;
+        }
+
+        .featured-products__view-all:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Tabs */
+        .featured-products__tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .featured-products__tab {
+            font-family: var(--font-sans);
+            font-size: var(--text-xs);
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1.5px solid var(--border);
+            border-radius: 100px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 200ms cubic-bezier(0.23, 1, 0.32, 1);
+            white-space: nowrap;
+            letter-spacing: 0.02em;
+        }
+
+        .featured-products__tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .featured-products__tab.is-active {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .featured-products__tab:active {
+            transform: scale(0.97);
+        }
+
+        /* Grid */
+        .featured-products__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        /* Card */
+        .fp-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 240ms cubic-bezier(0.23, 1, 0.32, 1),
+                        box-shadow 240ms cubic-bezier(0.23, 1, 0.32, 1),
+                        border-color 240ms ease;
+        }
+
+        .fp-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            border-color: transparent;
+        }
+
+        .fp-card.is-hidden {
+            display: none;
+        }
+
+        .fp-card.is-entering {
+            animation: fpFadeIn 0.3s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        @keyframes fpFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Image */
+        .fp-card__img-wrap {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            background: var(--gray-light);
+        }
+
+        .fp-card__img-wrap a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .fp-card__img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .fp-card:hover .fp-card__img {
+            transform: scale(1.05);
+        }
+
+        /* Badges */
+        .fp-card__badges {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            z-index: 2;
+        }
+
+        .fp-badge {
+            display: inline-block;
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 3px;
+            line-height: 1.3;
+        }
+
+        .fp-badge--new {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .fp-badge--sale {
+            background: var(--error);
+            color: var(--white);
+        }
+
+        /* Wishlist */
+        .fp-card__wishlist {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(6px);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 200ms ease, transform 200ms cubic-bezier(0.23, 1, 0.32, 1),
+                        background 180ms ease;
+            z-index: 2;
+        }
+
+        .fp-card:hover .fp-card__wishlist {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .fp-card__wishlist:hover {
+            background: var(--white);
+        }
+
+        .fp-card__wishlist svg {
+            stroke: var(--secondary);
+            fill: none;
+        }
+
+        /* Card body */
+        .fp-card__body {
+            padding: 14px 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .fp-card__cat {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .fp-card__brand-sep {
+            color: var(--gray-dark);
+            margin: 0 2px;
+        }
+
+        .fp-card__name {
+            font-family: var(--font-main);
+            font-size: var(--text-base);
+            font-weight: 600;
+            color: var(--secondary);
+            line-height: 1.35;
+            margin: 0;
+        }
+
+        .fp-card__name a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .fp-card__attrs {
+            font-family: var(--font-main);
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Price */
+        .fp-card__price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-top: auto;
+            padding-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .fp-card__price {
+            font-family: var(--font-sans);
+            font-size: var(--text-base);
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .fp-card__unit {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .fp-card__price-old {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+        }
+
+        .fp-card__discount {
+            font-family: var(--font-sans);
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--error);
+            margin-left: auto;
+        }
+
+        /* Add to cart */
+        .fp-card__add {
+            width: 100%;
+            margin-top: 8px;
+            padding: 9px 12px;
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--secondary);
+            background: transparent;
+            border: 1.5px solid var(--secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+            text-decoration: none;
+        }
+
+        .fp-card__add svg {
+            stroke: currentColor;
+            fill: none;
+            flex-shrink: 0;
+        }
+
+        .fp-card__add:hover {
+            background: var(--secondary);
+            color: var(--white);
+            border-color: var(--secondary);
+        }
+
+        .fp-card__add:active {
+            transform: scale(0.97);
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .featured-products__inner { padding: 0 24px; }
+            .featured-products__grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .featured-products__tab { font-size: var(--text-sm); padding: 9px 20px; }
+        }
+
+        @media (min-width: 1024px) {
+            .featured-products__inner { padding: 0 32px; }
+            .featured-products__grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        }
+
+        @media (max-width: 400px) {
+            .featured-products__header { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .featured-products__tab { padding: 6px 12px; font-size: 0.65rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="page-header__logo">Saya Group</div>
+        <span class="page-header__badge">PREVIEW - Featured Products</span>
+    </header>
+
+    <!-- Context: Category Bento Grid (above) -->
+    <div class="bento-placeholder">
+        <div class="context-section">
+            <span class="context-label">Sekcija iznad</span>
+            <h2 class="context-title">Kategorije (Bento Grid)</h2>
+        </div>
+        <div class="bento-placeholder__grid">
+            <div class="bento-placeholder__item"><span>Plocice</span></div>
+            <div class="bento-placeholder__item"><span>Sanitarije</span></div>
+            <div class="bento-placeholder__item"><span>Namestaj</span></div>
+            <div class="bento-placeholder__item"><span>Baterije</span></div>
+            <div class="bento-placeholder__item"><span>Kade</span></div>
+            <div class="bento-placeholder__item"><span>Oprema</span></div>
+        </div>
+    </div>
+
+    <div class="section-divider">&#9660; NOVA SEKCIJA: "Odabrani za vas ovog meseca" &#9660;</div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FEATURED PRODUCTS SECTION
+         ═══════════════════════════════════════════════════════════ -->
+    <section class="featured-products" aria-label="Odabrani proizvodi">
+        <div class="featured-products__inner">
+
+            <div class="featured-products__header">
+                <div>
+                    <p class="featured-products__eyebrow">Novo i istaknuto</p>
+                    <h2 class="featured-products__title">Odabrani za vas ovog meseca</h2>
+                </div>
+                <a href="#" class="featured-products__view-all">
+                    Ceo katalog
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+            </div>
+
+            <div class="featured-products__tabs" role="tablist" aria-label="Filter po kategoriji">
+                <button class="featured-products__tab is-active" data-filter="sve" role="tab" aria-selected="true">Sve</button>
+                <button class="featured-products__tab" data-filter="plocice" role="tab" aria-selected="false">Plocice</button>
+                <button class="featured-products__tab" data-filter="sanitarije" role="tab" aria-selected="false">Sanitarije</button>
+                <button class="featured-products__tab" data-filter="namestaj" role="tab" aria-selected="false">Namestaj</button>
+                <button class="featured-products__tab" data-filter="baterije" role="tab" aria-selected="false">Baterije</button>
+                <button class="featured-products__tab" data-filter="kade" role="tab" aria-selected="false">Kade & Tus</button>
+            </div>
+
+            <div class="featured-products__grid">
+
+                <!-- Card 1: Plocice, novo -->
+                <article class="fp-card" data-cat="plocice">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=500&q=80" alt="Travertino Beige plocice" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--new">Novo</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Plocice <span class="fp-card__brand-sep">&middot;</span> Tau Ceramica</span>
+                        <h3 class="fp-card__name"><a href="#">Travertino Beige</a></h3>
+                        <p class="fp-card__attrs">60 x 120 cm &middot; Podne &middot; Mat</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">28 &euro;<small class="fp-card__unit">/m&sup2;</small></span>
+                        </div>
+                        <button class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            Dodaj u korpu
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 2: Sanitarije, -20% -->
+                <article class="fp-card" data-cat="sanitarije">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500&q=80" alt="WC solja konzolna" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--sale">-20%</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Sanitarije</span>
+                        <h3 class="fp-card__name"><a href="#">Konzolna WC solja Rimless</a></h3>
+                        <p class="fp-card__attrs">Bez unutrasnjeg ruba &middot; Soft-close</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">159 &euro;</span>
+                            <span class="fp-card__price-old">199 &euro;</span>
+                            <span class="fp-card__discount">-20%</span>
+                        </div>
+                        <button class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            Dodaj u korpu
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 3: Namestaj, nova kolekcija -->
+                <article class="fp-card" data-cat="namestaj">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1620626011761-996317b8d101?w=500&q=80" alt="Kupatilski ormaric" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--new">Nova kolekcija</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Kupatilski namestaj</span>
+                        <h3 class="fp-card__name"><a href="#">Set ormaric + ogledalo 80cm</a></h3>
+                        <p class="fp-card__attrs">MDF &middot; Bela mat &middot; LED ogledalo</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">489 &euro;</span>
+                        </div>
+                        <a href="#" class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            Izaberi opciju
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Card 4: Baterije, novo -->
+                <article class="fp-card" data-cat="baterije">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1585412727339-54e4bae3bbf9?w=500&q=80" alt="Slavina za umivaonik" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--new">Novo</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Baterije</span>
+                        <h3 class="fp-card__name"><a href="#">Visoka slavina za lavabo crna</a></h3>
+                        <p class="fp-card__attrs">Mesing &middot; Mat crna &middot; H: 30cm</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">89 &euro;</span>
+                            <span class="fp-card__price-old">119 &euro;</span>
+                            <span class="fp-card__discount">-25%</span>
+                        </div>
+                        <button class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            Dodaj u korpu
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 5: Plocice, -15% -->
+                <article class="fp-card" data-cat="plocice">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500&q=80" alt="Hexagon plocice" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--sale">-15%</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Plocice <span class="fp-card__brand-sep">&middot;</span> Arcana Ceramica</span>
+                        <h3 class="fp-card__name"><a href="#">Hexagon Carrara White</a></h3>
+                        <p class="fp-card__attrs">25 x 22 cm &middot; Zidne &middot; Sjaj</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">34 &euro;<small class="fp-card__unit">/m&sup2;</small></span>
+                            <span class="fp-card__price-old">40 &euro;</span>
+                            <span class="fp-card__discount">-15%</span>
+                        </div>
+                        <button class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            Dodaj u korpu
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 6: Sanitarije, novo -->
+                <article class="fp-card" data-cat="sanitarije">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80" alt="Umivaonik na plocu" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--new">Novo</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Sanitarije</span>
+                        <h3 class="fp-card__name"><a href="#">Umivaonik na plocu oval 60cm</a></h3>
+                        <p class="fp-card__attrs">Keramika &middot; Bela &middot; Bez preliva</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">79 &euro;</span>
+                        </div>
+                        <button class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            Dodaj u korpu
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 7: Kade -->
+                <article class="fp-card" data-cat="kade">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=500&q=80" alt="Tus kabina" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--sale">-10%</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Kade & Tus kabine</span>
+                        <h3 class="fp-card__name"><a href="#">Tus kabina 90x90 kvadratna</a></h3>
+                        <p class="fp-card__attrs">Kaljeno staklo 6mm &middot; Crni profil</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">269 &euro;</span>
+                            <span class="fp-card__price-old">299 &euro;</span>
+                            <span class="fp-card__discount">-10%</span>
+                        </div>
+                        <button class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            Dodaj u korpu
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Card 8: Namestaj -->
+                <article class="fp-card" data-cat="namestaj">
+                    <div class="fp-card__img-wrap">
+                        <a href="#">
+                            <img class="fp-card__img" src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&q=80" alt="Ogledalo LED" loading="lazy">
+                        </a>
+                        <div class="fp-card__badges">
+                            <span class="fp-badge fp-badge--new">Novo</span>
+                        </div>
+                        <button class="fp-card__wishlist" aria-label="Dodaj u listu zelja">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        </button>
+                    </div>
+                    <div class="fp-card__body">
+                        <span class="fp-card__cat">Kupatilski namestaj</span>
+                        <h3 class="fp-card__name"><a href="#">LED ogledalo okruglo 70cm</a></h3>
+                        <p class="fp-card__attrs">Anti-fog &middot; Dimmer &middot; IP44</p>
+                        <div class="fp-card__price-row">
+                            <span class="fp-card__price">145 &euro;</span>
+                        </div>
+                        <button class="fp-card__add">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                            Dodaj u korpu
+                        </button>
+                    </div>
+                </article>
+
+            </div><!-- /featured-products__grid -->
+        </div><!-- /featured-products__inner -->
+    </section>
+
+    <div class="section-divider">&#9650; KRAJ SEKCIJE &#9650;</div>
+
+    <!-- Context: Room Nav (below) -->
+    <div style="background: var(--background); padding: 60px 20px;">
+        <div class="context-section">
+            <span class="context-label">Sekcija ispod</span>
+            <h2 class="context-title">Opremite Vas Prostor (Room Nav)</h2>
+            <p style="margin-top:12px; color: var(--gray-dark); font-size: var(--text-sm);">Ovde ide room-based product showcase...</p>
+        </div>
+    </div>
+
+    <!-- JS: Tab filtering -->
+    <script>
+    (function () {
+        'use strict';
+        var section = document.querySelector('.featured-products');
+        if (!section) return;
+
+        var tabs  = section.querySelectorAll('.featured-products__tab');
+        var cards = section.querySelectorAll('.fp-card');
+
+        if (!tabs.length || !cards.length) return;
+
+        function filterCards(filter) {
+            var delay = 0;
+            cards.forEach(function (card) {
+                var cats = (card.getAttribute('data-cat') || '').split(' ');
+                if (filter === 'sve' || cats.indexOf(filter) !== -1) {
+                    card.classList.remove('is-hidden');
+                    card.classList.add('is-entering');
+                    card.style.animationDelay = delay + 'ms';
+                    delay += 40;
+                    setTimeout(function () {
+                        card.classList.remove('is-entering');
+                        card.style.animationDelay = '';
+                    }, 350);
+                } else {
+                    card.classList.add('is-hidden');
+                    card.classList.remove('is-entering');
+                }
+            });
+        }
+
+        tabs.forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                var filter = this.getAttribute('data-filter');
+                tabs.forEach(function (t) {
+                    t.classList.remove('is-active');
+                    t.setAttribute('aria-selected', 'false');
+                });
+                this.classList.add('is-active');
+                this.setAttribute('aria-selected', 'true');
+                filterCards(filter);
+            });
+        });
+
+        // Keyboard nav
+        var tabList = section.querySelector('.featured-products__tabs');
+        if (tabList) {
+            tabList.addEventListener('keydown', function (e) {
+                var tabArray = Array.from(tabs);
+                var currentIndex = tabArray.indexOf(document.activeElement);
+                if (currentIndex === -1) return;
+                var nextIndex;
+                if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    nextIndex = (currentIndex + 1) % tabArray.length;
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    nextIndex = (currentIndex - 1 + tabArray.length) % tabArray.length;
+                } else { return; }
+                tabArray[nextIndex].focus();
+                tabArray[nextIndex].click();
+            });
+        }
+    })();
+    </script>
+</body>
+</html>

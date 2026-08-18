@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Footer varijante | Door Expert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-alabaster: #F0EBE0;
+      --color-pearl: #F7F3EC;
+      --color-sand: #DDD5C4;
+      --color-antracit: #1E1A16;
+      --color-antracit-mid: #3A3530;
+      --color-antracit-soft: #5A5248;
+      --color-jantar: #A07840;
+      --color-sampanjac: #C9A96E;
+      --color-sampanjac-light: #EDE0C8;
+      --color-espreso: #4A2E1A;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-alabaster);
+      color: var(--color-antracit);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* Page header */
+    .page-header {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+    }
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      color: var(--color-antracit-soft);
+      font-size: 1rem;
+      max-width: 60ch;
+    }
+
+    /* Variant separator */
+    .variant-label {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 3rem 2rem 1.5rem;
+      border-top: 2px solid var(--color-sand);
+    }
+    .variant-label h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: var(--color-antracit);
+    }
+    .variant-label .tag {
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .tag--layout { background: var(--color-antracit); color: #fff; }
+    .tag--color { background: var(--color-jantar); color: #fff; }
+    .variant-label p {
+      color: var(--color-antracit-soft);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT A: Mega Footer - 5 kolona, flat
+    ═══════════════════════════════════════════════════════════ */
+    .fv-a {
+      background: linear-gradient(180deg, #180D06 0%, #0D0602 100%);
+      color: rgba(255,255,255,0.7);
+      padding: 0;
+    }
+    .fv-a__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .fv-a__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(160,120,64,0.15);
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .fv-a__logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.9);
+      text-transform: uppercase;
+    }
+    .fv-a__logo span { color: var(--color-sampanjac); }
+    .fv-a__contact {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .fv-a__phone {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-sampanjac);
+    }
+    .fv-a__hours {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.35);
+    }
+    .fv-a__grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2rem;
+      padding: 3rem 0;
+    }
+    .fv-a__col-title {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-sampanjac);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(160,120,64,0.12);
+    }
+    .fv-a__list li { margin-bottom: 0.5rem; }
+    .fv-a__list li a {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.4);
+      transition: color 180ms;
+    }
+    .fv-a__list li a:hover { color: rgba(255,255,255,0.85); }
+    .fv-a__brands {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(160,120,64,0.1);
+      flex-wrap: wrap;
+    }
+    .fv-a__brands span {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .fv-a__disclaimer {
+      font-size: 0.6875rem;
+      color: rgba(255,255,255,0.18);
+      text-align: center;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .fv-a__bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 0;
+      font-size: 0.6875rem;
+      color: rgba(255,255,255,0.18);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .fv-a__bottom a { color: rgba(255,255,255,0.25); transition: color 180ms; }
+    .fv-a__bottom a:hover { color: rgba(255,255,255,0.6); }
+    @media (max-width: 900px) {
+      .fv-a__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .fv-a__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT B: Split Footer - levo info, desno mapa
+    ═══════════════════════════════════════════════════════════ */
+    .fv-b {
+      background: linear-gradient(180deg, #180D06 0%, #0D0602 100%);
+      color: rgba(255,255,255,0.7);
+    }
+    .fv-b__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 4rem 2rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 3rem;
+    }
+    .fv-b__left {}
+    .fv-b__divider {
+      background: linear-gradient(180deg, rgba(160,120,64,0.4) 0%, rgba(160,120,64,0.05) 100%);
+    }
+    .fv-b__right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .fv-b__logo {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.9);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .fv-b__logo span { color: var(--color-sampanjac); }
+    .fv-b__desc {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.35);
+      max-width: 35ch;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .fv-b__nav-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+    .fv-b__nav-title {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-sampanjac);
+      margin-bottom: 0.75rem;
+    }
+    .fv-b__nav-list li { margin-bottom: 0.4rem; }
+    .fv-b__nav-list li a {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.38);
+      transition: color 180ms;
+    }
+    .fv-b__nav-list li a:hover { color: rgba(255,255,255,0.8); }
+    .fv-b__map {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #0D0602;
+      border: 1px solid rgba(160,120,64,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.2);
+      font-size: 0.75rem;
+    }
+    .fv-b__address {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.8;
+    }
+    .fv-b__phone {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      color: var(--color-sampanjac);
+    }
+    .fv-b__hours {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .fv-b__social {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .fv-b__social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.35);
+      transition: all 180ms;
+    }
+    .fv-b__social a:hover {
+      border-color: var(--color-jantar);
+      color: var(--color-sampanjac);
+    }
+    .fv-b__social svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .fv-b__bottom {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.6875rem;
+      color: rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .fv-b__inner { grid-template-columns: 1fr; }
+      .fv-b__divider { display: none; }
+      .fv-b__nav-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT C: Accordion Mobile-First - kompaktan
+    ═══════════════════════════════════════════════════════════ */
+    .fv-c {
+      background: linear-gradient(180deg, #1E1A16 0%, #110D0A 100%);
+      color: rgba(255,255,255,0.7);
+    }
+    .fv-c__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+    }
+    .fv-c__cta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .fv-c__cta-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 24px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 200ms;
+    }
+    .fv-c__cta-btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .fv-c__cta-btn--phone {
+      background: var(--color-jantar);
+      color: #fff;
+    }
+    .fv-c__cta-btn--phone:hover { background: var(--color-sampanjac); }
+    .fv-c__cta-btn--quote {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.7);
+    }
+    .fv-c__cta-btn--quote:hover { border-color: var(--color-sampanjac); color: var(--color-sampanjac); }
+    .fv-c__grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 2.5rem;
+    }
+    .fv-c__brand-col {}
+    .fv-c__logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.9);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .fv-c__logo span { color: var(--color-sampanjac); }
+    .fv-c__desc {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.3);
+      line-height: 1.8;
+      max-width: 30ch;
+      margin-bottom: 1.5rem;
+    }
+    .fv-c__contact-info {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 2;
+    }
+    .fv-c__contact-info strong {
+      color: var(--color-sampanjac);
+      font-weight: 500;
+    }
+    .fv-c__section-title {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-sampanjac);
+      margin-bottom: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .fv-c__section-title::after {
+      content: '+';
+      font-size: 1rem;
+      color: rgba(255,255,255,0.2);
+    }
+    .fv-c__list li { margin-bottom: 0.45rem; }
+    .fv-c__list li a {
+      font-size: 0.8125rem;
+      color: rgba(255,255,255,0.35);
+      transition: color 180ms;
+    }
+    .fv-c__list li a:hover { color: rgba(255,255,255,0.8); }
+    .fv-c__brands-row {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      flex-wrap: wrap;
+    }
+    .fv-c__brands-row span {
+      font-size: 0.6875rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+    }
+    .fv-c__disclaimer {
+      font-size: 0.6875rem;
+      color: rgba(255,255,255,0.15);
+      text-align: center;
+      padding: 1.25rem 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    @media (max-width: 768px) {
+      .fv-c__grid { grid-template-columns: 1fr; gap: 2rem; }
+      .fv-c__cta-row { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT D: Warm Alabaster - svijetli footer
+    ═══════════════════════════════════════════════════════════ */
+    .fv-d {
+      background: var(--color-alabaster);
+      color: var(--color-antracit);
+      border-top: 1px solid var(--color-sand);
+    }
+    .fv-d__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 4rem 2rem 2rem;
+    }
+    .fv-d__top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--color-sand);
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .fv-d__logo {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--color-antracit);
+      text-transform: uppercase;
+    }
+    .fv-d__logo span { color: var(--color-jantar); }
+    .fv-d__tagline {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-antracit-soft);
+      margin-top: 0.25rem;
+    }
+    .fv-d__phone {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-jantar);
+    }
+    .fv-d__hours {
+      font-size: 0.75rem;
+      color: var(--color-antracit-soft);
+      text-align: right;
+    }
+    .fv-d__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+    }
+    .fv-d__col-title {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-jantar);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .fv-d__list li { margin-bottom: 0.5rem; }
+    .fv-d__list li a {
+      font-size: 0.8125rem;
+      color: var(--color-antracit-soft);
+      transition: color 180ms;
+    }
+    .fv-d__list li a:hover { color: var(--color-jantar); }
+    .fv-d__desc {
+      font-size: 0.875rem;
+      color: var(--color-antracit-soft);
+      line-height: 1.8;
+      max-width: 30ch;
+      margin-bottom: 1.5rem;
+    }
+    .fv-d__social {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .fv-d__social a {
+      width: 36px; height: 36px;
+      border: 1px solid var(--color-sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-antracit-soft);
+      transition: all 180ms;
+    }
+    .fv-d__social a:hover {
+      border-color: var(--color-jantar);
+      color: var(--color-jantar);
+      background: rgba(160,120,64,0.05);
+    }
+    .fv-d__social svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .fv-d__map {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--color-pearl);
+      border: 1px solid var(--color-sand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-antracit-soft);
+      font-size: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .fv-d__disclaimer {
+      font-size: 0.6875rem;
+      color: var(--color-antracit-soft);
+      text-align: center;
+      padding: 1.25rem 0;
+      border-top: 1px solid var(--color-sand);
+      opacity: 0.6;
+    }
+    .fv-d__bottom {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      font-size: 0.6875rem;
+      color: var(--color-antracit-soft);
+      opacity: 0.5;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .fv-d__grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .fv-d__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT E: Deep Jantar - topla cokolada
+    ═══════════════════════════════════════════════════════════ */
+    .fv-e {
+      background: linear-gradient(180deg, #3D2B1F 0%, #2C1A0E 100%);
+      color: var(--color-sampanjac-light);
+    }
+    .fv-e__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 4rem 2rem 2rem;
+    }
+    .fv-e__top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(201,169,110,0.2);
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .fv-e__logo {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--color-sampanjac-light);
+      text-transform: uppercase;
+    }
+    .fv-e__logo span { color: var(--color-sampanjac); }
+    .fv-e__tagline {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(201,169,110,0.4);
+      margin-top: 0.25rem;
+    }
+    .fv-e__phone {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-sampanjac);
+    }
+    .fv-e__hours {
+      font-size: 0.75rem;
+      color: rgba(201,169,110,0.4);
+      text-align: right;
+    }
+    .fv-e__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+    }
+    .fv-e__col-title {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-sampanjac);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(201,169,110,0.15);
+    }
+    .fv-e__list li { margin-bottom: 0.5rem; }
+    .fv-e__list li a {
+      font-size: 0.8125rem;
+      color: rgba(237,224,200,0.5);
+      transition: color 180ms;
+    }
+    .fv-e__list li a:hover { color: var(--color-sampanjac-light); }
+    .fv-e__desc {
+      font-size: 0.875rem;
+      color: rgba(237,224,200,0.45);
+      line-height: 1.8;
+      max-width: 30ch;
+      margin-bottom: 1.5rem;
+    }
+    .fv-e__social {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .fv-e__social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,169,110,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(201,169,110,0.5);
+      transition: all 180ms;
+    }
+    .fv-e__social a:hover {
+      border-color: var(--color-sampanjac);
+      color: var(--color-sampanjac-light);
+      background: rgba(201,169,110,0.08);
+    }
+    .fv-e__social svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .fv-e__map {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(201,169,110,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(201,169,110,0.3);
+      font-size: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .fv-e__disclaimer {
+      font-size: 0.6875rem;
+      color: rgba(237,224,200,0.25);
+      text-align: center;
+      padding: 1.25rem 0;
+      border-top: 1px solid rgba(201,169,110,0.08);
+    }
+    .fv-e__bottom {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      font-size: 0.6875rem;
+      color: rgba(237,224,200,0.2);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .fv-e__grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .fv-e__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT F: Antracit Clean - moderan flat
+    ═══════════════════════════════════════════════════════════ */
+    .fv-f {
+      background: #2A2520;
+      color: var(--color-pearl);
+    }
+    .fv-f__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 4rem 2rem 2rem;
+    }
+    .fv-f__top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(247,243,236,0.06);
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .fv-f__logo {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--color-pearl);
+      text-transform: uppercase;
+    }
+    .fv-f__logo span { color: var(--color-jantar); }
+    .fv-f__tagline {
+      font-size: 0.6875rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(247,243,236,0.3);
+      margin-top: 0.25rem;
+    }
+    .fv-f__phone {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--color-jantar);
+    }
+    .fv-f__hours {
+      font-size: 0.75rem;
+      color: rgba(247,243,236,0.35);
+      text-align: right;
+    }
+    .fv-f__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+    }
+    .fv-f__col-title {
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-jantar);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(247,243,236,0.06);
+    }
+    .fv-f__list li { margin-bottom: 0.5rem; }
+    .fv-f__list li a {
+      font-size: 0.8125rem;
+      color: rgba(247,243,236,0.45);
+      transition: color 180ms;
+    }
+    .fv-f__list li a:hover { color: var(--color-pearl); text-decoration: underline; text-decoration-color: var(--color-jantar); text-underline-offset: 3px; }
+    .fv-f__desc {
+      font-size: 0.875rem;
+      color: rgba(247,243,236,0.4);
+      line-height: 1.8;
+      max-width: 30ch;
+      margin-bottom: 1.5rem;
+    }
+    .fv-f__social {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .fv-f__social a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(247,243,236,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(247,243,236,0.35);
+      transition: all 180ms;
+    }
+    .fv-f__social a:hover {
+      border-color: var(--color-jantar);
+      color: var(--color-jantar);
+    }
+    .fv-f__social svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+    .fv-f__map {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid rgba(247,243,236,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(247,243,236,0.25);
+      font-size: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .fv-f__disclaimer {
+      font-size: 0.6875rem;
+      color: rgba(247,243,236,0.2);
+      text-align: center;
+      padding: 1.25rem 0;
+      border-top: 1px solid rgba(247,243,236,0.04);
+    }
+    .fv-f__bottom {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      font-size: 0.6875rem;
+      color: rgba(247,243,236,0.2);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    @media (max-width: 900px) {
+      .fv-f__grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .fv-f__grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Footer varijante</h1>
+  <p>6 razlicitih dizajn pristupa za footer Door Expert sajta. Prva tri menjaju layout (strukturu), druga tri menjaju kolor shemu. Scrolluj da uporedis sve.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT A: Mega Footer
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--layout">Layout</span>
+  <h2>Varijanta A: Mega Footer</h2>
+  <p>5 ravnopravnih kolona, horizontalni brand statement, brend logoi na dnu. Bez mape (prebacena na kontakt stranicu).</p>
+</div>
+
+<footer class="fv-a">
+  <div class="fv-a__inner">
+    <div class="fv-a__top">
+      <div class="fv-a__logo">Door <span>Expert</span></div>
+      <div class="fv-a__contact">
+        <a href="tel:+38269123456" class="fv-a__phone">+382 69 123 456</a>
+        <span class="fv-a__hours">Pon-Pet 08:00-17:00 · Sub 09:00-14:00</span>
+      </div>
+    </div>
+    <div class="fv-a__grid">
+      <div>
+        <h3 class="fv-a__col-title">Sobna vrata</h3>
+        <ul class="fv-a__list">
+          <li><a href="#">Standardna sobna vrata</a></li>
+          <li><a href="#">Klizna vrata</a></li>
+          <li><a href="#">Staklena vrata</a></li>
+          <li><a href="#">Dvokrilna vrata</a></li>
+          <li><a href="#">Za kupatilo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-a__col-title">Sigurnosna vrata</h3>
+        <ul class="fv-a__list">
+          <li><a href="#">Standard (za stan)</a></li>
+          <li><a href="#">Premium (za stan)</a></li>
+          <li><a href="#">Deluxe (za stan)</a></li>
+          <li><a href="#">Za kucu (spoljna)</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-a__col-title">Keramicke plocice</h3>
+        <ul class="fv-a__list">
+          <li><a href="#">Podne plocice</a></li>
+          <li><a href="#">Zidne plocice</a></li>
+          <li><a href="#">Za kupatilo</a></li>
+          <li><a href="#">Za bazen</a></li>
+          <li><a href="#">Gazista za stepenice</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-a__col-title">Umivaonici</h3>
+        <ul class="fv-a__list">
+          <li><a href="#">Kameni umivaonici</a></li>
+          <li><a href="#">Nadgradni</a></li>
+          <li><a href="#">Ugradni</a></li>
+          <li><a href="#">Bathco kolekcija</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-a__col-title">Informacije</h3>
+        <ul class="fv-a__list">
+          <li><a href="#">O nama</a></li>
+          <li><a href="#">Kako funkcionise montaza</a></li>
+          <li><a href="#">Za investitore (B2B)</a></li>
+          <li><a href="#">Aktuelne akcije</a></li>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Blog i inspiracija</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fv-a__brands">
+      <span>New Tiles</span>
+      <span>Tau Ceramica</span>
+      <span>Arcana Ceramica</span>
+      <span>Ceramica Ribesalbes</span>
+      <span>Bathco</span>
+    </div>
+    <div class="fv-a__disclaimer">
+      Door Expert je uvoznik i distributer. Montazu vrse nezavisni majstori koji naplacuju direktno klijentu.
+    </div>
+    <div class="fv-a__bottom">
+      <span>&copy; 2025 Door Expert. Sva prava zadrzana.</span>
+      <div><a href="#">Politika privatnosti</a> · <a href="#">Uslovi koriscenja</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT B: Split Footer
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--layout">Layout</span>
+  <h2>Varijanta B: Split Footer</h2>
+  <p>Dva velika bloka razdvojena zlatnom vertikalnom linijom. Levo: logo + linkovi. Desno: mapa + kontakt + social.</p>
+</div>
+
+<footer class="fv-b">
+  <div class="fv-b__inner">
+    <div class="fv-b__left">
+      <div class="fv-b__logo">Door <span>Expert</span></div>
+      <p class="fv-b__desc">Uvoznik i distributer vrata, spanske keramike i Bathco umivaonika. Roba na stanju, isporuka odmah.</p>
+      <div class="fv-b__nav-grid">
+        <div>
+          <h3 class="fv-b__nav-title">Proizvodi</h3>
+          <ul class="fv-b__nav-list">
+            <li><a href="#">Sobna vrata</a></li>
+            <li><a href="#">Sigurnosna vrata</a></li>
+            <li><a href="#">Keramicke plocice</a></li>
+            <li><a href="#">Umivaonici</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="fv-b__nav-title">Informacije</h3>
+          <ul class="fv-b__nav-list">
+            <li><a href="#">O nama</a></li>
+            <li><a href="#">Montaza</a></li>
+            <li><a href="#">B2B / Investitori</a></li>
+            <li><a href="#">Akcije</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="fv-b__nav-title">Brendovi</h3>
+          <ul class="fv-b__nav-list">
+            <li><a href="#">New Tiles</a></li>
+            <li><a href="#">Tau Ceramica</a></li>
+            <li><a href="#">Arcana Ceramica</a></li>
+            <li><a href="#">Bathco</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="fv-b__divider"></div>
+    <div class="fv-b__right">
+      <div class="fv-b__map">[Google Maps - Podgorica]</div>
+      <p class="fv-b__address">Ulica Bratstva i Jedinstva bb<br>81000 Podgorica, Crna Gora</p>
+      <a href="tel:+38269123456" class="fv-b__phone">+382 69 123 456</a>
+      <span class="fv-b__hours">Pon-Pet 08:00-17:00 · Sub 09:00-14:00</span>
+      <div class="fv-b__social">
+        <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+        <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="fv-b__bottom">
+    <span>&copy; 2025 Door Expert. Montazu vrse nezavisni majstori.</span>
+    <div><a href="#">Privatnost</a> · <a href="#">Uslovi</a></div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT C: Accordion Mobile-First
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--layout">Layout</span>
+  <h2>Varijanta C: Accordion Mobile-First</h2>
+  <p>CTA dugmad na vrhu (telefon + ponuda), kompaktan 3-kolonski grid, brend logoi na dnu. Optimizovan za mobile.</p>
+</div>
+
+<footer class="fv-c">
+  <div class="fv-c__inner">
+    <div class="fv-c__cta-row">
+      <a href="tel:+38269123456" class="fv-c__cta-btn fv-c__cta-btn--phone">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        Pozovite nas
+      </a>
+      <a href="#" class="fv-c__cta-btn fv-c__cta-btn--quote">
+        <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Zatrazite ponudu
+      </a>
+    </div>
+    <div class="fv-c__grid">
+      <div class="fv-c__brand-col">
+        <div class="fv-c__logo">Door <span>Expert</span></div>
+        <p class="fv-c__desc">Uvoznik i distributer vrata, spanske keramike i Bathco umivaonika. Roba na stanju.</p>
+        <div class="fv-c__contact-info">
+          <strong>Adresa:</strong> Podgorica, Crna Gora<br>
+          <strong>Telefon:</strong> +382 69 123 456<br>
+          <strong>Radno vrijeme:</strong> Pon-Pet 08-17, Sub 09-14
+        </div>
+      </div>
+      <div>
+        <h3 class="fv-c__section-title">Proizvodi</h3>
+        <ul class="fv-c__list">
+          <li><a href="#">Sobna vrata</a></li>
+          <li><a href="#">Sigurnosna vrata</a></li>
+          <li><a href="#">Keramicke plocice</a></li>
+          <li><a href="#">Umivaonici</a></li>
+          <li><a href="#">Aktuelne akcije</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-c__section-title">Informacije</h3>
+        <ul class="fv-c__list">
+          <li><a href="#">O nama</a></li>
+          <li><a href="#">Montaza</a></li>
+          <li><a href="#">B2B / Investitori</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fv-c__brands-row">
+      <span>New Tiles</span>
+      <span>Tau Ceramica</span>
+      <span>Arcana Ceramica</span>
+      <span>Ribesalbes</span>
+      <span>Bathco</span>
+    </div>
+    <div class="fv-c__disclaimer">
+      Door Expert je uvoznik i distributer. Montazu vrse nezavisni majstori koji naplacuju direktno klijentu. &copy; 2025
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT D: Warm Alabaster
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--color">Kolor</span>
+  <h2>Varijanta D: Warm Alabaster</h2>
+  <p>Svijetla pozadina (#F0EBE0), antracit tekst, jantar akcenti. Premium "showroom" osjecaj. Otvoren i prozracan.</p>
+</div>
+
+<footer class="fv-d">
+  <div class="fv-d__inner">
+    <div class="fv-d__top">
+      <div>
+        <div class="fv-d__logo">Door <span>Expert</span></div>
+        <div class="fv-d__tagline">Uvoznik &amp; distributer · Podgorica</div>
+      </div>
+      <div>
+        <a href="tel:+38269123456" class="fv-d__phone">+382 69 123 456</a>
+        <div class="fv-d__hours">Pon-Pet 08:00-17:00 · Sub 09:00-14:00</div>
+      </div>
+    </div>
+    <div class="fv-d__grid">
+      <div>
+        <p class="fv-d__desc">Uvoznik i distributer vrata, spanske keramike i Bathco umivaonika. Roba na stanju, isporuka odmah.</p>
+        <div class="fv-d__social">
+          <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="fv-d__col-title">Proizvodi</h3>
+        <ul class="fv-d__list">
+          <li><a href="#">Sobna vrata</a></li>
+          <li><a href="#">Sigurnosna vrata</a></li>
+          <li><a href="#">Keramicke plocice</a></li>
+          <li><a href="#">Umivaonici</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-d__col-title">Informacije</h3>
+        <ul class="fv-d__list">
+          <li><a href="#">O nama</a></li>
+          <li><a href="#">Montaza</a></li>
+          <li><a href="#">B2B</a></li>
+          <li><a href="#">Akcije</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-d__col-title">Pronadjite nas</h3>
+        <div class="fv-d__map">[Google Maps]</div>
+        <span style="font-size:0.75rem;color:var(--color-antracit-soft);">Podgorica, Crna Gora</span>
+      </div>
+    </div>
+    <div class="fv-d__disclaimer">
+      Door Expert je uvoznik i distributer. Montazu vrse nezavisni majstori koji naplacuju direktno klijentu.
+    </div>
+    <div class="fv-d__bottom">
+      <span>&copy; 2025 Door Expert. Sva prava zadrzana.</span>
+      <div><a href="#">Politika privatnosti</a> · <a href="#">Uslovi koriscenja</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT E: Deep Jantar
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--color">Kolor</span>
+  <h2>Varijanta E: Deep Jantar</h2>
+  <p>Topla cokoladno-smedja pozadina (#3D2B1F do #2C1A0E), sampanjac tekst. "Leather &amp; wood" luksuzni osjecaj.</p>
+</div>
+
+<footer class="fv-e">
+  <div class="fv-e__inner">
+    <div class="fv-e__top">
+      <div>
+        <div class="fv-e__logo">Door <span>Expert</span></div>
+        <div class="fv-e__tagline">Uvoznik &amp; distributer · Podgorica</div>
+      </div>
+      <div>
+        <a href="tel:+38269123456" class="fv-e__phone">+382 69 123 456</a>
+        <div class="fv-e__hours">Pon-Pet 08:00-17:00 · Sub 09:00-14:00</div>
+      </div>
+    </div>
+    <div class="fv-e__grid">
+      <div>
+        <p class="fv-e__desc">Uvoznik i distributer vrata, spanske keramike i Bathco umivaonika. Roba na stanju, isporuka odmah.</p>
+        <div class="fv-e__social">
+          <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="fv-e__col-title">Proizvodi</h3>
+        <ul class="fv-e__list">
+          <li><a href="#">Sobna vrata</a></li>
+          <li><a href="#">Sigurnosna vrata</a></li>
+          <li><a href="#">Keramicke plocice</a></li>
+          <li><a href="#">Umivaonici</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-e__col-title">Informacije</h3>
+        <ul class="fv-e__list">
+          <li><a href="#">O nama</a></li>
+          <li><a href="#">Montaza</a></li>
+          <li><a href="#">B2B</a></li>
+          <li><a href="#">Akcije</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-e__col-title">Pronadjite nas</h3>
+        <div class="fv-e__map">[Google Maps]</div>
+        <span style="font-size:0.75rem;color:rgba(201,169,110,0.4);">Podgorica, Crna Gora</span>
+      </div>
+    </div>
+    <div class="fv-e__disclaimer">
+      Door Expert je uvoznik i distributer. Montazu vrse nezavisni majstori koji naplacuju direktno klijentu.
+    </div>
+    <div class="fv-e__bottom">
+      <span>&copy; 2025 Door Expert. Sva prava zadrzana.</span>
+      <div><a href="#">Politika privatnosti</a> · <a href="#">Uslovi koriscenja</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT F: Antracit Clean
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--color">Kolor</span>
+  <h2>Varijanta F: Antracit Clean</h2>
+  <p>Flat topli antracit (#2A2520), bez grain teksture i gradijenta. Cist, moderan, "tech-premium". Jantar samo za CTA i hover.</p>
+</div>
+
+<footer class="fv-f">
+  <div class="fv-f__inner">
+    <div class="fv-f__top">
+      <div>
+        <div class="fv-f__logo">Door <span>Expert</span></div>
+        <div class="fv-f__tagline">Uvoznik &amp; distributer · Podgorica</div>
+      </div>
+      <div>
+        <a href="tel:+38269123456" class="fv-f__phone">+382 69 123 456</a>
+        <div class="fv-f__hours">Pon-Pet 08:00-17:00 · Sub 09:00-14:00</div>
+      </div>
+    </div>
+    <div class="fv-f__grid">
+      <div>
+        <p class="fv-f__desc">Uvoznik i distributer vrata, spanske keramike i Bathco umivaonika. Roba na stanju, isporuka odmah.</p>
+        <div class="fv-f__social">
+          <a href="#"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h3 class="fv-f__col-title">Proizvodi</h3>
+        <ul class="fv-f__list">
+          <li><a href="#">Sobna vrata</a></li>
+          <li><a href="#">Sigurnosna vrata</a></li>
+          <li><a href="#">Keramicke plocice</a></li>
+          <li><a href="#">Umivaonici</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-f__col-title">Informacije</h3>
+        <ul class="fv-f__list">
+          <li><a href="#">O nama</a></li>
+          <li><a href="#">Montaza</a></li>
+          <li><a href="#">B2B</a></li>
+          <li><a href="#">Akcije</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="fv-f__col-title">Pronadjite nas</h3>
+        <div class="fv-f__map">[Google Maps]</div>
+        <span style="font-size:0.75rem;color:rgba(247,243,236,0.3);">Podgorica, Crna Gora</span>
+      </div>
+    </div>
+    <div class="fv-f__disclaimer">
+      Door Expert je uvoznik i distributer. Montazu vrse nezavisni majstori koji naplacuju direktno klijentu.
+    </div>
+    <div class="fv-f__bottom">
+      <span>&copy; 2025 Door Expert. Sva prava zadrzana.</span>
+      <div><a href="#">Politika privatnosti</a> · <a href="#">Uslovi koriscenja</a></div>
+    </div>
+  </div>
+</footer>
+
+<div style="height:4rem;"></div>
+
+</body>
+</html>

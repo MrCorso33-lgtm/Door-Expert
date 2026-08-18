@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Travertino Kolekcija | Tau Ceramica | Door Expert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --color-espreso: #1E1A16;
+      --color-espreso-light: #2A2520;
+      --color-jantar: #A07840;
+      --color-sampanjac: #C9A96E;
+      --color-sampanjac-light: #EDE0C8;
+      --color-alabaster: #F0EBE0;
+      --color-pearl: #F7F3EC;
+      --color-sand: #DDD5C4;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-espreso);
+      color: var(--color-pearl);
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 1: Fullscreen Hero
+    ═══════════════════════════════════════════════════════════ */
+    .col-hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+    .col-hero__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+    }
+    .col-hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(30,26,22,0.3) 0%,
+        rgba(30,26,22,0.0) 40%,
+        rgba(30,26,22,0.0) 60%,
+        rgba(30,26,22,0.85) 100%);
+    }
+    .col-hero__nav {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .col-hero__logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .col-hero__logo span { color: var(--color-sampanjac); }
+    .col-hero__back {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 200ms;
+    }
+    .col-hero__back:hover { color: #fff; }
+    .col-hero__back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .col-hero__bottom {
+      position: absolute;
+      bottom: 3rem;
+      left: 2.5rem;
+      z-index: 10;
+    }
+    .col-hero__brand {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-sampanjac);
+      margin-bottom: 0.5rem;
+    }
+    .col-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 300;
+      font-style: italic;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .col-hero__scroll {
+      position: absolute;
+      bottom: 2rem;
+      right: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+    }
+    .col-hero__scroll-text {
+      font-size: 0.5625rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      writing-mode: vertical-rl;
+    }
+    .col-hero__scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(180deg, var(--color-sampanjac) 0%, transparent 100%);
+      animation: scrollPulse 2s ease infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: 0.4; transform: scaleY(0.6); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 2: Horizontal Reveal (scroll-triggered)
+    ═══════════════════════════════════════════════════════════ */
+    .col-reveal {
+      position: relative;
+      height: 300vh;
+    }
+    .col-reveal__pin {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .col-reveal__track {
+      display: flex;
+      align-items: center;
+      gap: 8vw;
+      padding: 0 10vw;
+      will-change: transform;
+    }
+    .col-reveal__word {
+      font-family: var(--font-display);
+      font-size: clamp(6rem, 18vw, 16rem);
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(201,169,110,0.65);
+      white-space: nowrap;
+      flex-shrink: 0;
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+    .col-reveal__word--filled {
+      color: var(--color-sampanjac-light);
+      -webkit-text-stroke: none;
+    }
+    .col-reveal__image {
+      flex-shrink: 0;
+      width: 45vw;
+      max-width: 700px;
+      height: 60vh;
+      object-fit: cover;
+      border-radius: 2px;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .col-reveal__image.is-visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 3: Story Split (description + gallery)
+    ═══════════════════════════════════════════════════════════ */
+    .col-story {
+      background: var(--color-alabaster);
+      color: var(--color-espreso);
+      padding: clamp(4rem, 10vw, 8rem) 0;
+    }
+    .col-story__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
+    }
+    .col-story__text {
+      position: sticky;
+      top: 15vh;
+    }
+    .col-story__eyebrow {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-jantar);
+      margin-bottom: 1.5rem;
+    }
+    .col-story__heading {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.15;
+      color: var(--color-espreso);
+      margin-bottom: 2rem;
+    }
+    .col-story__desc {
+      font-size: 0.9375rem;
+      line-height: 1.9;
+      color: rgba(30,26,22,0.65);
+      max-width: 42ch;
+      margin-bottom: 2.5rem;
+    }
+    .col-story__specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .col-story__spec {
+      padding: 8px 16px;
+      border: 1px solid var(--color-sand);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-espreso-light);
+      letter-spacing: 0.03em;
+    }
+    .col-story__gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .col-story__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 2px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .col-story__img.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 4: Product Grid
+    ═══════════════════════════════════════════════════════════ */
+    .col-products {
+      background: var(--color-pearl);
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .col-products__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2.5rem;
+    }
+    .col-products__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .col-products__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 400;
+      color: var(--color-espreso);
+    }
+    .col-products__count {
+      font-size: 0.75rem;
+      color: var(--color-jantar);
+      letter-spacing: 0.08em;
+    }
+    .col-products__filters {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .col-products__filter {
+      padding: 8px 18px;
+      border: 1px solid var(--color-sand);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-espreso-light);
+      cursor: pointer;
+      transition: all 180ms;
+    }
+    .col-products__filter:hover,
+    .col-products__filter.is-active {
+      background: var(--color-jantar);
+      border-color: var(--color-jantar);
+      color: #fff;
+    }
+    .col-products__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .col-card {
+      background: #fff;
+      border: 1px solid rgba(221,213,196,0.5);
+      transition: transform 200ms, box-shadow 200ms;
+    }
+    .col-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(30,26,22,0.08);
+    }
+    .col-card__img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: var(--color-alabaster);
+    }
+    .col-card__body { padding: 1.25rem; }
+    .col-card__name {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: var(--color-espreso);
+      margin-bottom: 0.5rem;
+    }
+    .col-card__meta {
+      font-size: 0.6875rem;
+      color: rgba(30,26,22,0.45);
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 0.75rem;
+    }
+    .col-card__meta span {
+      padding: 3px 8px;
+      border: 1px solid var(--color-sand);
+      border-radius: 1px;
+    }
+    .col-card__price {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-espreso);
+    }
+    .col-card__price small {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: rgba(30,26,22,0.4);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SECTION 5: CTA Strip
+    ═══════════════════════════════════════════════════════════ */
+    .col-cta {
+      background: var(--color-espreso);
+      padding: clamp(4rem, 8vw, 6rem) 0;
+      text-align: center;
+    }
+    .col-cta__eyebrow {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-sampanjac);
+      margin-bottom: 1rem;
+    }
+    .col-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-weight: 400;
+      font-style: italic;
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+    .col-cta__actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .col-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 200ms;
+    }
+    .col-cta__btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+    .col-cta__btn--primary {
+      background: var(--color-jantar);
+      color: #fff;
+    }
+    .col-cta__btn--primary:hover { background: var(--color-sampanjac); }
+    .col-cta__btn--secondary {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+    }
+    .col-cta__btn--secondary:hover { border-color: var(--color-sampanjac); color: var(--color-sampanjac); }
+
+    /* ═══════════════════════════════════════════════════════════
+       Responsive
+    ═══════════════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .col-products__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .col-story__inner { grid-template-columns: 1fr; }
+      .col-story__text { position: static; }
+      .col-products__grid { grid-template-columns: 1fr; }
+      .col-reveal__image { width: 70vw; height: 50vh; }
+      .col-hero__bottom { left: 1.5rem; bottom: 2rem; }
+      .col-hero__nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1: Fullscreen Hero
+═══════════════════════════════════════════════════════════ -->
+<section class="col-hero">
+  <img class="col-hero__img" src="/manus-storage/col-hero_b9b59244.png" alt="Travertino kolekcija - kupatilo sa travertin plocicama" />
+  <div class="col-hero__overlay"></div>
+  <nav class="col-hero__nav">
+    <div class="col-hero__logo">Door <span>Expert</span></div>
+    <a href="tau-ceramica.html" class="col-hero__back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+      Tau Ceramica
+    </a>
+  </nav>
+  <div class="col-hero__bottom">
+    <div class="col-hero__brand">Tau Ceramica · Spanija</div>
+    <h1 class="col-hero__title">Travertino</h1>
+  </div>
+  <div class="col-hero__scroll">
+    <span class="col-hero__scroll-text">Scroll</span>
+    <div class="col-hero__scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2: Horizontal Scroll Reveal
+═══════════════════════════════════════════════════════════ -->
+<section class="col-reveal">
+  <div class="col-reveal__pin">
+    <div class="col-reveal__track" id="revealTrack">
+      <span class="col-reveal__word col-reveal__word--filled">Travertino</span>
+      <img class="col-reveal__image" src="/manus-storage/col-bath2_c14e5416.jpg" alt="Travertino u kupatilu" />
+      <span class="col-reveal__word">Elegancija</span>
+      <img class="col-reveal__image" src="/manus-storage/col-living_c8eec7a7.jpg" alt="Travertino u dnevnoj sobi" />
+      <span class="col-reveal__word">Prirodnog</span>
+      <img class="col-reveal__image" src="/manus-storage/col-bath3_2b4416b5.webp" alt="Travertino detalj" />
+      <span class="col-reveal__word col-reveal__word--filled">Kamena</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3: Story Split
+═══════════════════════════════════════════════════════════ -->
+<section class="col-story">
+  <div class="col-story__inner">
+    <div class="col-story__text">
+      <div class="col-story__eyebrow">O kolekciji</div>
+      <h2 class="col-story__heading">Toplina prirodnog travertina u savremenoj keramici</h2>
+      <p class="col-story__desc">
+        Travertino kolekcija vjerno reprodukuje teksturu i toplinu prirodnog travertin kamena, ali sa svim prednostima moderne keramike: otpornost na vlagu, lako odrzavanje, konzistentna boja. Proizvedena u Spaniji od strane Tau Ceramica, jednog od vodecih evropskih proizvodjaca.
+      </p>
+      <div class="col-story__specs">
+        <span class="col-story__spec">60 x 120 cm</span>
+        <span class="col-story__spec">30 x 60 cm</span>
+        <span class="col-story__spec">Mat povrsina</span>
+        <span class="col-story__spec">Podna + zidna</span>
+        <span class="col-story__spec">Frost-proof</span>
+      </div>
+    </div>
+    <div class="col-story__gallery">
+      <img class="col-story__img" src="/manus-storage/col-floor_ea561971.jpg" alt="Travertino podna plocica detalj" />
+      <img class="col-story__img" src="/manus-storage/col-bath2_c14e5416.jpg" alt="Travertino u modernom kupatilu" />
+      <img class="col-story__img" src="/manus-storage/col-living_c8eec7a7.jpg" alt="Travertino u dnevnom boravku" />
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4: Product Grid
+═══════════════════════════════════════════════════════════ -->
+<section class="col-products">
+  <div class="col-products__inner">
+    <div class="col-products__header">
+      <div>
+        <h2 class="col-products__title">Proizvodi iz kolekcije</h2>
+        <span class="col-products__count">6 proizvoda</span>
+      </div>
+      <div class="col-products__filters">
+        <button class="col-products__filter is-active">Sve</button>
+        <button class="col-products__filter">60x120</button>
+        <button class="col-products__filter">30x60</button>
+        <button class="col-products__filter">Beige</button>
+        <button class="col-products__filter">Ivory</button>
+      </div>
+    </div>
+    <div class="col-products__grid">
+      <div class="col-card">
+        <img class="col-card__img" src="https://images.unsplash.com/photo-1615529328331-f8917597711f?w=500&q=80" alt="Travertino Beige 60x120" />
+        <div class="col-card__body">
+          <h3 class="col-card__name">Travertino Beige</h3>
+          <div class="col-card__meta">
+            <span>60 x 120 cm</span>
+            <span>Mat</span>
+            <span>Podna</span>
+          </div>
+          <div class="col-card__price">28 &euro;/m&sup2; <small>sa PDV-om</small></div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img class="col-card__img" src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=500&q=80" alt="Travertino Ivory 60x120" />
+        <div class="col-card__body">
+          <h3 class="col-card__name">Travertino Ivory</h3>
+          <div class="col-card__meta">
+            <span>60 x 120 cm</span>
+            <span>Mat</span>
+            <span>Podna</span>
+          </div>
+          <div class="col-card__price">28 &euro;/m&sup2; <small>sa PDV-om</small></div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img class="col-card__img" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=500&q=80" alt="Travertino Beige 30x60" />
+        <div class="col-card__body">
+          <h3 class="col-card__name">Travertino Beige</h3>
+          <div class="col-card__meta">
+            <span>30 x 60 cm</span>
+            <span>Mat</span>
+            <span>Zidna</span>
+          </div>
+          <div class="col-card__price">24 &euro;/m&sup2; <small>sa PDV-om</small></div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img class="col-card__img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&q=80" alt="Travertino Ivory 30x60" />
+        <div class="col-card__body">
+          <h3 class="col-card__name">Travertino Ivory</h3>
+          <div class="col-card__meta">
+            <span>30 x 60 cm</span>
+            <span>Mat</span>
+            <span>Zidna</span>
+          </div>
+          <div class="col-card__price">24 &euro;/m&sup2; <small>sa PDV-om</small></div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img class="col-card__img" src="https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=500&q=80" alt="Travertino Noce 60x120" />
+        <div class="col-card__body">
+          <h3 class="col-card__name">Travertino Noce</h3>
+          <div class="col-card__meta">
+            <span>60 x 120 cm</span>
+            <span>Mat</span>
+            <span>Podna</span>
+          </div>
+          <div class="col-card__price">32 &euro;/m&sup2; <small>sa PDV-om</small></div>
+        </div>
+      </div>
+      <div class="col-card">
+        <img class="col-card__img" src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=500&q=80" alt="Travertino Noce 30x60" />
+        <div class="col-card__body">
+          <h3 class="col-card__name">Travertino Noce</h3>
+          <div class="col-card__meta">
+            <span>30 x 60 cm</span>
+            <span>Mat</span>
+            <span>Zidna + Podna</span>
+          </div>
+          <div class="col-card__price">26 &euro;/m&sup2; <small>sa PDV-om</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5: CTA Strip
+═══════════════════════════════════════════════════════════ -->
+<section class="col-cta">
+  <div class="col-cta__eyebrow">Travertino kolekcija · Na stanju</div>
+  <h2 class="col-cta__title">Zatrazite ponudu ili posjetite salon</h2>
+  <div class="col-cta__actions">
+    <a href="korpa.html" class="col-cta__btn col-cta__btn--primary">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Zatrazite ponudu
+    </a>
+    <a href="tel:+38269123456" class="col-cta__btn col-cta__btn--secondary">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Pozovite nas
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     GSAP ScrollTrigger Animations
+═══════════════════════════════════════════════════════════ -->
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // 1. Horizontal scroll reveal
+  const track = document.getElementById('revealTrack');
+  if (track) {
+    const totalScroll = track.scrollWidth - window.innerWidth;
+
+    gsap.to(track, {
+      x: -totalScroll,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.col-reveal',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1.2,
+        invalidateOnRefresh: true,
+      }
+    });
+
+    // Reveal images as they enter viewport
+    const images = track.querySelectorAll('.col-reveal__image');
+    images.forEach((img, i) => {
+      ScrollTrigger.create({
+        trigger: '.col-reveal',
+        start: () => `top+=${(i + 1) * (totalScroll / (images.length + 1))} top`,
+        onEnter: () => img.classList.add('is-visible'),
+        onLeaveBack: () => img.classList.remove('is-visible'),
+      });
+    });
+  }
+
+  // 2. Story gallery images fade in on scroll
+  const storyImages = document.querySelectorAll('.col-story__img');
+  storyImages.forEach(img => {
+    ScrollTrigger.create({
+      trigger: img,
+      start: 'top 80%',
+      onEnter: () => img.classList.add('is-visible'),
+    });
+  });
+
+  // 3. Product cards stagger entrance
+  gsap.from('.col-card', {
+    y: 40,
+    opacity: 0,
+    duration: 0.6,
+    stagger: 0.1,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: '.col-products__grid',
+      start: 'top 80%',
+    }
+  });
+
+  // 4. Filter buttons interaction
+  const filterBtns = document.querySelectorAll('.col-products__filter');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+    });
+  });
+</script>
+
+</body>
+</html>

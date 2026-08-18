@@ -27,33 +27,33 @@
   const PRODUCTS = {
     vrata: {
       category: 'Sobna vrata',
-      name: 'Linea',
-      subname: 'Bijela mat — minimalistička linija',
+      name: 'Snijeg bijela sa staklom',
+      subname: 'Puno drvo oblozeno medijapanom 8mm, crno staklo',
       badge: 'Sobna vrata',
       bcCategory: 'Sobna vrata',
       bcCategoryHref: 'sobna-vrata.html',
-      bcProduct: 'Linea — Bijela mat',
+      bcProduct: 'Snijeg bijela sa staklom',
       priceUnit: 'Cijena po komadu, sa štok-okvirom. PDV uključen.',
       qtyLabel: 'Količina',
       images: [
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-main_c9f69a73.png',
-          alt: 'Linea — Bijela mat, frontalni prikaz'
+          src: '/manus-storage/product-door-main_c9f69a73.png',
+          alt: 'Snijeg bijela sa staklom, frontalni prikaz'
         },
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-lifestyle_2446a5fe.png',
-          alt: 'Linea — Bijela mat u enterijeru'
+          src: '/manus-storage/product-door-lifestyle_2446a5fe.png',
+          alt: 'Snijeg bijela sa staklom u enterijeru'
         },
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-detail_ce9d4153.png',
+          src: '/manus-storage/product-door-detail_ce9d4153.png',
           alt: 'Detalj ručke i površine'
         },
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-door-white_b2dfc901.png',
-          alt: 'Bijela mat varijanta — bočni prikaz'
+          src: '/manus-storage/product-door-white_b2dfc901.png',
+          alt: 'Snijeg bijela sa staklom, bocni prikaz'
         }
       ],
-      defaultPrice: '285 EUR',
+      defaultPrice: '380 EUR',
       defaultOriginal: '370 EUR',
       defaultSavings: '✓ Ustedite 85 EUR'
     },
@@ -69,15 +69,15 @@
       qtyLabel: 'Paketa',
       images: [
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-tile-main_0b3bb677.png',
+          src: '/manus-storage/product-tile-main_0b3bb677.png',
           alt: 'Marmo Blanco — prikaz pločica'
         },
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-tile-lifestyle_a127d64f.png',
+          src: '/manus-storage/product-tile-lifestyle_a127d64f.png',
           alt: 'Marmo Blanco u kupatilu'
         },
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-tile-detail_a59223dc.png',
+          src: '/manus-storage/product-tile-detail_a59223dc.png',
           alt: 'Detalj površine i ivice'
         }
       ],
@@ -97,15 +97,15 @@
       qtyLabel: 'Količina',
       images: [
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-basin-main_bc4d382e.png',
+          src: '/manus-storage/product-basin-main_bc4d382e.png',
           alt: 'Mueble Oval — bijeli mat, prikaz'
         },
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-basin-lifestyle_9b466068.png',
+          src: '/manus-storage/product-basin-lifestyle_9b466068.png',
           alt: 'Mueble Oval u kupatilu'
         },
         {
-          src: 'https://3000-i4xviitzy7pxssh3g4nur-1bd8757e.us1.manus.computer/manus-storage/product-basin-detail_fc82ad20.png',
+          src: '/manus-storage/product-basin-detail_fc82ad20.png',
           alt: 'Detalj površine umivaonika'
         }
       ],
@@ -303,8 +303,8 @@
       pill.addEventListener('click', () => {
         setActivePill(pill, '[data-finish]');
         const finishMap = {
-          'bijela-mat': 'Bijela mat',
-          'tamni-orah': 'Tamni orah',
+          'snijeg-bijela': 'Snijeg bijela',
+          'orah': 'Orah',
           'antracit': 'Antracit',
           'hrast': 'Hrast natural'
         };
@@ -367,7 +367,7 @@
         document.querySelectorAll('.product-swatch').forEach(s => s.classList.remove('is-active'));
         swatch.classList.add('is-active');
         const colorMap = {
-          'bijela-mat': 'Bijela mat',
+          'snijeg-bijela': 'Snijeg bijela',
           'crna-mat': 'Crna mat',
           'siva-mat': 'Siva mat',
           'kamen': 'Kamen'

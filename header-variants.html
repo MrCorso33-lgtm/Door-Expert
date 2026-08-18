@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Header varijante | Door Expert</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-alabaster: #F0EBE0;
+      --color-pearl: #F7F3EC;
+      --color-sand: #DDD5C4;
+      --color-antracit: #1E1A16;
+      --color-antracit-mid: #3A3530;
+      --color-antracit-soft: #5A5248;
+      --color-jantar: #A07840;
+      --color-sampanjac: #C9A96E;
+      --color-sampanjac-light: #EDE0C8;
+      --color-espreso: #4A2E1A;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--color-alabaster);
+      color: var(--color-antracit);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    button { border: none; background: none; cursor: pointer; font: inherit; }
+
+    /* Page intro */
+    .page-header {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+    }
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+    .page-header p {
+      color: var(--color-antracit-soft);
+      font-size: 1rem;
+      max-width: 65ch;
+    }
+
+    /* Variant separator */
+    .variant-label {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 3rem 2rem 1.5rem;
+      border-top: 2px solid var(--color-sand);
+    }
+    .variant-label h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 500;
+    }
+    .variant-label .tag {
+      display: inline-block;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 0.5rem;
+    }
+    .tag--layout { background: var(--color-antracit); color: #fff; }
+    .tag--color { background: var(--color-jantar); color: #fff; }
+    .variant-label p {
+      color: var(--color-antracit-soft);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+    .variant-label .compat {
+      font-size: 0.75rem;
+      color: var(--color-jantar);
+      margin-top: 0.25rem;
+    }
+
+    /* Shared SVG icon sizing */
+    .hv-icon { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .hv-chevron { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; margin-left: 4px; opacity: 0.5; }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT A: Stacked - Top bar + centered logo + nav below
+       Kompatibilno sa: Footer A (Mega Footer)
+    ═══════════════════════════════════════════════════════════ */
+    .hv-a {
+      background: #fff;
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .hv-a__top {
+      background: var(--color-antracit);
+      color: var(--color-sampanjac-light);
+      font-size: 0.6875rem;
+      letter-spacing: 0.04em;
+    }
+    .hv-a__top-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 8px 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hv-a__top-promo { display: flex; align-items: center; gap: 6px; }
+    .hv-a__top-dot { width: 6px; height: 6px; border-radius: 50%; background: #4CAF50; }
+    .hv-a__top-links { display: flex; gap: 1.5rem; }
+    .hv-a__top-links a { color: rgba(237,224,200,0.6); transition: color 150ms; }
+    .hv-a__top-links a:hover { color: #fff; }
+    .hv-a__mid {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hv-a__logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-antracit);
+    }
+    .hv-a__logo span { color: var(--color-jantar); }
+    .hv-a__actions { display: flex; align-items: center; gap: 1rem; }
+    .hv-a__actions a, .hv-a__actions button {
+      color: var(--color-antracit-mid);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 150ms;
+    }
+    .hv-a__actions a:hover, .hv-a__actions button:hover { color: var(--color-jantar); }
+    .hv-a__phone {
+      background: var(--color-jantar);
+      color: #fff !important;
+      padding: 10px 20px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .hv-a__phone:hover { background: #8A6430 !important; color: #fff !important; }
+    .hv-a__nav {
+      border-top: 1px solid var(--color-sand);
+    }
+    .hv-a__nav-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .hv-a__nav-link {
+      display: flex;
+      align-items: center;
+      padding: 14px 0;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-antracit-mid);
+      letter-spacing: 0.02em;
+      transition: color 150ms;
+      border-bottom: 2px solid transparent;
+    }
+    .hv-a__nav-link:hover { color: var(--color-jantar); border-bottom-color: var(--color-jantar); }
+    .hv-a__nav-link--akcije { color: var(--color-jantar); font-weight: 600; }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT B: Slim Single-Line - sve u jednom redu
+       Kompatibilno sa: Footer B (Split Footer)
+    ═══════════════════════════════════════════════════════════ */
+    .hv-b {
+      background: #fff;
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .hv-b__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 72px;
+      gap: 2rem;
+    }
+    .hv-b__logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-antracit);
+      flex-shrink: 0;
+    }
+    .hv-b__logo span { color: var(--color-jantar); }
+    .hv-b__nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      flex: 1;
+    }
+    .hv-b__nav-link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-antracit-mid);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+      white-space: nowrap;
+    }
+    .hv-b__nav-link:hover { color: var(--color-jantar); }
+    .hv-b__nav-link--akcije { color: var(--color-jantar); font-weight: 600; }
+    .hv-b__right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .hv-b__btn {
+      color: var(--color-antracit-mid);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+    }
+    .hv-b__btn:hover { color: var(--color-jantar); }
+    .hv-b__phone {
+      background: var(--color-jantar);
+      color: #fff;
+      padding: 8px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .hv-b__phone:hover { background: #8A6430; }
+    .hv-b__promo {
+      background: var(--color-antracit);
+      color: var(--color-sampanjac-light);
+      text-align: center;
+      font-size: 0.6875rem;
+      padding: 6px 2rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT C: Left-heavy - logo + nav levo, actions desno, no top bar
+       Kompatibilno sa: Footer C (Accordion Mobile-First)
+    ═══════════════════════════════════════════════════════════ */
+    .hv-c {
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(30,26,22,0.06);
+    }
+    .hv-c__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 80px;
+    }
+    .hv-c__left { display: flex; align-items: center; gap: 2.5rem; flex: 1; }
+    .hv-c__logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-antracit);
+      flex-shrink: 0;
+    }
+    .hv-c__logo span { color: var(--color-jantar); }
+    .hv-c__nav { display: flex; align-items: center; gap: 1.5rem; }
+    .hv-c__nav-link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-antracit-mid);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+    }
+    .hv-c__nav-link:hover { color: var(--color-jantar); }
+    .hv-c__nav-link--akcije { color: var(--color-jantar); font-weight: 600; }
+    .hv-c__right { display: flex; align-items: center; gap: 0.75rem; }
+    .hv-c__btn {
+      width: 42px; height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-antracit-mid);
+      border: 1px solid var(--color-sand);
+      transition: all 150ms;
+    }
+    .hv-c__btn:hover { border-color: var(--color-jantar); color: var(--color-jantar); }
+    .hv-c__phone {
+      background: var(--color-jantar);
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.03em;
+    }
+    .hv-c__phone:hover { background: #8A6430; }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT D: Warm Alabaster - svijetla pozadina, sand borderi
+       Kompatibilno sa: Footer D (Warm Alabaster)
+    ═══════════════════════════════════════════════════════════ */
+    .hv-d {
+      background: var(--color-alabaster);
+      border-bottom: 1px solid var(--color-sand);
+    }
+    .hv-d__top {
+      background: var(--color-pearl);
+      border-bottom: 1px solid var(--color-sand);
+      font-size: 0.6875rem;
+      color: var(--color-antracit-soft);
+    }
+    .hv-d__top-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 8px 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hv-d__top-promo { display: flex; align-items: center; gap: 6px; color: var(--color-jantar); font-weight: 500; }
+    .hv-d__top-dot { width: 6px; height: 6px; border-radius: 50%; background: #4CAF50; }
+    .hv-d__top-links { display: flex; gap: 1.5rem; }
+    .hv-d__top-links a { color: var(--color-antracit-soft); transition: color 150ms; }
+    .hv-d__top-links a:hover { color: var(--color-jantar); }
+    .hv-d__main {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 76px;
+      gap: 2rem;
+    }
+    .hv-d__logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-antracit);
+      flex-shrink: 0;
+    }
+    .hv-d__logo span { color: var(--color-jantar); }
+    .hv-d__nav { display: flex; align-items: center; gap: 2rem; flex: 1; justify-content: center; }
+    .hv-d__nav-link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--color-antracit-mid);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+      padding: 4px 0;
+      border-bottom: 2px solid transparent;
+    }
+    .hv-d__nav-link:hover { color: var(--color-jantar); border-bottom-color: var(--color-jantar); }
+    .hv-d__nav-link--akcije { color: var(--color-jantar); font-weight: 600; }
+    .hv-d__right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .hv-d__btn {
+      color: var(--color-antracit-soft);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+    }
+    .hv-d__btn:hover { color: var(--color-jantar); }
+    .hv-d__phone {
+      border: 1px solid var(--color-jantar);
+      color: var(--color-jantar);
+      padding: 8px 18px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 150ms;
+    }
+    .hv-d__phone:hover { background: var(--color-jantar); color: #fff; }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT E: Deep Jantar - tamna topla cokolada
+       Kompatibilno sa: Footer E (Deep Jantar)
+    ═══════════════════════════════════════════════════════════ */
+    .hv-e {
+      background: linear-gradient(180deg, #3D2B1F 0%, #2C1A0E 100%);
+      border-bottom: 1px solid rgba(201,169,110,0.15);
+    }
+    .hv-e__top {
+      border-bottom: 1px solid rgba(201,169,110,0.1);
+      font-size: 0.6875rem;
+      color: rgba(237,224,200,0.5);
+    }
+    .hv-e__top-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 8px 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hv-e__top-promo { display: flex; align-items: center; gap: 6px; color: var(--color-sampanjac); }
+    .hv-e__top-dot { width: 6px; height: 6px; border-radius: 50%; background: #4CAF50; }
+    .hv-e__top-links { display: flex; gap: 1.5rem; }
+    .hv-e__top-links a { color: rgba(237,224,200,0.4); transition: color 150ms; }
+    .hv-e__top-links a:hover { color: var(--color-sampanjac-light); }
+    .hv-e__main {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 76px;
+      gap: 2rem;
+    }
+    .hv-e__logo {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-sampanjac-light);
+      flex-shrink: 0;
+    }
+    .hv-e__logo span { color: var(--color-sampanjac); }
+    .hv-e__nav { display: flex; align-items: center; gap: 2rem; flex: 1; justify-content: center; }
+    .hv-e__nav-link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: rgba(237,224,200,0.6);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+    }
+    .hv-e__nav-link:hover { color: var(--color-sampanjac-light); }
+    .hv-e__nav-link--akcije { color: var(--color-sampanjac); font-weight: 600; }
+    .hv-e__right { display: flex; align-items: center; gap: 1rem; flex-shrink: 0; }
+    .hv-e__btn {
+      color: rgba(237,224,200,0.5);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+    }
+    .hv-e__btn:hover { color: var(--color-sampanjac); }
+    .hv-e__phone {
+      background: var(--color-sampanjac);
+      color: var(--color-espreso);
+      padding: 9px 18px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 150ms;
+    }
+    .hv-e__phone:hover { background: var(--color-sampanjac-light); }
+
+    /* ═══════════════════════════════════════════════════════════
+       VARIANT F: Antracit Clean - flat moderan
+       Kompatibilno sa: Footer F (Antracit Clean)
+    ═══════════════════════════════════════════════════════════ */
+    .hv-f {
+      background: #2A2520;
+      border-bottom: 1px solid rgba(247,243,236,0.06);
+    }
+    .hv-f__inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      height: 72px;
+      gap: 2rem;
+    }
+    .hv-f__logo {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-pearl);
+      flex-shrink: 0;
+    }
+    .hv-f__logo span { color: var(--color-jantar); }
+    .hv-f__nav { display: flex; align-items: center; gap: 2rem; flex: 1; }
+    .hv-f__nav-link {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: rgba(247,243,236,0.5);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+    }
+    .hv-f__nav-link:hover { color: var(--color-pearl); }
+    .hv-f__nav-link--akcije { color: var(--color-jantar); font-weight: 600; }
+    .hv-f__right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+    .hv-f__btn {
+      color: rgba(247,243,236,0.4);
+      display: flex;
+      align-items: center;
+      transition: color 150ms;
+    }
+    .hv-f__btn:hover { color: var(--color-jantar); }
+    .hv-f__phone {
+      border: 1px solid var(--color-jantar);
+      color: var(--color-jantar);
+      padding: 8px 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 150ms;
+    }
+    .hv-f__phone:hover { background: var(--color-jantar); color: #fff; }
+    .hv-f__promo {
+      background: rgba(247,243,236,0.03);
+      border-bottom: 1px solid rgba(247,243,236,0.04);
+      text-align: center;
+      font-size: 0.6875rem;
+      padding: 6px 2rem;
+      color: rgba(247,243,236,0.35);
+    }
+    .hv-f__promo strong { color: var(--color-jantar); font-weight: 500; }
+
+    /* Spacer between variants */
+    .variant-spacer { height: 4rem; background: var(--color-alabaster); }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Header varijante</h1>
+  <p>6 razlicitih header dizajn pristupa. Svaka varijanta je kompatibilna sa odgovarajucom footer varijantom (ista kolor logika). Prva tri menjaju layout, druga tri menjaju kolor shemu.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT A: Stacked (3 reda: top bar + logo/actions + nav)
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--layout">Layout</span>
+  <h2>Varijanta A: Stacked (3 reda)</h2>
+  <p>Top bar + centriran logo sa akcijama + navigacija u zasebnom redu ispod. Vise prostora, jasnija hijerarhija.</p>
+  <div class="compat">Kompatibilno sa: Footer A (Mega Footer)</div>
+</div>
+
+<header class="hv-a">
+  <div class="hv-a__top">
+    <div class="hv-a__top-inner">
+      <div class="hv-a__top-promo">
+        <span class="hv-a__top-dot"></span>
+        Vrata odmah dostupna - isporuka bez cekanja
+      </div>
+      <div class="hv-a__top-links">
+        <a href="#">O nama</a>
+        <a href="#">Posjetite salon</a>
+        <a href="#">Za investitore</a>
+      </div>
+    </div>
+  </div>
+  <div class="hv-a__mid">
+    <div class="hv-a__logo">Door <span>Expert</span></div>
+    <div class="hv-a__actions">
+      <button><svg class="hv-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <a href="#"><svg class="hv-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+      <a href="tel:+38269123456" class="hv-a__phone">
+        <svg class="hv-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +382 69 123 456
+      </a>
+    </div>
+  </div>
+  <nav class="hv-a__nav">
+    <div class="hv-a__nav-inner">
+      <a href="#" class="hv-a__nav-link">Sobna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-a__nav-link">Sigurnosna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-a__nav-link">Keramicke plocice <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-a__nav-link">Umivaonici <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-a__nav-link hv-a__nav-link--akcije">Akcije</a>
+      <a href="#" class="hv-a__nav-link">Brendovi</a>
+    </div>
+  </nav>
+</header>
+
+<div class="variant-spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT B: Slim Single-Line (promo bar + sve u jednom redu)
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--layout">Layout</span>
+  <h2>Varijanta B: Slim Single-Line</h2>
+  <p>Promo bar iznad + sve u jednom kompaktnom redu (logo, nav, actions). Minimalan vertikalni prostor.</p>
+  <div class="compat">Kompatibilno sa: Footer B (Split Footer)</div>
+</div>
+
+<div class="hv-b__promo">Vrata odmah dostupna - isporuka bez cekanja · Pon-Sub: 08:00-17:00</div>
+<header class="hv-b">
+  <div class="hv-b__inner">
+    <div class="hv-b__logo">Door <span>Expert</span></div>
+    <nav class="hv-b__nav">
+      <a href="#" class="hv-b__nav-link">Sobna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-b__nav-link">Sigurnosna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-b__nav-link">Keramicke plocice <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-b__nav-link">Umivaonici <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-b__nav-link hv-b__nav-link--akcije">Akcije</a>
+    </nav>
+    <div class="hv-b__right">
+      <button class="hv-b__btn"><svg class="hv-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <a href="#" class="hv-b__btn"><svg class="hv-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+      <a href="tel:+38269123456" class="hv-b__phone">
+        <svg class="hv-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Pozovite
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="variant-spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT C: Left-heavy (logo + nav levo, actions desno, bez top bara)
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--layout">Layout</span>
+  <h2>Varijanta C: Left-Heavy</h2>
+  <p>Bez top bara. Logo i navigacija grupisani levo, akcije (search, cart, phone) desno sa bordered dugmadima. Cist i moderan.</p>
+  <div class="compat">Kompatibilno sa: Footer C (Accordion Mobile-First)</div>
+</div>
+
+<header class="hv-c">
+  <div class="hv-c__inner">
+    <div class="hv-c__left">
+      <div class="hv-c__logo">Door <span>Expert</span></div>
+      <nav class="hv-c__nav">
+        <a href="#" class="hv-c__nav-link">Sobna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <a href="#" class="hv-c__nav-link">Sigurnosna <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <a href="#" class="hv-c__nav-link">Plocice <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <a href="#" class="hv-c__nav-link">Umivaonici <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+        <a href="#" class="hv-c__nav-link hv-c__nav-link--akcije">Akcije</a>
+      </nav>
+    </div>
+    <div class="hv-c__right">
+      <button class="hv-c__btn"><svg class="hv-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <a href="#" class="hv-c__btn"><svg class="hv-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+      <a href="tel:+38269123456" class="hv-c__phone">
+        <svg class="hv-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +382 69 123 456
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="variant-spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT D: Warm Alabaster
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--color">Kolor</span>
+  <h2>Varijanta D: Warm Alabaster</h2>
+  <p>Alabaster pozadina (#F0EBE0), pearl top bar, sand borderi. Otvoren, prozracan, "showroom" osjecaj. Outline phone dugme.</p>
+  <div class="compat">Kompatibilno sa: Footer D (Warm Alabaster)</div>
+</div>
+
+<header class="hv-d">
+  <div class="hv-d__top">
+    <div class="hv-d__top-inner">
+      <div class="hv-d__top-promo">
+        <span class="hv-d__top-dot"></span>
+        Vrata odmah dostupna - isporuka bez cekanja
+      </div>
+      <div class="hv-d__top-links">
+        <a href="#">O nama</a>
+        <a href="#">Posjetite salon</a>
+        <a href="#">Za investitore</a>
+      </div>
+    </div>
+  </div>
+  <div class="hv-d__main">
+    <div class="hv-d__logo">Door <span>Expert</span></div>
+    <nav class="hv-d__nav">
+      <a href="#" class="hv-d__nav-link">Sobna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-d__nav-link">Sigurnosna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-d__nav-link">Keramicke plocice <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-d__nav-link">Umivaonici <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-d__nav-link hv-d__nav-link--akcije">Akcije</a>
+    </nav>
+    <div class="hv-d__right">
+      <button class="hv-d__btn"><svg class="hv-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <a href="#" class="hv-d__btn"><svg class="hv-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+      <a href="tel:+38269123456" class="hv-d__phone">
+        <svg class="hv-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Pozovite
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="variant-spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT E: Deep Jantar
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--color">Kolor</span>
+  <h2>Varijanta E: Deep Jantar</h2>
+  <p>Topla cokoladno-smedja pozadina (#3D2B1F), sampanjac tekst, zlatno phone dugme. "Leather &amp; wood" luksuz.</p>
+  <div class="compat">Kompatibilno sa: Footer E (Deep Jantar)</div>
+</div>
+
+<header class="hv-e">
+  <div class="hv-e__top">
+    <div class="hv-e__top-inner">
+      <div class="hv-e__top-promo">
+        <span class="hv-e__top-dot"></span>
+        Vrata odmah dostupna - isporuka bez cekanja
+      </div>
+      <div class="hv-e__top-links">
+        <a href="#">O nama</a>
+        <a href="#">Posjetite salon</a>
+        <a href="#">Za investitore</a>
+      </div>
+    </div>
+  </div>
+  <div class="hv-e__main">
+    <div class="hv-e__logo">Door <span>Expert</span></div>
+    <nav class="hv-e__nav">
+      <a href="#" class="hv-e__nav-link">Sobna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-e__nav-link">Sigurnosna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-e__nav-link">Keramicke plocice <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-e__nav-link">Umivaonici <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-e__nav-link hv-e__nav-link--akcije">Akcije</a>
+    </nav>
+    <div class="hv-e__right">
+      <button class="hv-e__btn"><svg class="hv-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <a href="#" class="hv-e__btn"><svg class="hv-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+      <a href="tel:+38269123456" class="hv-e__phone">
+        <svg class="hv-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +382 69 123 456
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="variant-spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     VARIANT F: Antracit Clean
+═══════════════════════════════════════════════════════════════ -->
+<div class="variant-label">
+  <span class="tag tag--color">Kolor</span>
+  <h2>Varijanta F: Antracit Clean</h2>
+  <p>Flat topli antracit (#2A2520), bez gradijenta. Pearl tekst, jantar samo za akcente. Moderan, minimalan, "tech-premium".</p>
+  <div class="compat">Kompatibilno sa: Footer F (Antracit Clean)</div>
+</div>
+
+<div class="hv-f__promo"><strong>Na stanju</strong> - isporuka bez cekanja · Pon-Sub 08:00-17:00</div>
+<header class="hv-f">
+  <div class="hv-f__inner">
+    <div class="hv-f__logo">Door <span>Expert</span></div>
+    <nav class="hv-f__nav">
+      <a href="#" class="hv-f__nav-link">Sobna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-f__nav-link">Sigurnosna vrata <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-f__nav-link">Keramicke plocice <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-f__nav-link">Umivaonici <svg class="hv-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <a href="#" class="hv-f__nav-link hv-f__nav-link--akcije">Akcije</a>
+    </nav>
+    <div class="hv-f__right">
+      <button class="hv-f__btn"><svg class="hv-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+      <a href="#" class="hv-f__btn"><svg class="hv-icon" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg></a>
+      <a href="tel:+38269123456" class="hv-f__phone">
+        <svg class="hv-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 011.61 3.4 2 2 0 013.6 1.22h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Pozovite
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="variant-spacer"></div>
+<div style="height:2rem;"></div>
+
+</body>
+</html>
