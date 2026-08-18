@@ -155,6 +155,8 @@ function door_expert_enqueue_assets() {
 			'inspiracija' => array( 'css' => array( 'inspiracija' ), 'js' => array( 'inspiracija' ) ),
 			'brendovi'    => array( 'css' => array( 'brendovi' ),    'js' => array() ),
 			'montaza'     => array( 'css' => array( 'montaza' ),     'js' => array() ),
+			// category.css nosi .prod-card/.prod-badge stilove (zavisnost prije prodavnica.css).
+			'prodavnica'  => array( 'css' => array( 'category', 'prodavnica' ), 'js' => array( 'prodavnica' ) ),
 			'new-tiles'       => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'tau-ceramica'    => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'arcana-ceramica' => array( 'css' => array( 'brand' ), 'js' => array() ),

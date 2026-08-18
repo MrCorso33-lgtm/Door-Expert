@@ -61,7 +61,7 @@ get_header();
           <!-- CTA group -->
           <!-- Research: Conversion Strategy – primary "Pogledaj", secondary "Salon" -->
           <div class="hero__cta-group">
-            <a href="#" class="hero__btn-primary">
+            <a href="<?php echo esc_url( home_url( '/prodavnica/' ) ); ?>" class="hero__btn-primary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
               Prodavnica
             </a>
