@@ -168,6 +168,7 @@
   padding-top: 4px;
 }
 .shop-filter-color {
+  display: inline-block;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -176,7 +177,8 @@
   transition: border-color 150ms, transform 150ms;
 }
 .shop-filter-color:hover,
-.shop-filter-color.is-active {
+.shop-filter-color.is-active,
+.shop-filter-color:has(input:checked) {
   border-color: var(--color-jantar);
   transform: scale(1.15);
 }
@@ -331,6 +333,81 @@
   stroke: var(--color-espreso);
   fill: none;
   stroke-width: 2;
+}
+
+/* WP paginate_links() markup (.page-numbers) – isti izgled kao .shop-pagination__btn */
+.shop-pagination .page-numbers {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-sand);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-espreso);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 150ms;
+}
+.shop-pagination a.page-numbers:hover,
+.shop-pagination .page-numbers.current {
+  background: var(--color-jantar);
+  border-color: var(--color-jantar);
+  color: #fff;
+}
+.shop-pagination .page-numbers.dots {
+  border: none;
+  background: transparent;
+}
+.shop-pagination .page-numbers.prev,
+.shop-pagination .page-numbers.next {
+  border: none;
+}
+.shop-pagination .page-numbers.prev svg,
+.shop-pagination .page-numbers.next svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--color-espreso);
+  fill: none;
+  stroke-width: 2;
+}
+
+/* Primijeni filtere (dugme na dnu sidebara) */
+.shop-filters__apply {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 12px;
+  background: var(--color-espreso);
+  color: #fff;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms;
+}
+.shop-filters__apply:hover {
+  background: var(--color-jantar);
+}
+
+/* Prazno stanje (nema proizvoda za filtere) */
+.shop-empty {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+.shop-empty__title {
+  font-size: 1rem;
+  color: rgba(30, 26, 22, 0.6);
+  margin-bottom: 1rem;
+}
+.shop-empty__reset {
+  color: var(--color-jantar);
+  font-weight: 600;
+  font-size: 0.8125rem;
 }
 
 /* ── TABLET: 2 kolone u gridu ────────────────────────────── */

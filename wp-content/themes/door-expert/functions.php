@@ -155,8 +155,6 @@ function door_expert_enqueue_assets() {
 			'inspiracija' => array( 'css' => array( 'inspiracija' ), 'js' => array( 'inspiracija' ) ),
 			'brendovi'    => array( 'css' => array( 'brendovi' ),    'js' => array() ),
 			'montaza'     => array( 'css' => array( 'montaza' ),     'js' => array() ),
-			// category.css nosi .prod-card/.prod-badge stilove (zavisnost prije prodavnica.css).
-			'prodavnica'  => array( 'css' => array( 'category', 'prodavnica' ), 'js' => array( 'prodavnica' ) ),
 			'new-tiles'       => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'tau-ceramica'    => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'arcana-ceramica' => array( 'css' => array( 'brand' ), 'js' => array() ),
@@ -175,6 +173,14 @@ function door_expert_enqueue_assets() {
 				wp_enqueue_script( 'door-expert-' . $handle . '-js', $uri . $rel, array(), door_expert_ver( $rel ), true );
 			}
 		}
+	}
+
+	// ── KONDICIONALNO: WooCommerce shop arhiva (Prodavnica) ───
+	// category.css nosi .prod-card/.prod-badge stilove (zavisnost prije prodavnica.css).
+	if ( function_exists( 'is_shop' ) && is_shop() ) {
+		wp_enqueue_style( 'door-expert-category', $uri . '/assets/css/category.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/category.css' ) );
+		wp_enqueue_style( 'door-expert-prodavnica', $uri . '/assets/css/prodavnica.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/prodavnica.css' ) );
+		wp_enqueue_script( 'door-expert-prodavnica-js', $uri . '/assets/js/prodavnica.js', array(), door_expert_ver( '/assets/js/prodavnica.js' ), true );
 	}
 
 	// ── KONDICIONALNO: WooCommerce single proizvod + korpa ────
@@ -296,6 +302,8 @@ require_once get_template_directory() . '/inc/page-content.php';
 require_once get_template_directory() . '/inc/contact-form.php';
 // Sadržaj brend stranica (5 brendova, uniforman prikaz) – ODVOJEN od prikaza.
 require_once get_template_directory() . '/inc/brand-content.php';
+// Shop (Prodavnica) – WooCommerce arhiva: server-side filteri/sort za archive-product.php.
+require_once get_template_directory() . '/inc/shop.php';
 
 // Otkači default WC wrappere – naš <main> (header.php/footer.php) kontroliše layout,
 // a taxonomy-product_cat.php sam renderuje sekcije. Bez ovoga WC ubacuje svoj

@@ -1,12 +1,9 @@
 /**
- * Prodavnica (shop) – interakcije filtera i grida.
- * Izvučeno iz inline <script> prototipa prodavnica.html.
+ * Prodavnica (WooCommerce shop arhiva) – UI interakcije.
  *
- * NAPOMENA (Faza A / demo): filtriranje je klijentsko (display toggle po kategoriji)
- * nad statičnim karticama. U produkciji listing/filtriranje ide kroz WP_Query /
- * WooCommerce (bez JetSmartFilters), pa se ova skripta zamjenjuje/proširuje.
- *
- * Header scroll efekat NIJE ovdje – rješava ga globalni assets/js/header.js.
+ * Filtriranje/sortiranje/paginacija su SERVER-SIDE (GET forma => WP_Query, inc/shop.php).
+ * Ova skripta radi samo UI: accordion grupa, mobilni toggle sidebara, vizuelni feedback
+ * swatch-a boje (fallback za pregledače bez CSS :has). Header scroll = globalni header.js.
  */
 ( function () {
   'use strict';
@@ -28,39 +25,14 @@
     } );
   }
 
-  // Hero kategorijske pilule – filtriraj kartice po kategoriji
-  var heroCatBtns = document.querySelectorAll( '.shop-hero__cat-btn' );
-  var shopCards = document.querySelectorAll( '.shop-grid .prod-card' );
-  var countEl = document.querySelector( '.shop-toolbar__count strong' );
-
-  heroCatBtns.forEach( function ( btn ) {
-    btn.addEventListener( 'click', function () {
-      heroCatBtns.forEach( function ( b ) {
-        b.classList.remove( 'is-active' );
-      } );
-      btn.classList.add( 'is-active' );
-
-      var cat = btn.dataset.cat;
-      var visible = 0;
-      shopCards.forEach( function ( card ) {
-        if ( 'all' === cat || card.dataset.cat === cat ) {
-          card.style.display = '';
-          visible++;
-        } else {
-          card.style.display = 'none';
-        }
-      } );
-
-      if ( countEl ) {
-        countEl.textContent = visible;
-      }
-    } );
-  } );
-
-  // Boja – toggle aktivnog swatch-a
-  document.querySelectorAll( '.shop-filter-color' ).forEach( function ( swatch ) {
-    swatch.addEventListener( 'click', function () {
-      swatch.classList.toggle( 'is-active' );
+  // Boja – vizuelni feedback (checkbox je unutar labela; CSS :has pokriva moderne pregledače)
+  document.querySelectorAll( '.shop-filter-color' ).forEach( function ( label ) {
+    var input = label.querySelector( 'input[type="checkbox"]' );
+    if ( ! input ) {
+      return;
+    }
+    input.addEventListener( 'change', function () {
+      label.classList.toggle( 'is-active', input.checked );
     } );
   } );
 }() );
