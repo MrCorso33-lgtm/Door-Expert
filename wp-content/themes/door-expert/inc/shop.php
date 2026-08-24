@@ -9,12 +9,12 @@
  *   - Kategorija => product_cat (postoji).
  *   - Brend      => product_brand (WooCommerce Brands taksonomija).
  *   - Boja       => pa_boja (globalni atribut).
- *   - Dimenzije  => pa_dimenzije (globalni atribut).
+ *   - Dimenzije  => pa_dimenzije-vrata + pa_dimenzije-plocica (dva atributa, razliciti domeni).
  *   - Dostupnost => native WC stock status (_stock_status).
  *   - Cijena     => _price meta.
  *
  * URL parametri (GET, multi-select preko nizova):
- *   f_cat[], f_brand[], f_boja[], f_dim[], f_stock[], min_price, max_price, orderby
+ *   f_cat[], f_brand[], f_boja[], f_dim_vrata[], f_dim_plocica[], f_stock[], min_price, max_price, orderby
  *
  * @package DoorExpert
  */
@@ -30,10 +30,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function door_expert_shop_filter_taxonomies() {
 	return array(
-		'f_cat'   => 'product_cat',
-		'f_brand' => 'product_brand',
-		'f_boja'  => 'pa_boja',
-		'f_dim'   => 'pa_dimenzije',
+		'f_cat'         => 'product_cat',
+		'f_brand'       => 'product_brand',
+		'f_boja'        => 'pa_boja',
+		'f_dim_vrata'   => 'pa_dimenzije-vrata',
+		'f_dim_plocica' => 'pa_dimenzije-plocica',
 	);
 }
 
@@ -245,7 +246,7 @@ function door_expert_shop_group_count( $parent_slugs ) {
  * @return string[]
  */
 function door_expert_shop_state_params() {
-	return array( 'f_cat', 'f_brand', 'f_boja', 'f_dim', 'f_stock', 'min_price', 'max_price', 'orderby' );
+	return array( 'f_cat', 'f_brand', 'f_boja', 'f_dim_vrata', 'f_dim_plocica', 'f_stock', 'min_price', 'max_price', 'orderby' );
 }
 
 /**

@@ -4,7 +4,7 @@
  * Submit ide na shop arhivu; door_expert_shop_filter_query() prevodi parametre u WP_Query.
  *
  * Grupe: Kategorija (product_cat, top-level) · Brend (product_brand) · Boja (pa_boja) ·
- *        Cijena (_price) · Dimenzije (pa_dimenzije) · Dostupnost (stock status).
+ *        Cijena (_price) · Dimenzije vrata/pločica (pa_dimenzije-vrata / -plocica) · Dostupnost (stock status).
  * Prazne grupe (nepostojeća taksonomija / bez termova) se preskaču.
  *
  * @package DoorExpert
@@ -14,11 +14,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$de_sel_cat   = door_expert_shop_selected( 'f_cat' );
-$de_sel_brand = door_expert_shop_selected( 'f_brand' );
-$de_sel_boja  = door_expert_shop_selected( 'f_boja' );
-$de_sel_dim   = door_expert_shop_selected( 'f_dim' );
-$de_sel_stock = door_expert_shop_selected( 'f_stock' );
+$de_sel_cat      = door_expert_shop_selected( 'f_cat' );
+$de_sel_brand    = door_expert_shop_selected( 'f_brand' );
+$de_sel_boja     = door_expert_shop_selected( 'f_boja' );
+$de_sel_dim_vr   = door_expert_shop_selected( 'f_dim_vrata' );
+$de_sel_dim_pl   = door_expert_shop_selected( 'f_dim_plocica' );
+$de_sel_stock    = door_expert_shop_selected( 'f_stock' );
 $de_min       = door_expert_shop_price( 'min_price' );
 $de_max       = door_expert_shop_price( 'max_price' );
 
@@ -42,10 +43,15 @@ $de_bojas = taxonomy_exists( 'pa_boja' )
 	: array();
 $de_bojas = is_wp_error( $de_bojas ) ? array() : $de_bojas;
 
-$de_dims = taxonomy_exists( 'pa_dimenzije' )
-	? get_terms( array( 'taxonomy' => 'pa_dimenzije', 'hide_empty' => false ) )
+$de_dims_vr = taxonomy_exists( 'pa_dimenzije-vrata' )
+	? get_terms( array( 'taxonomy' => 'pa_dimenzije-vrata', 'hide_empty' => false ) )
 	: array();
-$de_dims = is_wp_error( $de_dims ) ? array() : $de_dims;
+$de_dims_vr = is_wp_error( $de_dims_vr ) ? array() : $de_dims_vr;
+
+$de_dims_pl = taxonomy_exists( 'pa_dimenzije-plocica' )
+	? get_terms( array( 'taxonomy' => 'pa_dimenzije-plocica', 'hide_empty' => false ) )
+	: array();
+$de_dims_pl = is_wp_error( $de_dims_pl ) ? array() : $de_dims_pl;
 
 // Mapa slug => hex za swatch (fallback neutralna siva).
 $de_boja_hex = array(
@@ -141,17 +147,36 @@ $de_boja_hex = array(
     </div>
   </div>
 
-  <?php if ( ! empty( $de_dims ) ) : ?>
-    <!-- Dimenzije -->
+  <?php if ( ! empty( $de_dims_vr ) ) : ?>
+    <!-- Dimenzije vrata -->
     <div class="shop-filter-group">
       <button type="button" class="shop-filter-group__toggle">
-        Dimenzije
+        Dimenzije vrata
         <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="shop-filter-group__body">
-        <?php foreach ( $de_dims as $de_term ) : ?>
+        <?php foreach ( $de_dims_vr as $de_term ) : ?>
           <label class="shop-filter-option">
-            <input type="checkbox" name="f_dim[]" value="<?php echo esc_attr( $de_term->slug ); ?>" <?php checked( in_array( $de_term->slug, $de_sel_dim, true ) ); ?> />
+            <input type="checkbox" name="f_dim_vrata[]" value="<?php echo esc_attr( $de_term->slug ); ?>" <?php checked( in_array( $de_term->slug, $de_sel_dim_vr, true ) ); ?> />
+            <?php echo esc_html( $de_term->name ); ?>
+            <span class="shop-filter-option__count"><?php echo (int) $de_term->count; ?></span>
+          </label>
+        <?php endforeach; ?>
+      </div>
+    </div>
+  <?php endif; ?>
+
+  <?php if ( ! empty( $de_dims_pl ) ) : ?>
+    <!-- Dimenzije pločica -->
+    <div class="shop-filter-group">
+      <button type="button" class="shop-filter-group__toggle">
+        Dimenzije pločica
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="shop-filter-group__body">
+        <?php foreach ( $de_dims_pl as $de_term ) : ?>
+          <label class="shop-filter-option">
+            <input type="checkbox" name="f_dim_plocica[]" value="<?php echo esc_attr( $de_term->slug ); ?>" <?php checked( in_array( $de_term->slug, $de_sel_dim_pl, true ) ); ?> />
             <?php echo esc_html( $de_term->name ); ?>
             <span class="shop-filter-option__count"><?php echo (int) $de_term->count; ?></span>
           </label>
@@ -178,6 +203,6 @@ $de_boja_hex = array(
     </div>
   </div>
 
-  <?php door_expert_shop_hidden_inputs( array( 'f_cat', 'f_brand', 'f_boja', 'f_dim', 'f_stock', 'min_price', 'max_price' ) ); ?>
+  <?php door_expert_shop_hidden_inputs( array( 'f_cat', 'f_brand', 'f_boja', 'f_dim_vrata', 'f_dim_plocica', 'f_stock', 'min_price', 'max_price' ) ); ?>
   <button type="submit" class="shop-filters__apply">Primijeni filtere</button>
 </form>

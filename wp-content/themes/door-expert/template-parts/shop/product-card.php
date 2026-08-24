@@ -53,8 +53,12 @@ if ( '' !== $de_brand_label ) {
 }
 
 // Atributi za prikaz (dimenzije + boja), do 3 čipa.
+// Dimenzije su dva odvojena atributa (vrata / pločica) – proizvod ima jedan od njih.
 $de_attrs = array();
-$de_dim   = $product->get_attribute( 'pa_dimenzije' );
+$de_dim   = $product->get_attribute( 'pa_dimenzije-vrata' );
+if ( '' === $de_dim ) {
+	$de_dim = $product->get_attribute( 'pa_dimenzije-plocica' );
+}
 if ( '' !== $de_dim ) {
 	foreach ( array_slice( array_map( 'trim', explode( ',', $de_dim ) ), 0, 2 ) as $de_v ) {
 		$de_attrs[] = $de_v;
