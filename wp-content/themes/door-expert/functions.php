@@ -298,6 +298,8 @@ function door_expert_dequeue_bloat() {
 require_once get_template_directory() . '/inc/category-content.php';
 // Sadržaj/dijeljeni podaci WP stranica (page.php router) – isti obrazac razdvajanja.
 require_once get_template_directory() . '/inc/page-content.php';
+// Single proizvod (PDP) – grupa proizvoda + FAQ sadržaj (odvojeno od prikaza).
+require_once get_template_directory() . '/inc/product.php';
 // Kontakt forma – custom AJAX handler (nonce + sanitizacija + rate limit + wp_mail).
 require_once get_template_directory() . '/inc/contact-form.php';
 // Sadržaj brend stranica (5 brendova, uniforman prikaz) – ODVOJEN od prikaza.

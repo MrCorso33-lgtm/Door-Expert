@@ -1058,3 +1058,22 @@
     transition: none;
   }
 }
+
+/* ── OPIS (product-description) – dinamički get_description() ── */
+.product-description {
+  margin-top: 48px;
+}
+.product-description__body {
+  margin-top: 16px;
+  font-family: var(--font-body, 'DM Sans', system-ui, sans-serif);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-antracit, #1E1A16);
+  max-width: 70ch;
+}
+.product-description__body p {
+  margin: 0 0 1em;
+}
+.product-description__body p:last-child {
+  margin-bottom: 0;
+}
