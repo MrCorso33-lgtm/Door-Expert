@@ -215,6 +215,11 @@ function door_expert_handle_inquiry_submit() {
 	$order->calculate_totals();
 	$order->save();
 
+	/*
+	 * Payload za n8n. Šalje se kao JSON; n8n iz njega gradi personalizovane
+	 * šablone (potvrda kupcu + obavještenje prodaji). Ako se doda novo polje,
+	 * uskladiti n8n workflow.
+	 */
 	$payload = array(
 		'ime'             => $name,
 		'email'           => $email,
@@ -222,8 +227,13 @@ function door_expert_handle_inquiry_submit() {
 		'grad'            => $city,
 		'poruka'          => $note,
 		'proizvodi'       => $products,
+		'ukupno'          => html_entity_decode( wp_strip_all_tags( wc_price( $order->get_total() ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ),
+		'ukupno_broj'     => (float) $order->get_total(),
+		'valuta'          => $order->get_currency(),
+		'order_id'        => $order->get_id(),
 		'order_broj'      => $order->get_order_number(),
 		'order_admin_url' => admin_url( 'post.php?post=' . $order->get_id() . '&action=edit' ),
+		'saglasnost_tekst' => door_expert_consent_text(),
 		'vrijeme'         => current_time( 'd.m.Y. H:i' ),
 	);
 
@@ -292,16 +302,28 @@ function door_expert_collect_cart_products( $item_notes = array() ) {
 }
 
 /**
- * Obavještenje prodaji. Mejl je uvijek, webhook samo ako je podešen.
+ * Obavještenje o upitu.
  *
- * @param array $payload Podaci upita.
+ * PRIMARNO: n8n webhook – tamo su personalizovani šabloni za kupca i za prodaju.
+ * FALLBACK: wp_mail(), samo ako webhook nije podešen ILI ako poziv padne. Time
+ * upit nikad ne nestane tiho (to je bila mana originala – vidi red flag #1 u
+ * DOCS/FOR DOOR EXPERT/01-AUDIT-REPORT.md), a u normalnom radu nema duplih mejlova.
+ *
+ * Poziv je namjerno blokirajući: bez odgovora ne možemo znati da li je n8n primio
+ * upit, pa ni da li fallback treba. Timeout je kratak.
+ *
+ * Podešavanje u wp-config.php:
+ *   define( 'DOOR_EXPERT_WEBHOOK', 'https://n8n.primjer.com/webhook/door-expert-upit' );
+ *   define( 'DOOR_EXPERT_WEBHOOK_SECRET', 'tajna' );
+ *
+ * @param array $payload Podaci upita (vidi door_expert_collect_cart_products()).
  */
 function door_expert_notify_inquiry( $payload ) {
 	$webhook = defined( 'DOOR_EXPERT_WEBHOOK' ) ? DOOR_EXPERT_WEBHOOK : '';
 	$secret  = defined( 'DOOR_EXPERT_WEBHOOK_SECRET' ) ? DOOR_EXPERT_WEBHOOK_SECRET : '';
 
 	if ( $webhook ) {
-		wp_remote_post(
+		$response = wp_remote_post(
 			$webhook,
 			array(
 				'headers'     => array(
@@ -310,20 +332,47 @@ function door_expert_notify_inquiry( $payload ) {
 				),
 				'body'        => wp_json_encode( $payload ),
 				'data_format' => 'body',
-				'timeout'     => 5,
-				'blocking'    => false,
+				'timeout'     => 8,
+				'blocking'    => true,
 			)
 		);
+
+		$code = is_wp_error( $response ) ? 0 : (int) wp_remote_retrieve_response_code( $response );
+
+		if ( $code >= 200 && $code < 300 ) {
+			// n8n je preuzeo notifikaciju (kupac + prodaja). Nema wp_mail-a.
+			return;
+		}
+
+		$reason = is_wp_error( $response ) ? $response->get_error_message() : 'HTTP ' . $code;
+
+		/**
+		 * Webhook nije uspio – upit ide na wp_mail fallback.
+		 *
+		 * @param string $reason  Razlog neuspjeha.
+		 * @param array  $payload Podaci upita.
+		 */
+		do_action( 'door_expert_inquiry_webhook_failed', $reason, $payload );
+
+		$payload['webhook_greska'] = $reason;
 	}
 
 	$to      = apply_filters( 'door_expert_inquiry_recipient', get_option( 'admin_email' ) );
 	$subject = sprintf( 'Novi upit sa sajta, narudžba %s', $payload['order_broj'] );
 
-	$lines = array(
-		'Ime: ' . $payload['ime'],
-		'Email: ' . $payload['email'],
-		'Telefon: ' . $payload['telefon'],
-	);
+	$lines = array();
+
+	if ( ! empty( $payload['webhook_greska'] ) ) {
+		// Rezervni mejl – n8n nije primio upit, pa kupcu NIJE stigla potvrda.
+		$subject = '[WEBHOOK PAO] ' . $subject;
+		$lines[] = 'PAŽNJA: slanje na n8n nije uspjelo (' . $payload['webhook_greska'] . ').';
+		$lines[] = 'Kupcu vjerovatno NIJE stigla automatska potvrda – kontaktirajte ga ručno.';
+		$lines[] = '';
+	}
+
+	$lines[] = 'Ime: ' . $payload['ime'];
+	$lines[] = 'Email: ' . $payload['email'];
+	$lines[] = 'Telefon: ' . $payload['telefon'];
 
 	if ( $payload['grad'] ) {
 		$lines[] = 'Grad / adresa objekta: ' . $payload['grad'];
