@@ -37,8 +37,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 2. Navigacija je hardkodirana prema prototipu (verna konverzija). Ako
  *    klijent treba sam da menja meni, prebaciti na wp_nav_menu() + custom
  *    walker ili ACF-driven mega meni. Vidi CLAUDE.md sekcija 2.
- * 3. Link na korpu koristi home_url('/korpa/') – zameniti sa wc_get_cart_url()
- *    kada WooCommerce bude aktivan.
  */
 ?>
 <header class="site-header" role="banner">
@@ -453,7 +451,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </button>
 
         <!-- Cart -->
-        <a href="<?php echo esc_url( home_url( '/korpa/' ) ); ?>" class="header-btn" aria-label="Korpa za ponudu">
+        <a href="<?php echo esc_url( door_expert_cart_url() ); ?>" class="header-btn" aria-label="Korpa za ponudu">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
           </svg>
@@ -630,7 +628,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
         Za investitore i izvodjace
       </a>
-      <a href="<?php echo esc_url( home_url( '/korpa/' ) ); ?>" class="mobile-nav__util-link">
+      <a href="<?php echo esc_url( door_expert_cart_url() ); ?>" class="mobile-nav__util-link">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
         Korpa za ponudu
       </a>

@@ -155,6 +155,7 @@ function door_expert_enqueue_assets() {
 			'inspiracija' => array( 'css' => array( 'inspiracija' ), 'js' => array( 'inspiracija' ) ),
 			'brendovi'    => array( 'css' => array( 'brendovi' ),    'js' => array() ),
 			'montaza'     => array( 'css' => array( 'montaza' ),     'js' => array() ),
+			'hvala'       => array( 'css' => array( 'hvala' ),       'js' => array() ),
 			'new-tiles'       => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'tau-ceramica'    => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'arcana-ceramica' => array( 'css' => array( 'brand' ), 'js' => array() ),
@@ -191,6 +192,17 @@ function door_expert_enqueue_assets() {
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
 		wp_enqueue_style( 'door-expert-korpa', $uri . '/assets/css/korpa.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/korpa.css' ) );
 		wp_enqueue_script( 'door-expert-korpa-js', $uri . '/assets/js/korpa.js', array(), door_expert_ver( '/assets/js/korpa.js' ), true );
+
+		// Quote cart AJAX (inc/quote-cart.php): količina, uklanjanje, slanje upita.
+		wp_localize_script(
+			'door-expert-korpa-js',
+			'doorExpert',
+			array(
+				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
+				'cartNonce'    => wp_create_nonce( 'door_expert_cart' ),
+				'inquiryNonce' => wp_create_nonce( 'door_expert_inquiry_nonce' ),
+			)
+		);
 	}
 
 	// ── KONDICIONALNO: 404 ────────────────────────────────────
@@ -306,6 +318,8 @@ require_once get_template_directory() . '/inc/contact-form.php';
 require_once get_template_directory() . '/inc/brand-content.php';
 // Shop (Prodavnica) – WooCommerce arhiva: server-side filteri/sort za archive-product.php.
 require_once get_template_directory() . '/inc/shop.php';
+// Quote cart – WooCommerce bez plaćanja: upit pravi WC_Order (on-hold) + AJAX korpa.
+require_once get_template_directory() . '/inc/quote-cart.php';
 
 // Otkači default WC wrappere – naš <main> (header.php/footer.php) kontroliše layout,
 // a taxonomy-product_cat.php sam renderuje sekcije. Bez ovoga WC ubacuje svoj

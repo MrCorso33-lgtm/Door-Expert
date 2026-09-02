@@ -28,7 +28,11 @@ while ( have_posts() ) {
 	$de_tpl     = 'template-parts/page/' . $de_slug . '.php';
 	$de_content = function_exists( 'door_expert_page_content' ) ? door_expert_page_content( $de_slug ) : array();
 
-	if ( '' !== locate_template( $de_tpl ) ) {
+	if ( function_exists( 'is_cart' ) && is_cart() ) {
+		// WooCommerce korpa – bespoke prikaz iz WC()->cart, nezavisno od slug-a
+		// stranice (ne oslanjamo se na [woocommerce_cart] shortcode).
+		get_template_part( 'template-parts/page/korpa' );
+	} elseif ( '' !== locate_template( $de_tpl ) ) {
 		get_template_part(
 			'template-parts/page/' . $de_slug,
 			null,

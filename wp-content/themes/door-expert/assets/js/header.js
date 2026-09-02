@@ -187,23 +187,33 @@
   });
 
   /* ── Cart badge: read from localStorage ── */
+  /**
+   * Badž korpe se hidratira sa servera (prava WooCommerce korpa).
+   *
+   * Ranije je citao localStorage 'de_cart' (Manus demo korpa) - to vise ne postoji.
+   * Header se renderuje server-side, ali full-page kes zamrzne broj iz trenutka
+   * kesiranja; admin-ajax.php se ne kesira, pa ovaj poziv vraca stvarno stanje.
+   */
   function updateCartBadge() {
-    const badge = document.querySelector('.header-btn__badge');
-    if (!badge) return;
-    try {
-      const cart = JSON.parse(localStorage.getItem('de_cart') || '[]');
-      const count = cart.reduce(function (sum, item) {
-        return sum + (item.qty || 1);
-      }, 0);
-      badge.textContent = count > 99 ? '99+' : count;
-      badge.style.display = count > 0 ? 'flex' : 'none';
-    } catch (e) {
-      badge.style.display = 'none';
-    }
+    const badges = document.querySelectorAll('.header-btn__badge');
+    if (!badges.length || typeof doorExpertData === 'undefined') return;
+
+    fetch(doorExpertData.ajaxurl + '?action=door_expert_get_cart_count', {
+      credentials: 'same-origin'
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (res) {
+        if (!res.success) return;
+        const count = res.data.count;
+        badges.forEach(function (badge) {
+          badge.textContent = count > 99 ? '99+' : count;
+          badge.style.display = count > 0 ? 'flex' : 'none';
+        });
+      })
+      .catch(function () {});
   }
 
   updateCartBadge();
-  window.addEventListener('storage', updateCartBadge);
   document.addEventListener('de:cart:updated', updateCartBadge);
 
 })();
