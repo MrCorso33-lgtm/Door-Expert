@@ -1,0 +1,321 @@
+/* ═══════════════════════════════════════════════════════════
+   HVALA (thank-you) – potvrda poslatog upita
+   Izvučeno iz inline <style> prototipa hvala.html.
+   ═══════════════════════════════════════════════════════════ */
+
+    /* ═══════════════════════════════════════════════════════════════
+       HVALA PAGE - Thank You / Confirmation
+       ═══════════════════════════════════════════════════════════════ */
+    
+    .thankyou {
+      padding: 4rem 1rem 3rem;
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .thankyou__icon {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 2rem;
+      background: var(--color-jantar);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+    
+    @keyframes scaleIn {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    .thankyou__icon svg {
+      width: 44px;
+      height: 44px;
+      stroke: white;
+      stroke-width: 2.5;
+      fill: none;
+    }
+    
+    .thankyou__title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 500;
+      color: var(--color-antracit);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    
+    .thankyou__subtitle {
+      font-size: 1.125rem;
+      color: var(--color-text-muted);
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+    
+    /* Steps / What happens next */
+    .thankyou-steps {
+      background: var(--color-pearl);
+      border-radius: 16px;
+      padding: 1.5rem 1.25rem;
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+    
+    .thankyou-steps__title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: var(--color-antracit);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    
+    .thankyou-steps__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: steps;
+    }
+    
+    .thankyou-steps__item {
+      counter-increment: steps;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    
+    .thankyou-steps__item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    
+    .thankyou-steps__number {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-jantar);
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .thankyou-steps__number::before {
+      content: counter(steps);
+    }
+    
+    .thankyou-steps__text {
+      padding-top: 0.4rem;
+    }
+    
+    .thankyou-steps__text strong {
+      display: block;
+      color: var(--color-antracit);
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+    }
+    
+    .thankyou-steps__text span {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    
+    /* Info box */
+    .thankyou-info {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .thankyou-info__icon {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      background: #e8f5e9;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .thankyou-info__icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: #2e7d32;
+      fill: none;
+    }
+    
+    .thankyou-info__text {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    
+    .thankyou-info__text strong {
+      color: var(--color-antracit);
+    }
+    
+    /* CTA buttons */
+    .thankyou-actions {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 4rem;
+    }
+    
+    .thankyou-actions__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .thankyou-actions__btn--primary {
+      background: var(--color-jantar);
+      color: white;
+    }
+    
+    .thankyou-actions__btn--primary:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+    }
+    
+    .thankyou-actions__btn--secondary {
+      background: white;
+      color: var(--color-antracit);
+      border: 1px solid rgba(0,0,0,0.12);
+    }
+    
+    .thankyou-actions__btn--secondary:hover {
+      border-color: var(--color-jantar);
+      color: var(--color-jantar);
+      transform: translateY(-1px);
+    }
+    
+    .thankyou-actions__btn--call {
+      background: var(--color-antracit);
+      color: white;
+    }
+    
+    .thankyou-actions__btn--call:hover {
+      background: #1a1a1a;
+      transform: translateY(-1px);
+    }
+    
+    /* Cross-sell section */
+    .thankyou-crosssell {
+      padding: 3rem 0;
+      border-top: 1px solid rgba(0,0,0,0.06);
+    }
+    
+    .thankyou-crosssell__title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--color-antracit);
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    
+    .thankyou-crosssell__subtitle {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    
+    .thankyou-crosssell__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+    
+    .thankyou-crosssell__card {
+      background: white;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .thankyou-crosssell__card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: var(--color-jantar);
+    }
+    
+    .thankyou-crosssell__card-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+    
+    .thankyou-crosssell__card-body {
+      padding: 1rem;
+    }
+    
+    .thankyou-crosssell__card-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--color-antracit);
+      margin-bottom: 0.25rem;
+    }
+    
+    .thankyou-crosssell__card-desc {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+    
+    /* Broj upita (iz ?upit= nakon slanja) */
+    .thankyou__ref {
+      margin: -1rem 0 2rem;
+      font-size: 0.875rem;
+      color: var(--color-text-muted);
+    }
+
+    .thankyou__ref strong {
+      color: var(--color-espreso, #1E1A16);
+      font-weight: 600;
+    }
+
+    /* ── Tablet / desktop (mobile-first: bazno je mobilni) ── */
+    @media (min-width: 601px) {
+      .thankyou {
+        padding: 6rem 1.5rem 4rem;
+      }
+      .thankyou-steps {
+        padding: 2.5rem 2rem;
+      }
+      .thankyou-actions {
+        flex-direction: row;
+      }
+      .thankyou-info {
+        flex-direction: row;
+        text-align: left;
+      }
+    }
