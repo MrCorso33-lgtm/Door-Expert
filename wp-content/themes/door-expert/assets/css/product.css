@@ -89,6 +89,10 @@
 .product-gallery {
   padding: 40px 48px 60px 0;
   border-right: 1px solid var(--color-sand, #DDD5C4);
+  /* Galerija je kraća od decision kolone, pa ona nosi sticky (vidi .product-decision). */
+  position: sticky;
+  top: calc(var(--header-height, 80px) + var(--header-top-height, 36px) + 20px);
+  align-self: start;
 }
 
 /* Main image – large, no border-radius */
@@ -185,18 +189,15 @@
 /* ============================================================
    RIGHT: DECISION BLOCK (STICKY)
    ============================================================ */
+/* Kolona teče sa stranicom – NE sopstveni scroll kontejner.
+   Ranije: position:sticky + max-height:100vh + overflow-y:auto + sakriven scrollbar.
+   Sa stvarnim sadržajem (kalkulator, količina, CTA, koraci) kolona pređe visinu ekrana,
+   pa je izgledala odsječeno: sadržaj je postojao ali bez ikakve naznake da se skroluje.
+   Uz to, sticky element viši od viewport-a zaključa dno van vidljivog. Sticky je
+   prebačen na galeriju (kraća je) da se zadrži split-screen osjećaj prototipa. */
 .product-decision {
-  position: sticky;
-  top: calc(var(--header-height, 80px) + var(--header-top-height, 36px) + 20px);
   padding: 40px 0 60px 48px;
   background: #FFFFFF;
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.product-decision::-webkit-scrollbar {
-  display: none;
 }
 
 /* Category label */
@@ -989,12 +990,11 @@
     border-right: none;
     border-bottom: 1px solid var(--color-sand, #DDD5C4);
     padding-bottom: 32px;
+    /* Jedna kolona: galerija se ne kači. */
+    position: static;
   }
   .product-decision {
-    position: static;
     padding: 32px 0 0;
-    max-height: none;
-    overflow-y: visible;
   }
   .product-sticky-mobile {
     display: flex;
