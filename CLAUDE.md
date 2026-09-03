@@ -149,6 +149,9 @@ hardkodirani ključevi→`wp-config.php` konstante.
 
 - **Bez em dasha (—) na frontendu** — ni kao karakter ni kao `&mdash;`.
 - Posle svake završene celine: mali, čitljivi commit + push (kad korisnik traži).
+- **Vodi `DOCS/WORKING_COMMITS.md`** — po završenom/verifikovanom featureu upiši stabilan
+  commit, fajlove, šta radi i "ako pukne, šta proveriti". To je rollback referenca
+  (`git checkout <hash> -- fajl`), ne changelog. Ažuriraj hash kad feature dobije popravku.
 - Posle deploya PHP/template izmena: **Purge keš**; JS/CSS se auto-bustuje preko `?ver`.
 - Kad nešto "ne radi" na živom sajtu: **prvo isključi keš iz jednačine**, pa traži bug.
 - Windows okruženje: PowerShell primaran; UTF-8 bez BOM pri pisanju fajlova.
