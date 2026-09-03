@@ -46,6 +46,31 @@ add_filter(
 	}
 );
 
+add_action( 'template_redirect', 'door_expert_block_checkout' );
+/**
+ * Direktan pristup /checkout/ vraća na korpu.
+ *
+ * Linkovi su već preusmereni (woocommerce_get_checkout_url), ali ko ukuca URL
+ * ručno, dođe sa starog linka ili bookmarka dobio bi praznu checkout stranicu
+ * bez ijednog načina plaćanja. U quote modelu plaćanja nema, pa je jedino
+ * smisleno odredište korpa, gdje je forma upita.
+ *
+ * Izuzeci: order-received i order-pay endpointi ostaju dostupni (WooCommerce ih
+ * tretira kao checkout, a mogu zatrebati za ručno poslate linkove iz administracije).
+ */
+function door_expert_block_checkout() {
+	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+		return;
+	}
+
+	if ( is_wc_endpoint_url( 'order-received' ) || is_wc_endpoint_url( 'order-pay' ) ) {
+		return;
+	}
+
+	wp_safe_redirect( door_expert_cart_url(), 302 );
+	exit;
+}
+
 /**
  * WooCommerce na više mjesta ispisuje "Proceed to checkout" mimo filtera iznad.
  */
