@@ -6,7 +6,10 @@
 >
 > **Glavna dev referenca:** `_NOVI-PROJEKTI/WP_CUSTOM_DEV_BLUEPRINT.md` (lokalni kit, gitignore-ovan).
 > **Prototip (izvor istine):** `.html` fajlovi u **repo root-u** (npr. `o-nama.html`, `podne-plocice.html`).
-> **Projektni docs:** `DOCS/` — `DEPLOY.md`, `Category Hierarchy.md`, `CRO/`, `ISTRAZIVACKA OSNOVA/`.
+> **Projektni docs:** `DOCS/` — `STANJE-PROJEKTA.md` (**počni odavde**: dokle smo stigli,
+> odluke na čekanju, red portovanja), `WORKING_COMMITS.md` (rollback po featureu),
+> `DEPLOY.md`, `Category Hierarchy.md`, `FOR DOOR EXPERT/` (Saya reuse paket),
+> `CRO/`, `ISTRAZIVACKA OSNOVA/`.
 
 ## 0. Gde šta stoji (ovaj projekat)
 
