@@ -47,6 +47,72 @@ function door_expert_cat_content_all() {
 
 	return array(
 
+		// ── RODITELJ: Keramičke pločice ──────────────────────────
+		// Hero, brend traka i kalkulator su bespoke u
+		// template-parts/category/parent/keramicke-plocice.php (stilovi u plocice.css).
+		// Ovdje su samo sekcije koje renderuju dijeljeni parts/ dijelovi.
+		// NAPOMENA: prototip za FAQ/cross-sell/CTA koristi .sec-faq / .sec-crosssell /
+		// .pre-footer-cta klase kojima CSS NE POSTOJI nigdje u temi (Manus nedosljednost),
+		// pa se koriste postojeći subcat-* dijelovi koji jesu stilizovani.
+		'keramicke-plocice' => array(
+			'faq' => array(
+				'eyebrow' => 'Česta pitanja',
+				'title'   => 'Sve što trebate znati o pločicama',
+				'items'   => array(
+					array(
+						'q' => 'Zašto su španske pločice bolje od kineskih?',
+						'a' => 'Španija je jedan od vodećih svjetskih izvoznika keramike, sa tradicijom koja seže u 15. vijek. Španske pločice se odlikuju strožim standardima kvaliteta (EN ISO 10545), preciznijim dimenzijama, boljom otpornošću na habanje i konzistentnijim bojama između serija. Brendovi poput Tau Ceramica i Arcana Ceramica ulažu u istraživanje i dizajn, što se vidi u kvalitetu završne obrade i raznolikosti efekata. Kineske pločice mogu biti jeftinije, ali razlika u kvalitetu je vidljiva na duge staze.',
+					),
+					array(
+						'q' => 'Koliko paketa pločica trebam za moju prostoriju?',
+						'a' => 'Koristite naš kalkulator iznad – unesite dimenzije prostorije i automatski dobijate potrebnu količinu sa preporučenim viškom. Opšte pravilo: uvijek naručite 10% više od izmjerene površine za standardne prostorije, 15% za prostorije sa mnogo uglova, i 20% za dijagonalno polaganje. Višak je važan jer se pločice iz iste serije mogu razlikovati u nijansi između različitih serija proizvodnje.',
+					),
+					array(
+						'q' => 'Šta znači anti-slip klasa R9, R10, R11?',
+						'a' => 'Anti-slip klase prema DIN 51130 standardu: R9 – minimalna klizavost, za suhe unutrašnje prostore (dnevna soba, spavaća soba). R10 – za vlažne unutrašnje prostore (kupatilo, kuhinja). R11 – za bazene, terase i eksterijere koji su stalno mokri. Za kupatilo preporučujemo minimum R10, za bazen i terasu R11. Sve pločice u našem asortimanu imaju jasno navedenu klasu.',
+					),
+					array(
+						'q' => 'Da li je cijena po m² ili po komadu?',
+						'a' => 'Sve pločice su cijenjene po m² (EUR/m²). U formalnoj ponudi koju dobijate mejlom, cijena je prikazana i po m² i po paketu, sa jasno navedenim brojem m² u paketu. Cijena uključuje PDV. Nije uključena dostava (obračunava se posebno prema lokaciji) ni polaganje (vrše nezavisni majstori).',
+					),
+					array(
+						'q' => 'Mogu li vidjeti pločice uživo prije narudžbe?',
+						'a' => 'Apsolutno – i preporučujemo to. U našem showroomu u Podgorici možete vidjeti uzorke svih kolekcija, osjetiti teksturu i procijeniti boju na prirodnom i vještačkom svjetlu. Boja na ekranu može se razlikovati od stvarne boje pločice. Slobodno dođite bez najave ili nas pozovite za savjet.',
+					),
+					array(
+						'q' => 'Da li nudite uslugu polaganja pločica?',
+						'a' => 'Door Expert prodaje pločice – polaganje vrše nezavisni majstori koji naplaćuju direktno klijentu. Možemo preporučiti provjerene majstore u Podgorici sa fiksnim cijenama. Cijena polaganja se kreće od 8–15 EUR/m² zavisno od formata pločice i složenosti prostora. Više detalja je na stranici Montaža.',
+					),
+				),
+			),
+			'crosssell' => array(
+				'eyebrow' => 'Kompletno kupatilo',
+				'title'   => 'Uz pločice, uredite i ostatak kupatila',
+				'desc'    => 'Bathco dekorativni umivaonici iz Španije – savršen par za naše keramičke kolekcije. Isti izvor, isti standard kvaliteta.',
+				'items'   => array(
+					array(
+						'cat'   => 'umivaonici',
+						'img'   => 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=80',
+						'alt'   => 'Dekorativni umivaonici Bathco',
+						'title' => 'Dekorativni umivaonici',
+						'desc'  => 'Bathco umivaonici iz Španije – isti izvor, isti standard. Završite kupatilo u stilu.',
+					),
+					array(
+						'cat'   => 'sobna-vrata',
+						'img'   => 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80',
+						'alt'   => 'Sobna vrata za kupatilo',
+						'title' => 'Sobna vrata',
+						'desc'  => 'Staklena i puna vrata za kupatilo – satinato staklo za privatnost i svjetlost.',
+					),
+				),
+			),
+			'cta' => array(
+				'title' => 'Posjetite nas ili zatražite ponudu',
+				'desc'  => 'Showroom u Podgorici. Uzorci svih kolekcija dostupni za pregled. Savjetovanje bez obaveze.',
+				'phone' => $tel,
+			),
+		),
+
 		// ── POTKATEGORIJA: Podne pločice ─────────────────────────
 		'podne' => array(
 			'hero' => array(

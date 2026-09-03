@@ -36,7 +36,8 @@ $de_orderby_arr = door_expert_shop_selected( 'orderby' );
 $de_orderby     = ! empty( $de_orderby_arr ) ? $de_orderby_arr[0] : 'menu_order';
 ?>
 
-<div class="shop-main" id="katalog">
+<?php // id="katalog" nosi parts/subcats-grid.php (kao u prototipu) – ne dupliramo ga ovdje. ?>
+<div class="shop-main">
 
   <!-- Mobilni toggle filtera -->
   <button type="button" class="shop-filters-toggle" id="filterToggle">
