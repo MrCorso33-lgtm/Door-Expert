@@ -241,6 +241,35 @@ function door_expert_shop_group_count( $parent_slugs ) {
 }
 
 /**
+ * Bazni URL tekućeg listinga – shop arhiva ILI kategorijska arhiva.
+ *
+ * Filter forme i sort na kategorijskoj stranici moraju slati nazad na TU kategoriju,
+ * ne na prodavnicu. Sve ostalo (parametri, hidden inputs) je isto.
+ *
+ * @param array $args Dodatni query parametri.
+ * @return string
+ */
+function door_expert_listing_base_url( $args = array() ) {
+	$base = '';
+
+	if ( is_tax( 'product_cat' ) ) {
+		$term = get_queried_object();
+		if ( $term instanceof WP_Term ) {
+			$link = get_term_link( $term );
+			if ( ! is_wp_error( $link ) ) {
+				$base = $link;
+			}
+		}
+	}
+
+	if ( '' === $base ) {
+		$base = door_expert_shop_base_url();
+	}
+
+	return empty( $args ) ? $base : add_query_arg( $args, $base );
+}
+
+/**
  * Svi filter/sort GET parametri koje čuvamo pri submit-u (za mirror hidden inputs).
  *
  * @return string[]

@@ -1,7 +1,8 @@
 <?php
 /**
- * Shop filter sidebar – GET forma, termovi iz taksonomija, checked stanje iz URL-a.
- * Submit ide na shop arhivu; door_expert_shop_filter_query() prevodi parametre u WP_Query.
+ * Filter sidebar – GET forma, termovi iz taksonomija, checked stanje iz URL-a.
+ * Koristi se na shop arhivi I na kategorijskim stranicama (vidi $args ispod).
+ * door_expert_shop_filter_query() prevodi parametre u WP_Query.
  *
  * Grupe: Kategorija (product_cat, top-level) · Brend (product_brand) · Boja (pa_boja) ·
  *        Cijena (_price) · Dimenzije vrata/pločica (pa_dimenzije-vrata / -plocica) · Dostupnost (stock status).
@@ -13,6 +14,15 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+/*
+ * Koristi se i na shop arhivi i na kategorijskim stranicama.
+ *   $args['base_url'] – gdje forma šalje (default: tekući listing).
+ *   $args['hide']     – grupe koje se ne prikazuju, npr. array( 'cat' ) na kategoriji
+ *                       gdje je filter po kategoriji redundantan.
+ */
+$de_action = isset( $args['base_url'] ) ? $args['base_url'] : door_expert_listing_base_url();
+$de_hide   = isset( $args['hide'] ) && is_array( $args['hide'] ) ? $args['hide'] : array();
 
 $de_sel_cat      = door_expert_shop_selected( 'f_cat' );
 $de_sel_brand    = door_expert_shop_selected( 'f_brand' );
@@ -66,13 +76,13 @@ $de_boja_hex = array(
 );
 ?>
 
-<form class="shop-filters" id="shopFilters" method="get" action="<?php echo esc_url( door_expert_shop_base_url() ); ?>">
+<form class="shop-filters" id="shopFilters" method="get" action="<?php echo esc_url( $de_action ); ?>">
   <div class="shop-filters__header">
     <h2 class="shop-filters__title">Filteri</h2>
-    <a class="shop-filters__clear" href="<?php echo esc_url( door_expert_shop_base_url() ); ?>">Očisti sve</a>
+    <a class="shop-filters__clear" href="<?php echo esc_url( $de_action ); ?>">Očisti sve</a>
   </div>
 
-  <?php if ( ! empty( $de_cats ) ) : ?>
+  <?php if ( ! empty( $de_cats ) && ! in_array( 'cat', $de_hide, true ) ) : ?>
     <!-- Kategorija -->
     <div class="shop-filter-group is-open">
       <button type="button" class="shop-filter-group__toggle">

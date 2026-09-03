@@ -129,6 +129,12 @@ function door_expert_enqueue_assets() {
 		wp_enqueue_style( 'door-expert-subcat', $uri . '/assets/css/subcat.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/subcat.css' ) );
 		wp_enqueue_script( 'door-expert-category-js', $uri . '/assets/js/category.js', array(), door_expert_ver( '/assets/js/category.js' ), true );
 
+		// Kategorijski listing koristi isti .shop-* markup kao prodavnica
+		// (template-parts/category/parts/product-grid.php + shop/filters.php),
+		// pa mu trebaju i ti stilovi + JS za accordion i mobilni toggle filtera.
+		wp_enqueue_style( 'door-expert-prodavnica', $uri . '/assets/css/prodavnica.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/prodavnica.css' ) );
+		wp_enqueue_script( 'door-expert-prodavnica-js', $uri . '/assets/js/prodavnica.js', array(), door_expert_ver( '/assets/js/prodavnica.js' ), true );
+
 		$term = get_queried_object();
 		if ( $term instanceof WP_Term && 0 === (int) $term->parent ) {
 			$family_assets = array(
