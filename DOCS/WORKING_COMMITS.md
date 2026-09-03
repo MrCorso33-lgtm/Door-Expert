@@ -100,6 +100,29 @@ git checkout <commit-hash> -- putanja/do/fajla.php
 
 ---
 
+## 404 — stranica nije pronađena
+
+**Commit:** `6ec51ad`
+**Fajl(ovi):** `404.php`, `assets/js/404.js`, `assets/css/404.css`
+
+**Šta radi:**
+- Brendirana 404 umjesto golog `index.php`: hero, search UI, 4 kategorijske kartice, brzi linkovi, kontakt kartica, trust traka, mobilna sticky traka
+- Kartice vuku naziv i sliku iz `product_cat` terma; ako thumbnail nije postavljen ide WooCommerce placeholder, ako term ne postoji kartica se preskače
+- Telefon i radno vrijeme iz `door_expert_company_info()`
+- **Search UI je namjerno neaktivan** – pretraga u temi ne postoji (žiči se uz Saya komponentu #16)
+
+### Kada se pokvari — šta proveriti
+1. **Keš** — Purge; PHP se ne bustuje preko `?ver`
+2. **Vidi se goli `index.php`** — `404.php` nije na serveru ili nije u root-u teme
+3. **HTTP status je 200 umjesto 404** — provjeri `curl -I <nepostojeci-url> | head -1`. Uzrok je obično plugin za redirekcije ili keš koji servira 200; bitno za SEO
+4. **Prazna rupa desno u sekciji linkova** — nedostaje `--2col` modifikator na `.e404-links__inner` (grid je bazno `1fr 1fr 320px`, a srednja kolona je izbačena)
+5. **Kartica bez slike** — kategoriji nije postavljen thumbnail u wp-adminu (Products → Categories). To je očekivano, ne bug; prikazuje se WC placeholder
+6. **Kartica nedostaje** — `product_cat` term sa tim slug-om ne postoji
+7. **Klik na "Pretraži" vodi negdje** — regresija: vratio se stari `doSearch()` simulator iz `404.js`. Dugme mora biti inertno dok pretraga ne postoji
+8. **Brzi linkovi na Inspiraciju / Za investitore vode na 404** — očekivano dok te stranice nisu konvertovane
+
+---
+
 ## Montaža — stranica "Šta je uključeno u cijenu"
 
 **Commit:** `3176576`

@@ -21,15 +21,15 @@ Prototipi su `.html` u repo root-u (izvor istine).
 | `product.html` | `single-product.php` (+ `template-parts/product/`, `inc/product.php`) |
 | `korpa.html` | `template-parts/page/korpa.php` (+ `inc/quote-cart.php`) |
 | `hvala.html` | `template-parts/page/hvala.php` |
+| `404.html` | `404.php` |
 | `o-nama`, `kontakt`, `akcije`, `montaza`, `brendovi` | `template-parts/page/*.php` |
 | 5 brend stranica (`new-tiles`, `tau-ceramica`, `arcana-ceramica`, `ribesalbes`, `bathco`) | `template-parts/page/*.php` |
 
 ### Ostalo
 | Prototip | Treba | Napomena |
 |---|---|---|
-| `404.html` | `404.php` | **Fali sasvim** — trenutno pada na `index.php`. CSS/JS su već ožičeni |
-| `b2b.html` | `template-parts/page/b2b.php` | "Za investitore" |
-| `inspiracija.html` | `template-parts/page/inspiracija.php` | CSS/JS već ožičeni, fali samo template-part |
+| `b2b.html` | `template-parts/page/b2b.php` | "Za investitore" — linkovan sa 404 stranice, pa dok ne postoji vodi na 404 |
+| `inspiracija.html` | `template-parts/page/inspiracija.php` | CSS/JS već ožičeni, fali samo template-part — linkovan sa 404 stranice |
 | `kolekcije.html` | arhiva kolekcija | nova Manus stranica |
 | `kolekcija-travertino.html` | pojedinačna kolekcija | nova Manus stranica |
 
@@ -70,6 +70,8 @@ Obrisati sa servera poslije pokretanja.
 | **Prave vrijednosti boja / dimenzija** | Nisu definisane. Prototipske su Manus placeholder. Swatch mapa slug→hex u `filters.php` pokriva par boja, ostalo pada na neutralnu sivu |
 | **Wishlist** | Nije portovan → zato su tabovi "Korpa / Sačuvano" izostavljeni iz korpe |
 | **Cijena po m² za keramiku** | PDP prikazuje cijenu kako je unijeta. Korekcija u korpi nije portovana (vidi red portovanja) |
+| **Pretraga** | Ne postoji nigdje. Search UI na 404 stoji ali je neaktivan; header šalje na nepostojeći `/pretraga/`. Logika se eksportuje iz Saye naknadno |
+| **Thumbnail-i kategorija** | Nisu postavljeni → kartice na 404 prikazuju WooCommerce placeholder. Čim se postave u wp-adminu, slike se pojave same (bez izmjene koda) |
 
 ---
 
@@ -88,8 +90,28 @@ provjeren ali **nikad pokrenut ovdje** — nacrti, ne testiran kod.
 | 6 | Per-m² korekcija cijene | `05-PORT-tile-calculator.md` | Nije početo — **revenue bug** ako se prodaje po m² |
 | 7 | Ambient-first kartica + zamjena slike po boji | `12-UI-PRODUCT-CARD.md` | Nije početo |
 | 8 | SEO noindex/canonical za filtrirane URL-ove | `01-AUDIT-REPORT.md` §5 (bonus) | **Relevantno** — naši filteri prave mnogo GET kombinacija |
+| 9 | Pretraga (six passes) | `01-AUDIT-REPORT.md` §16 | **Kod nije izvučen** — treba eksportovati iz Saye (vidi ispod) |
 
-**Ne portovati:** filtere (imamo svoje), product card (naš postoji), search (nedelju dana posla).
+**Ne portovati:** filtere (imamo svoje), product card (naš postoji).
+
+### Pretraga — poseban slučaj
+
+Pretraga **nigdje ne radi**: nema `search.php`, a `header.php:494` šalje na nepostojeći
+`/pretraga/` sa `name="q"` umjesto WP-ovog `name="s"`. Search UI na 404 stranici je namjerno
+neaktivan dok se ovo ne riješi.
+
+Saya ima šestoprolaznu pretragu (`ADAPT (heavy)`, ~nedelju dana), ali u paketu postoji **samo
+opis, bez koda**. Treba eksportovati iz Saye: `functions.php:1630-2133` (REST autocomplete),
+`:2134-2417` (prikupljanje ID-eva), `:2418-2547` (podudaranje kategorija), `search.php`,
+`js/search-page.js` + njihov `DOCS/BITNE FUNKCIONALNOSTI/PRETRAGA.md`.
+
+Prolazi: *kategorija → naslov + kratki opis → brend → brend + ostatak → atribut → SKU*.
+Naslijediti odluku da se **dugi opis ne pretražuje** (cross-sell rečenice davale su pogrešne
+pogotke). Ograničenja: bez fuzzy matchinga, sinonima i ćirilice.
+
+Kad pretraga proradi, u istom prolazu: žičiti 404 search box, vratiti akciju u `assets/js/404.js`,
+**popraviti pretragu u headeru**, i tek onda vratiti kolonu "Popularne pretrage" na 404 — sa
+stvarnim top upitima iz logovanja, ne izmišljenim.
 
 ---
 
