@@ -114,7 +114,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     </a>
 
     <!-- Ceramica Ribesalbes -->
-    <a href="<?php echo esc_url( home_url( '/ribesalbes/' ) ); ?>" class="brand-card">
+    <a href="<?php echo esc_url( home_url( '/ceramica-ribesalbes/' ) ); ?>" class="brand-card">
       <div class="brand-card__image">
         <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=700&q=80" alt="Ceramica Ribesalbes artizanske pločice" loading="lazy" />
         <span class="brand-card__flag">🇪🇸 Onda, Španija</span>

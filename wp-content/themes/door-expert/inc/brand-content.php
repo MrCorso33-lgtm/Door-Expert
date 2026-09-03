@@ -2,7 +2,7 @@
 /**
  * Sadržaj brend stranica – ODVOJEN od prikaza (paralela inc/category-content.php).
  *
- * 5 brendova (new-tiles, tau-ceramica, arcana-ceramica, ribesalbes, bathco) dijele
+ * 5 brendova (new-tiles, tau-ceramica, arcana-ceramica, ceramica-ribesalbes, bathco) dijele
  * JEDAN uniforman prikaz (template-parts/page/parts/brand.php) i variraju samo po
  * podacima ovdje. FAZA A: hardkodovano. Produkcija: `brand` CPT/taksonomija + get_post_meta().
  *
@@ -162,7 +162,7 @@ function door_expert_brand_content_all() {
 		),
 
 		// ── CERÁMICA RIBESALBES ──────────────────────────────────
-		'ribesalbes' => array(
+		'ceramica-ribesalbes' => array(
 			'grad_a'   => '#2d1f3d',
 			'grad_b'   => '#1a1020',
 			'hero_img' => 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=1400&q=60',

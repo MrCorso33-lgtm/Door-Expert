@@ -92,7 +92,7 @@ if ( ! defined( 'ABSPATH' ) ) {
           <li><a href="<?php echo esc_url( home_url( '/new-tiles/' ) ); ?>">New Tiles</a></li>
           <li><a href="<?php echo esc_url( home_url( '/tau-ceramica/' ) ); ?>">Tau Ceramica</a></li>
           <li><a href="<?php echo esc_url( home_url( '/arcana-ceramica/' ) ); ?>">Arcana Ceramica</a></li>
-          <li><a href="<?php echo esc_url( home_url( '/ribesalbes/' ) ); ?>">Ceramica Ribesalbes</a></li>
+          <li><a href="<?php echo esc_url( home_url( '/ceramica-ribesalbes/' ) ); ?>">Ceramica Ribesalbes</a></li>
           <li><a href="<?php echo esc_url( home_url( '/bathco/' ) ); ?>">Bathco</a></li>
         </ul>
       </div>

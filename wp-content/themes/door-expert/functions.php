@@ -159,7 +159,7 @@ function door_expert_enqueue_assets() {
 			'new-tiles'       => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'tau-ceramica'    => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'arcana-ceramica' => array( 'css' => array( 'brand' ), 'js' => array() ),
-			'ribesalbes'      => array( 'css' => array( 'brand' ), 'js' => array() ),
+			'ceramica-ribesalbes' => array( 'css' => array( 'brand' ), 'js' => array() ),
 			'bathco'          => array( 'css' => array( 'brand' ), 'js' => array() ),
 		);
 		$de_page = get_queried_object();
