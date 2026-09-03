@@ -487,6 +487,13 @@
   gap: 4rem;
 }
 
+/* Bez kolone "Popularne pretrage" (izbacena dok nema logovanja pretraga).
+   Ostaju brzi linkovi + kontakt kartica, pa grid ide na dvije kolone.
+   Breakpointi nize (1fr 1fr sa contact preko 2 kolone, pa 1fr) rade i sa dvije stavke. */
+.e404-links__inner--2col {
+  grid-template-columns: 1fr 320px;
+}
+
 .e404-links__col-title {
   font-family: var(--font-sans, 'DM Sans', sans-serif);
   font-size: 0.68rem;

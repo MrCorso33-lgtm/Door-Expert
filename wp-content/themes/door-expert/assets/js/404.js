@@ -1,71 +1,32 @@
 /**
- * 404.JS – Door Expert
- * Search, chip suggestions, cart count
+ * 404 stranica – UI interakcije.
+ *
+ * PRETRAGA JOŠ NE POSTOJI U TEMI. Search box na 404 stranici je vizuelno prisutan i spreman,
+ * ali namjerno ne radi ništa: nema search.php, a header overlay šalje na nepostojeći /pretraga/
+ * sa pogrešnim parametrom (name="q" umjesto WP-ovog name="s").
+ *
+ * Žiči se kad se portuje Saya komponenta #16 "Search, six passes"
+ * (DOCS/FOR DOOR EXPERT/01-AUDIT-REPORT.md:181). Tada ovdje ide pravi submit, a u istom
+ * prolazu se popravlja i pretraga u headeru.
+ *
+ * Raniji sadržaj ovog fajla bio je prototipski simulator: doSearch() je mapirao ključne riječi
+ * na statične .html fajlove (sobna-vrata.html itd.) i radio window.location.href. To bi na
+ * WordPressu vodilo u novi 404, pa je uklonjeno. Uklonjen je i blok koji je čitao
+ * localStorage('de_cart') – badž korpe sada radi header.js preko WooCommerce sesije.
  */
+( function () {
+  'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-
-  /* ── SEARCH ──────────────────────────────── */
-  const searchInput = document.getElementById('e404SearchInput');
-  const searchBtn   = document.getElementById('e404SearchBtn');
-
-  function doSearch() {
-    const query = searchInput ? searchInput.value.trim() : '';
-    if (!query) return;
-    // In production: redirect to search results page
-    // For prototype: map keywords to category pages
-    const q = query.toLowerCase();
-    let dest = 'header-demo.html';
-
-    if (q.includes('sobna') || q.includes('klizna') || q.includes('staklena') || q.includes('vrata') && !q.includes('sigurnosna')) {
-      dest = 'sobna-vrata.html';
-    } else if (q.includes('sigurnosna') || q.includes('rc2') || q.includes('rc3') || q.includes('blindirana')) {
-      dest = 'sigurnosna-vrata.html';
-    } else if (q.includes('plo') || q.includes('keramika') || q.includes('bazen') || q.includes('stepenice') || q.includes('tau') || q.includes('arcana')) {
-      dest = 'keramicke-plocice.html';
-    } else if (q.includes('umivaonik') || q.includes('bathco') || q.includes('kamen') || q.includes('oval') || q.includes('lavabo')) {
-      dest = 'umivaonici.html';
-    } else if (q.includes('akcija') || q.includes('popust') || q.includes('sniženje')) {
-      dest = 'akcije.html';
-    }
-
-    window.location.href = dest;
+  var input = document.getElementById( 'e404SearchInput' );
+  if ( ! input ) {
+    return;
   }
 
-  if (searchBtn) {
-    searchBtn.addEventListener('click', doSearch);
-  }
-
-  if (searchInput) {
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') doSearch();
-    });
-    // Auto-focus on desktop
-    if (window.innerWidth > 768) {
-      setTimeout(() => searchInput.focus(), 400);
-    }
-  }
-
-  /* ── CHIP SUGGESTIONS ────────────────────── */
-  document.querySelectorAll('.e404-search__chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      const query = chip.dataset.query;
-      if (searchInput) {
-        searchInput.value = query;
-        searchInput.focus();
-      }
-      doSearch();
-    });
-  });
-
-  /* ── CART COUNT ──────────────────────────── */
-  try {
-    const cart = JSON.parse(localStorage.getItem('de_cart') || '[]');
-    const countEl = document.getElementById('cartCount');
-    if (countEl && cart.length > 0) {
-      countEl.textContent = cart.length;
-      countEl.style.display = 'flex';
-    }
-  } catch (e) {}
-
-});
+  // Chip-ovi samo popunjavaju polje. Bez redirekcije dok pretraga ne proradi.
+  document.querySelectorAll( '.e404-search__chip' ).forEach( function ( chip ) {
+    chip.addEventListener( 'click', function () {
+      input.value = chip.dataset.query || '';
+      input.focus();
+    } );
+  } );
+}() );
