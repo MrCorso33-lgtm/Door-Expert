@@ -53,12 +53,37 @@ ima prototipe ali se renderuje šturo. To je **popunjavanje sadržaja**, ne konv
 | `pa_dimenzije-plocica` | atribut postoji, bez termova |
 | Shop page | Prodavnica |
 | Cart page | Korpa (preimenovana sa "Cart") |
-| Hvala | stranica napravljena (slug `hvala`) |
 | Checkout / My account | postoje ali se ne koriste (quote model); `/checkout/` redirektuje na korpu |
 | Proizvodi | **unose se ručno**; za sad samo test proizvod |
 
 Setup skripte (jednokratne, gitignored u `_setup/`): `setup-categories.php`, `setup-shop-taxonomies.php`.
 Obrisati sa servera poslije pokretanja.
+
+### ⚠️ Obavezne WP stranice (česti uzrok 404)
+
+Router `page.php` mapira **slug stranice** na `template-parts/page/{slug}.php`. Template-part sam
+po sebi **ne pravi URL** — ako WP stranica ne postoji, adresa vraća 404 iako je kod ispravan.
+Ovo nas je već zateklo kod `prodavnica`, `hvala` i `montaza`.
+
+Za svaki slug ispod postoji template-part, pa stranica mora postojati u wp-adminu
+(prazan sadržaj, **Publish** — ne Draft; slug bez dijakritika):
+
+| Slug | Stranica | Napravljena |
+|---|---|---|
+| `o-nama` | O nama | ? |
+| `kontakt` | Kontakt | ? |
+| `akcije` | Akcije | ? |
+| `montaza` | Montaža | ✅ |
+| `brendovi` | Brendovi | ? |
+| `hvala` | Hvala | ✅ |
+| `new-tiles` | New Tiles | ? |
+| `tau-ceramica` | Tau Ceramica | ? |
+| `arcana-ceramica` | Arcana Ceramica | ? |
+| `ribesalbes` | Ceramica Ribesalbes | ? |
+| `bathco` | Bathco | ? |
+
+Ako WP doda broj na slug (`montaza-2`), znači da stranica sa tim slug-om već postoji u Trash-u —
+isprazniti Trash pa ponoviti. Poslije kreiranja: Settings → Permalinks → Save.
 
 ---
 
