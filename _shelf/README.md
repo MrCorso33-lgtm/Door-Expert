@@ -20,3 +20,4 @@ u budućnosti. Ništa iz ovog foldera se ne renderuje niti učitava — sve je v
 | Fajl | Element | Vraća se u |
 |---|---|---|
 | [home-hero-category-strip.md](home-hero-category-strip.md) | Hero traka sa 4 kategorije (naslovna) | `front-page.php` — hero slide 1 |
+| [plocice-kalkulator-kategorija.md](plocice-kalkulator-kategorija.md) | m² kalkulator pločica (kategorijska stranica) | `template-parts/category/parent/keramicke-plocice.php` — između grida i FAQ-a |

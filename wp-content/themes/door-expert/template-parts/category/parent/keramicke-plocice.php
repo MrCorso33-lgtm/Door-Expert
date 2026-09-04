@@ -3,9 +3,9 @@
  * Roditeljska kategorija: Keramičke pločice – verna konverzija prototipa keramicke-plocice.html.
  *
  * Redosled: plo-hero → plo-brands → subcats-grid → product-grid (filteri + grid) →
- *           plo-calculator → faq → crosssell → cta.
+ *           faq → crosssell → cta.
  *
- * Bespoke ovdje (stilovi postoje u plocice.css): plo-hero, plo-brands, plo-calculator.
+ * Bespoke ovdje (stilovi postoje u plocice.css): plo-hero, plo-brands.
  * Dijeljeni parts/ dijelovi: subcats-grid, product-grid, faq, crosssell, cta.
  * Sadržaj za faq/crosssell/cta: door_expert_cat_content('keramicke-plocice').
  *
@@ -17,6 +17,9 @@
  *   - FAQ/cross-sell/CTA: prototip koristi .sec-faq/.sec-crosssell/.pre-footer-cta
  *     klase kojima CSS ne postoji u temi, pa se koriste stilizovani subcat-* dijelovi.
  *   - Hero slika: /manus-storage/ ne postoji → thumbnail terma, fallback Unsplash.
+ *   - m² KALKULATOR je sklonjen sa kategorije i živi samo na single product stranici
+ *     (tamo zna cijenu i puni količinu za upit). Kod je na polici:
+ *     _shelf/plocice-kalkulator-kategorija.md
  *
  * @package DoorExpert
  */
@@ -174,69 +177,7 @@ $de_listing   = function_exists( 'door_expert_listing_base_url' ) ? door_expert_
 // Potkategorije (nosi id="katalog") + listing sa filterima.
 get_template_part( $de_base . 'parts/subcats-grid', null, array( 'term' => $de_term, 'label' => 'Izaberite namjenu' ) );
 get_template_part( $de_base . 'parts/product-grid', null, array( 'term' => $de_term ) );
-?>
 
-<!-- m² KALKULATOR -->
-<section class="plo-calculator">
-  <div class="plo-calculator__inner">
-    <div class="plo-calculator__content">
-      <p class="plo-calculator__eyebrow">Besplatni alat</p>
-      <h2 class="plo-calculator__title">Kalkulator pločica</h2>
-      <p class="plo-calculator__desc">Unesite dimenzije prostorije i automatski izračunajte koliko vam treba, sa preporučenim viškom za rezanje.</p>
-      <div class="plo-calc-form">
-        <div class="plo-calc-row">
-          <div class="plo-calc-field">
-            <label for="calc-width">Dužina prostorije (m)</label>
-            <input type="number" id="calc-width" placeholder="npr. 4.5" min="0.1" max="100" step="0.1" />
-          </div>
-          <span class="plo-calc-x">×</span>
-          <div class="plo-calc-field">
-            <label for="calc-height">Širina prostorije (m)</label>
-            <input type="number" id="calc-height" placeholder="npr. 3.2" min="0.1" max="100" step="0.1" />
-          </div>
-        </div>
-        <div class="plo-calc-row plo-calc-row--options">
-          <div class="plo-calc-field">
-            <label for="calc-waste">Višak za rezanje</label>
-            <select id="calc-waste">
-              <option value="10">10% (standardno)</option>
-              <option value="15">15% (kompleksni oblici)</option>
-              <option value="20">20% (dijagonalno polaganje)</option>
-            </select>
-          </div>
-          <div class="plo-calc-field">
-            <label for="calc-price">Cijena po m² (EUR)</label>
-            <input type="number" id="calc-price" placeholder="npr. 38" min="1" max="500" step="1" />
-          </div>
-        </div>
-        <button type="button" class="plo-calc-btn" id="calc-btn">Izračunaj</button>
-      </div>
-    </div>
-    <div class="plo-calculator__result" id="calc-result" style="display:none;">
-      <div class="plo-calc-result-inner">
-        <p class="plo-calc-result__label">Rezultat</p>
-        <div class="plo-calc-result__grid">
-          <div class="plo-calc-result__item">
-            <span class="plo-calc-result__value" id="result-sqm">–</span>
-            <span class="plo-calc-result__desc">m² prostorije</span>
-          </div>
-          <div class="plo-calc-result__item">
-            <span class="plo-calc-result__value" id="result-total">–</span>
-            <span class="plo-calc-result__desc">m² sa viškom</span>
-          </div>
-          <div class="plo-calc-result__item plo-calc-result__item--highlight">
-            <span class="plo-calc-result__value" id="result-price">–</span>
-            <span class="plo-calc-result__desc">Procijenjena cijena</span>
-          </div>
-        </div>
-        <p class="plo-calc-result__note">* Konačna cijena zavisi od odabranog modela. Pošaljite upit za formalnu ponudu.</p>
-        <a href="<?php echo esc_url( function_exists( 'door_expert_cart_url' ) ? door_expert_cart_url() : home_url( '/korpa/' ) ); ?>" class="plo-calc-result__cta">Zatražite formalnu ponudu</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<?php
 // FAQ / cross-sell / CTA – dijeljeni parts, sadržaj iz door_expert_cat_content().
 if ( ! empty( $de_content['faq'] ) ) {
 	get_template_part( $de_base . 'parts/faq', null, array( 'faq' => $de_content['faq'] ) );

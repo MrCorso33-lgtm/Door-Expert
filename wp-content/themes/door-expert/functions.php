@@ -144,8 +144,16 @@ function door_expert_enqueue_assets() {
 			);
 			if ( isset( $family_assets[ $term->slug ] ) ) {
 				$fam = $family_assets[ $term->slug ];
-				wp_enqueue_style( 'door-expert-' . $fam, $uri . '/assets/css/' . $fam . '.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/' . $fam . '.css' ) );
-				wp_enqueue_script( 'door-expert-' . $fam . '-js', $uri . '/assets/js/' . $fam . '.js', array( 'door-expert-category-js' ), door_expert_ver( '/assets/js/' . $fam . '.js' ), true );
+				$dir = get_template_directory();
+
+				// Familija nema uvijek oba fajla (npr. plocice.js je sklonjen na _shelf
+				// zajedno sa kalkulatorom), pa enqueue-ujemo samo ono što postoji.
+				if ( file_exists( $dir . '/assets/css/' . $fam . '.css' ) ) {
+					wp_enqueue_style( 'door-expert-' . $fam, $uri . '/assets/css/' . $fam . '.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/' . $fam . '.css' ) );
+				}
+				if ( file_exists( $dir . '/assets/js/' . $fam . '.js' ) ) {
+					wp_enqueue_script( 'door-expert-' . $fam . '-js', $uri . '/assets/js/' . $fam . '.js', array( 'door-expert-category-js' ), door_expert_ver( '/assets/js/' . $fam . '.js' ), true );
+				}
 			}
 		}
 	}

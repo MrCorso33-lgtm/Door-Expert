@@ -39,7 +39,7 @@ if ( $de_term instanceof WP_Term ) {
 	$de_parent_tpl = 'template-parts/category/parent/' . $de_term->slug . '.php';
 
 	if ( 0 === (int) $de_term->parent && '' !== locate_template( $de_parent_tpl ) ) {
-		// Bespoke roditeljski part (npr. keramika sa plo-calculator).
+		// Bespoke roditeljski part (npr. keramika: plo-hero + brend traka).
 		get_template_part( 'template-parts/category/parent/' . $de_term->slug, null, $de_args );
 	} else {
 		// Potkategorija, ili roditelj bez bespoke parta → generički skelet.
