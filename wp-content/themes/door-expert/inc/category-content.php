@@ -118,13 +118,13 @@ function door_expert_cat_content_all() {
 			'hero' => array(
 				'label'            => 'Španske keramičke pločice · Direktan uvoz',
 				'title'            => 'Podne pločice<br>za svaki prostor',
-				'desc'             => 'Granitna keramika, veliki formati i anti-slip klase R10/R11 – direktno iz Španije, odmah dostupno u Podgorici. Tau Ceramica, Arcana i New Tiles za dnevne sobe, kupatila, terase i hodnike.',
+				'desc'             => 'Granitna keramika, veliki formati i anti-slip klase R10/R11 – direktno iz Španije, bez posrednika. Tau Ceramica, Arcana i New Tiles za dnevne sobe, kupatila, terase i hodnike.',
 				'img'              => 'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=800&q=85',
 				'img_alt'          => 'Španske podne pločice – veliki format, mat finish',
 				'img_badge_strong' => '18 – 65 €',
-				'img_badge_text'   => 'po m² · Na stanju',
+				'img_badge_text'   => 'po m² · Direktan uvoz',
 				'badges'           => array(
-					array( 'text' => 'Na stanju odmah', 'dot' => true ),
+					array( 'text' => 'Uzorci u showroomu', 'dot' => true ),
 					array( 'text' => '🇪🇸 Direktan uvoz iz Španije' ),
 					array( 'text' => 'Od 18 €/m²', 'accent' => true ),
 					array( 'text' => 'R10 / R11 anti-slip' ),
@@ -132,12 +132,12 @@ function door_expert_cat_content_all() {
 			),
 			'benefits' => array(
 				'eyebrow' => 'Zašto Door Expert',
-				'title'   => 'Španska keramika – odmah u Podgorici',
+				'title'   => 'Španska keramika iz prve ruke',
 				'items'   => array(
 					array(
 						'icon'  => '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
-						'title' => 'Na stanju odmah',
-						'text'  => 'Dok konkurencija naručuje sa rokom od 45 dana, mi isporučujemo odmah. Sve kolekcije su fizički na stanju u Podgorici.',
+						'title' => 'Uzorci u showroomu',
+						'text'  => 'Uzorke svih kolekcija možete vidjeti u našem showroomu u Podgorici – boja i tekstura na ekranu se razlikuju od stvarnih.',
 					),
 					array(
 						'icon'  => '<circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>',

@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       <div class="footer-col footer-brand">
         <p class="footer-brand__desc">
           Uvoznik i distributer vrata, španske keramike i Bathco umivaonika.
-          Roba na stanju – isporuka odmah, bez čekanja.
+          Vrata na stanju – isporuka odmah, bez čekanja.
         </p>
         <div class="footer-social">
           <a href="https://instagram.com/doorexpert.me" target="_blank" rel="noopener" class="footer-social__link" aria-label="Instagram">

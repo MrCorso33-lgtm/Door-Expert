@@ -100,7 +100,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         keramike i kupatilske opreme.
       </p>
       <p class="onama-story__para">
-        Ono što nas razlikuje nije samo asortiman – to je <strong>roba na stanju</strong>.
+        Ono što nas razlikuje nije samo asortiman – to je <strong>vrata na stanju</strong>.
         Dok konkurencija naručuje po zahtjevu i isporučuje za 45 dana, naš showroom u
         Podgorici ima sve modele fizički dostupne za pregled i odmah za isporuku.
       </p>

@@ -56,7 +56,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <ul class="mont-clarity-card__list">
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Vrata sa štok-okvirom (komplet)</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Kvaka i šarke po standardnoj specifikaciji</li>
-          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Roba na stanju – odmah dostupna</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Vrata na stanju – odmah dostupna</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Formalna ponuda mejlom sa PDV-om</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Savjet pri odabiru modela i dimenzija</li>
           <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Garancija na proizvod (2 godine)</li>
@@ -132,7 +132,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="mont-step__body">
           <span class="mont-step__who mont-step__who--kupac">Vi</span>
           <h3 class="mont-step__title">Potvrdite i platite robu</h3>
-          <p class="mont-step__desc">Prihvatate ponudu i plaćate robu (gotovina, kartica, virman ili rate). Roba je na stanju – odmah rezervisana za vas. Nema čekanja 45 dana kao kod konkurencije.</p>
+          <p class="mont-step__desc">Prihvatate ponudu i plaćate robu (gotovina, kartica, virman ili rate). Vrata su na stanju – odmah rezervisana za vas. Nema čekanja 45 dana kao kod konkurencije.</p>
         </div>
       </div>
 
@@ -324,7 +324,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <summary>Koliko traje montaža?<span class="mont-faq__icon">+</span></summary>
         <div class="mont-faq__answer">
           <p>Sama montaža jednih vrata traje 1–3 sata. Za stan od 5 vrata, iskusan majstor završi za jedan radni dan. Termin zavisi od dostupnosti majstora – obično 2–15 dana od narudžbe.</p>
-          <p>Roba je na stanju odmah – jedino što čekate je termin majstora.</p>
+          <p>Vrata su na stanju odmah – jedino što čekate je termin majstora.</p>
         </div>
       </details>
 
@@ -413,7 +413,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="pre-footer__text">
       <span class="pre-footer__eyebrow">Door Expert · Podgorica</span>
       <h2 class="pre-footer__title">Posjetite nas ili zatražite ponudu</h2>
-      <p class="pre-footer__subtitle">Roba na stanju. Formalna ponuda mejlom – bez obaveze.</p>
+      <p class="pre-footer__subtitle">Vrata na stanju. Formalna ponuda mejlom – bez obaveze.</p>
     </div>
     <div class="pre-footer__actions">
       <a href="<?php echo esc_url( home_url( '/korpa/' ) ); ?>" class="pre-footer__btn pre-footer__btn--primary">

@@ -585,7 +585,7 @@ get_header();
 
       <p class="promo-banner__desc">
         Odabrani modeli iz kolekcija Tau Ceramica i Arcana Ceramica,
-        uz sobna vrata iz aktuelnog skladišta. Sve na stanju,
+        uz sobna vrata iz aktuelnog skladišta. Vrata na stanju,
         isporuka odmah.
       </p>
 
@@ -1250,7 +1250,7 @@ get_header();
     <div class="pre-footer__text">
       <span class="pre-footer__eyebrow">Door Expert · Podgorica</span>
       <h2 class="pre-footer__title">Posjetite nas ili zatražite ponudu</h2>
-      <p class="pre-footer__subtitle">Roba na stanju. Formalna ponuda mejlom – bez obaveze.</p>
+      <p class="pre-footer__subtitle">Vrata na stanju. Formalna ponuda mejlom – bez obaveze.</p>
     </div>
     <div class="pre-footer__actions">
       <a href="<?php echo esc_url( home_url( '/korpa/' ) ); ?>" class="pre-footer__btn pre-footer__btn--primary">

@@ -121,10 +121,10 @@ $de_listing   = function_exists( 'door_expert_listing_base_url' ) ? door_expert_
         </div>
       </div>
       <div class="plo-trust-item">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/><path d="M9 20v-6h6v6"/></svg>
         <div>
-          <strong>Na stanju u Podgorici</strong>
-          <span>Isporuka odmah – bez čekanja</span>
+          <strong>Uzorci u showroomu</strong>
+          <span>Pogledajte boju i teksturu uživo</span>
         </div>
       </div>
       <div class="plo-trust-item">
