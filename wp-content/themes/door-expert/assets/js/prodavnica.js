@@ -21,7 +21,7 @@
   if ( filterToggle && shopFilters ) {
     filterToggle.addEventListener( 'click', function () {
       shopFilters.classList.toggle( 'is-open' );
-      this.textContent = shopFilters.classList.contains( 'is-open' ) ? 'Sakrij filtere' : 'Prikazi filtere';
+      this.textContent = shopFilters.classList.contains( 'is-open' ) ? 'Sakrij filtere' : 'Prikaži filtere';
     } );
   }
 

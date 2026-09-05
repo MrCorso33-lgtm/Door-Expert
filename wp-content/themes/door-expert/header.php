@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       <div class="header-top__left">
         <span class="header-top__promo">
           <span class="header-top__promo-dot" aria-hidden="true"></span>
-          Vrata odmah dostupna – isporuka bez cekanja
+          Vrata odmah dostupna – isporuka bez čekanja
         </span>
         <span class="header-top__hours">Pon–Pet 10:00–18:00 · Sub 10:00–14:00</span>
       </div>
@@ -64,7 +64,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     <div class="header-main__inner">
 
       <!-- Logo -->
-      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header-logo" aria-label="Door Expert – pocetna stranica">
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="header-logo" aria-label="Door Expert – početna stranica">
         <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.webp' ); ?>" alt="Door Expert" height="44" />
       </a>
 
@@ -146,7 +146,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   </a>
                   <span class="mega-menu__trust">
                     <span class="mega-menu__trust-dot" aria-hidden="true"></span>
-                    Odmah dostupno – bez cekanja
+                    Odmah dostupno – bez čekanja
                   </span>
                 </div>
 
@@ -233,30 +233,30 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
           </li>
 
-          <!-- 3. Keramicke plocice -->
+          <!-- 3. Keramičke pločice -->
           <li class="header-nav__item">
             <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="header-nav__link" aria-haspopup="true" aria-expanded="false">
-              Keramicke plocice
+              Keramičke pločice
               <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
             </a>
 
-            <!-- Mega menu: Keramicke plocice -->
-            <div class="mega-menu mega-menu--keramika" role="region" aria-label="Keramicke plocice podmeni">
+            <!-- Mega menu: Keramičke pločice -->
+            <div class="mega-menu mega-menu--keramika" role="region" aria-label="Keramičke pločice podmeni">
               <div class="mega-menu__inner">
 
                 <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="mega-menu__hero">
                   <img
                     class="mega-menu__hero-img"
                     src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80"
-                    alt="Spanske keramicke plocice"
+                    alt="Španske keramičke pločice"
                     loading="lazy"
                   />
                   <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
                   <div class="mega-menu__hero-content">
-                    <span class="mega-menu__hero-label">Spanska keramika</span>
-                    <h3 class="mega-menu__hero-title">Keramicke plocice</h3>
+                    <span class="mega-menu__hero-label">Španska keramika</span>
+                    <h3 class="mega-menu__hero-title">Keramičke pločice</h3>
                     <span class="mega-menu__hero-cta">
                       Pogledaj sve kolekcije
                       <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -269,49 +269,49 @@ if ( ! defined( 'ABSPATH' ) ) {
                   <div class="mega-menu__grid">
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'podne' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=120&q=75" alt="Podne plocice" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=120&q=75" alt="Podne pločice" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Podne plocice</span>
+                        <span class="mega-menu__subcat-name">Podne pločice</span>
                         <span class="mega-menu__subcat-desc">Granitna keramika, veliki formati</span>
                       </div>
                     </a>
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'zidne' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=120&q=75" alt="Zidne plocice" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=120&q=75" alt="Zidne pločice" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Zidne plocice</span>
+                        <span class="mega-menu__subcat-name">Zidne pločice</span>
                         <span class="mega-menu__subcat-desc">Dekorativni modeli za svaki prostor</span>
                       </div>
                     </a>
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'za-kupatilo' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Plocice za kupatilo" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Pločice za kupatilo" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Plocice za kupatilo</span>
+                        <span class="mega-menu__subcat-name">Pločice za kupatilo</span>
                         <span class="mega-menu__subcat-desc">Podne i zidne, mozaici</span>
                       </div>
                     </a>
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'za-kuhinju' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=120&q=75" alt="Plocice za kuhinju" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=120&q=75" alt="Pločice za kuhinju" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Plocice za kuhinju</span>
+                        <span class="mega-menu__subcat-name">Pločice za kuhinju</span>
                         <span class="mega-menu__subcat-desc">Otporne i lake za odrzavanje</span>
                       </div>
                     </a>
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'spoljne' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=75" alt="Spoljne plocice" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=120&q=75" alt="Spoljne pločice" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Spoljne plocice</span>
+                        <span class="mega-menu__subcat-name">Spoljne pločice</span>
                         <span class="mega-menu__subcat-desc">Terase, dvorista, protivklizne</span>
                       </div>
                     </a>
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'za-bazen' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=120&q=75" alt="Plocice za bazen" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=120&q=75" alt="Pločice za bazen" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Plocice za bazen</span>
+                        <span class="mega-menu__subcat-name">Pločice za bazen</span>
                         <span class="mega-menu__subcat-desc">Mozaik program, otpornost na hemikalije</span>
                       </div>
                     </a>
@@ -329,12 +329,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 <div class="mega-menu__footer">
                   <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="mega-menu__view-all">
-                    Sve keramicke plocice
+                    Sve keramičke pločice
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                   </a>
                   <span class="mega-menu__trust">
                     <span class="mega-menu__trust-dot" aria-hidden="true"></span>
-                    Spanski brendovi: New Tiles, Tau, Arcana, Ribesalbes
+                    Španski brendovi: New Tiles, Tau, Arcana, Ribesalbes
                   </span>
                 </div>
 
@@ -490,18 +490,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="search-overlay" role="dialog" aria-modal="true" aria-label="Pretraga">
   <div class="search-overlay__box">
     <div class="search-overlay__inner">
-      <span class="search-overlay__label">Pretrazite proizvode</span>
+      <span class="search-overlay__label">Pretražite proizvode</span>
       <form class="search-overlay__form" action="/pretraga/" method="get" role="search">
         <input
           class="search-overlay__input"
           type="search"
           name="q"
-          placeholder="Npr. klizna vrata, bijele plocice, 60x120, kameni lavabo..."
+          placeholder="Npr. klizna vrata, bijele pločice, 60x120, kameni lavabo..."
           autocomplete="off"
           spellcheck="false"
           aria-label="Unesite pojam za pretragu"
         />
-        <button class="search-overlay__submit" type="submit" aria-label="Pretrazi">
+        <button class="search-overlay__submit" type="submit" aria-label="Pretraži">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
@@ -511,7 +511,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <span class="search-overlay__hint-label">Popularno:</span>
         <span class="search-overlay__hint" role="button" tabindex="0">klizna vrata</span>
         <span class="search-overlay__hint" role="button" tabindex="0">bijela vrata</span>
-        <span class="search-overlay__hint" role="button" tabindex="0">plocice za kupatilo</span>
+        <span class="search-overlay__hint" role="button" tabindex="0">pločice za kupatilo</span>
         <span class="search-overlay__hint" role="button" tabindex="0">kameni lavabo</span>
         <span class="search-overlay__hint" role="button" tabindex="0">sigurnosna vrata za stan</span>
         <span class="search-overlay__hint" role="button" tabindex="0">60x120</span>
@@ -532,7 +532,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <nav class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobilna navigacija">
   <div class="mobile-nav__header">
-    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-nav__logo" aria-label="Door Expert – pocetna">
+    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobile-nav__logo" aria-label="Door Expert – početna">
       <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.webp' ); ?>" alt="Door Expert" height="36" />
     </a>
     <button class="mobile-nav__close" aria-label="Zatvori meni">
@@ -574,22 +574,22 @@ if ( ! defined( 'ABSPATH' ) ) {
       </div>
     </div>
 
-    <!-- Keramicke plocice -->
+    <!-- Keramičke pločice -->
     <div class="mobile-nav__cat">
       <button class="mobile-nav__cat-btn" aria-expanded="false">
-        Keramicke plocice
+        Keramičke pločice
         <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <polyline points="6 9 12 15 18 9"/>
         </svg>
       </button>
       <div class="mobile-nav__subcats">
-        <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="mobile-nav__subcat-link">Sve keramicke plocice</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'podne' ) ); ?>" class="mobile-nav__subcat-link">Podne plocice</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'zidne' ) ); ?>" class="mobile-nav__subcat-link">Zidne plocice</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'za-kupatilo' ) ); ?>" class="mobile-nav__subcat-link">Plocice za kupatilo</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'za-kuhinju' ) ); ?>" class="mobile-nav__subcat-link">Plocice za kuhinju</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'spoljne' ) ); ?>" class="mobile-nav__subcat-link">Spoljne plocice</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'za-bazen' ) ); ?>" class="mobile-nav__subcat-link">Plocice za bazen</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="mobile-nav__subcat-link">Sve keramičke pločice</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'podne' ) ); ?>" class="mobile-nav__subcat-link">Podne pločice</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'zidne' ) ); ?>" class="mobile-nav__subcat-link">Zidne pločice</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'za-kupatilo' ) ); ?>" class="mobile-nav__subcat-link">Pločice za kupatilo</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'za-kuhinju' ) ); ?>" class="mobile-nav__subcat-link">Pločice za kuhinju</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'spoljne' ) ); ?>" class="mobile-nav__subcat-link">Spoljne pločice</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'za-bazen' ) ); ?>" class="mobile-nav__subcat-link">Pločice za bazen</a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'gaziste-za-stepenice' ) ); ?>" class="mobile-nav__subcat-link">Gaziste za stepenice</a>
       </div>
     </div>

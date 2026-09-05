@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       btn.classList.toggle('active');
       const isActive = btn.classList.contains('active');
-      btn.setAttribute('aria-label', isActive ? 'Ukloni iz liste zelja' : 'Dodaj u listu zelja');
+      btn.setAttribute('aria-label', isActive ? 'Ukloni iz liste želja' : 'Dodaj u listu želja');
     });
   });
 

@@ -200,7 +200,7 @@
     const productId = btn.getAttribute('data-product');
     if (wishlist.indexOf(productId) !== -1) {
       btn.classList.add('is-active');
-      btn.setAttribute('aria-label', 'Ukloni iz liste zelja');
+      btn.setAttribute('aria-label', 'Ukloni iz liste želja');
     }
   });
 
@@ -212,11 +212,11 @@
 
       if (isActive) {
         this.classList.remove('is-active');
-        this.setAttribute('aria-label', 'Dodaj u listu zelja');
+        this.setAttribute('aria-label', 'Dodaj u listu želja');
         wishlist = wishlist.filter(function (id) { return id !== productId; });
       } else {
         this.classList.add('is-active');
-        this.setAttribute('aria-label', 'Ukloni iz liste zelja');
+        this.setAttribute('aria-label', 'Ukloni iz liste želja');
         if (wishlist.indexOf(productId) === -1) {
           wishlist.push(productId);
         }

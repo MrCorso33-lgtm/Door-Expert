@@ -122,7 +122,7 @@ get_header();
 
           <!-- Headline -->
           <h2 class="hero__title">
-            Spanska keramika<br>
+            Španska keramika<br>
             za kupatilo –<br>
             <em>posebna ponuda</em>
           </h2>
@@ -155,7 +155,7 @@ get_header();
           <!-- Countdown -->
           <!-- Research: Discounts doc – real deadline, calm visual, "Ponuda vazi do" framing -->
           <div class="hero__countdown" role="timer" aria-label="Ponuda istice za">
-            <span class="hero__countdown-label">Ponuda vazi jos</span>
+            <span class="hero__countdown-label">Ponuda važi još</span>
             <div class="hero__countdown-units">
               <div class="hero__countdown-unit">
                 <span class="hero__countdown-num" id="cd-days">--</span>
@@ -192,7 +192,7 @@ get_header();
       <button class="hero__dot is-active" role="tab" aria-selected="true" aria-label="Slajd 1"></button>
       <button class="hero__dot" role="tab" aria-selected="false" aria-label="Slajd 2"></button>
     </div>
-    <button class="hero__nav-btn hero__nav-btn--next" aria-label="Sledeci slajd">
+    <button class="hero__nav-btn hero__nav-btn--next" aria-label="Sljedeći slajd">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
     </button>
   </div>
@@ -239,7 +239,7 @@ get_header();
       </div>
       <div class="trust-bar__text">
         <span class="trust-bar__title">Direktan uvoz iz Spanije</span>
-        <span class="trust-bar__sub">Tau, Arcana, Bathco – originalni spanski brendovi</span>
+        <span class="trust-bar__sub">Tau, Arcana, Bathco – originalni španski brendovi</span>
       </div>
     </div>
 
@@ -251,7 +251,7 @@ get_header();
       </div>
       <div class="trust-bar__text">
         <span class="trust-bar__title">Fizicki salon, Podgorica</span>
-        <span class="trust-bar__sub">Posjetite nas i vidite proizvode uzivo</span>
+        <span class="trust-bar__sub">Posjetite nas i vidite proizvode uživo</span>
       </div>
     </a>
 
@@ -288,7 +288,7 @@ get_header();
 
     <div class="categories__header">
       <div>
-        <p class="categories__eyebrow">Nase kategorije</p>
+        <p class="categories__eyebrow">Naše kategorije</p>
         <h2 class="categories__title">Sve sto vam treba za dom</h2>
       </div>
       <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="categories__view-all">
@@ -336,7 +336,7 @@ get_header();
           loading="lazy"
         />
         <div class="cat-card__overlay" aria-hidden="true"></div>
-        <span class="cat-card__badge">Sertifikovana zastita</span>
+        <span class="cat-card__badge">Sertifikovana zaštita</span>
         <div class="cat-card__body">
           <h3 class="cat-card__name">Sigurnosna vrata</h3>
           <ul class="cat-card__subs">
@@ -354,17 +354,17 @@ get_header();
       <!-- 3. KERAMICKE PLOCICE -->
       <!-- Visual research line 83: tile pages more exploratory,
            sub-tags show breadth of 7 sub-categories -->
-      <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="cat-card" aria-label="Keramicke plocice – pogledaj kolekcije">
+      <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="cat-card" aria-label="Keramičke pločice – pogledaj kolekcije">
         <img
           class="cat-card__img"
           src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&q=80"
-          alt="Spanske keramicke plocice u modernom kupatilu"
+          alt="Španske keramičke pločice u modernom kupatilu"
           loading="lazy"
         />
         <div class="cat-card__overlay" aria-hidden="true"></div>
-        <span class="cat-card__badge">Spanski brendovi</span>
+        <span class="cat-card__badge">Španski brendovi</span>
         <div class="cat-card__body">
-          <h3 class="cat-card__name">Keramicke plocice</h3>
+          <h3 class="cat-card__name">Keramičke pločice</h3>
           <ul class="cat-card__subs">
             <li class="cat-card__sub">Podne</li>
             <li class="cat-card__sub">Zidne</li>
@@ -434,7 +434,7 @@ get_header();
       <button class="featured__tab is-active" data-filter="sve" role="tab" aria-selected="true">Sve</button>
       <button class="featured__tab" data-filter="sobna" role="tab" aria-selected="false">Sobna vrata</button>
       <button class="featured__tab" data-filter="sigurnosna" role="tab" aria-selected="false">Sigurnosna vrata</button>
-      <button class="featured__tab" data-filter="keramika" role="tab" aria-selected="false">Keramicke plocice</button>
+      <button class="featured__tab" data-filter="keramika" role="tab" aria-selected="false">Keramičke pločice</button>
       <button class="featured__tab" data-filter="umivaonici" role="tab" aria-selected="false">Umivaonici</button>
     </div>
 
@@ -451,7 +451,7 @@ get_header();
             <span class="prod-badge prod-badge--new">Novo</span>
             <span class="prod-badge prod-badge--stock">Na stanju</span>
           </div>
-          <button class="prod-card__wishlist" aria-label="Sacuvaj u listu zelja">
+          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
           </button>
         </div>
@@ -479,7 +479,7 @@ get_header();
           <div class="prod-card__badges">
             <span class="prod-badge prod-badge--sale">-15%</span>
           </div>
-          <button class="prod-card__wishlist" aria-label="Sacuvaj u listu zelja">
+          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
           </button>
         </div>
@@ -499,22 +499,22 @@ get_header();
         </div>
       </article>
 
-      <!-- CARD 3: Keramicke plocice – new collection -->
+      <!-- CARD 3: Keramičke pločice – new collection -->
       <article class="prod-card" data-cat="keramika">
         <div class="prod-card__img-wrap">
           <img class="prod-card__img"
             src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=500&q=80"
-            alt="Tau Ceramica Travertino plocice"
+            alt="Tau Ceramica Travertino pločice"
             loading="lazy" />
           <div class="prod-card__badges">
             <span class="prod-badge prod-badge--new">Nova kolekcija</span>
           </div>
-          <button class="prod-card__wishlist" aria-label="Sacuvaj u listu zelja">
+          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
           </button>
         </div>
         <div class="prod-card__body">
-          <span class="prod-card__cat">Keramicke plocice &middot; Tau Ceramica</span>
+          <span class="prod-card__cat">Keramičke pločice &middot; Tau Ceramica</span>
           <h3 class="prod-card__name">Travertino Beige</h3>
           <p class="prod-card__attrs">60 × 120 cm &middot; Podne &middot; Mat</p>
           <div class="prod-card__price-row">
@@ -537,7 +537,7 @@ get_header();
           <div class="prod-card__badges">
             <span class="prod-badge prod-badge--new">Novo</span>
           </div>
-          <button class="prod-card__wishlist" aria-label="Sacuvaj u listu zelja">
+          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
             <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
           </button>
         </div>
@@ -580,7 +580,7 @@ get_header();
 
       <h2 class="promo-banner__title">
         Julska selekcija:
-        <em>spanska keramika i sobna vrata</em>
+        <em>španska keramika i sobna vrata</em>
       </h2>
 
       <p class="promo-banner__desc">
@@ -823,7 +823,7 @@ get_header();
           </div>
         </a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="room-product-card">
-          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=75" alt="Podne plocice" loading="lazy">
+          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=75" alt="Podne pločice" loading="lazy">
           <div class="room-product-card__info">
             <p class="room-product-card__category">Arcana Ceramica</p>
             <p class="room-product-card__name">Oak Effect 20×120</p>
@@ -887,7 +887,7 @@ get_header();
           </div>
         </a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="room-product-card">
-          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=75" alt="Podne plocice za hodnik" loading="lazy">
+          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=75" alt="Podne pločice za hodnik" loading="lazy">
           <div class="room-product-card__info">
             <p class="room-product-card__category">Ceramica Ribesalbes</p>
             <p class="room-product-card__name">Concrete Grey 60×60</p>
@@ -913,11 +913,11 @@ get_header();
     <div class="room-panel" data-room="kuhinja" role="tabpanel">
 
       <div class="room-panel__hero">
-        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80" alt="Moderna kuhinja sa španskim plocicama" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=80" alt="Moderna kuhinja sa španskim pločicama" loading="lazy">
         <div class="room-panel__hero-overlay"></div>
         <div class="room-panel__hero-content">
           <p class="room-panel__hero-label">Kuhinja</p>
-          <h3 class="room-panel__hero-title">Spanska keramika za kuhinju</h3>
+          <h3 class="room-panel__hero-title">Španska keramika za kuhinju</h3>
           <div class="room-panel__hero-tags">
             <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="room-panel__hero-tag">Pločice za kuhinju</a>
             <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="room-panel__hero-tag">Zidne pločice</a>
@@ -928,7 +928,7 @@ get_header();
 
       <div class="room-panel__products">
         <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="room-product-card">
-          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=75" alt="Plocice za kuhinju" loading="lazy">
+          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=75" alt="Pločice za kuhinju" loading="lazy">
           <div class="room-product-card__info">
             <p class="room-product-card__category">New Tiles</p>
             <p class="room-product-card__name">Metro White 10×30</p>
@@ -939,7 +939,7 @@ get_header();
           </div>
         </a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="room-product-card">
-          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200&q=75" alt="Podne plocice za kuhinju" loading="lazy">
+          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200&q=75" alt="Podne pločice za kuhinju" loading="lazy">
           <div class="room-product-card__info">
             <p class="room-product-card__category">Tau Ceramica</p>
             <p class="room-product-card__name">Stone Beige 60×60</p>
@@ -1020,7 +1020,7 @@ get_header();
   <!-- Bottom CTA strip -->
   <div class="room-nav__bottom">
     <p class="room-nav__bottom-text">
-      <strong>Ne znate odakle da krenete?</strong> Posjetite nas u salonu u Podgorici &mdash; pomoćićemo vam da izaberete pravo rješenje za svaki prostor.
+      <strong>Ne znate odakle da krenete?</strong> Posjetite nas u salonu u Podgorici – pomoćićemo vam da izaberete pravo rješenje za svaki prostor.
     </p>
     <a href="<?php echo esc_url( home_url( '/kontakt/' ) ); ?>" class="room-nav__bottom-cta">
       Posjetite salon
@@ -1036,7 +1036,7 @@ get_header();
      Research: Business Facts (Spanish origin = biggest advantage)
      Trust Signals doc: brendovi kao signal kvaliteta porijekla
      Brands: New Tiles, Arcana Ceramica, Tau Ceramica,
-             Ceramica Ribesalbes (plocice) + Bathco (umivaonici)
+             Ceramica Ribesalbes (pločice) + Bathco (umivaonici)
      Door brands NOT shown (Russia/Ukraine factories)
 ════════════════════════════════════════════════ -->
 <section class="brand-strip" aria-label="Brendovi koje zastupamo">
@@ -1044,7 +1044,7 @@ get_header();
 
     <div class="brand-strip__header">
       <p class="brand-strip__eyebrow">Direktan uvoz</p>
-      <h2 class="brand-strip__title">Originalni <em>spanski brendovi</em> u nasem salonu</h2>
+      <h2 class="brand-strip__title">Originalni <em>španski brendovi</em> u našem salonu</h2>
     </div>
 
     <div class="brand-strip__grid">
@@ -1056,7 +1056,7 @@ get_header();
           <span class="brand-card__logo-text">NEW TILES</span>
         </div>
         <div class="brand-card__divider"></div>
-        <span class="brand-card__category">Keramicke plocice</span>
+        <span class="brand-card__category">Keramičke pločice</span>
         <p class="brand-card__desc">Savremeni dizajn i siroka paleta formata za svaki prostor</p>
       </a>
 
@@ -1067,7 +1067,7 @@ get_header();
           <span class="brand-card__logo-text">ARCANA<br>CERAMICA</span>
         </div>
         <div class="brand-card__divider"></div>
-        <span class="brand-card__category">Keramicke plocice</span>
+        <span class="brand-card__category">Keramičke pločice</span>
         <p class="brand-card__desc">Kolekcije inspirisane prirodnim materijalima i arhitekturom</p>
       </a>
 
@@ -1078,8 +1078,8 @@ get_header();
           <span class="brand-card__logo-text">TAU<br>CERAMICA</span>
         </div>
         <div class="brand-card__divider"></div>
-        <span class="brand-card__category">Keramicke plocice</span>
-        <p class="brand-card__desc">Premium plocice za podove i zidove, mramor i beton efekti</p>
+        <span class="brand-card__category">Keramičke pločice</span>
+        <p class="brand-card__desc">Premium pločice za podove i zidove, mramor i beton efekti</p>
       </a>
 
       <!-- 4. Ceramica Ribesalbes -->
@@ -1089,7 +1089,7 @@ get_header();
           <span class="brand-card__logo-text">CERAMICA<br>RIBESALBES</span>
         </div>
         <div class="brand-card__divider"></div>
-        <span class="brand-card__category">Keramicke plocice</span>
+        <span class="brand-card__category">Keramičke pločice</span>
         <p class="brand-card__desc">Artizanska tradicija i savremeni dizajn iz Valencije</p>
       </a>
 
@@ -1107,7 +1107,7 @@ get_header();
     </div><!-- /brand-strip__grid -->
 
     <div class="brand-strip__note">
-      <p class="brand-strip__note-text">Svi brendovi su originalni spanski uvoz &mdash; dostupni u nasem salonu u Podgorici.</p>
+      <p class="brand-strip__note-text">Svi brendovi su originalni španski uvoz – dostupni u našem salonu u Podgorici.</p>
       <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="brand-strip__note-link">
         Pogledaj sve kolekcije
         <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>

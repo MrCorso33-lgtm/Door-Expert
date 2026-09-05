@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
     <!-- Brand statement row -->
     <div class="footer-brand-statement">
-      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="footer-brand__logo" aria-label="Door Expert pocetna">
+      <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="footer-brand__logo" aria-label="Door Expert početna">
         <div class="footer-brand__wordmark">Door <span>Expert</span></div>
         <div class="footer-brand__tagline">Uvoznik &amp; distributer · Podgorica</div>
       </a>

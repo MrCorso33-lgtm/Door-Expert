@@ -44,7 +44,7 @@
       e.stopPropagation();
       btn.classList.toggle('is-saved');
       const saved = btn.classList.contains('is-saved');
-      btn.setAttribute('aria-label', saved ? 'Ukloni iz liste zelja' : 'Sacuvaj u listu zelja');
+      btn.setAttribute('aria-label', saved ? 'Ukloni iz liste želja' : 'Sačuvaj u listu želja');
 
       // Micro-bounce
       btn.style.transform = 'scale(1.25)';
