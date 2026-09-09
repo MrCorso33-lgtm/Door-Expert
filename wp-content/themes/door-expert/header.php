@@ -118,7 +118,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                       />
                       <div class="mega-menu__subcat-info">
                         <span class="mega-menu__subcat-name">Klizna vrata</span>
-                        <span class="mega-menu__subcat-desc">Sina, klizaci i maska ukljuceni</span>
+                        <span class="mega-menu__subcat-desc">Sina, klizaci i maska uključeni</span>
                       </div>
                     </a>
 
@@ -206,11 +206,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                       <img
                         class="mega-menu__subcat-thumb"
                         src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=120&q=75"
-                        alt="Sigurnosna vrata za kucu"
+                        alt="Sigurnosna vrata za kuću"
                         loading="lazy"
                       />
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Za kucu</span>
+                        <span class="mega-menu__subcat-name">Za kuću</span>
                         <span class="mega-menu__subcat-desc">Deluxe klasa, antracit i wenge</span>
                       </div>
                     </a>
@@ -317,9 +317,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </a>
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'gaziste-za-stepenice' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=120&q=75" alt="Gaziste za stepenice" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=120&q=75" alt="Gazište za stepenice" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Gaziste za stepenice</span>
+                        <span class="mega-menu__subcat-name">Gazište za stepenice</span>
                         <span class="mega-menu__subcat-desc">Granitna gazista i profili</span>
                       </div>
                     </a>
@@ -364,7 +364,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   />
                   <div class="mega-menu__hero-overlay" aria-hidden="true"></div>
                   <div class="mega-menu__hero-content">
-                    <span class="mega-menu__hero-label">Brend Bathco – Spanija</span>
+                    <span class="mega-menu__hero-label">Brend Bathco – Španija</span>
                     <h3 class="mega-menu__hero-title">Dekorativni umivaonici</h3>
                     <span class="mega-menu__hero-cta">
                       Pogledaj sve modele
@@ -386,9 +386,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     </a>
 
                     <a href="<?php echo esc_url( door_expert_cat_url( 'samostojeci' ) ); ?>" class="mega-menu__subcat-link">
-                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Samostojeci umivaonici" loading="lazy"/>
+                      <img class="mega-menu__subcat-thumb" src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=120&q=75" alt="Samostojeći umivaonici" loading="lazy"/>
                       <div class="mega-menu__subcat-info">
-                        <span class="mega-menu__subcat-name">Samostojeci umivaonici</span>
+                        <span class="mega-menu__subcat-name">Samostojeći umivaonici</span>
                         <span class="mega-menu__subcat-desc">Luksuzni, unikatni dizajn</span>
                       </div>
                     </a>
@@ -411,7 +411,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   </a>
                   <span class="mega-menu__trust">
                     <span class="mega-menu__trust-dot" aria-hidden="true"></span>
-                    Iskljucivo Bathco – Spanija
+                    Isključivo Bathco – Španija
                   </span>
                 </div>
 
@@ -570,7 +570,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       <div class="mobile-nav__subcats">
         <a href="<?php echo esc_url( door_expert_cat_url( 'sigurnosna-vrata' ) ); ?>" class="mobile-nav__subcat-link">Sva sigurnosna vrata</a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'za-stan' ) ); ?>" class="mobile-nav__subcat-link">Za stan</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'za-kucu' ) ); ?>" class="mobile-nav__subcat-link">Za kucu</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'za-kucu' ) ); ?>" class="mobile-nav__subcat-link">Za kuću</a>
       </div>
     </div>
 
@@ -590,7 +590,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <a href="<?php echo esc_url( door_expert_cat_url( 'za-kuhinju' ) ); ?>" class="mobile-nav__subcat-link">Pločice za kuhinju</a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'spoljne' ) ); ?>" class="mobile-nav__subcat-link">Spoljne pločice</a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'za-bazen' ) ); ?>" class="mobile-nav__subcat-link">Pločice za bazen</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'gaziste-za-stepenice' ) ); ?>" class="mobile-nav__subcat-link">Gaziste za stepenice</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'gaziste-za-stepenice' ) ); ?>" class="mobile-nav__subcat-link">Gazište za stepenice</a>
       </div>
     </div>
 
@@ -605,7 +605,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       <div class="mobile-nav__subcats">
         <a href="<?php echo esc_url( door_expert_cat_url( 'umivaonici' ) ); ?>" class="mobile-nav__subcat-link">Svi umivaonici</a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'kameni' ) ); ?>" class="mobile-nav__subcat-link">Kameni umivaonici</a>
-        <a href="<?php echo esc_url( door_expert_cat_url( 'samostojeci' ) ); ?>" class="mobile-nav__subcat-link">Samostojeci umivaonici</a>
+        <a href="<?php echo esc_url( door_expert_cat_url( 'samostojeci' ) ); ?>" class="mobile-nav__subcat-link">Samostojeći umivaonici</a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'nadgradni' ) ); ?>" class="mobile-nav__subcat-link">Nadgradni umivaonici</a>
       </div>
     </div>
@@ -626,7 +626,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       </a>
       <a href="<?php echo esc_url( home_url( '/b2b/' ) ); ?>" class="mobile-nav__util-link">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-        Za investitore i izvodjace
+        Za investitore i izvođače
       </a>
       <a href="<?php echo esc_url( door_expert_cart_url() ); ?>" class="mobile-nav__util-link">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>

@@ -18,7 +18,7 @@
 
 get_header();
 ?>
-<section class="hero hero--slide-1" aria-label="Istaknuti sadrzaj">
+<section class="hero hero--slide-1" aria-label="Istaknuti sadržaj">
 
   <!-- Slide track -->
   <div class="hero__track">
@@ -54,8 +54,8 @@ get_header();
           <!-- Subtext -->
           <!-- Research: UX Research – "uvoznik/distributer" as advantage, not apology -->
           <p class="hero__sub">
-            Direktan uvoz iz Spanije i Evrope. Pazljivo odabrani brendovi,
-            fizicki salon u Podgorici, formalna ponuda bez obaveze.
+            Direktan uvoz iz Španije i Evrope. Pažljivo odabrani brendovi,
+            fizički salon u Podgorici, formalna ponuda bez obaveze.
           </p>
 
           <!-- CTA group -->
@@ -75,7 +75,7 @@ get_header();
           <!-- Research: Trust Signals doc + Business Facts – unclaimed territory -->
           <div class="hero__trust">
             <span class="hero__trust-dot" aria-hidden="true"></span>
-            Vrata na stanju – isporuka odmah. Konkurencija ceka 45+ dana.
+            Vrata na stanju – isporuka odmah. Konkurencija čeka 45+ dana.
           </div>
 
         </div>
@@ -213,7 +213,7 @@ get_header();
      Research: Trust Signals doc, UX Research (line 28),
                Business Facts (stock advantage = unclaimed territory)
 ════════════════════════════════════════════════ -->
-<section class="trust-bar" aria-label="Zasto Door Expert">
+<section class="trust-bar" aria-label="Zašto Door Expert">
   <div class="trust-bar__inner">
 
     <!-- Item 1: Stock advantage – #1 priority per Business Facts -->
@@ -227,7 +227,7 @@ get_header();
           <span class="trust-bar__stock-dot" aria-hidden="true"></span>
           Vrata odmah na stanju
         </span>
-        <span class="trust-bar__sub">Konkurencija ceka 45+ dana – mi isporucujemo odmah</span>
+        <span class="trust-bar__sub">Konkurencija čeka 45+ dana – mi isporučujemo odmah</span>
       </div>
     </div>
 
@@ -238,7 +238,7 @@ get_header();
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
       </div>
       <div class="trust-bar__text">
-        <span class="trust-bar__title">Direktan uvoz iz Spanije</span>
+        <span class="trust-bar__title">Direktan uvoz iz Španije</span>
         <span class="trust-bar__sub">Tau, Arcana, Bathco – originalni španski brendovi</span>
       </div>
     </div>
@@ -250,7 +250,7 @@ get_header();
         <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
       <div class="trust-bar__text">
-        <span class="trust-bar__title">Fizicki salon, Podgorica</span>
+        <span class="trust-bar__title">Fizički salon, Podgorica</span>
         <span class="trust-bar__sub">Posjetite nas i vidite proizvode uživo</span>
       </div>
     </a>
@@ -263,7 +263,7 @@ get_header();
       </div>
       <div class="trust-bar__text">
         <span class="trust-bar__title">Formalna ponuda mejlom</span>
-        <span class="trust-bar__sub">Predracun bez obaveze – vi odlucujete</span>
+        <span class="trust-bar__sub">Predračun bez obaveze – vi odlučujete</span>
       </div>
     </div>
 
@@ -289,7 +289,7 @@ get_header();
     <div class="categories__header">
       <div>
         <p class="categories__eyebrow">Naše kategorije</p>
-        <h2 class="categories__title">Sve sto vam treba za dom</h2>
+        <h2 class="categories__title">Sve što vam treba za dom</h2>
       </div>
       <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="categories__view-all">
         Pogledaj katalog
@@ -332,7 +332,7 @@ get_header();
         <img
           class="cat-card__img"
           src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80"
-          alt="Sigurnosna vrata za stan i kucu"
+          alt="Sigurnosna vrata za stan i kuću"
           loading="lazy"
         />
         <div class="cat-card__overlay" aria-hidden="true"></div>
@@ -341,7 +341,7 @@ get_header();
           <h3 class="cat-card__name">Sigurnosna vrata</h3>
           <ul class="cat-card__subs">
             <li class="cat-card__sub">Za stan</li>
-            <li class="cat-card__sub">Za kucu</li>
+            <li class="cat-card__sub">Za kuću</li>
             <li class="cat-card__sub">Klase otpornosti</li>
           </ul>
           <span class="cat-card__cta">
@@ -369,10 +369,10 @@ get_header();
             <li class="cat-card__sub">Podne</li>
             <li class="cat-card__sub">Zidne</li>
             <li class="cat-card__sub">Za bazen</li>
-            <li class="cat-card__sub">Gaziste</li>
+            <li class="cat-card__sub">Gazište</li>
           </ul>
           <span class="cat-card__cta">
-            Istrazi kolekcije
+            Istraži kolekcije
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
         </div>
@@ -389,16 +389,16 @@ get_header();
           loading="lazy"
         />
         <div class="cat-card__overlay" aria-hidden="true"></div>
-        <span class="cat-card__badge">Bathco Spanija</span>
+        <span class="cat-card__badge">Bathco Španija</span>
         <div class="cat-card__body">
           <h3 class="cat-card__name">Dekorativni umivaonici</h3>
           <ul class="cat-card__subs">
             <li class="cat-card__sub">Kameni</li>
             <li class="cat-card__sub">Nadgradni</li>
-            <li class="cat-card__sub">Samostojeci</li>
+            <li class="cat-card__sub">Samostojeći</li>
           </ul>
           <span class="cat-card__cta">
-            Istrazi kolekcije
+            Istraži kolekcije
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </span>
         </div>
@@ -705,7 +705,7 @@ get_header();
         Kuhinja
       </button>
 
-      <button class="room-tab" data-room="spavaca" role="tab" aria-selected="false">
+      <button class="room-tab" data-room="spavaća" role="tab" aria-selected="false">
         <svg viewBox="0 0 24 24"><path d="M2 20v-8a2 2 0 012-2h16a2 2 0 012 2v8"/><path d="M2 15h20"/><path d="M6 10V6a2 2 0 012-2h8a2 2 0 012 2v4"/></svg>
         Spavaća soba
       </button>
@@ -757,7 +757,7 @@ get_header();
         <a href="<?php echo esc_url( door_expert_cat_url( 'umivaonici' ) ); ?>" class="room-product-card">
           <img class="room-product-card__img" src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=200&q=75" alt="Kameni umivaonik" loading="lazy">
           <div class="room-product-card__info">
-            <p class="room-product-card__category">Bathco Spanija</p>
+            <p class="room-product-card__category">Bathco Španija</p>
             <p class="room-product-card__name">Mueble Oval Stone</p>
             <p class="room-product-card__attr">Kameni &middot; Nadgradni</p>
           </div>
@@ -800,7 +800,7 @@ get_header();
         <div class="room-panel__hero-overlay"></div>
         <div class="room-panel__hero-content">
           <p class="room-panel__hero-label">Dnevna soba</p>
-          <h3 class="room-panel__hero-title">Unutrašnja vrata koja definisu prostor</h3>
+          <h3 class="room-panel__hero-title">Unutrašnja vrata koja definišu prostor</h3>
           <div class="room-panel__hero-tags">
             <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="room-panel__hero-tag">Sobna vrata</a>
             <a href="<?php echo esc_url( door_expert_cat_url( 'staklena-vrata' ) ); ?>" class="room-panel__hero-tag">Staklena vrata</a>
@@ -963,10 +963,10 @@ get_header();
     </div><!-- /kuhinja panel -->
 
     <!-- ── SPAVACA SOBA panel ──────────────────────────────── -->
-    <div class="room-panel" data-room="spavaca" role="tabpanel">
+    <div class="room-panel" data-room="spavaća" role="tabpanel">
 
       <div class="room-panel__hero">
-        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80" alt="Elegantna spavaca soba sa unutrasnjim vratima" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80" alt="Elegantna spavaća soba sa unutrasnjim vratima" loading="lazy">
         <div class="room-panel__hero-overlay"></div>
         <div class="room-panel__hero-content">
           <p class="room-panel__hero-label">Spavaća soba</p>
@@ -981,7 +981,7 @@ get_header();
 
       <div class="room-panel__products">
         <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="room-product-card">
-          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=200&q=75" alt="Sobna vrata za spavacu sobu" loading="lazy">
+          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=200&q=75" alt="Sobna vrata za spavaću sobu" loading="lazy">
           <div class="room-product-card__info">
             <p class="room-product-card__category">Sobna vrata</p>
             <p class="room-product-card__name">Hrast natural &middot; 80×200</p>
@@ -992,7 +992,7 @@ get_header();
           </div>
         </a>
         <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="room-product-card">
-          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200&q=75" alt="Klizna vrata za spavacu sobu" loading="lazy">
+          <img class="room-product-card__img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=200&q=75" alt="Klizna vrata za spavaću sobu" loading="lazy">
           <div class="room-product-card__info">
             <p class="room-product-card__category">Klizna vrata</p>
             <p class="room-product-card__name">Bijela mat &middot; 90×210</p>
@@ -1013,7 +1013,7 @@ get_header();
           </a>
         </div>
       </div>
-    </div><!-- /spavaca panel -->
+    </div><!-- /spavaća panel -->
 
   </div><!-- /room-nav__inner -->
 
@@ -1051,18 +1051,18 @@ get_header();
 
       <!-- 1. New Tiles -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="brand-card">
-        <span class="brand-card__spain-badge">🇪🇸 Spanija</span>
+        <span class="brand-card__spain-badge">🇪🇸 Španija</span>
         <div class="brand-card__logo-wrap">
           <span class="brand-card__logo-text">NEW TILES</span>
         </div>
         <div class="brand-card__divider"></div>
         <span class="brand-card__category">Keramičke pločice</span>
-        <p class="brand-card__desc">Savremeni dizajn i siroka paleta formata za svaki prostor</p>
+        <p class="brand-card__desc">Savremeni dizajn i široka paleta formata za svaki prostor</p>
       </a>
 
       <!-- 2. Arcana Ceramica -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="brand-card">
-        <span class="brand-card__spain-badge">🇪🇸 Spanija</span>
+        <span class="brand-card__spain-badge">🇪🇸 Španija</span>
         <div class="brand-card__logo-wrap">
           <span class="brand-card__logo-text">ARCANA<br>CERAMICA</span>
         </div>
@@ -1073,7 +1073,7 @@ get_header();
 
       <!-- 3. Tau Ceramica -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="brand-card">
-        <span class="brand-card__spain-badge">🇪🇸 Spanija</span>
+        <span class="brand-card__spain-badge">🇪🇸 Španija</span>
         <div class="brand-card__logo-wrap">
           <span class="brand-card__logo-text">TAU<br>CERAMICA</span>
         </div>
@@ -1084,7 +1084,7 @@ get_header();
 
       <!-- 4. Ceramica Ribesalbes -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="brand-card">
-        <span class="brand-card__spain-badge">🇪🇸 Spanija</span>
+        <span class="brand-card__spain-badge">🇪🇸 Španija</span>
         <div class="brand-card__logo-wrap">
           <span class="brand-card__logo-text">CERAMICA<br>RIBESALBES</span>
         </div>
@@ -1095,13 +1095,13 @@ get_header();
 
       <!-- 5. Bathco -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'umivaonici' ) ); ?>" class="brand-card">
-        <span class="brand-card__spain-badge">🇪🇸 Spanija</span>
+        <span class="brand-card__spain-badge">🇪🇸 Španija</span>
         <div class="brand-card__logo-wrap">
           <span class="brand-card__logo-text">BATHCO</span>
         </div>
         <div class="brand-card__divider"></div>
         <span class="brand-card__category">Dekorativni umivaonici</span>
-        <p class="brand-card__desc">Kameni, nadgradni i samostojeci umivaonici, unikatni dizajn</p>
+        <p class="brand-card__desc">Kameni, nadgradni i samostojeći umivaonici, unikatni dizajn</p>
       </a>
 
     </div><!-- /brand-strip__grid -->
@@ -1228,13 +1228,18 @@ get_header();
 
     </div><!-- /instagram-grid -->
 
-    <!-- Developer handoff note -->
-    <div class="instagram-dev-note">
-      <strong>Napomena za developera:</strong> Ovaj grid je placeholder. U produkciji zamijeniti sa 
-      <a href="https://behold.so" target="_blank">Behold.so</a> widgetom koji automatski vuce najnovije postove 
-      sa @doorexpert.me Instagram profila. Besplatni plan pokriva potrebe. 
-      Ubaciti: <code>&lt;div id="behold-widget-XXXX"&gt;&lt;/div&gt;</code> i odgovarajuci script tag.
-    </div>
+    <?php
+    /*
+     * TODO (produkcija): Instagram grid iznad je PLACEHOLDER.
+     * Zamijeniti Behold.so widgetom koji automatski povlači najnovije postove sa
+     * @doorexpert.me profila (besplatni plan pokriva potrebe):
+     *   <div id="behold-widget-XXXX"></div> + pripadajući script tag.
+     *
+     * NAPOMENA: ovo je ranije bio VIDLJIV .instagram-dev-note blok na naslovnoj –
+     * developerska uputstva su se prikazivala posjetiocima. Prebačeno u PHP komentar
+     * (ne ide u HTML izlaz). Stil .instagram-dev-note u instagram.css je sada neiskorišćen.
+     */
+    ?>
 
   </div><!-- /instagram-section__inner -->
 </section>
