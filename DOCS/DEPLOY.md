@@ -80,9 +80,57 @@ Kad je sajt spreman:
    `@` i `www` → `<shared_IP novog servera>`. **Ne diraj nameservere ni MX** (email ostaje gde je).
 5. Sačekaj propagaciju (proveri `nslookup doorexpert.me` / whatsmydns).
 6. **AutoSSL / Let's Encrypt** za `doorexpert.me` u novom cPanel-u (sad radi jer DNS pokazuje ovamo).
-7. Posle SSL-a: potvrdi da su `siteurl`/`home` = `https://doorexpert.me` (search-replace ih je
+7. **Ažuriraj `WP_HOME` / `WP_SITEURL` u `wp-config.php`** (vidi "Login puca…" niže — na
+   staging-u su postavljene na IP). Konstante **imaju prednost nad bazom**, pa ih
+   search-replace iz koraka 3 ne dira: dok stoje stare vrijednosti, sajt ostaje na IP-u
+   koliko god baza bila ispravna. Ili ih prepiši na `https://doorexpert.me`, ili ih obriši
+   pa pusti bazu da vlada (obriši tek kad si siguran da `home`/`siteurl` u bazi nemaju
+   višak razmaka, inače se vraća fatal sa kolačićima).
+8. Posle SSL-a: potvrdi da su `siteurl`/`home` = `https://doorexpert.me` (search-replace ih je
    već promenio), pa **Settings → Permalinks → Save** (flush) i dodaj http→https redirect.
-8. Isključi `WP_DEBUG`.
+9. Isključi `WP_DEBUG`.
+
+---
+
+## Login puca sa "setcookie(): path option cannot contain" (riješeno 12.09.2026)
+
+**Simptom:** `wp-admin` se ne otvara, `error_log`/`debug.log` pokazuju samo:
+
+```
+PHP Fatal error: Uncaught ValueError: setcookie(): "path" option cannot contain
+",", ";", " ", "\t", "\r", "\n", "\013", or "\014" in .../wp-login.php:525
+```
+
+**Uzrok:** `home` opcija u bazi ima višak na kraju (razmak ili prelazak u novi red),
+najvjerovatnije iz kopiranog URL-a pri postavljanju `staging/` foldera. WordPress iz nje
+izvodi `COOKIEPATH`:
+
+```php
+define( 'COOKIEPATH', preg_replace( '|https?://[^/]+|i', '', get_option( 'home' ) . '/' ) );
+```
+
+Do PHP 8.0 je to bio warning i login bi prošao; od 8.0 je `ValueError`, dakle fatal prije
+nego što se išta učita. Tema se na `wp-login.php` i ne učitava, pa nikad ne traži krivca tamo.
+
+**Rješenje** (u `wp-config.php`, **iznad** `require_once ABSPATH . 'wp-settings.php';`):
+
+```php
+define( 'WP_HOME',    'http://185.102.77.57/~doorexpe/staging' );
+define( 'WP_SITEURL', 'http://185.102.77.57/~doorexpe/staging' );
+```
+
+Bez razmaka i preloma unutar navodnika.
+
+**Zaostalo:** ovo **maskira** problem, ne popravlja ga. Pokvarena vrijednost je i dalje u bazi
+i vratiće se čim konstante nestanu. Kad budeš u adminu, očisti je:
+
+```sql
+SELECT option_name, CONCAT('[', option_value, ']'), LENGTH(option_value)
+FROM wp_options WHERE option_name IN ('home','siteurl');
+```
+
+Uglaste zagrade pokazuju višak. Zatim upiši čistu vrijednost. Prefiks tabele provjeri u
+`wp-config.php` (`$table_prefix`), ne mora biti `wp_`.
 
 ---
 

@@ -15,6 +15,9 @@ desktop.ini
 # ── Logovi i privremeni fajlovi ─────────────────────────────────────
 *.log
 *.tmp
+# Serverski PHP log skinut radi debugovanja (nema ekstenziju, *.log ga ne hvata).
+error_log
+php_errorlog
 
 # ── WordPress: tajne i generisani sadrzaj (nikad u repo) ────────────
 wp-config.php
