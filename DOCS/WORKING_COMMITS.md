@@ -26,13 +26,69 @@ git checkout <commit-hash> -- putanja/do/fajla.php
 - Server-side filteri kroz `woocommerce_product_query` (kategorija, brend, boja, dimenzije, cijena, dostupnost) — **bez JetSmartFilters**
 - Sort + paginacija `/page/N/`, GET forme čuvaju stanje jedna drugoj preko hidden inputa
 
+> **Zastarjelo od `162d28d`:** sidebar više ne gradi `template-parts/shop/filters.php` sam,
+> nego ga renderuje plugin. Za filtere gledaj sekciju "Filter sidebar" niže; za grid,
+> hero pilule, sort i paginaciju ovaj commit i dalje važi.
+
 ### Kada se pokvari — šta proveriti
 1. **Keš** — da li je novi kod na serveru (`curl ... | grep`), pa Purge + incognito
 2. **Shop page** — WooCommerce → Settings → Products → Shop page = Prodavnica; pa Settings → Permalinks → Save
-3. **Filter grupa nedostaje** — normalno je: grupa se krije dok taksonomija nema termova (npr. `pa_boja` bez vrijednosti)
-4. **Filter ne vraća ništa** — provjeri slug atributa. Naši su `pa_dimenzije-vrata` i `pa_dimenzije-plocica` (NE `-plocice`, to je Saya slug)
-5. **Kartice bez stilova** — `category.css` se učitava kao zavisnost prije `prodavnica.css`; provjeri `page_assets` mapu u `functions.php`
-6. **Grid prazan** — nema proizvoda, ili su svi izvan izabranih filtera (očisti filtere linkom "Očisti sve")
+3. **Kartice bez stilova** — `category.css` se učitava kao zavisnost prije `prodavnica.css`; provjeri `page_assets` mapu u `functions.php`
+4. **Grid prazan** — nema proizvoda, ili su svi izvan izabranih filtera (očisti filtere linkom "Očisti sve")
+
+---
+
+## Filter sidebar — plugin WC Filter Configurator
+
+**Commit:** `162d28d`
+**Fajl(ovi):** `inc/filters.php` (novi), `inc/shop.php`, `template-parts/shop/filters.php`,
+`template-parts/category/parent/keramicke-plocice.php`, `assets/css/prodavnica.css`,
+`assets/js/prodavnica.js`, `functions.php`, plus plugin u `wp-plugins/wc-filter-configurator/`
+
+**Šta radi:**
+- Sidebar renderuje plugin, a podešava se iz admina (Settings → Filter Configurator):
+  koje grupe, kojim redom, koja labela, otvoreno/zatvoreno, po kategoriji
+- Termovi i brojevi su **ograničeni na proizvode te kategorije** (ranije globalni
+  `get_terms()`, pa su se keramički brendovi nudili na sobnim vratima)
+- Varijabilni proizvod ne nudi term za koji nema objavljene varijacije
+- Upit ostaje naš (`inc/shop.php`), plugin ga ne dira
+
+**Podjela odgovornosti (ne miješati):**
+| Sloj | Fajl | Vlasti |
+|---|---|---|
+| Sidebar | plugin | grupe, redosljed, termovi, brojevi, keš |
+| Most | `inc/filters.php` | konfiguracija, paleta, cijena, dorada markupa, Dostupnost |
+| Upit | `inc/shop.php` | GET → `WP_Query`, sort, hidden inputi |
+
+**URL parametri:** `product_brand[]`, `pa_boja[]`, `pa_dimenzije-vrata[]` … (naziv taksonomije),
+plus `f_cat[]`, `f_stock[]`, `min_price`, `max_price`, `orderby`.
+Stari `f_brand` / `f_boja` / `f_dim_*` **više ne rade**.
+
+### Kada se pokvari — šta proveriti
+1. **Keš** — PHP se ne bustuje; Purge poslije svake izmjene. Plugin ima i svoj
+   **Flush filter cache** (Settings → Filter Configurator) za brojeve koji kasne
+2. **Sidebar prazan, a plugin aktivan** — admin je snimio neki kontekst pa `default`
+   ne pokriva ovu kategoriju. Provjeri tab te kategorije; `door_expert_filter_configs_fallback()`
+   popunjava `default` samo kad ga uopšte **nema** u opciji
+3. **Piše "Plugin nije aktivan"** (vidi samo admin) — plugin nije u `wp-content/plugins/`
+   ili nije aktiviran. Vidi `DEPLOY.md` korak 1a
+4. **Drag & drop u adminu ne radi** — `assets/vendor/Sortable.min.js` nije stigao na server
+   (konzola: `Sortable is not defined`)
+5. **Filter ne vraća ništa** — provjeri slug atributa. Naši su `pa_dimenzije-vrata` i
+   `pa_dimenzije-plocica` (NE `-plocice`, to je Saya slug)
+6. **Filter se vidi ali ne filtrira** — atribut nije u whitelisti; ona dolazi iz
+   `wc_get_attribute_taxonomies()`, dakle atribut mora biti **globalni** WC atribut,
+   ne per-proizvod
+7. **Cijena se ne šalje** — grupu renderuje `door_expert_filter_price_group()`; bez
+   `name` atributa slider ne šalje ništa. Provjeri da nije neko vratio plugin markup
+8. **Multi-select gubi izbor** — `door_expert_filter_fix_checkboxes()` dodaje `[]` i
+   `checked`; ako je plugin promijenio markup checkboxa, regex tamo više ne hvata
+
+### Još nije provjereno na živom sajtu
+Napisano bez WP instance lokalno. Prije nego što se ovaj commit proglasi stabilnim:
+otvori `/c/sobna-vrata/` i potvrdi da nema keramičkih brendova; broj u zagradi mora
+da se poklopi sa brojem rezultata poslije klika; sort mora da sačuva filtere;
+"Očisti sve" mora da vrati čist URL.
 
 ---
 
