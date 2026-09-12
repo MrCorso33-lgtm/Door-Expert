@@ -1,4 +1,3 @@
-
 # UI 13 — PDP blocks and clickable project photos
 
 Four more presentation patterns from Saya, in descending order of how much they matter for a salon

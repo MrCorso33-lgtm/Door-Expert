@@ -1,5 +1,4 @@
-
-# For Door Expert — reuse package
+# For Door Expert — reuse package (1 of 2)
 
 Output of the reuse audit requested in [`../REUSE-AUDIT-PROMPT.md`](../REUSE-AUDIT-PROMPT.md).
 
@@ -21,9 +20,20 @@ strings inside the snippets are in ijekavica, with no em dash, per Door Expert's
 | [`03-PORT-variations.md`](03-PORT-variations.md) | Variable products: the variation matching engine and the server-side add-to-cart handler that makes a custom pill UI work with WooCommerce at all. |
 | [`04-PORT-gallery-lightbox.md`](04-PORT-gallery-lightbox.md) | PhotoSwipe v5 bridge, ES-module enqueue, real image dimensions. |
 | [`05-PORT-tile-calculator.md`](05-PORT-tile-calculator.md) | Tile m² calculator plus, more importantly, the per-m² cart pricing correction. |
+| [`06-DATA-MODEL-custom-fields.md`](06-DATA-MODEL-custom-fields.md) | Every custom field on a Saya product, verified against the **live** site: which six come from JetEngine, which are plain theme code, and which two look alive in the database but are abandoned. Read before `02`–`05`, which reference these keys. |
+| [`07-PLUGIN-filter-configurator.md`](07-PLUGIN-filter-configurator.md) | **Corrects the audit.** The filter configurator is listed there as `ADAPT (heavy)`, but that verdict was written against the Saya-branded plugin; a de-branded standalone already existed. It is a `DROP-IN` that configures the sidebar and leaves your query engine alone. |
 
 Each `PORT-*` document has the same shape: what it does → Saya source with `file:line` →
 dependencies and coupling → data-model mapping → **adapted code** → wiring → what to verify.
+`07` is the exception: nothing needs extracting there, so it is integration advice instead.
+
+## There is a second package
+
+This one covers **architecture and logic**. A separate package, `10` through `13`
+(bundled as `SAYA-TO-DOOR-EXPERT-UI-BUNDLE.md`), covers **presentation**: texture swatches that use
+the product photo itself, the ambient-first product card and the `srcset` trap that comes with it,
+trust and delivery blocks, per-variation cross-sell, project hotspots. Start with
+[`10-UI-README.md`](10-UI-README.md) once you have read this one.
 
 ## What was audited
 
@@ -57,6 +67,5 @@ emailed**. `02-PORT-quote-cart.md` inverts this: `wp_mail()` is the default, the
   brief.
 - No Saya files were modified.
 - Components you already have (shop archive filtering, product card) are assessed but not rewritten
-  for you — the report says compare, not replace.
-
-
+  for you — the report says compare, not replace. The filter **configurator** is a separate matter
+  and does not conflict with that: see [`07-PLUGIN-filter-configurator.md`](07-PLUGIN-filter-configurator.md).

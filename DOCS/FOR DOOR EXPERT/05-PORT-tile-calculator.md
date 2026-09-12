@@ -1,4 +1,3 @@
-
 # PORT 05 — Tile m² calculator and per-m² cart pricing
 
 **Verdict: `ADAPT (light)` · Priority 4**

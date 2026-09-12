@@ -1,4 +1,3 @@
-
 # For Door Expert — UI and presentation patterns (package 2 of 2)
 
 The first package (`00` through `05`, bundled as `SAYA-TO-DOOR-EXPERT-BUNDLE.md`) covers
@@ -57,5 +56,3 @@ explains the fix and why the obvious fix does not work.
 - Where Saya's original is weak, these documents say so rather than transcribing it. Two called out:
   the swatches never set `aria-pressed`, and the trust helpers escape too early to be reusable in
   attributes.
-
-

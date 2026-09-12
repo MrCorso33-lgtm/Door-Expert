@@ -1,4 +1,3 @@
-
 # PORT 04 — Product gallery + PhotoSwipe lightbox
 
 **Verdict: `ADAPT (light)` · Priority 3**
@@ -295,5 +294,3 @@ On a variable product, hide the slides that do not belong to the selected variat
   own theme.
 - View source: the `pswp-gallery.js` tag carries `type="module"`. Without it the browser throws
   "Cannot use import statement outside a module" and the lightbox silently never opens.
-
-

@@ -1,4 +1,3 @@
-
 # Reusable-code audit — Saya Group → Door Expert
 
 Read-only audit of the Saya Group WordPress site (ceramic tiles and bathroom fixtures, Serbia),
@@ -34,7 +33,7 @@ coupling with `wp_mail()` as the default and leaves the webhook optional.
 | 5 | **Per-m² cart price correction** | PHP | WooCommerce; `_price_unit`, `_pkg_qty` meta | `ADAPT (light)` | `inc/tile-calculator.php` |
 | 6 | **Tile m² calculator** | JS + PHP | same meta; `sr-RS` locale | `ADAPT (light)` | `assets/js/tile-calculator.js` |
 | 7 | **Faceted filters** (URL-driven, server-side) | PHP + JS | WooCommerce; config in `wp_options` | `ADAPT (light)` | already exists in `inc/shop.php` — compare, do not replace |
-| 8 | **Filter configurator plugin** (drag & drop admin) | PHP + JS + CSS | own plugin | `ADAPT (heavy)` | optional, later |
+| 8 | **Filter configurator plugin** (drag & drop admin) | PHP + JS + CSS | own plugin | ~~`ADAPT (heavy)`~~ → `DROP-IN` | **superseded**, see [`07-PLUGIN-filter-configurator.md`](07-PLUGIN-filter-configurator.md) |
 | 9 | **Wishlist** (usermeta + localStorage) | PHP + JS | WooCommerce | `ADAPT (light)` | `inc/wishlist.php` |
 | 10 | **Contact form** (custom AJAX, nonce, rate limit, consent) | PHP + JS | n8n optional | `ADAPT (light)` | `inc/contact.php` |
 | 11 | **Quantity stepper** | JS | none | `DROP-IN` | `assets/js/product.js` (already there) |
@@ -94,6 +93,8 @@ not a UX one.
 - **Filters.** You already have server-side filtering in `inc/shop.php`. Saya's is the same
   architecture (`pre_get_posts` + `?pa_*` GET params). Read it for the faceting refinements
   described in `DOCS/BITNE FUNKCIONALNOSTI/FILTERI_ATRIBUTI.md`, but do not swap yours out.
+  This still holds. It concerns the **query engine**, which the filter configurator plugin does not
+  touch: that plugin owns only the sidebar. Row 8 above was revised for this reason.
 - **Product card.** Yours exists and Saya's is entangled with Saya-only meta.
 - **Search.** Six-pass search is genuinely good but it is a week of work and Door Expert will
   survive on core search for a while.
@@ -253,5 +254,3 @@ No code here; treat this as a pointer list.
   The three deliberate improvements are: `wp_mail()` instead of a hard n8n dependency, the inquiry
   handler split into three functions, and `findVariation()` reused inside `isComboAvailable()`
   instead of the duplicated loop at `product-single.js:1309-1324`.
-
-

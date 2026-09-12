@@ -1,4 +1,3 @@
-
 # PORT 02 — Quote cart (WooCommerce without payment)
 
 **Verdict: `ADAPT (light)` · Priority 1**
@@ -686,5 +685,3 @@ wp_localize_script(
 - Submit six times in an hour from the same IP; the sixth must be refused with HTTP 429.
 - Submit with the honeypot filled; must be refused.
 - Submit with `consent` absent; must be refused even if the front end allowed it.
-
-

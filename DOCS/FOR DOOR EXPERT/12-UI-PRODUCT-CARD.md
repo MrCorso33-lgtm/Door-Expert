@@ -1,4 +1,3 @@
-
 # UI 12 — Product card: ambient-first, solo strip, badges
 
 **Verdict: `ADAPT (light)` as a pattern, `ADAPT (heavy)` as code**
@@ -134,5 +133,3 @@ on the PDP. That is the generic permalink helper covered in `01-AUDIT-REPORT.md`
 - Filter the archive by a colour: cards must show that colour's image, and clicking through must
   land on the PDP with that variation preselected.
 - A variable product on sale in only one variation shows a real percentage, never `-0%`.
-
-

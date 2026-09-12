@@ -1,4 +1,3 @@
-
 # PORT 03 — Variable products: selector UI + custom add-to-cart
 
 **Verdict: `ADAPT (heavy)` for the full UI, `ADAPT (light)` for the two pieces that matter · Priority 2**
@@ -572,5 +571,3 @@ ctaEl.addEventListener( 'click', function () {
 - Clicking an already-selected pill deselects it and re-enables everything.
 - Price, SKU and stock text change on every complete selection.
 - A variation priced at 0 shows "Zatraži cijenu" and still adds to the cart.
-
-

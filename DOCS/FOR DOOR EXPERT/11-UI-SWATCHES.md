@@ -1,4 +1,3 @@
-
 # UI 11 — Colour and texture swatches
 
 **Verdict: `ADAPT (light)` · The single most transferable UI pattern in this repo**
@@ -348,5 +347,3 @@ both places. A colour that looks different on the listing and the product page r
 - Hover a swatch: the option name appears as a native tooltip.
 - Tab to a swatch with a screen reader: it announces the colour name and, after your fix, whether
   it is pressed.
-
-
