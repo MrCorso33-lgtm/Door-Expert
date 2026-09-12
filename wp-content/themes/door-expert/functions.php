@@ -332,6 +332,8 @@ require_once get_template_directory() . '/inc/contact-form.php';
 require_once get_template_directory() . '/inc/brand-content.php';
 // Shop (Prodavnica) – WooCommerce arhiva: server-side filteri/sort za archive-product.php.
 require_once get_template_directory() . '/inc/shop.php';
+// Filteri – most ka pluginu WC Filter Configurator (sidebar iz admina + opseg po kategoriji).
+require_once get_template_directory() . '/inc/filters.php';
 // Quote cart – WooCommerce bez plaćanja: upit pravi WC_Order (on-hold) + AJAX korpa.
 require_once get_template_directory() . '/inc/quote-cart.php';
 

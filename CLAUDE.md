@@ -20,6 +20,7 @@
 | CSS / JS | `assets/css/` + `assets/js/` **(svesno odstupanje od blueprint `css/`+`js/` — vidi §2)** |
 | Template-parts | `template-parts/{category,page}/…` **(ugnježdeno, ne flat — kompleksan sajt)** |
 | Content provideri | `inc/category-content.php`, `inc/page-content.php` (odvojen sadržaj od prikaza) |
+| Naši pluginovi | `wp-plugins/` (staging u repou) → na server u `wp-content/plugins/`. Tuđi pluginovi se NE verzionišu. |
 | Blueprint + kit | `_NOVI-PROJEKTI/` (lokalno, van git-a) |
 | Setup skripte | `_setup/` (jednokratno u browseru, `manage_options` guard, obrisati posle) |
 
@@ -46,6 +47,14 @@ prototip u repo root-u** pre pisanja ili izmene koda.
   - **JetEngine** — SAMO kao data sloj (meta boxovi na `product_cat`/CPT, `get_term_meta()`).
     Bez ijednog Jet frontend widgeta/listinga/filtera. Podaci da, prikaz ne.
   - **Rank Math** — SEO (title/meta/schema/sitemap).
+  - **WC Filter Configurator** — NAŠ kod, ne tuđi plugin. Živi u `wp-plugins/` u repou,
+    na server se kopira u `wp-content/plugins/`. Renderuje SAMO filter sidebar
+    (koje grupe, kojim redom, opseg termova po kategoriji, tačni brojevi) i podešava
+    se iz admina (Settings → Filter Configurator). **Ne dira upit** — filtriranje i
+    dalje radi `inc/shop.php` kroz `woocommerce_product_query`. Most tema↔plugin je
+    `inc/filters.php`. Ovo je svjesno odstupanje od "filteri ostaju u temi": razlog je
+    što je hardkodovan sidebar prikazivao termove sa cijelog sajta (keramički brendovi
+    na sobnim vratima) i globalne brojeve. Nije JetSmartFilters i ne uvodi Jet frontend.
 - Sve je custom PHP template + custom CSS/JS. Struktura teme i `functions.php` prate blueprint (§2–3).
 
 ### Obrasci koje projekat KORISTI (drži se njih)

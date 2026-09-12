@@ -12,7 +12,7 @@
  * ODSTUPANJA od prototipa:
  *   - Breadcrumb NIJE u herou – router (taxonomy-product_cat.php) ga već renderuje iznad.
  *   - plo-brands kartice su bile demo dugmad za klijentsko filtriranje; sada su LINKOVI
- *     na ovu kategoriju filtriranu po brendu (f_brand), a brojevi su stvarni broj
+ *     na ovu kategoriju filtriranu po brendu (product_brand), a brojevi su stvarni broj
  *     proizvoda iz terma (prototip je imao izmišljeno "18 kolekcija").
  *   - FAQ/cross-sell/CTA: prototip koristi .sec-faq/.sec-crosssell/.pre-footer-cta
  *     klase kojima CSS ne postoji u temi, pa se koriste stilizovani subcat-* dijelovi.
@@ -61,7 +61,9 @@ $de_brands = taxonomy_exists( 'product_brand' )
 	: array();
 $de_brands = is_wp_error( $de_brands ) ? array() : $de_brands;
 
-$de_sel_brand = function_exists( 'door_expert_shop_selected' ) ? door_expert_shop_selected( 'f_brand' ) : array();
+// Parametar se zove kao taksonomija (product_brand), isto kao što ga ispisuje
+// sidebar iz plugina – vidi inc/shop.php "URL parametri".
+$de_sel_brand = function_exists( 'door_expert_shop_selected' ) ? door_expert_shop_selected( 'product_brand' ) : array();
 $de_listing   = function_exists( 'door_expert_listing_base_url' ) ? door_expert_listing_base_url() : '';
 ?>
 
@@ -152,7 +154,7 @@ $de_listing   = function_exists( 'door_expert_listing_base_url' ) ? door_expert_
         <?php foreach ( $de_brands as $de_brand ) : ?>
           <?php
           $de_active = in_array( $de_brand->slug, $de_sel_brand, true );
-          $de_url    = door_expert_listing_base_url( array( 'f_brand' => array( $de_brand->slug ) ) );
+          $de_url    = door_expert_listing_base_url( array( 'product_brand' => array( $de_brand->slug ) ) );
           $de_desc   = isset( $de_brand_desc[ $de_brand->slug ] ) ? $de_brand_desc[ $de_brand->slug ] : '';
           $de_cnt    = (int) $de_brand->count;
           ?>

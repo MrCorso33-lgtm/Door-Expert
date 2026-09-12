@@ -35,6 +35,16 @@ promena `A` recorda tamo, bez diranja nameservera (email/MX ostaje netaknut).
 1. Preko FTP/WinSCP upload **samo** `wp-content/themes/door-expert/` u
    `.../wp-content/themes/door-expert/`. (Prototip `.html`, `_NOVI-PROJEKTI`, root `assets/`
    ostaju lokalno — tema ima svoju kopiju asseta.)
+1a. **Plugin filtera** — upload `wp-plugins/wc-filter-configurator/` u
+   `.../wp-content/plugins/wc-filter-configurator/`, pa **Dodaci → Aktiviraj**.
+   Obrati pažnju na dvije stvari:
+   - putanja u repou (`wp-plugins/`) NIJE ista kao na serveru (`wp-content/plugins/`) —
+     repo ne verzioniše tuđe pluginove, pa naš stoji sa strane;
+   - `assets/vendor/Sortable.min.js` mora stvarno stići. To je jedini fajl čije
+     odsustvo ne pravi vidljivu grešku: admin se otvori, drag & drop naprosto ne radi,
+     a konzola kaže `Sortable is not defined`.
+   Bez aktivnog plugina sajt radi, ali sidebar ima samo "Dostupnost" (tema to javlja
+   adminu porukom u sidebaru).
 2. **Appearance → Themes → Activate** "Door Expert".
 3. **Settings → Permalinks → "Post name"** i sačuvaj (upisuje `.htaccess` RewriteBase).
 4. Napravi sadržaj — **dva tipa** (detalji u sekciji "SEO URL + WooCommerce" niže):

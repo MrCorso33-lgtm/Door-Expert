@@ -14,7 +14,15 @@
  *   - Cijena     => _price meta.
  *
  * URL parametri (GET, multi-select preko nizova):
- *   f_cat[], f_brand[], f_boja[], f_dim_vrata[], f_dim_plocica[], f_stock[], min_price, max_price, orderby
+ *   f_cat[]      - kategorija (hero pilule na prodavnici)
+ *   <taksonomija>[] - po jedan parametar za svaku taksonomiju, imenovan kao ona sama:
+ *                  product_brand[], pa_boja[], pa_dimenzije-vrata[] ...
+ *   f_stock[], min_price, max_price, orderby
+ *
+ * Zašto naziv taksonomije umjesto ranijih f_brand / f_boja / f_dim_*: sidebar renderuje
+ * plugin WC Filter Configurator (vidi inc/filters.php), a on checkboxu daje name
+ * jednak taksonomiji. Prihvatanjem tog oblika izbjegnut je prevodilac između dva
+ * imenovanja. Stari f_* nazivi su uklonjeni, ne podržavaju se paralelno.
  *
  * @package DoorExpert
  */
@@ -26,16 +34,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Mapiranje filter-parametra => taksonomija.
  *
+ * Whitelist dolazi iz WooCommerce registra atributa (door_expert_filter_taxonomies),
+ * ne iz fiksne liste. Fiksna lista bi značila da konfigurator u adminu može dodati
+ * filter koji ovaj upit tiho ignoriše, pa sidebar radi a rezultati su nefiltrirani.
+ *
  * @return array<string,string>
  */
 function door_expert_shop_filter_taxonomies() {
-	return array(
-		'f_cat'         => 'product_cat',
-		'f_brand'       => 'product_brand',
-		'f_boja'        => 'pa_boja',
-		'f_dim_vrata'   => 'pa_dimenzije-vrata',
-		'f_dim_plocica' => 'pa_dimenzije-plocica',
-	);
+	// f_cat ostaje po imenu: njega ne renderuje plugin nego hero pilule na prodavnici.
+	$map = array( 'f_cat' => 'product_cat' );
+
+	if ( function_exists( 'door_expert_filter_taxonomies' ) ) {
+		foreach ( door_expert_filter_taxonomies() as $taxonomy ) {
+			$map[ $taxonomy ] = $taxonomy;
+		}
+	}
+
+	return $map;
 }
 
 /**
@@ -272,10 +287,20 @@ function door_expert_listing_base_url( $args = array() ) {
 /**
  * Svi filter/sort GET parametri koje čuvamo pri submit-u (za mirror hidden inputs).
  *
+ * Taksonomijski dio je dinamičan: koliko atributa WooCommerce ima, toliko parametara.
+ *
  * @return string[]
  */
 function door_expert_shop_state_params() {
-	return array( 'f_cat', 'f_brand', 'f_boja', 'f_dim_vrata', 'f_dim_plocica', 'f_stock', 'min_price', 'max_price', 'orderby' );
+	$taxonomy_params = function_exists( 'door_expert_filter_taxonomies' )
+		? door_expert_filter_taxonomies()
+		: array();
+
+	return array_merge(
+		array( 'f_cat' ),
+		$taxonomy_params,
+		array( 'f_stock', 'min_price', 'max_price', 'orderby' )
+	);
 }
 
 /**

@@ -20,3 +20,8 @@ desktop.ini
 wp-config.php
 /wp-content/uploads/
 node_modules/
+
+# Tudji pluginovi (WooCommerce, JetEngine, Rank Math) se instaliraju iz wp-admina
+# i azuriraju sami - u repo nemaju sta da traze. Nas sopstveni plugin kod stoji u
+# wp-plugins/ na vrhu repoa i odatle se kopira na server.
+/wp-content/plugins/

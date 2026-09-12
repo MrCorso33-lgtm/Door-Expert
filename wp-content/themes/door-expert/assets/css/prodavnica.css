@@ -102,103 +102,227 @@
   cursor: pointer;
   font-family: var(--font-body);
 }
-.shop-filter-group {
+.shop-filters__notice {
+  margin-bottom: 1rem;
+  padding: 10px 12px;
+  background: rgba(160, 120, 64, 0.08);
+  border-left: 3px solid var(--color-jantar);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+/* ── GRUPE FILTERA (.wcfc-* = markup plugina WC Filter Configurator) ──
+ * Stanje je INVERTOVANO u odnosu na raniji sopstveni sidebar: grupa je
+ * podrazumijevano otvorena, a .is-collapsed je zatvara. Tako je renderuje
+ * plugin (collapsed se podešava po grupi u adminu).
+ */
+.wcfc-group,
+.wcfc-section {
   margin-bottom: 1.25rem;
 }
-.shop-filter-group__toggle {
-  width: 100%;
+.wcfc-group__title,
+.wcfc-section__title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 8px;
+  margin: 0;
   padding: 0.75rem 0;
-  border: none;
-  background: none;
   font-family: var(--font-body);
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--color-espreso);
   cursor: pointer;
   border-top: 1px solid var(--color-sand);
+  user-select: none;
 }
-.shop-filter-group__toggle svg {
-  width: 14px;
-  height: 14px;
-  stroke: var(--color-espreso);
-  fill: none;
-  stroke-width: 2;
-  transition: transform 200ms;
+/* Strelica: CSS chevron – plugin ispisuje prazan <span>, bez SVG-a. */
+.wcfc-arrow {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  border-right: 2px solid var(--color-espreso);
+  border-bottom: 2px solid var(--color-espreso);
+  transform: rotate(45deg);
+  transition: transform 200ms, margin-top 200ms;
 }
-.shop-filter-group.is-open .shop-filter-group__toggle svg {
-  transform: rotate(180deg);
+.wcfc-group.is-collapsed > .wcfc-group__title .wcfc-arrow,
+.wcfc-section.is-collapsed > .wcfc-section__title .wcfc-arrow {
+  margin-top: 3px;
+  transform: rotate(-135deg);
 }
-.shop-filter-group__body {
-  display: none;
+.wcfc-group__options,
+.wcfc-section__body {
   padding: 0.5rem 0 0.75rem;
 }
-.shop-filter-group.is-open .shop-filter-group__body {
-  display: block;
+.wcfc-group.is-collapsed > .wcfc-group__options,
+.wcfc-section.is-collapsed > .wcfc-section__body {
+  display: none;
 }
-.shop-filter-option {
+.wcfc-option {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 0;
+  padding: 8px 0;
   cursor: pointer;
   font-size: 0.8125rem;
   color: rgba(30, 26, 22, 0.7);
   transition: color 150ms;
 }
-.shop-filter-option:hover {
+.wcfc-option:hover {
   color: var(--color-espreso);
 }
-.shop-filter-option input[type="checkbox"] {
-  width: 14px;
-  height: 14px;
+.wcfc-option input[type="checkbox"] {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
   accent-color: var(--color-jantar);
 }
-.shop-filter-option__count {
+.wcfc-option--link {
+  text-decoration: none;
+}
+.wcfc-count {
   margin-left: auto;
   font-size: 0.6875rem;
-  color: rgba(30, 26, 22, 0.3);
+  color: rgba(30, 26, 22, 0.35);
 }
-.shop-filter-colors {
+
+/* Swatch: <label> sa providnim checkboxom preko cijele površine – radi bez JS-a
+ * i ostaje dostupan tastaturi (fokus hvata input, obrub crta :focus-within). */
+.wcfc-swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   padding-top: 4px;
 }
-.shop-filter-color {
+.wcfc-swatch {
+  position: relative;
   display: inline-block;
-  width: 24px;
-  height: 24px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 2px solid transparent;
+  background: var(--wcfc-swatch-color, #cccccc);
+  background-clip: padding-box;
   cursor: pointer;
   transition: border-color 150ms, transform 150ms;
 }
-.shop-filter-color:hover,
-.shop-filter-color.is-active,
-.shop-filter-color:has(input:checked) {
+.wcfc-swatch--light {
+  box-shadow: inset 0 0 0 1px var(--color-sand);
+}
+.wcfc-swatch input[type="checkbox"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.wcfc-swatch:hover,
+.wcfc-swatch.is-active,
+.wcfc-swatch:focus-within,
+.wcfc-swatch:has(input:checked) {
   border-color: var(--color-jantar);
-  transform: scale(1.15);
+  transform: scale(1.12);
 }
-.shop-filter-price {
+
+/* Cijena: dva range inputa preklopljena preko iste šine (markup: inc/filters.php). */
+.wcfc-price {
+  padding-top: 6px;
+}
+.wcfc-price__track {
+  position: relative;
+  height: 4px;
+  margin: 16px 9px 12px;
+  background: var(--color-sand);
+  border-radius: 2px;
+}
+.wcfc-price__fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: var(--color-jantar);
+  border-radius: 2px;
+}
+.wcfc-price__input {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  /* Šina ne hvata klik; samo palac (thumb) ga vraća, inače gornji input
+     zaklanja donji i jedan od dva palca postaje nedohvatljiv. */
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.wcfc-price__input--max {
+  z-index: 2;
+}
+.wcfc-price__input:focus {
+  outline: none;
+}
+.wcfc-price__input::-webkit-slider-runnable-track {
+  background: none;
+  border: none;
+}
+.wcfc-price__input::-moz-range-track {
+  background: none;
+  border: none;
+}
+.wcfc-price__input::-webkit-slider-thumb {
+  pointer-events: auto;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-white);
+  border: 2px solid var(--color-jantar);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.wcfc-price__input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-white);
+  border: 2px solid var(--color-jantar);
+  cursor: pointer;
+}
+.wcfc-price__input:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px rgba(160, 120, 64, 0.3);
+}
+.wcfc-price__input:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px rgba(160, 120, 64, 0.3);
+}
+.wcfc-price__labels {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-top: 8px;
-}
-.shop-filter-price input {
-  width: 80px;
-  padding: 6px 10px;
-  border: 1px solid var(--color-sand);
-  font-family: var(--font-body);
+  justify-content: space-between;
   font-size: 0.75rem;
-  text-align: center;
+  color: rgba(30, 26, 22, 0.6);
 }
-.shop-filter-price span {
-  font-size: 0.75rem;
-  color: rgba(30, 26, 22, 0.4);
+
+/* Samo za čitače ekrana (naziv boje uz swatch). */
+.wcfc-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Mobile filter toggle – vidljiv na mobilnom, skriven na desktopu */
@@ -438,6 +562,17 @@
   }
   .shop-filters::-webkit-scrollbar-thumb {
     background: var(--color-sand);
+  }
+  /* Tap-mete su na mobilnom namjerno veće (≥44px sa razmakom); miš traži manje. */
+  .wcfc-option {
+    padding: 5px 0;
+  }
+  .wcfc-swatches {
+    gap: 8px;
+  }
+  .wcfc-swatch {
+    width: 26px;
+    height: 26px;
   }
 }
 
