@@ -65,6 +65,11 @@ plus `f_cat[]`, `f_stock[]`, `min_price`, `max_price`, `orderby`.
 Stari `f_brand` / `f_boja` / `f_dim_*` **više ne rade**.
 
 ### Kada se pokvari — šta proveriti
+0. **Sidebar ignoriše ono što si sačuvao u adminu** i pokazuje grupe kojih nema u
+   konfiguraciji (npr. "Brend" sa brendovima iz cijele baze i globalnim brojevima)
+   → **tema na serveru je stara**. Plugin i tema se deployuju odvojeno i lako je
+   poslati samo jedno. Provjeri da na serveru postoji `inc/filters.php`; ako njega
+   nema, sve ostalo je takođe staro. Pošalji cijeli folder teme i Purge
 1. **Keš** — PHP se ne bustuje; Purge poslije svake izmjene. Plugin ima i svoj
    **Flush filter cache** (Settings → Filter Configurator) za brojeve koji kasne
 2. **Sidebar prazan, a plugin aktivan** — admin je snimio neki kontekst pa `default`
@@ -84,11 +89,15 @@ Stari `f_brand` / `f_boja` / `f_dim_*` **više ne rade**.
 8. **Multi-select gubi izbor** — `door_expert_filter_fix_checkboxes()` dodaje `[]` i
    `checked`; ako je plugin promijenio markup checkboxa, regex tamo više ne hvata
 
-### Još nije provjereno na živom sajtu
-Napisano bez WP instance lokalno. Prije nego što se ovaj commit proglasi stabilnim:
-otvori `/c/sobna-vrata/` i potvrdi da nema keramičkih brendova; broj u zagradi mora
-da se poklopi sa brojem rezultata poslije klika; sort mora da sačuva filtere;
-"Očisti sve" mora da vrati čist URL.
+### Status verifikacije (13.09.2026, staging)
+Potvrđeno na `staging/`: sidebar se renderuje iz konfiguracije sačuvane u adminu,
+opseg po kategoriji radi (grupa bez termova među proizvodima te kategorije se ne
+prikazuje), keramički brendovi više ne iskaču na sobnim vratima.
+
+**Ograničenje te provjere:** katalog je u tom trenutku imao jedan test proizvod sa
+jednim atributom. Ponašanje sa više filtera istovremeno (OR unutar grupe, AND između
+grupa, poklapanje brojeva sa rezultatom, čuvanje filtera pri promjeni sorta) nije
+moglo biti smisleno provjereno. Ponovi kad katalog naraste.
 
 ---
 
