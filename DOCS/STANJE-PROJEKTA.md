@@ -91,7 +91,8 @@ isprazniti Trash pa ponoviti. Poslije kreiranja: Settings → Permalinks → Sav
 
 | Pitanje | Stanje |
 |---|---|
-| **Varijacije: Simple ili Variable?** | Odloženo ("ne znam za sad"). PDP je v1: Simple proizvodi, varijante read-only iz atributa. Nadogradnja je izolovana u jednoj sekciji |
+| **Varijacije: Simple ili Variable?** | ✅ Riješeno: **Variable**, implementirano (`69c63a1`, `8eae453`). ⏳ **Čeka provjeru na staging-u** — kod nije nijednom pokrenut. Test lista i jedan nepokriven rubni slučaj: vidi §5 |
+| **Vrata rasprodata u cjelini** | Ako *sve* varijacije jednog proizvoda odu na nulu, WC i roditelju postavi `outofstock`. Nije provjereno da li tada naš `woocommerce_product_is_in_stock` filter i dalje pušta upit. Ako je scenario realan, treba pokriti |
 | **Prave vrijednosti boja / dimenzija** | Nisu definisane. Prototipske su Manus placeholder. Swatch mapa slug→hex u `filters.php` pokriva par boja, ostalo pada na neutralnu sivu |
 | **Wishlist** | Nije portovan → zato su tabovi "Korpa / Sačuvano" izostavljeni iz korpe |
 | **Cijena po m² za keramiku** | PDP prikazuje cijenu kako je unijeta. Korekcija u korpi nije portovana (vidi red portovanja) |
@@ -108,7 +109,7 @@ provjeren ali **nikad pokrenut ovdje** — nacrti, ne testiran kod.
 | # | Komponenta | Dokument | Stanje |
 |---|---|---|---|
 | 1 | Quote cart | `02-PORT-quote-cart.md` | ✅ **Portovano** (uz izmjene: forma u korpi, n8n primaran) |
-| 2 | Varijacije (matching engine + server-side add-to-cart) | `03-PORT-variations.md` | Čeka odluku Simple/Variable |
+| 2 | Varijacije (matching engine + server-side add-to-cart) | `03-PORT-variations.md` | ⛔ **Namjerno NIJE portovano** — riješeno preko WC core-a, vidi napomenu ispod tabele |
 | 3 | Texture swatches | `11-UI-SWATCHES.md` | Ide zajedno sa varijacijama |
 | 4 | PhotoSwipe lightbox | `04-PORT-gallery-lightbox.md` | Nije početo (~2h, vidljivo na svakoj stranici) |
 | 5 | Trust & delivery blok | `13-UI-PDP-AND-PROJECTS.md` §1 | Nije početo (brz dobitak) |
@@ -117,7 +118,21 @@ provjeren ali **nikad pokrenut ovdje** — nacrti, ne testiran kod.
 | 8 | SEO noindex/canonical za filtrirane URL-ove | `01-AUDIT-REPORT.md` §5 (bonus) | **Relevantno** — naši filteri prave mnogo GET kombinacija |
 | 9 | Pretraga (six passes) | `01-AUDIT-REPORT.md` §16 | **Kod nije izvučen** — treba eksportovati iz Saye (vidi ispod) |
 
-**Ne portovati:** filtere (imamo svoje), product card (naš postoji).
+**Ne portovati:** filtere (imamo svoje), product card (naš postoji), **varijacioni matching engine
+i custom add-to-cart handler** iz `03-PORT-variations.md`.
+
+> **Zašto varijacije nisu portovane iz Saye.** Dokument preporučuje da se portuju dva dijela:
+> matching engine (~90 linija JS) i server-side add-to-cart. Oba su nepotrebna jer smo ostali na
+> WC-ovoj `variations_form` infrastrukturi umjesto na custom AJAX-u:
+>
+> - Matching i "Any" wildcard (prazan string) već rješava `wc-add-to-cart-variation.js` u `isMatch()`.
+> - Zamka `"X is a required field"` nastaje **samo** kad se šalje goli `variation_id` bez
+>   `attribute_*` vrijednosti. Mi šaljemo standardnu core strukturu, pa se ne pojavljuje.
+>
+> Naš pristup: skriveni WC `<select>`-ovi su izvor istine, pilule iz prototipa su vizuelni sloj nad
+> njima (`assets/js/product.js`). Iz Saya dokumenta je iskorišćeno samo troje: zamjena slike po
+> varijaciji, auto-izbor jedine preostale opcije i upozorenje na `pa_dimenzije-plocic**a**` vs
+> Sayin `-plocic**e**`. **Ne "popravljati" ovo unazad portovanjem engine-a.**
 
 ### Pretraga — poseban slučaj
 
@@ -147,3 +162,23 @@ stvarnim top upitima iz logovanja, ne izmišljenim.
 - **n8n:** ako webhook padne, stiže mejl sa prefiksom `[WEBHOOK PAO]` — to je namjerni alarm.
 - **Kvadratni crop + `srcset`:** pejzažna slika u kvadratnom `object-fit: cover` okviru je mutna
   na desktopu. Ako uvedemo kvadratne okvire, vidi `12-UI-PRODUCT-CARD.md` §2.
+- **PDP varijacije traže `wp.template` blokove.** `wc-add-to-cart-variation.js` renderuje
+  `.single_variation` kroz `wp.template('variation-template')`. WC te `<script type="text/template">`
+  blokove ispisuje **samo** kroz `woocommerce_variable_add_to_cart()`, koji mi ne pozivamo (bespoke
+  `single-product.php`). Zato ih ručno ispisujemo u `template-parts/product/single.php`. **Ako se
+  obrišu, `wp.template()` dobije `undefined` i baca `TypeError` — varijacije tiho prestanu da rade.**
+- **`is_in_stock()` nije izvor istine za prikaz zalihe.** `inc/product-variations.php` filtrira
+  `woocommerce_product_is_in_stock` da bi vrata bila naručljiva i van lagera (quote model). Prikaz
+  zato mora čitati sirovi `get_stock_status()`. Hvata se na `is_in_stock()` jer
+  `WC_Cart::add_to_cart()` baci izuzetak **prije** `woocommerce_add_to_cart_validation`.
+
+### Test lista za PDP varijacije (nije još odrađena)
+
+1. Klik na pilulu širine → aktivna, cijena prati, dugme se otključa
+2. Dva atributa: izbor u jednom sivi nemoguće kombinacije u drugom
+3. Kad u drugom redu ostane jedna opcija → sama se izabere
+4. Klik na aktivnu pilulu → poništi izbor i **ne** vrati se sam
+5. "Poništi izbor" → sve na početak, slika i cijena na početne vrijednosti
+6. Vrata sa zalihom 0 → piše "Po narudžbi", a upit **prolazi**
+7. Korpa i mejl upita → `Širina vrata: 80 cm`, ne `80-cm`
+8. Simple proizvod (npr. umivaonik) → forma i dalje radi kao ranije
