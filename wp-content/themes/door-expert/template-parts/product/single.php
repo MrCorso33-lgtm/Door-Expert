@@ -197,7 +197,13 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
       </div>
 
       <!-- Dostupnost -->
-      <?php $de_in_stock = $de_product->is_in_stock(); ?>
+      <?php
+      /*
+       * SIROVI status, ne is_in_stock(): inc/product-variations.php filtrira is_in_stock()
+       * da bi vrata bila narucljiva i kad ih nema, pa bi prikaz uvijek tvrdio "Na stanju".
+       */
+      $de_in_stock = 'instock' === $de_product->get_stock_status();
+      ?>
       <div class="product-availability product-availability--<?php echo $de_in_stock ? 'in-stock' : 'order'; ?>" style="margin-top:12px;">
         <span class="product-availability__dot" aria-hidden="true"></span>
         <span class="product-availability__text"><?php echo $de_in_stock ? 'Na stanju u Podgorici' : 'Po narudžbi'; ?></span>

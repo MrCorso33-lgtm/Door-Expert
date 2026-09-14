@@ -341,6 +341,8 @@ require_once get_template_directory() . '/inc/category-content.php';
 require_once get_template_directory() . '/inc/page-content.php';
 // Single proizvod (PDP) – grupa proizvoda + FAQ sadržaj (odvojeno od prikaza).
 require_once get_template_directory() . '/inc/product.php';
+// Varijacije – vrata naručljiva i van lagera (quote model) + tekst dostupnosti.
+require_once get_template_directory() . '/inc/product-variations.php';
 // Kontakt forma – custom AJAX handler (nonce + sanitizacija + rate limit + wp_mail).
 require_once get_template_directory() . '/inc/contact-form.php';
 // Sadržaj brend stranica (5 brendova, uniforman prikaz) – ODVOJEN od prikaza.

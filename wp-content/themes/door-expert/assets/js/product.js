@@ -185,6 +185,56 @@
       var imgDefaultAlt = mainImg ? mainImg.getAttribute( 'alt' ) : '';
       var calcDefaultPrice = calc ? pricePerM2 : 0;
 
+      /*
+       * Auto-izbor: kad u nekom drugom redu ostane tacno jedna moguca opcija, biramo je
+       * umjesto kupca. Pamtimo STA je izabrala masina (autoPicked) da bismo to pustili cim
+       * kupac promijeni drugi atribut - inace red ostane zakljucan na opciji koja je bila
+       * jedina samo uz prethodni izbor.
+       */
+      var autoPicked = {};
+      var manualClearKey = null;
+      var autoBusy = false;
+
+      function variantWraps() {
+        return variationsForm.querySelectorAll( '.product-variants[data-attribute]' );
+      }
+
+      function releaseAutoPicked( exceptKey ) {
+        Object.keys( autoPicked ).forEach( function ( key ) {
+          if ( key === exceptKey ) {
+            return;
+          }
+          var wrap = variationsForm.querySelector( '.product-variants[data-attribute="' + key + '"]' );
+          var sel = wrap ? wrap.querySelector( 'select' ) : null;
+          if ( sel ) {
+            sel.value = ''; // Tiho: jedan 'change' okidamo tek posle, za sve odjednom.
+          }
+          delete autoPicked[ key ];
+        } );
+      }
+
+      function autoSelectSingles() {
+        variantWraps().forEach( function ( wrap ) {
+          var key = wrap.getAttribute( 'data-attribute' );
+          var select = wrap.querySelector( 'select' );
+
+          if ( ! select || select.value || key === manualClearKey ) {
+            return;
+          }
+
+          var free = Array.prototype.filter.call( select.options, function ( o ) {
+            return '' !== o.value && ! o.disabled;
+          } );
+
+          if ( 1 !== free.length ) {
+            return;
+          }
+
+          autoPicked[ key ] = true;
+          $( select ).val( free[ 0 ].value ).trigger( 'change' );
+        } );
+      }
+
       function setMainImage( src, srcset, alt ) {
         if ( ! mainImg || ! src ) {
           return;
@@ -233,6 +283,19 @@
           pill.addEventListener( 'click', function () {
             // Ponovni klik na aktivnu pilulu = poništi izbor (lakše mijenjanje kombinacije).
             var next = opt.value === select.value ? '' : opt.value;
+            var wrapKey = wrap.getAttribute( 'data-attribute' );
+
+            /*
+             * Čovjek je preuzeo ovaj red, pa više nije mašinski izbor. Mašinske izbore u
+             * OSTALIM redovima puštamo da se preracunaju uz novu vrijednost, inace bi red
+             * ostao zakljucan na opciji koja je bila jedina prije ove promjene.
+             */
+            delete autoPicked[ wrapKey ];
+            releaseAutoPicked( wrapKey );
+
+            // Namjerno ponistavanje ne smije odmah biti ponisteno auto-izborom.
+            manualClearKey = '' === next ? wrapKey : null;
+
             $( select ).val( next ).trigger( 'change' );
           } );
 
@@ -249,12 +312,33 @@
       }
 
       function syncPills() {
-        variationsForm.querySelectorAll( '.product-variants[data-attribute]' ).forEach( buildPills );
+        variantWraps().forEach( buildPills );
       }
 
       syncPills();
 
-      $form.on( 'woocommerce_update_variation_values', syncPills );
+      /*
+       * WC je upravo prepisao opcije ostalih selecta. Prvo prikaz, pa auto-izbor.
+       * autoSelectSingles() sam okida 'change', sto nas vraca ovdje - autoBusy siječe
+       * tu rekurziju; unutrasnji prolaz je ionako vec osvjezio pilule.
+       */
+      $form.on( 'woocommerce_update_variation_values', function () {
+        syncPills();
+
+        if ( autoBusy ) {
+          return;
+        }
+
+        autoBusy = true;
+        autoSelectSingles();
+        autoBusy = false;
+      } );
+
+      // Klik na "Poništi izbor": sve kreće ispočetka, pa i mašinski izbori.
+      $form.on( 'click', '.reset_variations', function () {
+        autoPicked = {};
+        manualClearKey = null;
+      } );
 
       $form.on( 'show_variation', function ( event, variation ) {
         // price_html je prazan kad su sve varijacije iste cijene – tad ostaje cijena roditelja.
