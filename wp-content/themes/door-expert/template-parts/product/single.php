@@ -3,8 +3,12 @@
  * PDP prikaz – verna konverzija prototipa product.html, dinamički iz WC_Product.
  *
  * Prima $args['product'] (WC_Product) iz single-product.php.
- * Faza A / v1: SIMPLE proizvodi; varijante (atributi) prikazane READ-ONLY (bez menjanja
- * cijene). Nadogradnja na Variable/interaktivne varijacije je izolovana u sekciji "varijante".
+ * SIMPLE proizvodi: obicna add-to-cart forma.
+ * VARIABLE proizvodi: WC-ova `variations_form` – skriveni <select>-ovi su izvor istine,
+ * a pilule iz prototipa su vizuelni sloj koji product.js gradi nad njima. Matching
+ * varijacije, cijenu, stanje i variation_id radi wc-add-to-cart-variation.js (enqueue
+ * u functions.php), ne nas kod.
+ * Obicni (filter) atributi – boja, prostorija, tip vrata – NISU izbor: idu u Specifikacije.
  *
  * Data-type toggle iz prototipa NE postoji – server renderuje samo relevantni sadržaj po
  * grupi (door_expert_product_group). Specifikacije = dinamički iz WC atributa (bez placeholdera).
@@ -72,8 +76,25 @@ if ( 'vrata' === $de_group ) {
 	$de_unit_note = 'Cijena po komadu. PDV uključen.';
 }
 
-// Atributi (za read-only varijante i specifikacije).
+// Atributi (za specifikacije).
 $de_attributes = $de_product->get_attributes();
+
+// Varijacije: koristimo WC-ovu `variations_form` infrastrukturu (wc-add-to-cart-variation.js).
+// Skriveni <select>-ovi su izvor istine; pilule iz prototipa su samo vizuelni sloj nad njima
+// (product.js ih gradi iz opcija selecta). Tako matching, cijena, stanje i variation_id
+// ostaju WC-ov posao, a ne nas rucni kod.
+$de_is_variable    = $de_product->is_type( 'variable' );
+$de_var_attributes = array();
+$de_var_json       = false;
+
+if ( $de_is_variable ) {
+	$de_var_attributes = $de_product->get_variation_attributes();
+	// Preko praga WC prelazi na AJAX dohvat varijacije (data-product_variations="false").
+	$de_var_threshold = apply_filters( 'woocommerce_ajax_variation_threshold', 30, $de_product );
+	$de_var_json      = count( $de_product->get_children() ) <= $de_var_threshold
+		? $de_product->get_available_variations()
+		: false;
+}
 
 // FAQ.
 $de_faq = function_exists( 'door_expert_product_faq' ) ? door_expert_product_faq( $de_group ) : array();
@@ -162,12 +183,13 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
 
       <!-- Cijena -->
       <div class="product-price-block">
-        <?php if ( $de_on_sale && $de_reg > 0 && $de_sale > 0 ) : ?>
-          <span class="product-price-block__current"><?php echo wp_kses_post( wc_price( $de_sale ) ); ?></span>
+        <?php // Kod varijabilnih ne cijepamo cijenu na akcijsku/staru – JS je mijenja po izboru varijacije. ?>
+        <?php if ( ! $de_is_variable && $de_on_sale && $de_reg > 0 && $de_sale > 0 ) : ?>
+          <span class="product-price-block__current" id="product-price-current"><?php echo wp_kses_post( wc_price( $de_sale ) ); ?></span>
           <span class="product-price-block__original"><?php echo wp_kses_post( wc_price( $de_reg ) ); ?></span>
           <span class="product-price-block__savings">✓ Uštedite <?php echo wp_kses_post( wc_price( $de_reg - $de_sale ) ); ?></span>
         <?php else : ?>
-          <span class="product-price-block__current"><?php echo wp_kses_post( $de_product->get_price_html() ); ?></span>
+          <span class="product-price-block__current" id="product-price-current"><?php echo wp_kses_post( $de_product->get_price_html() ); ?></span>
         <?php endif; ?>
       </div>
       <div class="product-price-block" style="margin-top:2px;">
@@ -184,75 +206,123 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
 
       <hr class="product-sep">
 
-      <!-- Varijante (READ-ONLY iz atributa) -->
-      <?php
-      foreach ( $de_attributes as $de_attr ) {
-        if ( ! $de_attr instanceof WC_Product_Attribute || ! $de_attr->get_visible() ) {
-          continue;
-        }
-        $de_attr_label  = wc_attribute_label( $de_attr->get_name() );
-        $de_attr_values = $de_product->get_attribute( $de_attr->get_name() );
-        if ( '' === $de_attr_values ) {
-          continue;
-        }
-        $de_vals = array_filter( array_map( 'trim', explode( ',', $de_attr_values ) ) );
-        if ( empty( $de_vals ) ) {
-          continue;
-        }
-        ?>
-        <div class="product-variants" style="margin-top:16px;">
-          <div class="product-variants__label"><?php echo esc_html( $de_attr_label ); ?></div>
-          <div class="product-variants__pills" role="list" aria-label="<?php echo esc_attr( $de_attr_label ); ?>">
-            <?php foreach ( $de_vals as $de_val ) : ?>
-              <span class="product-variant-pill" role="listitem"><?php echo esc_html( $de_val ); ?></span>
+      <!-- Varijacije + količina + CTA (jedna WC add-to-cart forma) -->
+      <form class="cart product-cta-form<?php echo $de_is_variable ? ' variations_form' : ''; ?>" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $de_product->get_permalink() ) ); ?>"<?php if ( $de_is_variable ) : ?> data-product_id="<?php echo absint( $de_id ); ?>" data-product_variations="<?php echo wc_esc_json( wp_json_encode( $de_var_json ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_esc_json() vec escape-uje za HTML atribut. ?>"<?php endif; ?>>
+
+        <?php if ( $de_is_variable && ! empty( $de_var_attributes ) ) : ?>
+          <?php // Skriveni WC selecti = izvor istine. product.js iz njih gradi pilule iz prototipa. ?>
+          <div class="variations">
+            <?php foreach ( $de_var_attributes as $de_attr_name => $de_attr_options ) : ?>
+              <?php
+              $de_attr_label = wc_attribute_label( $de_attr_name, $de_product );
+              $de_attr_id    = sanitize_title( $de_attr_name );
+              ?>
+              <div class="product-variants" data-attribute="attribute_<?php echo esc_attr( $de_attr_id ); ?>">
+                <div class="product-variants__label">
+                  <span><?php echo esc_html( $de_attr_label ); ?></span>
+                  <span class="product-variants__selected" aria-hidden="true"></span>
+                </div>
+                <div class="product-variants__pills" role="group" aria-label="<?php echo esc_attr( 'Odaberite: ' . $de_attr_label ); ?>"></div>
+                <div class="product-variants__select">
+                  <label class="screen-reader-text" for="<?php echo esc_attr( $de_attr_id ); ?>"><?php echo esc_html( $de_attr_label ); ?></label>
+                  <?php
+                  wc_dropdown_variation_attribute_options(
+                    array(
+                      'options'          => $de_attr_options,
+                      'attribute'        => $de_attr_name,
+                      'product'          => $de_product,
+                      'show_option_none' => 'Odaberite opciju',
+                    )
+                  );
+                  ?>
+                </div>
+              </div>
             <?php endforeach; ?>
+            <a class="reset_variations" href="#" rel="nofollow">Poništi izbor</a>
           </div>
-        </div>
-        <?php
-      }
-      ?>
+        <?php endif; ?>
 
-      <?php if ( 'plocice' === $de_group ) : ?>
-        <!-- m² kalkulator (samo pločice) -->
-        <div class="product-calc" id="tile-calculator" data-price="<?php echo esc_attr( (string) $de_product->get_price() ); ?>">
-          <div class="product-calc__title">Kalkulator količine</div>
-          <div class="product-calc__row">
-            <div class="product-calc__field">
-              <label for="calc-width">Širina prostorije (m)</label>
-              <input type="number" id="calc-width" placeholder="npr. 3.5" min="0.1" step="0.1" />
+        <?php if ( 'plocice' === $de_group ) : ?>
+          <!-- m² kalkulator (samo pločice) -->
+          <div class="product-calc" id="tile-calculator" data-price="<?php echo esc_attr( (string) $de_product->get_price() ); ?>">
+            <div class="product-calc__title">Kalkulator količine</div>
+            <div class="product-calc__row">
+              <div class="product-calc__field">
+                <label for="calc-width">Širina prostorije (m)</label>
+                <input type="number" id="calc-width" placeholder="npr. 3.5" min="0.1" step="0.1" />
+              </div>
+              <div class="product-calc__field">
+                <label for="calc-length">Dužina prostorije (m)</label>
+                <input type="number" id="calc-length" placeholder="npr. 4.2" min="0.1" step="0.1" />
+              </div>
             </div>
-            <div class="product-calc__field">
-              <label for="calc-length">Dužina prostorije (m)</label>
-              <input type="number" id="calc-length" placeholder="npr. 4.2" min="0.1" step="0.1" />
+            <div class="product-calc__result" id="calc-result">Unesite dimenzije prostorije za izračun</div>
+          </div>
+        <?php endif; ?>
+
+        <?php if ( $de_is_variable ) : ?>
+          <?php
+          /*
+           * WC slideUp-uje .single_variation_wrap dok varijacija nije izabrana, pa unutra drzimo
+           * SAMO njegove poruke (dostupnost/opis). Kolicina i CTA su van njega i uvijek vidljivi –
+           * telefon je primarni konverzioni kanal i ne smije nestati. Stanje dugmeta WC svejedno
+           * kontrolise preko .woocommerce-variation-add-to-cart, koji trazi u cijeloj formi.
+           */
+          ?>
+          <?php
+          /*
+           * wp.template() sabloni koje trazi wc-add-to-cart-variation.js pri svakom poklapanju.
+           * WC ih inace ispisuje kroz single-product/add-to-cart/variation.php, a taj se ucitava
+           * ISKLJUCIVO preko woocommerce_variable_add_to_cart() – put koji mi ne koristimo
+           * (bespoke single-product.php). Bez njih wp.template() dobije undefined i baca
+           * TypeError, pa varijacije prestanu da rade. Ovo NIJE asset nego inertni markup
+           * sablon i ne moze kroz wp_enqueue_* – svjesno odstupanje od CLAUDE.md §4.
+           */
+          ?>
+          <script type="text/template" id="tmpl-variation-template">
+            <div class="woocommerce-variation-description">{{{ data.variation.variation_description }}}</div>
+            <div class="woocommerce-variation-price">{{{ data.variation.price_html }}}</div>
+            <div class="woocommerce-variation-availability">{{{ data.variation.availability_html }}}</div>
+          </script>
+          <script type="text/template" id="tmpl-unavailable-variation-template">
+            <p role="alert">Ova kombinacija trenutno nije dostupna. Izaberite drugu ili nas pozovite.</p>
+          </script>
+
+          <div class="single_variation_wrap">
+            <div class="woocommerce-variation single_variation" role="status" aria-live="polite"></div>
+          </div>
+          <div class="woocommerce-variation-add-to-cart variations_button">
+        <?php endif; ?>
+
+          <div class="product-quantity">
+            <span class="product-quantity__label" id="qty-label"><?php echo 'plocice' === $de_group ? 'Količina (m²)' : 'Količina'; ?></span>
+            <div class="product-quantity__controls">
+              <button type="button" class="product-quantity__btn" id="qty-minus" aria-label="Smanji količinu">−</button>
+              <input class="product-quantity__input qty" type="number" id="qty-input" name="quantity" value="1" min="1" max="99" aria-label="Količina" />
+              <button type="button" class="product-quantity__btn" id="qty-plus" aria-label="Povećaj količinu">+</button>
             </div>
           </div>
-          <div class="product-calc__result" id="calc-result">Unesite dimenzije prostorije za izračun</div>
-        </div>
-      <?php endif; ?>
 
-      <!-- Količina + CTA (WC add-to-cart forma) -->
-      <form class="cart product-cta-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $de_product->get_permalink() ) ); ?>">
-        <div class="product-quantity">
-          <span class="product-quantity__label" id="qty-label"><?php echo 'plocice' === $de_group ? 'Količina (m²)' : 'Količina'; ?></span>
-          <div class="product-quantity__controls">
-            <button type="button" class="product-quantity__btn" id="qty-minus" aria-label="Smanji količinu">−</button>
-            <input class="product-quantity__input" type="number" id="qty-input" name="quantity" value="1" min="1" max="99" aria-label="Količina" />
-            <button type="button" class="product-quantity__btn" id="qty-plus" aria-label="Povećaj količinu">+</button>
+          <hr class="product-sep">
+
+          <div class="product-cta-group">
+            <button type="submit" class="btn-product-primary<?php echo $de_is_variable ? ' single_add_to_cart_button' : ''; ?>" id="btn-add-to-cart"<?php if ( ! $de_is_variable ) : ?> name="add-to-cart" value="<?php echo esc_attr( (string) $de_id ); ?>"<?php endif; ?>>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              Dodaj u ponudu
+            </button>
+            <a href="tel:+38269234888" class="btn-product-secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              Pozovite salon
+            </a>
           </div>
-        </div>
 
-        <hr class="product-sep">
+        <?php if ( $de_is_variable ) : ?>
+            <input type="hidden" name="add-to-cart" value="<?php echo absint( $de_id ); ?>" />
+            <input type="hidden" name="product_id" value="<?php echo absint( $de_id ); ?>" />
+            <input type="hidden" name="variation_id" class="variation_id" value="0" />
+          </div><!-- /woocommerce-variation-add-to-cart -->
+        <?php endif; ?>
 
-        <div class="product-cta-group">
-          <button type="submit" name="add-to-cart" value="<?php echo esc_attr( (string) $de_id ); ?>" class="btn-product-primary" id="btn-add-to-cart">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-            Dodaj u ponudu
-          </button>
-          <a href="tel:+38269234888" class="btn-product-secondary">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-            Pozovite salon
-          </a>
-        </div>
       </form>
 
       <!-- Šta se dešava nakon klika -->

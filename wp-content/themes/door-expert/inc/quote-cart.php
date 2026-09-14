@@ -301,7 +301,15 @@ function door_expert_collect_cart_products( $item_notes = array() ) {
 				if ( ! $value ) {
 					continue;
 				}
-				$label           = wc_attribute_label( str_replace( 'attribute_', '', $key ) );
+				// Kod taksonomijskih atributa meta cuva SLUG (80-cm) – u upit ide ime terma (80 cm).
+				$taxonomy = str_replace( 'attribute_', '', $key );
+				if ( taxonomy_exists( $taxonomy ) ) {
+					$term = get_term_by( 'slug', $value, $taxonomy );
+					if ( $term && ! is_wp_error( $term ) ) {
+						$value = $term->name;
+					}
+				}
+				$label           = wc_attribute_label( $taxonomy );
 				$attrs[ $label ] = $value;
 			}
 		}

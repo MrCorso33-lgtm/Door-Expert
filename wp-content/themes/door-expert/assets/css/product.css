@@ -382,6 +382,108 @@
   color: #FFFFFF;
 }
 
+/* Kombinacija nedostupna uz trenutni izbor (WC disable-uje opciju u select-u). */
+.product-variant-pill.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.product-variant-pill.is-disabled:hover {
+  border-color: var(--color-sand, #DDD5C4);
+}
+
+/* ── WC VARIJACIJE (variations_form most) ── */
+/*
+ * Skriveni <select>-ovi su izvor istine za wc-add-to-cart-variation.js; pilule su prikaz.
+ * Select se sklanja TEK kad JS izgradi pilule (.is-enhanced) – bez JS-a ostaje dropdown.
+ */
+.product-variants__select {
+  margin-top: 10px;
+}
+
+.product-variants.is-enhanced .product-variants__select {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.reset_variations {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 11px;
+  color: var(--color-antracit-soft, #5A5248);
+  text-decoration: underline;
+}
+
+/* Cijenu varijacije preslikavamo u .product-price-block__current – WC-ovu skrivamo. */
+.product-page .woocommerce-variation-price {
+  display: none;
+}
+
+.product-page .woocommerce-variation-availability {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 12px;
+  color: var(--color-antracit-soft, #5A5248);
+  margin-top: 8px;
+}
+
+.product-page .woocommerce-variation-description {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-antracit-soft, #5A5248);
+  margin-top: 8px;
+}
+
+/* price_html varijacije dolazi kao <span class="price"> – neutralisemo WC tipografiju. */
+.product-price-block__current .price {
+  font: inherit;
+  color: inherit;
+}
+
+.product-price-block__current .price del {
+  opacity: 0.5;
+  font-size: 0.7em;
+  margin-right: 6px;
+}
+
+.product-price-block__current .price ins {
+  text-decoration: none;
+}
+
+/*
+ * Dok varijacija nije izabrana (ili je nedostupna) WC oznaci wrapper klasom
+ * -disabled, a samom dugmetu doda .disabled. Pointer-events NE gasimo: WC na klik
+ * ispisuje poruku "odaberite opciju", sto je korisnije od mrtvog dugmeta.
+ */
+.woocommerce-variation-add-to-cart-disabled .single_add_to_cart_button,
+.single_add_to_cart_button.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* Color swatches */
 .product-variants__swatches {
   display: flex;

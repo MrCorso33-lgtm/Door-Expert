@@ -77,7 +77,16 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
                 if ( ! empty( $de_item['variation_id'] ) ) {
                   foreach ( wc_get_product_variation_attributes( $de_item['variation_id'] ) as $de_ak => $de_av ) {
                     if ( $de_av ) {
-                      $de_variant[] = wc_attribute_label( str_replace( 'attribute_', '', $de_ak ) ) . ': ' . $de_av;
+                      // Kod taksonomijskih atributa meta cuva SLUG (80-cm) – prevodimo u ime terma (80 cm).
+                      $de_attr_tax = str_replace( 'attribute_', '', $de_ak );
+                      $de_attr_val = $de_av;
+                      if ( taxonomy_exists( $de_attr_tax ) ) {
+                        $de_attr_term = get_term_by( 'slug', $de_av, $de_attr_tax );
+                        if ( $de_attr_term && ! is_wp_error( $de_attr_term ) ) {
+                          $de_attr_val = $de_attr_term->name;
+                        }
+                      }
+                      $de_variant[] = wc_attribute_label( $de_attr_tax ) . ': ' . $de_attr_val;
                     }
                   }
                 }

@@ -7,6 +7,7 @@
  *   2. FAQ accordion
  *   3. Količina +/- (WC add-to-cart forma)
  *   4. m² kalkulator (samo pločice)
+ *   5. Varijacije: pilule iz prototipa kao vizuelni sloj nad skrivenim WC <select>-ovima
  *
  * NAPOMENA: raniji product.js je bio demo simulator (PRODUCT_DATA + data-type toggle +
  * klijentsko menjanje cijene po varijanti). To je zamijenjeno – podaci sad dolaze iz WooCommerce-a.
@@ -158,5 +159,150 @@
       calcW.addEventListener( 'input', recalc );
       calcL.addEventListener( 'input', recalc );
     }
+  }
+
+  /* ── Varijacije: pilule <-> WC selecti ──────────────────── */
+  /*
+   * Matching varijacija, cijenu, stanje i variation_id radi WC-ov wc-add-to-cart-variation.js.
+   * Mi samo: (a) gradimo pilule iz opcija skrivenog <select>-a, (b) na klik postavljamo
+   * vrijednost selecta i okidamo jQuery 'change', (c) preslikavamo cijenu varijacije u
+   * .product-price-block__current. WC pri svakom izboru ISPISUJE opcije ostalih selecta
+   * (dostupne kombinacije), pa pilule regenerišemo na 'woocommerce_update_variation_values'.
+   */
+  var variationsForm = document.querySelector( '.product-page .variations_form' );
+
+  if ( variationsForm && window.jQuery ) {
+    window.jQuery( function ( $ ) {
+      var $form = $( variationsForm );
+      var priceEl = document.getElementById( 'product-price-current' );
+      var priceDefault = priceEl ? priceEl.innerHTML : '';
+
+      /*
+       * WC sam mijenja sliku po varijaciji, ali cilja .woocommerce-product-gallery /
+       * .wp-post-image. Nasa galerija je bespoke (#gallery-main-img), pa to radimo rucno.
+       */
+      var imgDefaultSrc = mainImg ? mainImg.getAttribute( 'src' ) : '';
+      var imgDefaultAlt = mainImg ? mainImg.getAttribute( 'alt' ) : '';
+      var calcDefaultPrice = calc ? pricePerM2 : 0;
+
+      function setMainImage( src, srcset, alt ) {
+        if ( ! mainImg || ! src ) {
+          return;
+        }
+        mainImg.src = src;
+        if ( srcset ) {
+          mainImg.srcset = srcset;
+        } else {
+          mainImg.removeAttribute( 'srcset' );
+        }
+        mainImg.alt = alt || imgDefaultAlt;
+      }
+
+      function buildPills( wrap ) {
+        var select = wrap.querySelector( 'select' );
+        var pills = wrap.querySelector( '.product-variants__pills' );
+        var selectedOut = wrap.querySelector( '.product-variants__selected' );
+
+        if ( ! select || ! pills ) {
+          return;
+        }
+
+        pills.innerHTML = '';
+
+        Array.prototype.forEach.call( select.options, function ( opt ) {
+          if ( '' === opt.value ) {
+            return; // "Odaberite opciju" nije pilula.
+          }
+
+          var pill = document.createElement( 'button' );
+          pill.type = 'button';
+          pill.className = 'product-variant-pill';
+          pill.setAttribute( 'data-value', opt.value );
+          pill.textContent = opt.textContent;
+
+          if ( opt.disabled ) {
+            pill.disabled = true;
+            pill.classList.add( 'is-disabled' );
+            pill.title = 'Nedostupno uz trenutni izbor';
+          }
+
+          var isActive = opt.value === select.value;
+          pill.classList.toggle( 'is-active', isActive );
+          pill.setAttribute( 'aria-pressed', isActive ? 'true' : 'false' );
+
+          pill.addEventListener( 'click', function () {
+            // Ponovni klik na aktivnu pilulu = poništi izbor (lakše mijenjanje kombinacije).
+            var next = opt.value === select.value ? '' : opt.value;
+            $( select ).val( next ).trigger( 'change' );
+          } );
+
+          pills.appendChild( pill );
+        } );
+
+        if ( selectedOut ) {
+          var current = select.options[ select.selectedIndex ];
+          selectedOut.textContent = current && current.value ? current.textContent : '';
+        }
+
+        // Select skrivamo tek kad pilule postoje – bez JS-a ostaje upotrebljiv dropdown.
+        wrap.classList.add( 'is-enhanced' );
+      }
+
+      function syncPills() {
+        variationsForm.querySelectorAll( '.product-variants[data-attribute]' ).forEach( buildPills );
+      }
+
+      syncPills();
+
+      $form.on( 'woocommerce_update_variation_values', syncPills );
+
+      $form.on( 'show_variation', function ( event, variation ) {
+        // price_html je prazan kad su sve varijacije iste cijene – tad ostaje cijena roditelja.
+        if ( priceEl && variation && variation.price_html ) {
+          priceEl.innerHTML = variation.price_html;
+        }
+        /*
+         * Kalkulator cita data-price iz roditelja, a to je kod varijabilnog proizvoda
+         * najniza cijena iz opsega – pogresna cim formati imaju razlicit EUR/m².
+         */
+        if ( calc && variation && variation.display_price && 'function' === typeof recalc ) {
+          pricePerM2 = parseFloat( variation.display_price ) || 0;
+          recalc();
+        }
+        if ( variation && variation.image && variation.image.src ) {
+          setMainImage( variation.image.src, variation.image.srcset, variation.image.alt );
+          thumbs.forEach( function ( t ) {
+            t.classList.remove( 'is-active' );
+          } );
+        }
+        if ( qtyInput && variation ) {
+          if ( variation.max_qty ) {
+            qtyInput.setAttribute( 'max', variation.max_qty );
+          }
+          if ( variation.min_qty ) {
+            qtyInput.setAttribute( 'min', variation.min_qty );
+          }
+          qtyInput.value = clampQty( parseInt( qtyInput.value, 10 ) );
+        }
+        syncPills();
+      } );
+
+      $form.on( 'hide_variation reset_data', function () {
+        if ( priceEl ) {
+          priceEl.innerHTML = priceDefault;
+        }
+        if ( calc && 'function' === typeof recalc ) {
+          pricePerM2 = calcDefaultPrice;
+          recalc();
+        }
+        setMainImage( imgDefaultSrc, '', imgDefaultAlt );
+        if ( thumbs.length ) {
+          thumbs.forEach( function ( t, i ) {
+            t.classList.toggle( 'is-active', 0 === i );
+          } );
+        }
+        syncPills();
+      } );
+    } );
   }
 }() );

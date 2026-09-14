@@ -201,7 +201,22 @@ function door_expert_enqueue_assets() {
 	// ── KONDICIONALNO: WooCommerce single proizvod + korpa ────
 	if ( function_exists( 'is_product' ) && is_product() ) {
 		wp_enqueue_style( 'door-expert-product', $uri . '/assets/css/product.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/product.css' ) );
-		wp_enqueue_script( 'door-expert-product-js', $uri . '/assets/js/product.js', array(), door_expert_ver( '/assets/js/product.js' ), true );
+
+		/*
+		 * Varijabilni proizvodi: single-product.php ne poziva woocommerce_content(), pa WC ne
+		 * enqueue-uje svoju varijacijsku skriptu sam. Dodajemo je i kao ZAVISNOST nasoj skripti
+		 * da bi WC-ov $(document).ready (init variations_form) isao PRIJE naseg mosta pilula.
+		 */
+		$deps = array();
+		if ( function_exists( 'wc_get_product' ) ) {
+			$de_queried = wc_get_product( get_queried_object_id() );
+			if ( $de_queried instanceof WC_Product && $de_queried->is_type( 'variable' ) ) {
+				wp_enqueue_script( 'wc-add-to-cart-variation' );
+				$deps[] = 'wc-add-to-cart-variation';
+			}
+		}
+
+		wp_enqueue_script( 'door-expert-product-js', $uri . '/assets/js/product.js', $deps, door_expert_ver( '/assets/js/product.js' ), true );
 	}
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
 		wp_enqueue_style( 'door-expert-korpa', $uri . '/assets/css/korpa.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/korpa.css' ) );
