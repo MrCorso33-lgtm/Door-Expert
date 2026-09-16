@@ -229,6 +229,15 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
 
       <hr class="product-sep">
 
+      <?php
+      /*
+       * Stack postoji SAMO zbog redoslijeda: na telefonu traka ide ispod CTA-a da
+       * dugme ostane visoko, na desktopu iznad njega (CSS order, od 901px naviše).
+       * Flex se pali tek na desktopu, pa mobilni raspored ostaje netaknut.
+       */
+      ?>
+      <div class="product-decision__stack">
+
       <!-- Varijacije + količina + CTA (jedna WC add-to-cart forma) -->
       <form class="cart product-cta-form<?php echo $de_is_variable ? ' variations_form' : ''; ?>" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $de_product->get_permalink() ) ); ?>"<?php if ( $de_is_variable ) : ?> data-product_id="<?php echo absint( $de_id ); ?>" data-product_variations="<?php echo wc_esc_json( wp_json_encode( $de_var_json ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_esc_json() vec escape-uje za HTML atribut. ?>"<?php endif; ?>>
 
@@ -353,6 +362,15 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
         <?php endif; ?>
 
       </form>
+
+        <?php
+        $de_highlights = function_exists( 'door_expert_product_highlights' ) ? door_expert_product_highlights( $de_product ) : array();
+        if ( ! empty( $de_highlights ) ) {
+          get_template_part( 'template-parts/product/parts/highlights', null, array( 'items' => $de_highlights ) );
+        }
+        ?>
+
+      </div><!-- /product-decision__stack -->
 
       <!-- Šta se dešava nakon klika -->
       <div class="product-next-steps">
