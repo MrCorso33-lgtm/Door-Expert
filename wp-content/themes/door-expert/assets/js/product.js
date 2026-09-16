@@ -193,6 +193,7 @@
       var availEl = document.getElementById( 'product-availability' );
       var availTextEl = availEl ? availEl.querySelector( '.product-availability__text' ) : null;
       var availSubEl = document.getElementById( 'product-availability-sub' );
+      var availNoteEl = document.getElementById( 'product-cta-note' );
       var availDefault = availEl ? availEl.getAttribute( 'data-default-status' ) : 'instock';
 
       function applyStock( status ) {
@@ -220,6 +221,10 @@
         }
         if ( availSubEl ) {
           availSubEl.textContent = state.sub;
+        }
+        if ( availNoteEl ) {
+          availNoteEl.textContent = state.note || '';
+          availNoteEl.hidden = ! state.note;
         }
       }
 

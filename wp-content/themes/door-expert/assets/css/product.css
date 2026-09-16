@@ -329,23 +329,30 @@
 }
 
 /*
- * Rasprodato – jedina poruka na PDP-u koja kupca zaustavlja, pa je jača od
- * ostalih stanja (crveno + 600 + koji piksel veći). Blok je isti, ne uvodimo
- * alert kutiju da se ne razbije mirna tipografija prototipa.
+ * Nema na zalihama – NIJE crveno. U quote modelu zaliha je rok, a ne prepreka:
+ * upit prolazi i za ovu dimenziju. Crveno + bold je konvencija za "blokirano" i
+ * odvraćalo bi kupca od dugmeta koje radi. Jantarno i 600 daju vidljivost bez
+ * stop-signala, a podnaslov ostaje neutralan da alarm ne bude udvostručen.
  */
 .product-availability--out-of-stock .product-availability__dot {
-  background: #B42318;
-  box-shadow: 0 0 0 2px rgba(180,35,24,0.15);
+  background: #B7791F;
+  box-shadow: 0 0 0 2px rgba(183,121,31,0.15);
 }
 
 .product-availability--out-of-stock .product-availability__text {
-  color: #B42318;
+  color: #B7791F;
   font-weight: 600;
   font-size: 13px;
 }
 
-.product-availability--out-of-stock + .product-availability__sub {
-  color: #B42318;
+/* Potvrda uz sam CTA – sumnja se rješava tamo gdje nastaje, ne 200px iznad. */
+.product-cta-note {
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-antracit-soft, #5A5248);
+  margin: 10px 0 0;
+  text-align: center;
 }
 
 .product-availability__sub {

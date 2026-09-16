@@ -56,8 +56,12 @@ function door_expert_product_group( $product_id ) {
  * IZABRANU varijaciju, pa iste stringove kroz wp_localize_script dobija i
  * assets/js/product.js. Ako se mijenja tekst, mijenja se SAMO ovdje.
  *
+ * Zaliha NIJE prepreka nego rok: korpa je upit, ne naplata. Zato nijedno stanje
+ * nije crveno i nijedan tekst ne odvraća od dugmeta - `note` se ispisuje uz sam
+ * CTA i potvrđuje da upit prolazi, tačno tamo gdje kupac okleva.
+ *
  * @param string $status WC stock status: instock | onbackorder | outofstock.
- * @return array{modifier:string,label:string,sub:string}
+ * @return array{modifier:string,label:string,sub:string,note:string}
  */
 function door_expert_stock_display( $status ) {
 	if ( 'instock' === $status ) {
@@ -65,6 +69,7 @@ function door_expert_stock_display( $status ) {
 			'modifier' => 'in-stock',
 			'label'    => 'Na stanju u Podgorici',
 			'sub'      => 'Isporuka odmah · Montaža po dogovoru (2–15 dana)',
+			'note'     => '',
 		);
 	}
 
@@ -73,13 +78,15 @@ function door_expert_stock_display( $status ) {
 			'modifier' => 'backorder',
 			'label'    => 'Po narudžbi',
 			'sub'      => 'Rok isporuke po dogovoru',
+			'note'     => 'Rok isporuke javljamo u ponudi',
 		);
 	}
 
 	return array(
 		'modifier' => 'out-of-stock',
-		'label'    => 'Trenutno nije na stanju',
-		'sub'      => 'Pozovite nas za rok nabavke ili birajte drugu dimenziju',
+		'label'    => 'Trenutno nije na zalihama',
+		'sub'      => 'Upit svejedno prolazi · javljamo rok isporuke',
+		'note'     => 'Rok isporuke javljamo u ponudi',
 	);
 }
 

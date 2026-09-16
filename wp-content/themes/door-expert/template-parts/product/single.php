@@ -330,6 +330,12 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
             </a>
           </div>
 
+          <?php
+          // Kod varijabilnih ovu liniju pali/gasi product.js po izabranoj dimenziji.
+          $de_stock_note = isset( $de_stock['note'] ) ? $de_stock['note'] : '';
+          ?>
+          <p class="product-cta-note" id="product-cta-note"<?php echo '' === $de_stock_note ? ' hidden' : ''; ?>><?php echo esc_html( $de_stock_note ); ?></p>
+
         <?php if ( $de_is_variable ) : ?>
             <input type="hidden" name="add-to-cart" value="<?php echo absint( $de_id ); ?>" />
             <input type="hidden" name="product_id" value="<?php echo absint( $de_id ); ?>" />
