@@ -88,9 +88,30 @@ function door_expert_availability_text( $availability, $product ) {
 		return $availability;
 	}
 
-	$availability['availability'] = 'Po narudžbi';
+	$display = door_expert_stock_display( $product->get_stock_status() );
+
+	$availability['availability'] = $display['label'];
 	$availability['class']        = 'available-on-backorder';
 
 	return $availability;
 }
 add_filter( 'woocommerce_get_availability', 'door_expert_availability_text', 10, 2 );
+
+/**
+ * Sirovi stock status svake varijacije u JSON koji ide na stranicu.
+ *
+ * Nuzno jer `is_in_stock` u tom JSON-u prolazi kroz nas filter iznad i za vrata je
+ * uvijek true. Bez ovoga JS ne moze razlikovati rasprodatu varijaciju od dostupne,
+ * pa bi blok dostupnosti tvrdio "Na stanju" i za rasprodatu dimenziju.
+ *
+ * @param array                $data      Podaci varijacije za JSON.
+ * @param WC_Product_Variable  $product   Roditeljski proizvod.
+ * @param WC_Product_Variation $variation Varijacija.
+ * @return array
+ */
+function door_expert_variation_stock_data( $data, $product, $variation ) {
+	$data['door_expert_stock_status'] = $variation->get_stock_status();
+
+	return $data;
+}
+add_filter( 'woocommerce_available_variation', 'door_expert_variation_stock_data', 10, 3 );

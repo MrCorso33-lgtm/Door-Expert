@@ -201,14 +201,18 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
       /*
        * SIROVI status, ne is_in_stock(): inc/product-variations.php filtrira is_in_stock()
        * da bi vrata bila narucljiva i kad ih nema, pa bi prikaz uvijek tvrdio "Na stanju".
+       * Kod varijabilnih product.js prepisuje ovaj blok po IZABRANOJ varijaciji – bez toga
+       * bi gore stajalo zeleno "Na stanju", a dolje rasprodata dimenzija.
        */
-      $de_in_stock = 'instock' === $de_product->get_stock_status();
+      $de_stock_status = $de_product->get_stock_status();
+      $de_in_stock     = 'instock' === $de_stock_status;
+      $de_stock        = door_expert_stock_display( $de_stock_status );
       ?>
-      <div class="product-availability product-availability--<?php echo $de_in_stock ? 'in-stock' : 'order'; ?>" style="margin-top:12px;">
+      <div class="product-availability product-availability--<?php echo esc_attr( $de_stock['modifier'] ); ?>" id="product-availability" data-default-status="<?php echo esc_attr( $de_stock_status ); ?>" style="margin-top:12px;">
         <span class="product-availability__dot" aria-hidden="true"></span>
-        <span class="product-availability__text"><?php echo $de_in_stock ? 'Na stanju u Podgorici' : 'Po narudžbi'; ?></span>
+        <span class="product-availability__text"><?php echo esc_html( $de_stock['label'] ); ?></span>
       </div>
-      <div class="product-availability__sub"><?php echo $de_in_stock ? 'Isporuka odmah · Montaža po dogovoru (2–15 dana)' : 'Rok isporuke po dogovoru'; ?></div>
+      <div class="product-availability__sub" id="product-availability-sub"><?php echo esc_html( $de_stock['sub'] ); ?></div>
 
       <hr class="product-sep">
 

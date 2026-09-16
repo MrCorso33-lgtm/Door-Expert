@@ -186,6 +186,44 @@
       var calcDefaultPrice = calc ? pricePerM2 : 0;
 
       /*
+       * Blok dostupnosti gore pokazuje status RODITELJA. Kod varijabilnih to zna biti
+       * suprotno od izabrane dimenzije (zeleno "Na stanju", a 70 cm rasprodato), pa ga
+       * vezujemo za varijaciju. Tekstovi dolaze iz PHP-a (door_expert_stock_display).
+       */
+      var availEl = document.getElementById( 'product-availability' );
+      var availTextEl = availEl ? availEl.querySelector( '.product-availability__text' ) : null;
+      var availSubEl = document.getElementById( 'product-availability-sub' );
+      var availDefault = availEl ? availEl.getAttribute( 'data-default-status' ) : 'instock';
+
+      function applyStock( status ) {
+        var states = window.doorExpertStock;
+
+        if ( ! availEl || ! states ) {
+          return;
+        }
+
+        var state = states[ status ] || states.outofstock;
+
+        if ( ! state ) {
+          return;
+        }
+
+        availEl.classList.remove(
+          'product-availability--in-stock',
+          'product-availability--backorder',
+          'product-availability--out-of-stock'
+        );
+        availEl.classList.add( 'product-availability--' + state.modifier );
+
+        if ( availTextEl ) {
+          availTextEl.textContent = state.label;
+        }
+        if ( availSubEl ) {
+          availSubEl.textContent = state.sub;
+        }
+      }
+
+      /*
        * Auto-izbor: kad u nekom drugom redu ostane tacno jedna moguca opcija, biramo je
        * umjesto kupca. Pamtimo STA je izabrala masina (autoPicked) da bismo to pustili cim
        * kupac promijeni drugi atribut - inace red ostane zakljucan na opciji koja je bila
@@ -345,6 +383,9 @@
         if ( priceEl && variation && variation.price_html ) {
           priceEl.innerHTML = variation.price_html;
         }
+        if ( variation ) {
+          applyStock( variation.door_expert_stock_status || availDefault );
+        }
         /*
          * Kalkulator cita data-price iz roditelja, a to je kod varijabilnog proizvoda
          * najniza cijena iz opsega – pogresna cim formati imaju razlicit EUR/m².
@@ -379,6 +420,7 @@
           pricePerM2 = calcDefaultPrice;
           recalc();
         }
+        applyStock( availDefault );
         setMainImage( imgDefaultSrc, '', imgDefaultAlt );
         if ( thumbs.length ) {
           thumbs.forEach( function ( t, i ) {

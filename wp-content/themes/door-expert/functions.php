@@ -207,16 +207,31 @@ function door_expert_enqueue_assets() {
 		 * enqueue-uje svoju varijacijsku skriptu sam. Dodajemo je i kao ZAVISNOST nasoj skripti
 		 * da bi WC-ov $(document).ready (init variations_form) isao PRIJE naseg mosta pilula.
 		 */
-		$deps = array();
+		$deps        = array();
+		$de_variable = false;
 		if ( function_exists( 'wc_get_product' ) ) {
 			$de_queried = wc_get_product( get_queried_object_id() );
 			if ( $de_queried instanceof WC_Product && $de_queried->is_type( 'variable' ) ) {
+				$de_variable = true;
 				wp_enqueue_script( 'wc-add-to-cart-variation' );
 				$deps[] = 'wc-add-to-cart-variation';
 			}
 		}
 
 		wp_enqueue_script( 'door-expert-product-js', $uri . '/assets/js/product.js', $deps, door_expert_ver( '/assets/js/product.js' ), true );
+
+		if ( $de_variable ) {
+			// Tekstovi zalihe – isti izvor kao PHP prikaz (inc/product.php), da se ne razilaze.
+			wp_localize_script(
+				'door-expert-product-js',
+				'doorExpertStock',
+				array(
+					'instock'     => door_expert_stock_display( 'instock' ),
+					'onbackorder' => door_expert_stock_display( 'onbackorder' ),
+					'outofstock'  => door_expert_stock_display( 'outofstock' ),
+				)
+			);
+		}
 	}
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
 		wp_enqueue_style( 'door-expert-korpa', $uri . '/assets/css/korpa.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/korpa.css' ) );

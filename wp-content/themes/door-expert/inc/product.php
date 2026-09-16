@@ -50,6 +50,40 @@ function door_expert_product_group( $product_id ) {
 }
 
 /**
+ * Prikaz zalihe za PDP – jedan izvor istine za PHP i za JS.
+ *
+ * Tri stanja, ne dva: kod varijabilnih proizvoda blok dostupnosti mora pratiti
+ * IZABRANU varijaciju, pa iste stringove kroz wp_localize_script dobija i
+ * assets/js/product.js. Ako se mijenja tekst, mijenja se SAMO ovdje.
+ *
+ * @param string $status WC stock status: instock | onbackorder | outofstock.
+ * @return array{modifier:string,label:string,sub:string}
+ */
+function door_expert_stock_display( $status ) {
+	if ( 'instock' === $status ) {
+		return array(
+			'modifier' => 'in-stock',
+			'label'    => 'Na stanju u Podgorici',
+			'sub'      => 'Isporuka odmah · Montaža po dogovoru (2–15 dana)',
+		);
+	}
+
+	if ( 'onbackorder' === $status ) {
+		return array(
+			'modifier' => 'backorder',
+			'label'    => 'Po narudžbi',
+			'sub'      => 'Rok isporuke po dogovoru',
+		);
+	}
+
+	return array(
+		'modifier' => 'out-of-stock',
+		'label'    => 'Trenutno nije na stanju',
+		'sub'      => 'Pozovite nas za rok nabavke ili birajte drugu dimenziju',
+	);
+}
+
+/**
  * FAQ stavke za PDP – dijeljene + po grupi. Tekst vjeran prototipu product.html.
  *
  * @param string $group 'vrata' | 'plocice' | 'umivaonik' | ''.

@@ -318,6 +318,36 @@
   color: #2D6A4F;
 }
 
+/* Po narudžbi – nije greška, samo duži rok. Jantarno, bez alarma. */
+.product-availability--backorder .product-availability__dot {
+  background: #B7791F;
+  box-shadow: 0 0 0 2px rgba(183,121,31,0.15);
+}
+
+.product-availability--backorder .product-availability__text {
+  color: #B7791F;
+}
+
+/*
+ * Rasprodato – jedina poruka na PDP-u koja kupca zaustavlja, pa je jača od
+ * ostalih stanja (crveno + 600 + koji piksel veći). Blok je isti, ne uvodimo
+ * alert kutiju da se ne razbije mirna tipografija prototipa.
+ */
+.product-availability--out-of-stock .product-availability__dot {
+  background: #B42318;
+  box-shadow: 0 0 0 2px rgba(180,35,24,0.15);
+}
+
+.product-availability--out-of-stock .product-availability__text {
+  color: #B42318;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.product-availability--out-of-stock + .product-availability__sub {
+  color: #B42318;
+}
+
 .product-availability__sub {
   font-size: 11px;
   color: var(--color-antracit-soft, #5A5248);
@@ -442,11 +472,12 @@
   display: none;
 }
 
+/*
+ * Dostupnost varijacije vodi blok .product-availability gore (product.js), pa bi
+ * ova WC linija bila isti tekst po drugi put, sitnijim slovima. Gasimo je.
+ */
 .product-page .woocommerce-variation-availability {
-  font-family: var(--font-body, 'DM Sans', sans-serif);
-  font-size: 12px;
-  color: var(--color-antracit-soft, #5A5248);
-  margin-top: 8px;
+  display: none;
 }
 
 .product-page .woocommerce-variation-description {
