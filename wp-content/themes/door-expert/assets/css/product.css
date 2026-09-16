@@ -362,6 +362,20 @@
   margin-left: 14px;
 }
 
+/* Inline-block + vertikalni padding: malo veca tap-meta bez lomljenja recenice. */
+.product-availability__link {
+  display: inline-block;
+  padding: 4px 0;
+  color: var(--color-antracit, #1E1A16);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.product-availability__link:hover,
+.product-availability__link:focus-visible {
+  color: var(--color-accent, #A07840);
+}
+
 /* ── VARIANT SELECTORS ── */
 .product-variants {
   margin: 20px 0;

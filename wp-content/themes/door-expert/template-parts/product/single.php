@@ -215,7 +215,16 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
           <span class="product-availability__dot" aria-hidden="true"></span>
           <span class="product-availability__text"><?php echo esc_html( $de_stock['label'] ); ?></span>
         </div>
-        <div class="product-availability__sub" id="product-availability-sub"><?php echo esc_html( $de_stock['sub'] ); ?></div>
+        <?php
+        /*
+         * Tekst i link su ODVOJENI elementi: product.js mijenja samo <span> preko
+         * textContent pri svakoj promjeni dimenzije, pa bi link unutar njega nestao.
+         */
+        ?>
+        <div class="product-availability__sub">
+          <span id="product-availability-sub"><?php echo esc_html( $de_stock['sub'] ); ?></span>
+          <span aria-hidden="true"> · </span><a class="product-availability__link" href="<?php echo esc_url( home_url( '/montaza/' ) ); ?>">Saznajte više o montaži</a>
+        </div>
       <?php endif; ?>
 
       <hr class="product-sep">
