@@ -220,7 +220,9 @@ function door_expert_enqueue_assets() {
 
 		wp_enqueue_script( 'door-expert-product-js', $uri . '/assets/js/product.js', $deps, door_expert_ver( '/assets/js/product.js' ), true );
 
-		if ( $de_variable ) {
+		// function_exists: inc/product.php se na server salje rucno; bez ove zastite
+		// izostavljen fajl obori SVAKU stranicu proizvoda kroz wp_head, a ne samo ovaj podatak.
+		if ( $de_variable && function_exists( 'door_expert_stock_display' ) ) {
 			// Tekstovi zalihe – isti izvor kao PHP prikaz (inc/product.php), da se ne razilaze.
 			wp_localize_script(
 				'door-expert-product-js',

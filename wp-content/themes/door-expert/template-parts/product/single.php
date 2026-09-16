@@ -206,13 +206,17 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
        */
       $de_stock_status = $de_product->get_stock_status();
       $de_in_stock     = 'instock' === $de_stock_status;
-      $de_stock        = door_expert_stock_display( $de_stock_status );
+      // Isti obrazac kao za door_expert_product_group()/_faq(): bez inc/product.php
+      // sekcija se ne iscrta, umjesto da obori stranicu.
+      $de_stock = function_exists( 'door_expert_stock_display' ) ? door_expert_stock_display( $de_stock_status ) : array();
       ?>
-      <div class="product-availability product-availability--<?php echo esc_attr( $de_stock['modifier'] ); ?>" id="product-availability" data-default-status="<?php echo esc_attr( $de_stock_status ); ?>" style="margin-top:12px;">
-        <span class="product-availability__dot" aria-hidden="true"></span>
-        <span class="product-availability__text"><?php echo esc_html( $de_stock['label'] ); ?></span>
-      </div>
-      <div class="product-availability__sub" id="product-availability-sub"><?php echo esc_html( $de_stock['sub'] ); ?></div>
+      <?php if ( ! empty( $de_stock ) ) : ?>
+        <div class="product-availability product-availability--<?php echo esc_attr( $de_stock['modifier'] ); ?>" id="product-availability" data-default-status="<?php echo esc_attr( $de_stock_status ); ?>" style="margin-top:12px;">
+          <span class="product-availability__dot" aria-hidden="true"></span>
+          <span class="product-availability__text"><?php echo esc_html( $de_stock['label'] ); ?></span>
+        </div>
+        <div class="product-availability__sub" id="product-availability-sub"><?php echo esc_html( $de_stock['sub'] ); ?></div>
+      <?php endif; ?>
 
       <hr class="product-sep">
 
