@@ -74,11 +74,14 @@ if ( '' !== $de_boja ) {
 $de_attrs = array_slice( $de_attrs, 0, 3 );
 
 // Slika.
+// Namjerno 'woocommerce_single' (ne 'woocommerce_thumbnail'): WC thumbnail je hard-crop
+// (1:1 po Customizer podešavanju) pa bi proizvod bio odsječen. 'woocommerce_single' je
+// skaliran samo po širini => cijela slika. Uklapanje u okvir radi CSS (object-fit: contain).
 $de_img_id = $product->get_image_id();
 $de_img    = $de_img_id
 	? wp_get_attachment_image(
 		$de_img_id,
-		'woocommerce_thumbnail',
+		'woocommerce_single',
 		false,
 		array(
 			'class'   => 'prod-card__img',
@@ -86,7 +89,7 @@ $de_img    = $de_img_id
 			'alt'     => esc_attr( $product->get_name() ),
 		)
 	)
-	: '<img class="prod-card__img" src="' . esc_url( wc_placeholder_img_src( 'woocommerce_thumbnail' ) ) . '" alt="" loading="lazy" />';
+	: '<img class="prod-card__img" src="' . esc_url( wc_placeholder_img_src( 'woocommerce_single' ) ) . '" alt="" loading="lazy" />';
 ?>
 
 <article class="prod-card" data-cat="<?php echo esc_attr( $de_data_cat ); ?>">

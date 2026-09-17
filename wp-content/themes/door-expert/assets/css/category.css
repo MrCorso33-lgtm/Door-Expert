@@ -710,17 +710,39 @@
   box-shadow: var(--shadow-lg);
 }
 
+/* 2/3 (a ne 3/4): fotografije vrata su vrlo uske i visoke (npr. 1283x2930 = 1:2.3),
+   pa viši okvir znači da se cio proizvod vidi krupnije uz contain. Odnos je isti za
+   sve kategorije da bi kartice u istom redu grida bile poravnate. */
 .prod-card__img-wrap {
   position: relative;
-  aspect-ratio: 3/4;
+  aspect-ratio: 2/3;
   overflow: hidden;
   background: var(--color-alabaster);
 }
 
+/* Slika je u <a> omotaču (link na proizvod). Anchor se apsolutno rasteže preko okvira:
+   tako mu je visina definisana (inset), pa procentualne/max visine na slici imaju
+   na šta da se oslone. Flex centrira sliku, padding joj daje malo vazduha. */
+.prod-card__img-wrap > a {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-2);
+}
+
+/* Cio proizvod, bez kropovanja. max-width/max-height (a ne width/height 100%)
+   je pouzdanije od object-fit – slika se uklapa i kad joj klasa ne prođe kroz WP.
+   Prazan prostor kod neusklađenog odnosa strana popunjava pozadina okvira. */
+.prod-card__img-wrap img,
 .prod-card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   transition: transform var(--duration-slow) var(--ease-out);
 }
 
@@ -842,6 +864,18 @@
   color: var(--color-antracit);
   margin: 0;
   line-height: 1.3;
+}
+
+/* Naslov je link, ali vizuelno ostaje običan tekst (bez underline/visited boje). */
+.prod-card__name a,
+.prod-card__name a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.prod-card__name a:hover,
+.prod-card__name a:focus-visible {
+  color: var(--color-jantar);
 }
 
 .prod-card__attrs {
