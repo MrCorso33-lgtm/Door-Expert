@@ -204,6 +204,60 @@ moglo biti smisleno provjereno. Ponovi kad katalog naraste.
 
 ---
 
+## PDP varijacije — Variable proizvodi, pilule, zaliha
+
+**Commit:** `69c63a1` (osnova) → `8eae453` → `389e5be` → `9470ace` → `f65e32d` → `e85da35`
+**Fajl(ovi):** `template-parts/product/single.php`, `assets/js/product.js`, `assets/css/product.css`,
+`inc/product.php`, `inc/product-variations.php` (novi), `inc/quote-cart.php`,
+`template-parts/page/korpa.php`, `functions.php`
+
+> Ovih šest commita se **ne vraćaju pojedinačno** — testirani su zajedno i međusobno
+> zavise. Za rollback uzmi `e85da35` (posljednji verifikovan) za sve fajlove iz spiska.
+
+**Šta radi:**
+- Varijacije rade preko WC-ove `variations_form`: skriveni `<select>`-ovi su izvor istine,
+  pilule iz prototipa su vizuelni sloj nad njima (`product.js`). Matching kombinacija,
+  cijenu, stanje i `variation_id` radi `wc-add-to-cart-variation.js`, **ne naš kod**
+- Pilule se prikazuju SAMO za atribute označene "Used for variations". Filter-atributi
+  (boja, prostorija, tip vrata) nisu izbor i idu u tabelu Specifikacije
+- Auto-izbor: kad u drugom redu ostane tačno jedna moguća opcija, bira se sama
+- Zamjena glavne slike po varijaciji, m² kalkulator prati cijenu izabrane varijacije
+- Vrata su naručljiva i van lagera (quote model) — upit prolazi i kad je zaliha 0
+- Blok dostupnosti prati **izabranu varijaciju**, u tri stanja (na stanju / po narudžbi /
+  nije na zalihama), plus link na `/montaza/`
+- Korpa i mejl upita ispisuju ime terma (`Širina vrata: 80 cm`), ne slug (`80-cm`)
+
+**Tri stvari koje se lako slome (sve tri su nas već ugrizle):**
+
+| Zamka | Posljedica |
+|---|---|
+| Obrisani `wp.template` blokovi u `single.php` | `wp.template()` dobije `undefined` → `TypeError` → varijacije tiho prestanu | 
+| `is_in_stock()` korišten za **prikaz** zalihe | Uvijek piše "Na stanju", jer ga `product-variations.php` filtrira. Za prikaz ide `get_stock_status()` |
+| Djelimičan upload (npr. `functions.php` bez `inc/product.php`) | Fatal kroz `wp_head` → bijela stranica na **svakom** proizvodu |
+
+### Kada se pokvari — šta proveriti
+1. **Keš** — PHP se ne bustuje preko `?ver`; Purge + incognito
+2. **Bijela stranica na proizvodu** — pogledaj `error_log` / `debug.log` u root-u. Ako je
+   `Call to undefined function door_expert_*`, nedostaje fajl iz `inc/` na serveru
+3. **Pilule se uopšte ne vide** — proizvod nije tipa **Variable**, ili atribut nema
+   čekiran "Used for variations", ili varijacije nisu generisane
+4. **Pilule se vide ali ne reaguju na klik** — u izvoru stranice traži
+   `id="tmpl-variation-template"`; ako ga nema, `single.php` je star. Zatim provjeri da
+   li je `wc-add-to-cart-variation.js` uopšte učitan (enqueue je u `functions.php`,
+   uslovljen `is_type('variable')`)
+5. **Dostupnost gore ne prati izbor dimenzije** — `product.js` star, ili u JSON-u nema
+   `door_expert_stock_status` (filter `woocommerce_available_variation` u
+   `inc/product-variations.php`)
+6. **Upit za rasprodata vrata odbijen** — `inc/product-variations.php` nije na serveru.
+   Napomena: `woocommerce_add_to_cart_validation` tu **ne pomaže**, jer `WC_Cart::add_to_cart()`
+   baci izuzetak na `is_in_stock()` prije njega
+7. **Korpa pokazuje `80-cm` umjesto `80 cm`** — stari `korpa.php` ili `quote-cart.php`
+
+**Nije pokriveno (poznato):** ako *sve* varijacije jednog proizvoda odu na nulu, WC i
+roditelju postavi `outofstock`; nije provjereno da li tada filter i dalje pušta upit.
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
