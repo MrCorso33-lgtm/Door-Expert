@@ -258,6 +258,55 @@ roditelju postavi `outofstock`; nije provjereno da li tada filter i dalje pušta
 
 ---
 
+## PLP kartica — cijela slika proizvoda + naslov bez underline-a
+
+**Commit:** `f352a0b`
+**Fajl(ovi):** `assets/css/category.css`, `template-parts/shop/product-card.php`
+
+**Šta radi:**
+- Kartica prikazuje **cio proizvod**, bez kropovanja. Bila su tri uzroka u lancu:
+  1. `woocommerce_thumbnail` je **hard-crop** veličina (1:1 po Customizer podešavanju),
+     pa je sam fajl bio odsječen → sada `woocommerce_single` (skalirano samo po širini)
+  2. `<a>` omotač oko slike (prototip ga nije imao, mi ga dodajemo radi linka) nije
+     dobijao visinu, pa `object-fit` nije imao na šta da se osloni → anchor je sada
+     `position: absolute; inset: 0` + flex centriranje
+  3. slika ide na `max-width/max-height: 100%` uz `width/height: auto` umjesto
+     `width/height: 100%` — ne zavisi od razrješavanja procentualne visine
+- Pravilo gađa i `.prod-card__img-wrap img`, ne samo `.prod-card__img` (zaštita za
+  slučaj da klasa ne prođe kroz `wp_get_attachment_image`)
+- Okvir slike `3/4` → `2/3` — fotografije vrata su ~1:2,3, pa viši okvir znači krupniji
+  prikaz uz `contain`. **Odnos je namjerno isti za sve kategorije** da bi kartice u istom
+  redu grida bile poravnate (različit odnos po `data-cat` razbija poravnanje naslova/cijene)
+- `.prod-card__name a` dobio `color: inherit` + `text-decoration: none` (+ `:visited`),
+  hover u jantar — naslov je link od kad ga renderuje `product-card.php`, a prototip
+  nije imao pravilo za njega pa je pokazivao browser default (podvučeno, ljubičasto)
+
+**Svjesno odstupanje od prototipa (§1):** prototip koristi `object-fit: cover`.
+Prešli smo na `contain` na izričit zahtjev klijenta — cio proizvod je važniji od
+popunjenog okvira. Posljedica: uske fotke (vrata) imaju prazan prostor lijevo i desno,
+popunjen bojom `--color-alabaster`.
+
+**Važi i za kategorijske listinge**, ne samo Prodavnicu — `category.css` je zajednički
+izvor `.prod-card` stilova za oba. Homepage ima svoj `.prod-card` u `featured.css`
+sa statičnim slikama iz prototipa i **nije** dirán.
+
+### Kada se pokvari — šta proveriti
+1. **Slika i dalje isječena** → u DevTools klikni na sliku: da li `.prod-card__img-wrap > a`
+   ima `position: absolute` i `inset: 0`. Ako nema — stari `category.css` je u kešu.
+   Sam `object-fit: contain` na slici **nije dokaz** da je novi CSS aktivan, on je bio
+   prisutan i dok je slika bila kropovana
+2. **Slika mutna** → `woocommerce_single` je podrazumijevano 600px širine; za slike
+   uploadovane prije aktivacije WooCommerce-a ta veličina možda ne postoji
+   → WooCommerce → Status → Tools → Regenerate shop thumbnails
+3. **Previše praznog prostora oko proizvoda** → to je priroda `contain` uz fotku čiji
+   se odnos strana ne poklapa sa okvirom 2/3. Rješenje nije u CSS-u nego u fotografiji
+   (enterijer ili kadar iz ugla popunjava okvir prirodno). Dodavanje bijele pozadine
+   u fotku ne pomaže — proizvod time postaje manji, ne veći
+4. **Naslov opet podvučen/ljubičast** → `category.css` nije na serveru; provjeri i da
+   neki noviji CSS ne gazi `.prod-card__name a`
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
