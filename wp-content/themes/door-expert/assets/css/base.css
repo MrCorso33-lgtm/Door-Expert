@@ -12,9 +12,17 @@
  * ============================================================
  */
 
+/*
+ * clip, a ne hidden: sprečava horizontalni skrol isto kao hidden, ali NE pravi
+ * scroll kontejner. Sa `hidden` na html I body, body postaje scroll kontejner
+ * koji se nikad ne skroluje (skroluje se viewport), pa position: sticky ne radi
+ * nigdje na sajtu – ni header, ni filter sidebar, ni PDP galerija, ni korpa.
+ * `hidden` ostaje kao fallback za browsere bez podrške za clip (Safari < 16).
+ */
 html,
 body {
 	overflow-x: hidden;
+	overflow-x: clip;
 }
 
 body {

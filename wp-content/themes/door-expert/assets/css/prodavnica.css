@@ -549,18 +549,49 @@
   .shop-filters-toggle {
     display: none;
   }
+  /* Sidebar je sticky: prati stranicu dok korisnik skroluje kroz proizvode.
+     Ako je viši od ekrana, skroluje se iznutra – ali tek kad je miš nad njim.
+     Scrollbar je nevidljiv dok se sidebar ne hoveruje (ista tehnika kao u
+     admin UI-u Filter Configuratora). */
   .shop-filters {
     display: block;
     position: sticky;
-    top: 80px;
-    max-height: calc(100vh - 100px);
+    /* Ispod sticky headera (top bar + glavni red), kao .cat-sidebar i PDP galerija. */
+    top: calc(var(--header-height) + var(--header-top-height) + var(--space-4));
+    max-height: calc(100vh - var(--header-height) - var(--header-top-height) - var(--space-8));
+    /* Grid ćelija se inače rasteže po visini reda (visina liste proizvoda). */
+    align-self: start;
     overflow-y: auto;
-    padding-right: 1rem;
+    /* Skrol ostaje unutar sidebara: kad se dođe do kraja liste, stranica ispod
+       ne počinje da se pomjera. */
+    overscroll-behavior-y: contain;
+    /* Mjesto za scrollbar je uvijek rezervisano => filteri ne poskakuju
+       kad se scrollbar pojavi na hover. */
+    scrollbar-gutter: stable;
+    /* Firefox: traka je stalno tanka, samo joj boja prelazi iz providne u vidljivu. */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color var(--duration-base) var(--ease-out);
+    padding-right: 0.75rem;
   }
+
+  /* WebKit: širina trake je konstantna, providan thumb je "sakriva". */
   .shop-filters::-webkit-scrollbar {
-    width: 3px;
+    width: 6px;
   }
   .shop-filters::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 3px;
+    transition: background var(--duration-base) var(--ease-out);
+  }
+
+  /* Miš nad sidebarom (ili tab fokus u nekom filteru) otkriva traku. */
+  .shop-filters:hover,
+  .shop-filters:focus-within {
+    scrollbar-color: var(--color-sand) transparent;
+  }
+  .shop-filters:hover::-webkit-scrollbar-thumb,
+  .shop-filters:focus-within::-webkit-scrollbar-thumb {
     background: var(--color-sand);
   }
   /* Tap-mete su na mobilnom namjerno veće (≥44px sa razmakom); miš traži manje. */

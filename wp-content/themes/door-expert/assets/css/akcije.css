@@ -246,7 +246,7 @@
   background: #F7F3EC;
   border-bottom: 1px solid var(--color-sand, #DDD5C4);
   position: sticky;
-  top: 72px; /* below fixed header */
+  top: calc(var(--header-height) + var(--header-top-height)); /* ispod sticky headera */
   z-index: 90;
 }
 

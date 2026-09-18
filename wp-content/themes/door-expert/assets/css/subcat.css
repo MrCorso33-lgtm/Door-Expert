@@ -10,7 +10,8 @@
  * ============================================================
  */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { overflow-x: hidden; }
+    /* clip, ne hidden – inače sticky ne radi (objašnjenje u base.css). */
+    html, body { overflow-x: hidden; overflow-x: clip; }
     body { background: var(--color-alabaster); font-family: var(--font-body); color: var(--color-antracit); }
     img { display: block; max-width: 100%; }
     /* ═══════════════════════════════════════════════
