@@ -307,6 +307,48 @@ sa statičnim slikama iz prototipa i **nije** dirán.
 
 ---
 
+## Sticky na cijelom sajtu + sticky filter sidebar
+
+**Commit:** `3733bb4`
+**Fajl(ovi):** `assets/css/base.css`, `assets/css/subcat.css`, `assets/css/prodavnica.css`,
+`assets/css/korpa.css`, `assets/css/akcije.css`
+
+**Šta radi:**
+- **Uzrok:** `html, body { overflow-x: hidden }` (iz prototipa `header-demo.html`, gdje je
+  označeno kao "Demo page scaffolding only"). Kad je `hidden` na OBA elementa, `body`
+  postaje scroll kontejner koji se nikad ne skroluje (skroluje viewport), pa se svaki
+  sticky element "zakači" za njega i stoji u mjestu. DevTools i dalje pokazuje
+  `position: sticky` — pravilo JESTE primijenjeno, samo nema efekta
+- **Popravka:** `overflow-x: clip` — sprečava horizontalni skrol kao `hidden`, ali ne pravi
+  scroll kontejner. `hidden` ostaje linija iznad kao fallback (Safari < 16)
+- Isto pravilo je dupliran u `subcat.css`, koji se učitava POSLE `base.css` na kategorijama
+  — mora biti ispravljen i tamo, inače vrati bug
+- **Filter sidebar (desktop ≥1025px):** sticky ispod headera, scroll iznutra kad je viši
+  od ekrana; scrollbar providan dok miš nije nad sidebarom (`:hover`/`:focus-within`),
+  `overscroll-behavior-y: contain` (skrol ne propada na stranicu), `scrollbar-gutter: stable`
+  (nema poskakivanja), `align-self: start` (grid ćelija se ne rasteže po visini liste)
+- `top` za sidebar, korpu i akcije računat iz tokena: `--header-height` (80) +
+  `--header-top-height` (36) = 116px. Ranije hardkodovano 80 / 100 / 72px — dok sticky nije
+  radio to se nije vidjelo, a posle popravke bi vrh tih elemenata bio ispod headera
+
+**Posljedica:** header je sada sticky na svim stranicama. To je izvorna namjera dizajna
+(`header.css` ima `position: sticky`, `header.js` dodaje `.scrolled` blur + sjenku), ali je
+vidljiva promjena. Ako se ne želi: `.site-header { position: relative; }`.
+
+### Kada se pokvari — šta proveriti
+1. **Sticky opet ne radi** → u DevTools provjeri Computed za `html` i `body`: `overflow-x`
+   mora biti `clip`. Ako je `hidden`, neki CSS učitan posle `base.css` ga gazi (prvi
+   osumnjičeni: `subcat.css` ili novi Manus fajl sa istim resetom — grep `overflow-x`)
+2. **Sticky ne radi samo na jednom elementu** → neki predak ima `overflow: hidden/auto`
+   (svaki takav predak "hvata" sticky). DevTools: idi uz stablo i traži `overflow`
+3. **Vrh elementa ispod headera** → `top` je hardkodovan umjesto
+   `calc(var(--header-height) + var(--header-top-height) + …)`
+4. **Horizontalni skrol na mobilnom** → Safari < 16 ne zna `clip`; tamo radi fallback
+   `hidden` (i tamo sticky ne radi — poznato, prihvaćeno)
+5. **Sidebar sa malo filtera razvučen do dna liste** → nedostaje `align-self: start`
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
