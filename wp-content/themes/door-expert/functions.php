@@ -375,6 +375,8 @@ require_once get_template_directory() . '/inc/shop.php';
 require_once get_template_directory() . '/inc/filters.php';
 // SEO filtriranih arhiva – noindex + canonical. POSLIJE shop.php i filters.php (koristi oba).
 require_once get_template_directory() . '/inc/filters-seo.php';
+// AJAX filtriranje listinga – isti upit i isti markup kao serverska putanja.
+require_once get_template_directory() . '/inc/shop-ajax.php';
 // Quote cart – WooCommerce bez plaćanja: upit pravi WC_Order (on-hold) + AJAX korpa.
 require_once get_template_directory() . '/inc/quote-cart.php';
 

@@ -599,29 +599,39 @@ function door_expert_filter_facet_term() {
  *
  * Prazan niz znači "nema facetinga" – pozivalac tada zadržava plugin-ov broj.
  *
+ * @param int|string|null $context Kontekst sidebara. Null = tekuća stranica. AJAX ga
+ *                                 mora dati eksplicitno: tamo is_product_category()
+ *                                 nije tačno, pa bi kontekst pao na 'default' i grupa
+ *                                 koju kategorija ima kroz svoju konfiguraciju ostala
+ *                                 bi bez faceta (sa zastarjelim brojevima u sidebaru).
  * @return array<string,array<string,int>>
  */
-function door_expert_filter_facets() {
-	static $facets = null;
-
-	if ( null !== $facets ) {
-		return $facets;
-	}
-
-	$facets = array();
+function door_expert_filter_facets( $context = null ) {
+	static $facets = array();
 
 	if ( ! function_exists( 'wcfc_compute_facets' ) || ! function_exists( 'wcfc_attrs_for_context' ) || ! function_exists( 'wcfc_current_context' ) ) {
-		return $facets;
+		return array();
 	}
+
+	if ( null === $context ) {
+		$context = wcfc_current_context();
+	}
+
+	$cache_key = (string) $context;
+	if ( isset( $facets[ $cache_key ] ) ) {
+		return $facets[ $cache_key ];
+	}
+
+	$facets[ $cache_key ] = array();
 
 	$term = door_expert_filter_facet_term();
 	if ( ! $term instanceof WP_Term ) {
-		return $facets;
+		return $facets[ $cache_key ];
 	}
 
-	$attrs = wcfc_attrs_for_context( wcfc_current_context() );
+	$attrs = wcfc_attrs_for_context( $context );
 	if ( empty( $attrs ) ) {
-		return $facets;
+		return $facets[ $cache_key ];
 	}
 
 	$selected = array();
@@ -637,7 +647,7 @@ function door_expert_filter_facets() {
 	$min = door_expert_shop_price( 'min_price' );
 	$max = door_expert_shop_price( 'max_price' );
 
-	$facets = wcfc_compute_facets(
+	$facets[ $cache_key ] = wcfc_compute_facets(
 		(int) $term->term_id,
 		$selected,
 		$min > 0 ? $min : null,
@@ -645,7 +655,7 @@ function door_expert_filter_facets() {
 		$attrs
 	);
 
-	return $facets;
+	return $facets[ $cache_key ];
 }
 
 /**

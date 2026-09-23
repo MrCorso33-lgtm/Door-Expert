@@ -39,11 +39,14 @@ $de_orderby     = ! empty( $de_orderby_arr ) ? $de_orderby_arr[0] : 'menu_order'
 <?php // id="katalog" nosi parts/subcats-grid.php (kao u prototipu) – ne dupliramo ga ovdje. ?>
 <div class="shop-main">
 
-  <!-- Mobilni toggle filtera -->
-  <button type="button" class="shop-filters-toggle" id="filterToggle">
+  <!-- Mobilni toggle filtera. Checkbox + <label> namjerno umjesto <button>: otvaranje
+       radi i bez JavaScripta (CSS: .shop-filters-switch:checked ~ .shop-filters). -->
+  <input type="checkbox" class="shop-filters-switch" id="filterToggle" />
+  <label class="shop-filters-toggle" for="filterToggle">
     <svg style="width:14px;height:14px;vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="9" y2="18"/></svg>
-    Prikaži filtere
-  </button>
+    <span class="shop-filters-toggle__show">Prikaži filtere</span>
+    <span class="shop-filters-toggle__hide">Sakrij filtere</span>
+  </label>
 
   <?php
   get_template_part(
@@ -59,7 +62,7 @@ $de_orderby     = ! empty( $de_orderby_arr ) ? $de_orderby_arr[0] : 'menu_order'
   <div class="shop-content">
 
     <div class="shop-toolbar">
-      <div class="shop-toolbar__count">Prikazano <strong><?php echo esc_html( (string) $de_total ); ?></strong> <?php echo esc_html( _n( 'proizvod', 'proizvoda', $de_total, 'door-expert' ) ); ?></div>
+      <div class="shop-toolbar__count" id="shopCount" aria-live="polite"><?php echo door_expert_shop_count_html( $de_total ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- sklopljeno i escape-ovano u inc/shop.php. ?></div>
       <div class="shop-toolbar__actions">
         <form class="shop-toolbar__sort-form" method="get" action="<?php echo esc_url( $de_base ); ?>">
           <select class="shop-toolbar__sort" name="orderby" onchange="this.form.submit()">
@@ -74,53 +77,14 @@ $de_orderby     = ! empty( $de_orderby_arr ) ? $de_orderby_arr[0] : 'menu_order'
       </div>
     </div>
 
-    <?php if ( have_posts() ) : ?>
-
-      <div class="shop-grid">
-        <?php
-        while ( have_posts() ) {
-            the_post();
-            get_template_part( 'template-parts/shop/product-card' );
-        }
-        ?>
-      </div>
-
+    <!-- Grid + paginacija. AJAX (inc/shop-ajax.php) mijenja sadržaj OVOG kontejnera,
+         istim markupom iz door_expert_shop_results() – bez druge implementacije. -->
+    <div class="shop-results" id="shopResults">
       <?php
-      $de_paged = max( 1, (int) get_query_var( 'paged' ), (int) get_query_var( 'page' ) );
-      $de_pages = isset( $GLOBALS['wp_query'] ) ? (int) $GLOBALS['wp_query']->max_num_pages : 0;
-
-      if ( $de_pages > 1 ) {
-          $de_big   = 999999999;
-          $de_links = paginate_links(
-              array(
-                  'base'      => str_replace( $de_big, '%#%', esc_url( get_pagenum_link( $de_big ) ) ),
-                  'format'    => '?paged=%#%',
-                  'current'   => $de_paged,
-                  'total'     => $de_pages,
-                  'type'      => 'plain',
-                  'end_size'  => 1,
-                  'mid_size'  => 2,
-                  'prev_text' => '<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>',
-                  'next_text' => '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>',
-              )
-          );
-
-          if ( $de_links ) {
-              echo '<nav class="shop-pagination" aria-label="Stranice">' . $de_links . '</nav>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links vraća bezbjedan markup.
-          }
-      }
+      // Sam resetuje postdata poslije petlje nad glavnim upitom.
+      echo door_expert_shop_results( null, $de_base ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- markup sklopljen i escape-ovan u inc/shop.php.
       ?>
-
-    <?php else : ?>
-      <div class="shop-empty">
-        <p class="shop-empty__title">Nema proizvoda za izabrane filtere.</p>
-        <a class="shop-empty__reset" href="<?php echo esc_url( $de_base ); ?>">Očisti filtere</a>
-      </div>
-    <?php endif; ?>
+    </div>
 
   </div>
 </div>
-
-<?php
-// Loop je iscrpljen (glavni upit) – vrati ga za slučaj da neki part ispod očekuje post podatke.
-wp_reset_postdata();

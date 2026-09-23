@@ -221,6 +221,43 @@ function door_expert_shop_base_url( $args = array() ) {
 }
 
 /**
+ * tax_query klauzula za vidljivost proizvoda, kao na WooCommerce arhivi.
+ *
+ * Sakriveno iz kataloga nikad ne ulazi, rasprodato samo ako je prodavnica podešena
+ * da ga krije. Gradi se ručno umjesto pozivom WC_Query::get_tax_query(), jer ta
+ * metoda na kraju primijeni i filter woocommerce_product_query_tax_query – dakle
+ * našu door_expert_shop_tax_query() – pa bi se filteri dodali dvaput.
+ *
+ * @return array Prazan niz ako nema šta da se isključi.
+ */
+function door_expert_shop_visibility_clause() {
+	if ( ! function_exists( 'wc_get_product_visibility_term_ids' ) ) {
+		return array();
+	}
+
+	$visibility = wc_get_product_visibility_term_ids();
+	$hidden     = array();
+
+	if ( ! empty( $visibility['exclude-from-catalog'] ) ) {
+		$hidden[] = (int) $visibility['exclude-from-catalog'];
+	}
+	if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ! empty( $visibility['outofstock'] ) ) {
+		$hidden[] = (int) $visibility['outofstock'];
+	}
+
+	if ( empty( $hidden ) ) {
+		return array();
+	}
+
+	return array(
+		'taxonomy' => 'product_visibility',
+		'field'    => 'term_taxonomy_id',
+		'terms'    => $hidden,
+		'operator' => 'NOT IN',
+	);
+}
+
+/**
  * Broj proizvoda u grupi kategorija, za hero pilule. Prazan niz => svi proizvodi.
  *
  * Broji RAZLIČITE proizvode, upitom sa istim uslovima koje klik na pilulu proizvede
@@ -262,27 +299,9 @@ function door_expert_shop_group_count( $parent_slugs ) {
 		);
 	}
 
-	// Vidljivost kao u WooCommerce arhivi: sakriveno iz kataloga ne ulazi u broj,
-	// a rasprodato samo ako je prodavnica podešena da ga krije.
-	if ( function_exists( 'wc_get_product_visibility_term_ids' ) ) {
-		$visibility = wc_get_product_visibility_term_ids();
-		$hidden     = array();
-
-		if ( ! empty( $visibility['exclude-from-catalog'] ) ) {
-			$hidden[] = (int) $visibility['exclude-from-catalog'];
-		}
-		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ! empty( $visibility['outofstock'] ) ) {
-			$hidden[] = (int) $visibility['outofstock'];
-		}
-
-		if ( ! empty( $hidden ) ) {
-			$tax_query[] = array(
-				'taxonomy' => 'product_visibility',
-				'field'    => 'term_taxonomy_id',
-				'terms'    => $hidden,
-				'operator' => 'NOT IN',
-			);
-		}
+	$visibility = door_expert_shop_visibility_clause();
+	if ( ! empty( $visibility ) ) {
+		$tax_query[] = $visibility;
 	}
 
 	$args = array(
@@ -386,4 +405,155 @@ function door_expert_shop_hidden_inputs( $exclude = array() ) {
 			printf( '<input type="hidden" name="%s[]" value="%s" />', esc_attr( $param ), esc_attr( $val ) );
 		}
 	}
+}
+
+/**
+ * Tekući filter/sort parametri kao niz (za add_query_arg / paginate_links).
+ * Isti izvor kao hidden inputi, samo u obliku niza umjesto markupa.
+ *
+ * @return array
+ */
+function door_expert_shop_query_args() {
+	$args = array();
+
+	foreach ( door_expert_shop_state_params() as $param ) {
+		if ( 'min_price' === $param || 'max_price' === $param ) {
+			$val = door_expert_shop_price( $param );
+			if ( $val > 0 ) {
+				$args[ $param ] = $val;
+			}
+			continue;
+		}
+
+		$values = door_expert_shop_selected( $param );
+		if ( empty( $values ) ) {
+			continue;
+		}
+
+		if ( 'orderby' === $param ) {
+			$args['orderby'] = $values[0];
+			continue;
+		}
+
+		$args[ $param ] = $values;
+	}
+
+	return $args;
+}
+
+/* ── Renderovanje listinga ────────────────────────────────────────────
+ * Jedna definicija markupa za sve tri putanje: shop arhivu, kategorijski
+ * listing i AJAX odgovor. Da AJAX renderuje svoju verziju kartice ili
+ * paginacije značilo bi dvije implementacije koje se vremenom raziđu.
+ */
+
+/**
+ * Markup paginacije listinga.
+ *
+ * @param int    $paged    Tekuća strana.
+ * @param int    $pages    Ukupno strana.
+ * @param string $base_url Bazni URL listinga. Prazno (serverska putanja) => bazu daje
+ *                         get_pagenum_link iz glavnog upita, kao i do sad. U AJAX-u
+ *                         glavnog upita nema, pa se baza mora proslijediti.
+ * @return string Prazan string kad ima manje od dvije strane.
+ */
+function door_expert_shop_pagination( $paged, $pages, $base_url = '' ) {
+	$paged = max( 1, (int) $paged );
+	$pages = (int) $pages;
+
+	if ( $pages < 2 ) {
+		return '';
+	}
+
+	if ( '' === $base_url ) {
+		$big      = 999999999;
+		$base     = str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) );
+		$format   = '?paged=%#%';
+		$add_args = array();
+	} else {
+		// Projekat zahtijeva /page/N/ URL-ove (nikad ?paged=N) – vidi CLAUDE.md §5.
+		$base     = trailingslashit( $base_url ) . 'page/%#%/';
+		$format   = '';
+		$add_args = door_expert_shop_query_args();
+	}
+
+	$links = paginate_links(
+		array(
+			'base'      => $base,
+			'format'    => $format,
+			'current'   => $paged,
+			'total'     => $pages,
+			'add_args'  => $add_args,
+			'type'      => 'plain',
+			'end_size'  => 1,
+			'mid_size'  => 2,
+			'prev_text' => '<svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>',
+			'next_text' => '<svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>',
+		)
+	);
+
+	if ( ! $links ) {
+		return '';
+	}
+
+	return '<nav class="shop-pagination" aria-label="Stranice">' . $links . '</nav>';
+}
+
+/**
+ * Grid + paginacija (ili prazno stanje) za dati upit.
+ *
+ * Sadržaj #shopResults kontejnera: AJAX vraća tačno ovo i njime zamijeni kontejner,
+ * pa su serverski i AJAX prikaz po definiciji isti.
+ *
+ * @param WP_Query|null $query    Upit; null = glavni upit stranice.
+ * @param string        $base_url Bazni URL listinga (paginacija, "Očisti filtere").
+ * @return string
+ */
+function door_expert_shop_results( $query, $base_url ) {
+	$listing = $query instanceof WP_Query ? $query : $GLOBALS['wp_query'];
+
+	ob_start();
+
+	if ( $listing->have_posts() ) {
+		$paged = max( 1, (int) $listing->get( 'paged' ), (int) $listing->get( 'page' ) );
+
+		// Na glavnom upitu bazu paginacije daje get_pagenum_link (dokazano ponašanje);
+		// eksplicitna baza je potrebna samo u AJAX-u, gdje glavnog upita nema.
+		$pagination_base = ( $query instanceof WP_Query ) ? $base_url : '';
+
+		echo '<div class="shop-grid">';
+		while ( $listing->have_posts() ) {
+			$listing->the_post();
+			get_template_part( 'template-parts/shop/product-card' );
+		}
+		echo '</div>';
+
+		// paginate_links vraća bezbjedan markup (escape-ovani URL-ovi + naš statičan SVG).
+		echo door_expert_shop_pagination( $paged, $listing->max_num_pages, $pagination_base ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	} else {
+		printf(
+			'<div class="shop-empty"><p class="shop-empty__title">Nema proizvoda za izabrane filtere.</p><a class="shop-empty__reset" href="%s">Očisti filtere</a></div>',
+			esc_url( $base_url )
+		);
+	}
+
+	wp_reset_postdata();
+
+	return ob_get_clean();
+}
+
+/**
+ * Tekst brojača u toolbaru ("Prikazano 7 proizvoda"), bez omotača.
+ *
+ * @param int $found Broj pronađenih proizvoda.
+ * @return string
+ */
+function door_expert_shop_count_html( $found ) {
+	$found = (int) $found;
+
+	return sprintf(
+		'Prikazano <strong>%1$d</strong> %2$s',
+		$found,
+		esc_html( _n( 'proizvod', 'proizvoda', $found, 'door-expert' ) )
+	);
 }
