@@ -23,6 +23,8 @@
  *      bez checked stanja, pa bi se multi-select gubio na submit, a sidebar bi zaboravio
  *      izbor poslije reload-a. Swatch je <button>, a dugme ne šalje vrijednost formom.
  *   6. Grupu "Dostupnost" – stock nije taksonomija, pa je plugin ne poznaje.
+ *   7. Živi faceting: brojevi u sidebaru prate tekući izbor, opcije sa nula
+ *      rezultata se sive i onemogućavaju (plugin ima računicu, ali je ne poziva sam).
  *
  * @package DoorExpert
  */
@@ -363,22 +365,74 @@ function door_expert_filter_tag_attr( $tag, $name ) {
 }
 
 /**
- * name="pa_boja" => name="pa_boja[]" + checked iz URL-a.
+ * <label class="wcfc-option"> => name="pa_boja[]", checked iz URL-a i facet broj.
+ *
+ * Radi nad cijelom labelom, ne samo nad <input>-om, jer broj živi u susjednom
+ * <small class="wcfc-count">. Plugin opcije pravi iz jednog fiksnog sprintf-a
+ * (render.php, wcfc_render_term_filter), pa je markup labele predvidljiv koliko
+ * i markup inputa.
+ *
+ * Drugi pass (samo <input>) je sigurnosna mreža: ako plugin promijeni markup labele,
+ * prvi regex ne uhvati ništa – izgube se facet brojevi, ali NE i "[]" i checked,
+ * od kojih zavisi multi-select. Već obrađene inpute preskače jer name="…[]" ne
+ * prolazi njegov regex.
  *
  * @param string $html Markup.
  * @return string
  */
 function door_expert_filter_fix_checkboxes( $html ) {
 	$result = preg_replace_callback(
-		'/<input type="checkbox" name="([a-z0-9_\-]+)" value="([^"]*)"\s*\/?>/i',
-		'door_expert_filter_checkbox_tag',
+		'/<label class="wcfc-option"><input type="checkbox" name="([a-z0-9_\-]+)" value="([^"]*)"\s*\/?><span>(.*?)<\/span><small class="wcfc-count">\((\d+)\)<\/small><\/label>/i',
+		'door_expert_filter_option_tag',
 		$html
 	);
 
-	return null === $result ? $html : $result;
+	if ( null === $result ) {
+		$result = $html;
+	}
+
+	$fallback = preg_replace_callback(
+		'/<input type="checkbox" name="([a-z0-9_\-]+)" value="([^"]*)"\s*\/?>/i',
+		'door_expert_filter_checkbox_tag',
+		$result
+	);
+
+	return null === $fallback ? $result : $fallback;
 }
 
 /**
+ * Jedna opcija sa facet brojem.
+ *
+ * Nula rezultata se SIVI, ne sakriva: lista koja se prekraja pod kursorom je gora
+ * od onemogućene opcije. Već štiklirana opcija se nikad ne onemogućava, inače je
+ * kupac ne bi mogao odštiklirati.
+ *
+ * @param array $matches [1] taksonomija, [2] slug, [3] labela (plugin je escape-ovao), [4] plugin-ov broj.
+ * @return string
+ */
+function door_expert_filter_option_tag( $matches ) {
+	$taxonomy = $matches[1];
+	$slug     = wp_specialchars_decode( $matches[2], ENT_QUOTES );
+	$label    = wp_specialchars_decode( $matches[3], ENT_QUOTES );
+	$checked  = in_array( $slug, door_expert_shop_selected( $taxonomy ), true );
+	$count    = door_expert_filter_facet_count( $taxonomy, $slug, (int) $matches[4] );
+	$dead     = ( 0 === $count && ! $checked );
+
+	return sprintf(
+		'<label class="wcfc-option%1$s"><input type="checkbox" name="%2$s[]" value="%3$s"%4$s%5$s /><span>%6$s</span><small class="wcfc-count">(%7$d)</small></label>',
+		$dead ? ' is-disabled' : '',
+		esc_attr( $taxonomy ),
+		esc_attr( $slug ),
+		$checked ? ' checked="checked"' : '',
+		$dead ? ' disabled="disabled"' : '',
+		esc_html( $label ),
+		$count
+	);
+}
+
+/**
+ * Sigurnosna mreža za inpute koje door_expert_filter_option_tag() nije uhvatio.
+ *
  * @param array $matches Rezultat regexa: [1] taksonomija, [2] slug terma.
  * @return string
  */
@@ -425,24 +479,27 @@ function door_expert_filter_swatch_tag( $matches ) {
 		return '';
 	}
 
-	$count   = (int) door_expert_filter_tag_attr( $tag, 'data-count' );
 	$style   = door_expert_filter_tag_attr( $tag, 'style' );
 	$title   = door_expert_filter_tag_attr( $tag, 'title' );
 	$checked = in_array( $slug, door_expert_shop_selected( $taxonomy ), true );
+	$count   = door_expert_filter_facet_count( $taxonomy, $slug, (int) door_expert_filter_tag_attr( $tag, 'data-count' ) );
+	$dead    = ( 0 === $count && ! $checked );
 
 	return sprintf(
-		'<label class="%1$s%2$s" style="%3$s" title="%4$s" data-count="%5$d">' .
-			'<input type="checkbox" name="%6$s[]" value="%7$s"%8$s />' .
-			'<span class="wcfc-sr">%9$s</span>' .
+		'<label class="%1$s%2$s%3$s" style="%4$s" title="%5$s" data-count="%6$d">' .
+			'<input type="checkbox" name="%7$s[]" value="%8$s"%9$s%10$s />' .
+			'<span class="wcfc-sr">%11$s</span>' .
 		'</label>',
 		esc_attr( $classes ),
 		$checked ? ' is-active' : '',
+		$dead ? ' is-disabled' : '',
 		esc_attr( $style ),
 		esc_attr( $title ),
 		$count,
 		esc_attr( $taxonomy ),
 		esc_attr( $slug ),
 		$checked ? ' checked="checked"' : '',
+		$dead ? ' disabled="disabled"' : '',
 		esc_html( $title )
 	);
 }
@@ -484,4 +541,130 @@ function door_expert_filter_stock_group() {
 		empty( $selected ) ? ' is-collapsed' : '',
 		$rows
 	);
+}
+
+/* ── 7. Živi faceting ─────────────────────────────────────────────────
+ * Plugin renderuje brojeve za NEFILTRIRANU kategoriju i oni stoje dok kupac sužava
+ * izbor: štiklira "Hrast", i dalje vidi "Bijela (7)", štiklira i nju i dobije prazan
+ * grid. Ovdje se brojevi preračunavaju za tekući izbor (računica je u pluginu,
+ * wcfc_compute_facets), a sekcija 5 ih upisuje u markup i sivi nule.
+ *
+ * Ne zavisi od AJAX-a: forma ide GET-om, pa se na svakom reload-u računa iznova.
+ *
+ * Poznata ograničenja (nisu bugovi):
+ *   - Grupa "Kategorija" i cijena nemaju facete (plugin ih preskače, wcfc_special_attrs).
+ *   - Dostupnost (f_stock) nije taksonomija i plugin je ne poznaje: sa aktivnim
+ *     filterom dostupnosti brojevi mogu biti veći od broja prikazanih proizvoda.
+ *   - Prodavnica bez hero pilule ili sa više njih ("Vrata" = sobna + sigurnosna)
+ *     nema jedan opseg nad kojim bi se brojalo, pa ostaju plugin-ovi brojevi.
+ */
+
+/**
+ * Kategorija čiji proizvodi su osnova za brojanje.
+ *
+ * Na kategorijskoj arhivi to je tekući term. Na prodavnici samo kad je hero pilulom
+ * izabrana tačno jedna kategorija; za nula ili više njih nema jednog opsega.
+ *
+ * @return WP_Term|null
+ */
+function door_expert_filter_facet_term() {
+	if ( is_tax( 'product_cat' ) ) {
+		$term = get_queried_object();
+
+		return $term instanceof WP_Term ? $term : null;
+	}
+
+	$cats = door_expert_shop_selected( 'f_cat' );
+	if ( 1 !== count( $cats ) ) {
+		return null;
+	}
+
+	$term = get_term_by( 'slug', $cats[0], 'product_cat' );
+
+	return $term instanceof WP_Term ? $term : null;
+}
+
+/**
+ * Facet brojevi za tekući izbor: [ taksonomija => [ slug => broj ] ].
+ *
+ * Self-exclusion radi plugin: svaka grupa se broji nad proizvodima koji zadovoljavaju
+ * sve DRUGE aktivne filtere, ali ne i nju samu. Bez toga bi prvi štiklirani term
+ * ponulio sve ostale u istoj grupi i multi-select bi prestao da radi.
+ *
+ * Broji se za grupe koje sidebar STVARNO renderuje (isti kontekst kao
+ * wcfc_render_sidebar), ne za grupe konteksta izabrane kategorije. Razlika je bitna
+ * na prodavnici: sidebar je tamo u 'default' kontekstu i prikazuje npr. "Dimenzije
+ * vrata"; sa pilulom "Keramika" te dimenzije moraju da padnu na (0) i posive se,
+ * a ne da zadrže globalni broj i odvedu kupca u prazan grid.
+ *
+ * Prazan niz znači "nema facetinga" – pozivalac tada zadržava plugin-ov broj.
+ *
+ * @return array<string,array<string,int>>
+ */
+function door_expert_filter_facets() {
+	static $facets = null;
+
+	if ( null !== $facets ) {
+		return $facets;
+	}
+
+	$facets = array();
+
+	if ( ! function_exists( 'wcfc_compute_facets' ) || ! function_exists( 'wcfc_attrs_for_context' ) || ! function_exists( 'wcfc_current_context' ) ) {
+		return $facets;
+	}
+
+	$term = door_expert_filter_facet_term();
+	if ( ! $term instanceof WP_Term ) {
+		return $facets;
+	}
+
+	$attrs = wcfc_attrs_for_context( wcfc_current_context() );
+	if ( empty( $attrs ) ) {
+		return $facets;
+	}
+
+	$selected = array();
+	foreach ( door_expert_filter_taxonomies() as $taxonomy ) {
+		$terms = door_expert_shop_selected( $taxonomy );
+		if ( ! empty( $terms ) ) {
+			$selected[ $taxonomy ] = $terms;
+		}
+	}
+
+	// door_expert_shop_price() vraća 0.0 kad granica nije postavljena, a plugin
+	// razlikuje "nije postavljeno" (null) od nule. Isto tumačenje kao upit u inc/shop.php.
+	$min = door_expert_shop_price( 'min_price' );
+	$max = door_expert_shop_price( 'max_price' );
+
+	$facets = wcfc_compute_facets(
+		(int) $term->term_id,
+		$selected,
+		$min > 0 ? $min : null,
+		$max > 0 ? $max : null,
+		$attrs
+	);
+
+	return $facets;
+}
+
+/**
+ * Broj za jednu opciju: facet ako postoji za tu grupu, inače plugin-ov.
+ *
+ * Grupa koja jeste u facetima, a term u njoj nije, ima 0 (nijedan proizvod iz
+ * tekućeg izbora ga nema) – to NIJE isto što i grupa bez faceta.
+ *
+ * @param string $taxonomy Taksonomija.
+ * @param string $slug     Slug terma.
+ * @param int    $fallback Broj koji je plugin izrenderovao.
+ * @return int
+ */
+function door_expert_filter_facet_count( $taxonomy, $slug, $fallback ) {
+	$facets = door_expert_filter_facets();
+
+	if ( ! isset( $facets[ $taxonomy ] ) ) {
+		return (int) $fallback;
+	}
+
+	return isset( $facets[ $taxonomy ][ $slug ] ) ? (int) $facets[ $taxonomy ][ $slug ] : 0;
 }

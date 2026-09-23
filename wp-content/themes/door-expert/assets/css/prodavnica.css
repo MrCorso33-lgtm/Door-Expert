@@ -229,6 +229,29 @@
   transform: scale(1.12);
 }
 
+/* Faceting (inc/filters.php, sekcija 7): opcija bez rezultata za tekući izbor.
+ * Siva i onemogućena, ali VIDLJIVA – lista koja se prekraja pod kursorom je gora.
+ * Broj ostaje čitljiv: (0) je informacija, ne šum. */
+.wcfc-option.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.wcfc-option.is-disabled:hover {
+  color: rgba(30, 26, 22, 0.7);
+}
+.wcfc-option.is-disabled input,
+.wcfc-swatch.is-disabled input {
+  cursor: not-allowed;
+}
+.wcfc-swatch.is-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.wcfc-swatch.is-disabled:hover {
+  border-color: transparent;
+  transform: none;
+}
+
 /* Cijena: dva range inputa preklopljena preko iste šine (markup: inc/filters.php). */
 .wcfc-price {
   padding-top: 6px;
