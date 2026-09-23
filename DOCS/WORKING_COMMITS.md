@@ -473,6 +473,86 @@ dobije prazan grid — to je tačno bug koji je riješen u commitu `fd919d5` izn
 
 ---
 
+## AJAX filtriranje listinga (bez dugmeta "Primijeni")
+
+**Commit:** `d6d85d9`
+**Fajl(ovi):** `inc/shop-ajax.php` (**nov**), `inc/shop.php`, `inc/filters.php`,
+`functions.php`, `archive-product.php`,
+`template-parts/category/parts/product-grid.php`, `assets/js/prodavnica.js`,
+`assets/css/prodavnica.css`
+
+Izvor: `DOCS/FOR DOOR EXPERT/08-PARITY-faceting-seo-ajax.md`, tačka 3.
+**Odluka vlasnika (nije tehnička):** trenutno filtriranje svuda, dugme "Primijeni
+filtere" se sklanja kad JS radi. Alternativa je bila zadržati dugme — ako se ikad
+predomisliš, dovoljno je ukloniti `form.classList.add( 'is-live' )` iz `prodavnica.js`.
+
+**Šta radi:**
+- Promjena filtera, sortiranje i paginacija mijenjaju grid bez ponovnog učitavanja.
+  URL prati stanje, pa se može podijeliti i osvježiti.
+- Faceti i posivljene opcije se osvježavaju u istom odgovoru.
+
+**Jedan izvor istine — ovo je suština i ne smije da se razgradi:**
+1. **Upit:** handler NE gradi svoj `tax_query`/`meta_query`. Hidratiše `$_GET` iz
+   poslatog query stringa i zove `door_expert_shop_tax_query()` /
+   `door_expert_shop_meta_query()`, a sortiranje prepušta WooCommerce-u. To su iste
+   funkcije koje rade i pri običnom učitavanju. (Saya ovdje ima dva graditelja upita
+   koji se razilaze — dokument izričito kaže da se to ne kopira.)
+2. **Markup:** `door_expert_shop_results()` renderuje grid + paginaciju + prazno stanje.
+   Koriste je **oba šablona i AJAX**. Da AJAX renderuje svoju karticu, prije ili kasnije
+   bi izgubio `srcset`, `loading="lazy"` ili schema podatke, i to niko ne bi primijetio.
+3. **Vidljivost:** `door_expert_shop_visibility_clause()` je izdvojena i dijeljena.
+   `WC_Query::get_tax_query()` se namjerno **ne** koristi: ta metoda na kraju sama
+   primijeni `woocommerce_product_query_tax_query`, pa bi naši filteri ušli dvaput.
+
+**Detalji koji rješavaju tipične AJAX probleme:**
+- Redni broj zahtjeva (`seq`): spor odgovor ne može da pregazi noviji.
+- Debounce 250ms (slider 150ms, jer okida tek na otpuštanje).
+- `history.replaceState`, ne `pushState`: štikliranje ne puni dugme Nazad.
+- Greška (npr. istekao nonce zbog keša stranice) => puno učitavanje sa istim
+  filterima. Korisnik svakako dobije tačan rezultat, samo sporije.
+- `door_expert_filter_facets( $context )` prima kontekst: u AJAX-u
+  `is_product_category()` nije tačno, pa bi faceti pali na `'default'` i grupa
+  specifična za kategoriju ostala bi sa zastarjelim brojevima.
+- Paginacija: na serverskoj putanji bazu i dalje daje `get_pagenum_link` (dokazano
+  ponašanje), eksplicitna baza se koristi samo u AJAX-u gdje glavnog upita nema.
+
+**Usput riješen zaseban bug (stariji od AJAX-a):** mobilni panel filtera bio je
+JS-only — `.shop-filters` je `display: none`, a otvarala ga je JS klasa `is-open`.
+Telefon bez JavaScripta nije imao **nijedan** filter. Toggle je sada sakriven
+checkbox + `<label>`; otvaranje, zatvaranje i natpis radi CSS preko `:checked`,
+a JS dodaje samo `aria-expanded`.
+
+> **Pouka za svaki sličan panel:** ako otvaranje/zatvaranje nosi JS klasa, a element je
+> `display: none` u polaznom stanju, bez JS-a taj sadržaj ne postoji. Checkbox + label
+> daje isto ponašanje bez ijedne linije JS-a.
+
+**Provjereno na staging-u:** filtriranje, osvježavanje stranice, povratak sa PDP-a na
+listing, kategorijske stranice, sortiranje, sakriveno dugme, i rad bez JavaScripta na
+desktopu i na telefonu. Paginacija NIJE provjerena uživo (katalog ima 2 proizvoda,
+paginacija se pojavljuje od 13).
+
+### Kada se pokvari — šta proveriti
+1. **AJAX daje druge rezultate nego osvježavanje stranice** → neko je u handleru počeo
+   da gradi upit ručno. Handler smije samo da napuni `$_GET` i pozove funkcije iz
+   `inc/shop.php` (vidi "Jedan izvor istine" gore)
+2. **Filtriranje se ne dešava, stranica se puno učitava** → `wp_localize_script` nije
+   prošao (`doorExpertShop` nije definisan). Skripta se kači na
+   `door-expert-prodavnica-js`, pa ako se ime handle-a promijeni u `functions.php`,
+   `inc/shop-ajax.php` to mora da isprati
+3. **403 / stalno puno učitavanje** → istekao nonce zbog keša stranice. Isključi keš za
+   prodavnicu i kategorije, ili skrati TTL
+4. **Grid se zamijeni ali brojevi u sidebaru ostanu stari** → `facets` u odgovoru je
+   prazan: `door_expert_filter_facet_term()` nije našao kategoriju (na prodavnici bez
+   hero pilule faceting namjerno ne radi)
+5. **Kartice izgledaju drugačije posle filtriranja** → neko je zaobišao
+   `door_expert_shop_results()` i renderuje karticu na drugom mjestu
+6. **Fatalna greška posle deploya** → `functions.php` je otišao bez `inc/shop-ajax.php`.
+   Ta dva fajla idu zajedno
+7. **Na telefonu nema filtera** → `.shop-filters-switch` checkbox nije u markupu ili je
+   CSS stari; provjeri `.shop-filters-switch:checked ~ .shop-filters`
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
