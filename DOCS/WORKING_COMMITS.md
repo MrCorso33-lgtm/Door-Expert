@@ -349,6 +349,73 @@ vidljiva promjena. Ako se ne želi: `.site-header { position: relative; }`.
 
 ---
 
+## Filteri — živi faceting + SEO filtriranih arhiva
+
+**Commit:** `fd919d5`
+**Fajl(ovi):** `inc/filters.php`, `inc/filters-seo.php` (**nov**), `functions.php`,
+`assets/css/prodavnica.css`
+
+Izvor: `DOCS/FOR DOOR EXPERT/08-PARITY-faceting-seo-ajax.md`, tačke 1 i 2.
+**Tačka 3 (AJAX) NIJE rađena** — čeka odluku da li ostaje dugme "Primijeni filtere".
+
+**Šta radi — faceting (sekcija 7 u `inc/filters.php`):**
+- Brojevi u sidebaru prate tekući izbor. Računicu radi plugin (`wcfc_compute_facets`),
+  tema je do sad **nije ni pozivala**, pa su brojevi opisivali nefiltriranu kategoriju:
+  štikliraš Hrast, vidiš "Bijela (7)", štikliraš i nju i dobiješ prazan grid.
+- Nula rezultata se **sivi i onemogućava, ali ostaje vidljiva**. Već štiklirana opcija
+  se nikad ne onemogućava, inače se ne bi mogla odštiklirati.
+- Prepravka ide nad cijelom `<label>` (broj živi u susjednom `<small class="wcfc-count">`),
+  a stari input-pass ostaje ispod kao sigurnosna mreža: ako plugin promijeni markup
+  labele, gube se samo brojevi, a NE `[]` i `checked` od kojih zavisi multi-select.
+- Radi bez AJAX-a: forma ide GET-om, računa se server-side na svakom reload-u.
+
+**Šta radi — SEO (`inc/filters-seo.php`):**
+- Filter URL i `?orderby` → `noindex, nofollow` + canonical na čist listing.
+- `/page/N/` ostaje `index, follow` sa self-canonical-om (nije duplikat nego nastavak).
+- Radi bez SEO plugina i sa Rank Math-om, bez dupliranog canonical-a.
+
+**Svjesna odstupanja od dokumenta (ne "popravljati" nazad):**
+1. Canonical na brend/atribut arhivama vodi na **taj term**, ne na prodavnicu.
+   `door_expert_listing_base_url()` zna samo za `product_cat` i za sve ostalo vraća
+   prodavnicu — po dokumentu bi brend stranica dobila canonical na `/prodavnica/`.
+2. Faceti se računaju za grupe koje sidebar **stvarno renderuje**
+   (`wcfc_attrs_for_context( wcfc_current_context() )`), ne za kontekst izabrane
+   kategorije. Bez toga na prodavnici sa pilulom "Keramika" grupa "Dimenzije vrata"
+   zadrži globalne brojeve i odvede kupca u prazan grid.
+3. Robots ide kroz `wp_robots` API (jedan tag), ne ručnim `echo` (bio bi drugi tag).
+4. Canonical za `/page/N/` bez query stringa, da `utm_*` ne ulazi u njega.
+
+**Provjereno na staging-u:** faceting radi; noindex i canonical ispravni;
+`/prodavnica/?product_brand[]=<slug>` daje shop arhivu (nema sudara sa WooCommerce
+brend taksonomijom, alias nije potreban).
+
+**Poznata ograničenja (nisu bugovi, pisana i u kodu):**
+- Grupa "Kategorija" i cijena nemaju facete (plugin ih preskače, `wcfc_special_attrs`).
+- "Dostupnost" (`f_stock`) nije taksonomija, pa je faceti ignorišu: sa aktivnim filterom
+  dostupnosti brojevi mogu biti veći od broja prikazanih proizvoda.
+- Prodavnica bez hero pilule ili sa više njih ("Vrata" = sobna + sigurnosna) nema jedan
+  opseg za brojanje, pa ostaju plugin-ovi brojevi.
+
+### Kada se pokvari — šta proveriti
+1. **Brojevi se ne mijenjaju** → plugin nije aktivan, ili `wcfc_compute_facets` ne postoji
+   (stara verzija plugina — plugin i tema se deployuju odvojeno), ili si na prodavnici
+   bez pilule/sa "Vrata" pilulom, gdje faceting namjerno ne radi
+2. **Svi brojevi (0), sve posivilo** → `door_expert_filter_facet_term()` je pogodio pogrešnu
+   kategoriju, ili je `wcfc_get_cat_product_ids()` prazan (keš plugina: `wcfc_bump_cache_version`)
+3. **Brojevi zaostaju za izmjenom proizvoda** → plugin kešira facete 10 min (transient
+   `wcfc_facets_v…`), a `wcfc_cache_version` se diže na izmjenu proizvoda/kategorija
+4. **Multi-select prestao da radi (`[]` nestalo)** → prvi regex je promašio I sigurnosna
+   mreža je promašila; provjeri markup opcije u `wcfc_render_term_filter` (`render.php`)
+5. **Dva `rel=canonical` u izvoru** → `door_expert_seo_canonical_handled()` nije prepoznao
+   SEO plugin. Provjeri: `curl -s "<URL>" | grep -c 'rel="canonical"'` mora biti 1
+6. **Čiste kategorije otišle u noindex** → to NIJE ovaj kod (on na čistoj strani 1 propušta
+   vrijednost SEO plugina). Rank Math → Titles & Meta → Product Categories → Robots Meta
+   mora biti `index, follow`
+7. **Fatalna greška posle deploya** → `functions.php` je otišao bez `inc/filters-seo.php`.
+   Ta dva fajla idu na server zajedno
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
