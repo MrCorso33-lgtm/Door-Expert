@@ -57,7 +57,9 @@ $de_total = (int) $GLOBALS['wp_query']->found_posts;
 
         if ( 'all' === $de_key ) {
             $de_active = empty( $de_sel_cat );
-            $de_count  = (int) wp_count_posts( 'product' )->publish;
+            // Isti brojač kao ostale pilule (prazan niz = svi): wp_count_posts() bi
+            // uračunao i proizvode sakrivene iz kataloga.
+            $de_count  = door_expert_shop_group_count( array() );
             $de_args   = ( 'menu_order' !== $de_orderby ) ? array( 'orderby' => $de_orderby ) : array();
         } else {
             $de_active = ( $de_sel_cat_srt === $de_group_srt );

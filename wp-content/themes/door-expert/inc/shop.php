@@ -221,38 +221,89 @@ function door_expert_shop_base_url( $args = array() ) {
 }
 
 /**
- * Ukupan broj proizvoda u grupi kategorija (roditelji + sve njihove potkategorije).
- * Za hero pilule. Sabira term->count (WC brojač) roditelja i potomaka.
+ * Broj proizvoda u grupi kategorija, za hero pilule. Prazan niz => svi proizvodi.
  *
- * @param string[] $parent_slugs Slug-ovi roditeljskih product_cat termova.
+ * Broji RAZLIČITE proizvode, upitom sa istim uslovima koje klik na pilulu proizvede
+ * (include_children + vidljivost u katalogu). Ranije se sabirao term->count roditelja
+ * i svakog potomka, pa se proizvod koji je i u "Sobna vrata" i u njenoj potkategoriji
+ * brojao dvaput: pilula "Vrata" je pokazivala 4 nad katalogom od 2 proizvoda.
+ *
+ * Isto važi i za "Sve": ranije wp_count_posts(), koji broji i proizvode sakrivene iz
+ * kataloga, pa se nije poklapao sa "Prikazano N proizvoda". Jedan izvor istine za sve
+ * četiri pilule.
+ *
+ * Namjerno NE uzima u obzir ostale aktivne filtere (boja, brend, cijena): pilule su
+ * prekidač kategorije, a ne facet. Broj na piluli mora reći koliko ta kategorija ima,
+ * a ne koliko je ostalo od tekućeg izbora.
+ *
+ * @param string[] $parent_slugs Slug-ovi roditeljskih product_cat termova (prazno = svi).
  * @return int
  */
 function door_expert_shop_group_count( $parent_slugs ) {
-	$total = 0;
+	static $cache = array();
 
-	foreach ( $parent_slugs as $slug ) {
-		$term = get_term_by( 'slug', $slug, 'product_cat' );
-		if ( ! $term instanceof WP_Term ) {
-			continue;
+	$parent_slugs = array_values( array_filter( array_map( 'sanitize_title', (array) $parent_slugs ) ) );
+	sort( $parent_slugs );
+
+	$cache_key = implode( ',', $parent_slugs );
+	if ( isset( $cache[ $cache_key ] ) ) {
+		return $cache[ $cache_key ];
+	}
+
+	$tax_query = array();
+
+	if ( ! empty( $parent_slugs ) ) {
+		$tax_query[] = array(
+			'taxonomy'         => 'product_cat',
+			'field'            => 'slug',
+			'terms'            => $parent_slugs,
+			'operator'         => 'IN',
+			'include_children' => true,
+		);
+	}
+
+	// Vidljivost kao u WooCommerce arhivi: sakriveno iz kataloga ne ulazi u broj,
+	// a rasprodato samo ako je prodavnica podešena da ga krije.
+	if ( function_exists( 'wc_get_product_visibility_term_ids' ) ) {
+		$visibility = wc_get_product_visibility_term_ids();
+		$hidden     = array();
+
+		if ( ! empty( $visibility['exclude-from-catalog'] ) ) {
+			$hidden[] = (int) $visibility['exclude-from-catalog'];
+		}
+		if ( 'yes' === get_option( 'woocommerce_hide_out_of_stock_items' ) && ! empty( $visibility['outofstock'] ) ) {
+			$hidden[] = (int) $visibility['outofstock'];
 		}
 
-		$total += (int) $term->count;
-
-		$children = get_terms(
-			array(
-				'taxonomy'   => 'product_cat',
-				'hide_empty' => false,
-				'child_of'   => $term->term_id,
-			)
-		);
-		if ( ! is_wp_error( $children ) ) {
-			foreach ( $children as $child ) {
-				$total += (int) $child->count;
-			}
+		if ( ! empty( $hidden ) ) {
+			$tax_query[] = array(
+				'taxonomy' => 'product_visibility',
+				'field'    => 'term_taxonomy_id',
+				'terms'    => $hidden,
+				'operator' => 'NOT IN',
+			);
 		}
 	}
 
-	return $total;
+	$args = array(
+		'post_type'              => 'product',
+		'post_status'            => 'publish',
+		'posts_per_page'         => 1,
+		'fields'                 => 'ids',
+		'ignore_sticky_posts'    => true,
+		'update_post_meta_cache' => false,
+		'update_post_term_cache' => false,
+	);
+
+	if ( ! empty( $tax_query ) ) {
+		$args['tax_query'] = $tax_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- brojač pilule, bez alternative.
+	}
+
+	$query = new WP_Query( $args );
+
+	$cache[ $cache_key ] = (int) $query->found_posts;
+
+	return $cache[ $cache_key ];
 }
 
 /**
