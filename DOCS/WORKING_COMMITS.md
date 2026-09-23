@@ -416,6 +416,63 @@ brend taksonomijom, alias nije potreban).
 
 ---
 
+## Hero pilule — brojevi uz kategorijske prekidače
+
+**Commit:** `d75bb60`
+**Fajl(ovi):** `inc/shop.php` (`door_expert_shop_group_count`), `archive-product.php`
+
+**Simptom:** pilula "Vrata" je pokazivala **4** nad katalogom od **2** proizvoda, dok je
+toolbar ispod pisao "Prikazano 2 proizvoda". Podgrupa je izgledala veća od cjeline.
+
+**Uzrok:** brojač je sabirao `term->count` roditelja i **svake** potkategorije. Proizvod
+koji je u "Sobna vrata" i u nekoj njenoj potkategoriji ima term relacije na oba, pa se
+brojao dvaput. Uz to je pilula "Sve" koristila `wp_count_posts()`, dakle treći način
+računanja od ostale tri.
+
+**Popravka:** jedan brojač za sve četiri pilule. Broji **različite** proizvode preko
+`WP_Query` sa istim uslovima koje klik na pilulu proizvede (`include_children` +
+`product_visibility`). Prazan niz slugova = svi proizvodi. Rezultat se kešira u okviru
+jednog učitavanja stranice (četiri lagana `COUNT` upita).
+
+---
+
+### 🔁 PRAVILO ZA SVAKI SLIČAN UI (brojevi uz filtere, pilule, kategorije)
+
+Ovo se ponavlja svaki put kad uz neki prekidač stoji broj. Dvije odvojene odluke:
+
+**1. Kako se broji — nikad zbir `term->count` kroz stablo.**
+`term->count` je broj relacija, ne broj proizvoda. Čim je proizvod u više kategorija
+istog stabla (a to je normalno), zbir laže naviše. Uvijek izbroj **različite proizvode
+upitom koji odgovara onome što klik stvarno uradi** — isti `tax_query`, isti
+`include_children`, ista pravila vidljivosti. Test u jednoj rečenici:
+*klikni na prekidač i uporedi njegov broj sa brojem rezultata; moraju biti isti.*
+
+**2. Šta se broji — prekidač ili facet?** Dva različita ponašanja, lako ih je pomiješati:
+
+| | Hero pilula (prekidač) | Filter u sidebaru (facet) |
+|---|---|---|
+| Šta radi klik | mijenja kontekst (kategoriju) | sužava tekući izbor |
+| Broj pokazuje | koliko ta kategorija ima **ukupno** | koliko ostaje **uz tekući izbor** |
+| Prati druge filtere | **ne** | **da** (`door_expert_filter_facets`) |
+| Nula | ostaje klikabilna | sivi se i onemogućava |
+
+Ako pilula počne da prati filtere, kupac gubi orijentaciju (kategorije "nestaju" jer je
+štiklirao boju). Ako facet **ne** prati filtere, kupac klikne broj različit od nule i
+dobije prazan grid — to je tačno bug koji je riješen u commitu `fd919d5` iznad.
+
+### Kada se pokvari — šta proveriti
+1. **Broj na piluli ≠ "Prikazano N proizvoda"** → upit u brojaču se razišao sa upitom
+   arhive. Uporedi `door_expert_shop_group_count()` sa `door_expert_shop_tax_query()`:
+   `include_children` i `product_visibility` moraju biti isti u oba
+2. **"Sve" veće od zbira ostalih pilula** → normalno je ako neki proizvod nije ni u jednoj
+   od grupa iz `$de_groups` (npr. nova kategorija koja nema svoju pilulu)
+3. **Broj uključuje sakrivene proizvode** → `wc_get_product_visibility_term_ids()` nije
+   dostupna (WooCommerce nije učitan u tom trenutku), pa je klauzula preskočena
+4. **Sporo učitavanje prodavnice** → keš je po zahtjevu, ne trajni. Ako katalog naraste na
+   hiljade proizvoda, staviti transient sa invalidacijom na `save_post_product`
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
