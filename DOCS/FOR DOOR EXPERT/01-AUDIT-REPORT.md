@@ -121,9 +121,12 @@ the rest.
 - **Data mapping.** Reads any `pa_*` taxonomy from `$_GET`; nothing hardcoded. Works with
   `pa_dimenzije-vrata` unchanged.
 - **Verdict.** `ADAPT (light)`, but **you already have this**. Compare rather than replace.
-- **Worth stealing specifically:** the SEO handling at `:1052-1170`. Filtered URLs get
-  `noindex,follow` and a canonical back to the clean category. Without it, every filter combination
-  becomes an indexable near-duplicate. This is the part most sites get wrong.
+- **Worth stealing specifically:** the SEO handling at `:1052-1170` (the block has since drifted to
+  around `:1026`). Filtered URLs get ~~`noindex,follow`~~ **`noindex, nofollow`** and a canonical
+  back to the clean category. Without it, every filter combination becomes an indexable
+  near-duplicate. This is the part most sites get wrong. **Adapted code is now in
+  [`08-PARITY-faceting-seo-ajax.md`](08-PARITY-faceting-seo-ajax.md) §3**, which also covers the
+  `robots.txt` ordering trap.
 - **Rework.** Prefix, tabs, escaping.
 - **Home.** `inc/shop.php`.
 
@@ -234,7 +237,7 @@ No code here; treat this as a pointer list.
 |---|---|---|
 | **Cookie consent + Google Consent Mode v2** | `functions.php:5595+`, `js/cookie-consent.js`, `css/cookie-consent.css`, `DOCS/BITNE FUNKCIONALNOSTI/COOKIE_CONSENT.md` | Three categories, Consent Mode wired by hand with no GTM. Gating is deliberately **client-side** because full-page cache makes server-side gating unreliable. Montenegro follows GDPR-style rules; this is a solved problem sitting here. |
 | **Security hardening** | `functions.php:4069-4150` | Removes version disclosure, RSD/WLW links, hardens XML-RPC. Read note 5 in the red flags before copying. |
-| **SEO robots + canonical for filtered URLs** | `functions.php:1052-1170`, `DOCS/SEO_ROBOTS_NOINDEX.md` | Filter and sort URLs get `noindex,follow` plus a canonical to the clean category. Prevents thousands of near-duplicate URLs. Genuinely the highest-value SEO item in this repo. |
+| **SEO robots + canonical for filtered URLs** | `functions.php:1026+`, `DOCS/SEO_ROBOTS_NOINDEX.md`, **adapted in [`08`](08-PARITY-faceting-seo-ajax.md) §3** | Filter and sort URLs get ~~`noindex,follow`~~ **`noindex, nofollow`** plus a canonical to the clean category. Prevents thousands of near-duplicate URLs. Genuinely the highest-value SEO item in this repo. |
 | **Rate limiter** | `functions.php` `saya_rate_limit()` | Transient-based per-IP throttle. Already extracted into `02-PORT-quote-cart.md`. |
 | **Consent proof pattern** | `functions.php:1600`, `:3973-3978` | Stores the consent text and version, not a boolean. |
 | **Cron without crontab** | `wp-plugins/saya-cron-runner/`, `DOCS/BITNE FUNKCIONALNOSTI/CRON_RUNNER.md` | Shared hosting with no SSH, no WP-CLI and no crontab: an external pinger hits a token-protected endpoint that drains Action Scheduler and WP-Cron. If Door Expert is on similar hosting, this is the answer. |

@@ -22,10 +22,13 @@ strings inside the snippets are in ijekavica, with no em dash, per Door Expert's
 | [`05-PORT-tile-calculator.md`](05-PORT-tile-calculator.md) | Tile m² calculator plus, more importantly, the per-m² cart pricing correction. |
 | [`06-DATA-MODEL-custom-fields.md`](06-DATA-MODEL-custom-fields.md) | Every custom field on a Saya product, verified against the **live** site: which six come from JetEngine, which are plain theme code, and which two look alive in the database but are abandoned. Read before `02`–`05`, which reference these keys. |
 | [`07-PLUGIN-filter-configurator.md`](07-PLUGIN-filter-configurator.md) | **Corrects the audit.** The filter configurator is listed there as `ADAPT (heavy)`, but that verdict was written against the Saya-branded plugin; a de-branded standalone already existed. It is a `DROP-IN` that configures the sidebar and leaves your query engine alone. |
+| [`08-PARITY-faceting-seo-ajax.md`](08-PARITY-faceting-seo-ajax.md) | **Written against your real code**, after `07` was implemented. Closes the three gaps that are left: live faceting is not wired (a real bug — counts never recompute), filter URLs have no `noindex` or `canonical`, and there is no AJAX. Also confirms your query hook is better than Saya's and should not be replaced. |
 
 Each `PORT-*` document has the same shape: what it does → Saya source with `file:line` →
 dependencies and coupling → data-model mapping → **adapted code** → wiring → what to verify.
-`07` is the exception: nothing needs extracting there, so it is integration advice instead.
+`07` is the exception: nothing needs extracting there, so it is integration advice instead. `08` is
+a parity checklist rather than a port: two of its three items are closed by calling functions that
+already exist in the Door Expert theme.
 
 ## There is a second package
 
@@ -50,9 +53,12 @@ JS files, 37 stylesheets) and 12 custom plugins under `wp-plugins/`.
 
 ## What you cannot rely on
 
-- **None of the adapted code has ever run inside Door Expert.** That repo was not available during
-  the audit. These are reviewed drafts, not tested code. Every document ends with a verification
-  checklist for exactly this reason.
+- **None of the adapted code has ever run inside Door Expert.** These are reviewed drafts, not
+  tested code. Every document ends with a verification checklist for exactly this reason.
+- **`00` through `07` were written blind.** The Door Expert repo was not available during the
+  audit, so every assumption about that side is an assumption. `08` is the exception: it was
+  written later, with the repo in hand, and its references to Door Expert files were read rather
+  than guessed. Where the two disagree about Door Expert, `08` wins.
 - Line numbers drift. Re-check with `grep -n` before trusting an exact number.
 
 ## The one thing not to miss
@@ -69,3 +75,6 @@ emailed**. `02-PORT-quote-cart.md` inverts this: `wp_mail()` is the default, the
 - Components you already have (shop archive filtering, product card) are assessed but not rewritten
   for you — the report says compare, not replace. The filter **configurator** is a separate matter
   and does not conflict with that: see [`07-PLUGIN-filter-configurator.md`](07-PLUGIN-filter-configurator.md).
+  [`08`](08-PARITY-faceting-seo-ajax.md) revisits the archive filtering once, having read it: the
+  verdict stays "do not replace", and the work it does propose sits beside your query layer rather
+  than on top of it.
