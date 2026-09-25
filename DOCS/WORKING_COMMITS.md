@@ -290,6 +290,21 @@ popunjen bojom `--color-alabaster`.
 izvor `.prod-card` stilova za oba. Homepage ima svoj `.prod-card` u `featured.css`
 sa statičnim slikama iz prototipa i **nije** dirán.
 
+> **Nastavak u `3cdf477` — PDP galerija i cross-sell.** Ova popravka je pokrivala samo
+> karticu; PDP je ostao na prototipskom `cover`. Sada isti dogovor važi i za
+> `assets/css/product.css` + `template-parts/product/single.php`:
+> - glavna slika `contain`, okvir `3/4` → `2/3`, sličice `woocommerce_thumbnail` → `medium`
+> - cross-sell „Možda će vas zanimati“ (isti trostruki problem) → `contain` + `2/3` +
+>   `woocommerce_single`
+>
+> **Nauk koji vrijedi i za druge okvire:** na desktopu je `max-height: 680px` bio
+> stvarni regulator, ne `aspect-ratio`. Kolona galerije je ~752px, okvir `3/4` je
+> tražio 1003px visine, dobio 680 i ispao **pejzažni** (752×680). Uz `contain` **visina
+> okvira je visina proizvoda** — širina ne mijenja ništa. Zato je `max-height` sad
+> `min(860px, 100vh - 160px)`, vezan za viewport jer je kolona sticky.
+>
+> Još nije potvrđeno uživo na staging-u.
+
 ### Kada se pokvari — šta proveriti
 1. **Slika i dalje isječena** → u DevTools klikni na sliku: da li `.prod-card__img-wrap > a`
    ima `position: absolute` i `inset: 0`. Ako nema — stari `category.css` je u kešu.
