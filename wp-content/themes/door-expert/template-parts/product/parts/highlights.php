@@ -35,6 +35,9 @@ if ( empty( $de_items ) ) {
         <?php endif; ?>
         <div class="product-highlights__text">
           <dt class="product-highlights__label"><?php echo esc_html( $de_item['label'] ); ?></dt>
+          <?php // Vrijednost je namjerno običan tekst, ne link: PDP je stranica gdje se
+          // konvertuje, a filtrirani listinzi su ionako noindex (inc/filters-seo.php),
+          // pa link ne bi donio ni SEO ni dovoljno koristi da opravda izlaz sa PDP-a. ?>
           <dd class="product-highlights__value"><?php echo esc_html( $de_item['value'] ); ?></dd>
         </div>
       </div>

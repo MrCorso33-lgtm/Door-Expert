@@ -360,7 +360,8 @@ require_once get_template_directory() . '/inc/page-content.php';
 require_once get_template_directory() . '/inc/product.php';
 // Varijacije – vrata naručljiva i van lagera (quote model) + tekst dostupnosti.
 require_once get_template_directory() . '/inc/product-variations.php';
-// Istaknuti atributi na PDP-u – podaci iz postojećih WC atributa, izbor iz admina.
+// Istaknuti atributi (PDP traka + čipovi na kartici) – podaci iz postojećih WC
+// atributa, izbor iz admina.
 require_once get_template_directory() . '/inc/product-highlights.php';
 if ( is_admin() ) {
 	require_once get_template_directory() . '/inc/product-highlights-admin.php';

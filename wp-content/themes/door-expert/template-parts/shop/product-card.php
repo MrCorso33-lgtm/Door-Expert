@@ -52,26 +52,45 @@ if ( '' !== $de_brand_label ) {
 	$de_full_label = '' !== $de_cat_label ? $de_cat_label . ' · ' . $de_brand_label : $de_brand_label;
 }
 
-// Atributi za prikaz (dimenzije + boja), do 3 čipa.
-// Dimenzije su dva odvojena atributa (vrata / pločica) – proizvod ima jedan od njih.
-$de_attrs = array();
-$de_dim   = $product->get_attribute( 'pa_dimenzije-vrata' );
-if ( '' === $de_dim ) {
-	$de_dim = $product->get_attribute( 'pa_dimenzije-plocica' );
-}
-if ( '' !== $de_dim ) {
-	foreach ( array_slice( array_map( 'trim', explode( ',', $de_dim ) ), 0, 2 ) as $de_v ) {
-		$de_attrs[] = $de_v;
+// Čipovi ispod naziva, do 3 komada, svaki kao par "Labela: vrijednost".
+// Koji atributi – bira se u adminu: Proizvodi → Istaknuti atributi, po kategoriji
+// proizvoda (potkategorija bez svog podešavanja nasljeđuje od pretka). Isti izvor
+// kao traka na stranici proizvoda, pa listing i PDP govore istu stvar.
+//
+// ODSTUPANJE OD PROTOTIPA (traženo): prototip ima čipove samo sa vrijednošću
+// ("Puno drvo"), ovdje ide i labela ("Materijal: Puno drvo") jer gola vrijednost
+// ne kaže o kom atributu je riječ. Stil čipa ostaje isti kao u prototipu.
+$de_attrs = function_exists( 'door_expert_product_highlight_chips' )
+	? door_expert_product_highlight_chips( $product )
+	: array();
+
+// Fallback dok kategorija (ni njeni pretci, ni Podrazumijevano) nema podešavanje,
+// ili kad proizvod nema nijednu od izabranih vrijednosti: zatečeno ponašanje –
+// dimenzije + boja. Dimenzije su dva odvojena atributa (vrata / pločica) –
+// proizvod ima jedan od njih.
+if ( empty( $de_attrs ) ) {
+	$de_dim_attr = 'pa_dimenzije-vrata';
+	$de_dim      = $product->get_attribute( $de_dim_attr );
+	if ( '' === $de_dim ) {
+		$de_dim_attr = 'pa_dimenzije-plocica';
+		$de_dim      = $product->get_attribute( $de_dim_attr );
 	}
-}
-$de_boja = $product->get_attribute( 'pa_boja' );
-if ( '' !== $de_boja ) {
-	$de_first_boja = trim( current( explode( ',', $de_boja ) ) );
-	if ( '' !== $de_first_boja ) {
-		$de_attrs[] = $de_first_boja;
+	// Jedan čip po atributu, sa svim vrijednostima – kao i kod istaknutih atributa.
+	if ( '' !== $de_dim ) {
+		$de_attrs[] = array(
+			'label' => wc_attribute_label( $de_dim_attr ),
+			'value' => trim( preg_replace( '/\s*,\s*/', ', ', $de_dim ) ),
+		);
 	}
+	$de_boja = $product->get_attribute( 'pa_boja' );
+	if ( '' !== $de_boja ) {
+		$de_attrs[] = array(
+			'label' => wc_attribute_label( 'pa_boja' ),
+			'value' => trim( preg_replace( '/\s*,\s*/', ', ', $de_boja ) ),
+		);
+	}
+	$de_attrs = array_slice( $de_attrs, 0, DOOR_EXPERT_HIGHLIGHTS_CHIPS );
 }
-$de_attrs = array_slice( $de_attrs, 0, 3 );
 
 // Slika.
 // Namjerno 'woocommerce_single' (ne 'woocommerce_thumbnail'): WC thumbnail je hard-crop
@@ -115,7 +134,8 @@ $de_img    = $de_img_id
     <?php if ( ! empty( $de_attrs ) ) : ?>
       <div class="prod-card__attrs">
         <?php foreach ( $de_attrs as $de_attr ) : ?>
-          <span class="prod-card__attr"><?php echo esc_html( $de_attr ); ?></span>
+          <?php // Bez prelamanja reda unutar čipa: prazan prostor u markupu bi se ispisao kao razmak uz padding. ?>
+          <span class="prod-card__attr"><?php if ( '' !== $de_attr['label'] ) : ?><span class="prod-card__attr-key"><?php echo esc_html( $de_attr['label'] ); ?>:</span> <?php endif; ?><?php echo esc_html( $de_attr['value'] ); ?></span>
         <?php endforeach; ?>
       </div>
     <?php endif; ?>

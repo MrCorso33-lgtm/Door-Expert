@@ -894,6 +894,12 @@
   border: 1px solid var(--color-border);
 }
 
+/* Naziv atributa u čipu ("Materijal:"). Nosi ga težina, ne boja: čip je mali,
+   pa bi dvije boje unutar 12px teksta pravile šum. */
+.prod-card__attr-key {
+  font-weight: 600;
+}
+
 /* Variants (dimensions) */
 .prod-card__variants {
   display: flex;
