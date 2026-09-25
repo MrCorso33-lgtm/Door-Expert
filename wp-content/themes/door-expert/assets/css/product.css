@@ -95,20 +95,30 @@
   align-self: start;
 }
 
-/* Main image – large, no border-radius */
+/* Main image – large, no border-radius
+ *
+ * SVJESNO ODSTUPANJE OD PROTOTIPA (§1), isto kao na PLP kartici (commit f352a0b):
+ * prototip ima `object-fit: cover`, mi idemo na `contain` jer je klijent tražio da
+ * se vidi cio proizvod. Posljedica je pijesak lijevo i desno kod uskih fotki vrata.
+ *
+ * Visina je ovdje jedini stvarni regulator veličine: fotka vrata je oko 1:2,3, pa
+ * uz `contain` proizvod skalira po visini okvira, a širina okvira ne mijenja ništa.
+ * Zato je `max-height` podignut sa 680px i vezan za viewport – kolona je sticky, pa
+ * okvir ne smije da bude viši od ekrana.
+ */
 .product-gallery__main {
   position: relative;
   overflow: hidden;
   background: #F7F3EC;
   cursor: zoom-in;
-  aspect-ratio: 3/4;
-  max-height: 680px;
+  aspect-ratio: 2/3;
+  max-height: min(860px, 100vh - 160px);
 }
 
 .product-gallery__main img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transition: transform 400ms var(--ease-out, cubic-bezier(0.23,1,0.32,1));
 }
@@ -155,10 +165,13 @@
   background: #F7F3EC;
 }
 
+/* Isto pravilo kao za glavnu sliku: sličica pokazuje cio proizvod. Ovdje `contain`
+   ne bi bio dovoljan sam – vidi `single.php`, sličice su tražile hard-crop veličinu
+   `woocommerce_thumbnail`, pa je fajl bio odsječen prije nego što CSS dođe na red. */
 .product-gallery__thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transition: opacity 150ms ease;
 }
@@ -1080,8 +1093,10 @@
   display: block;
 }
 
+/* Isti dogovor kao galerija i PLP kartica: cio proizvod, okvir 2/3 (viši okvir =
+   krupniji prikaz uz `contain`), slika iz `woocommerce_single` a ne hard-crop veličine. */
 .product-crosssell__card-img {
-  aspect-ratio: 3/4;
+  aspect-ratio: 2/3;
   overflow: hidden;
   background: var(--color-pearl, #F7F3EC);
   margin-bottom: 12px;
@@ -1090,7 +1105,7 @@
 .product-crosssell__card-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   transition: transform 350ms var(--ease-out, cubic-bezier(0.23,1,0.32,1));
 }
@@ -1246,7 +1261,9 @@
 
 @media (max-width: 600px) {
   .product-gallery__main {
-    max-height: 420px;
+    /* Sa `contain` visina okvira je i visina proizvoda; 420px je vrata svodilo na
+       oko 180px širine. 480px je granica preko koje cijena i CTA padaju ispod pregiba. */
+    max-height: 480px;
   }
   .product-decision__name {
     font-size: 28px;

@@ -152,7 +152,11 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
         <div class="product-gallery__thumbs" id="gallery-thumbs" role="list" aria-label="Galerija slika">
           <?php foreach ( $de_img_ids as $de_i => $de_iid ) : ?>
             <?php
-            $de_t_src = wp_get_attachment_image_url( $de_iid, 'woocommerce_thumbnail' );
+            // 'medium', ne 'woocommerce_thumbnail': WC thumbnail je hard-crop (1:1 po
+            // Customizer podešavanju), pa je proizvod bio odsječen u samom fajlu i
+            // `object-fit: contain` tu nema šta da spasi. 'medium' je soft-crop (stane
+            // u 300x300 bez sječenja) i lakši je od 'woocommerce_single' za 80x80 kvadrat.
+            $de_t_src = wp_get_attachment_image_url( $de_iid, 'medium' );
             $de_f_src = wp_get_attachment_image_url( $de_iid, 'woocommerce_single' );
             if ( ! $de_t_src ) { continue; }
             ?>
@@ -466,7 +470,8 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
             ?>
             <a href="<?php echo esc_url( get_permalink( $de_rid ) ); ?>" class="product-crosssell__card">
               <div class="product-crosssell__card-img">
-                <?php echo $de_rp->get_image( 'woocommerce_thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WC escaped. ?>
+                <?php // 'woocommerce_single' iz istog razloga kao na PLP kartici: thumbnail je hard-crop. ?>
+                <?php echo $de_rp->get_image( 'woocommerce_single' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WC escaped. ?>
               </div>
               <?php if ( '' !== $de_rcat ) : ?>
                 <div class="product-crosssell__card-cat"><?php echo esc_html( $de_rcat ); ?></div>
