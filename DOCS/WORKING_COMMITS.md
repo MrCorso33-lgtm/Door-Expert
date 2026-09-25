@@ -553,6 +553,68 @@ paginacija se pojavljuje od 13).
 
 ---
 
+## Istaknuti atributi — PDP traka + čipovi na kartici
+
+**Commit:** `191a380` (prva verzija: `dbf8945`)
+**Fajl(ovi):** `inc/product-highlights.php`, `inc/product-highlights-admin.php`,
+`template-parts/product/parts/highlights.php`, `template-parts/shop/product-card.php`,
+`assets/css/admin-highlights.css` (**nov**), `assets/js/admin-highlights.js` (**nov**),
+`assets/css/category.css`, `assets/css/product.css`, `functions.php`
+
+**Šta radi:**
+- Jedan izbor u adminu (Proizvodi → Istaknuti atributi), dva prikaza: traka sa
+  ikonicama na PDP-u i čipovi „Labela: vrijednost“ ispod naziva na kartici.
+- Vrijednosti se **ne unose nigdje ponovo** — čitaju se sa proizvoda. Iz admina se
+  bira samo koji izvor se ističe, kojom ikonom i pod kojom labelom.
+- Konfiguracija po kategoriji, sa nasljeđivanjem: potkategorija bez svojih redova
+  uzima od najbližeg pretka, pa od `default`.
+- Izvori: WC atributi (`pa_*`), brend, šifra, dostupnost i statičan tekst.
+  Rezervni tekst po redu pokriva proizvod kojem vrijednost fali.
+- Ulaze u Rank Math Product schemu kao `additionalProperty`.
+
+**Odluke koje se ne vraćaju unazad:**
+1. **Kontekst se računa iz kategorija samog proizvoda**, ne iz kategorije koja se
+   gleda — ista kartica nosi iste čipove u prodavnici, na kategoriji, u pretrazi,
+   u cross-sellu i u AJAX osvježenom listingu.
+2. **Čip prikazuje sve vrijednosti atributa** („Širina: 70 cm, 80 cm, 90 cm“), ne
+   prvu. Prva vrijednost je kod varijacija tiho krila ostale širine.
+3. **Čip odstupa od prototipa** (tamo je samo vrijednost, bez labele) — traženo.
+4. **Vrijednost na PDP-u je običan tekst, ne link.** Linkovi ka filtriranom listingu
+   su bili napravljeni pa uklonjeni: filtrirane arhive su `noindex, nofollow`
+   (`inc/filters-seo.php`), pa SEO koristi nema, a PDP je stranica gdje se
+   konvertuje. Ako se ikad vraća — kao opcija po redu u adminu, ne globalno.
+5. **Ključ konteksta je term ID, ne slug** — slug se mijenja pri preimenovanju
+   kategorije i tiho bi obrisao njeno podešavanje. Isti obrazac kao filter plugin.
+
+**Tri stanja kategorije (vidi se i u lijevoj koloni admina):**
+| Stanje | Oznaka | Znači |
+|---|---|---|
+| svoje | `•` | ima svoje redove |
+| naslijeđeno | bez oznake | uzima od pretka ili `default` |
+| prazno | `∅` | namjerno bez trake, **ne** nasljeđuje |
+
+**Provjereno na staging-u:** admin ekran, nasljeđivanje, pokrivenost, čipovi na
+kartici i traka na PDP-u. Statičan tekst, rezervni tekst i schema **nisu** provjereni
+uživo (nema podešenog reda koji ih koristi).
+
+### Kada se pokvari — šta proveriti
+1. **Admin izgleda „raspadnuto“ ili nema ▲▼ / pregleda ikone** → `admin-highlights.css`
+   ili `admin-highlights.js` nije stigao na server. Idu zajedno sa
+   `inc/product-highlights-admin.php`
+2. **Pokrivenost stoji na „računam…“** → AJAX pada; provjeri nonce (keš admina) i da
+   `wp_ajax_door_expert_highlights_coverage` postoji. Bez brojača forma i dalje radi
+3. **Kategorija pokazuje tuđe atribute** → proizvod je u više kategorija, a redoslijed
+   bira `door_expert_highlights_order_terms()`. Postavi Rank Math primarnu kategoriju
+4. **Sačuvao a ništa se ne mijenja** → red je ispao u sanitizaciji: izvor ne postoji
+   (obrisan atribut), duplikat je, ili je „Statičan tekst“ bez teksta
+5. **Kartica pokazuje dimenzije i boju iako je podešeno drugo** → radi fallback u
+   `product-card.php`, znači nijedan podešen red nema vrijednost na tom proizvodu
+6. **Traka nestala svuda** → neka kategorija je čekirana kao „ne prikazuj“, ili je
+   `default` ostao bez ijednog reda
+7. **Promjena u adminu se ne vidi na sajtu** → PHP se ne bustuje preko `?ver`; Purge keš
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
