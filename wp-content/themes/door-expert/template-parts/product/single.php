@@ -215,7 +215,8 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
       $de_stock = function_exists( 'door_expert_stock_display' ) ? door_expert_stock_display( $de_stock_status ) : array();
       ?>
       <?php if ( ! empty( $de_stock ) ) : ?>
-        <div class="product-availability product-availability--<?php echo esc_attr( $de_stock['modifier'] ); ?>" id="product-availability" data-default-status="<?php echo esc_attr( $de_stock_status ); ?>" style="margin-top:12px;">
+        <?php // Razmak iznad je u product.css, ne inline: desktop ga koriguje kad kolona postane flex. ?>
+        <div class="product-availability product-availability--<?php echo esc_attr( $de_stock['modifier'] ); ?>" id="product-availability" data-default-status="<?php echo esc_attr( $de_stock_status ); ?>">
           <span class="product-availability__dot" aria-hidden="true"></span>
           <span class="product-availability__text"><?php echo esc_html( $de_stock['label'] ); ?></span>
         </div>
@@ -235,9 +236,11 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
 
       <?php
       /*
-       * Stack postoji SAMO zbog redoslijeda: na telefonu traka ide ispod CTA-a da
-       * dugme ostane visoko, na desktopu iznad njega (CSS order, od 901px naviše).
-       * Flex se pali tek na desktopu, pa mobilni raspored ostaje netaknut.
+       * Stack postoji SAMO zbog redoslijeda: na telefonu traka istaknutih atributa
+       * ide ispod CTA-a da dugme ostane visoko. Od 901px naviše CSS je premješta
+       * ispod kraćeg opisa, iznad cijene – stack tada dobija `display: contents`,
+       * pa forma i traka postaju direktna flex djeca kolone i mogu u bilo koji red.
+       * Zato se traka NE premješta u DOM-u: mobilni raspored bi se pokvario.
        */
       ?>
       <div class="product-decision__stack">

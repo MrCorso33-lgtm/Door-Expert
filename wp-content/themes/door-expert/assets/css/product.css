@@ -312,6 +312,8 @@
   font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--color-antracit-soft, #5A5248);
+  /* Bilo inline u single.php; na desktopu se koriguje jer flex kolona ne sklapa margine. */
+  margin-top: 12px;
   margin-bottom: 4px;
 }
 
@@ -394,8 +396,9 @@
  * zatecen desktop-first. Baza = telefon, @media (min-width) nadograđuje.
  *
  * Traka je u DOM-u ISPOD forme, sto je i mobilni redoslijed: dugme ostaje visoko.
- * Na desktopu je `order: -1` podize iznad CTA-a. Stack postaje flex tek tada, pa
- * mobilni raspored i sklapanje margina ostaju netaknuti.
+ * Od 901px naviše se premješta ispod kraćeg opisa, iznad cijene – vidi blok
+ * `@media (min-width: 901px)` niže, gdje cijela kolona postaje flex sa `order`.
+ * Mobilni ostaje čist blok raspored, bez flexa i bez diranja margina.
  */
 .product-highlights {
   margin-top: 28px;
@@ -450,19 +453,61 @@
 }
 
 @media (min-width: 901px) {
-  .product-decision__stack {
+  /*
+   * Od dvokolonskog rasporeda naviše (računar / tablet u landscape-u) traka ide
+   * ODMAH ISPOD kraćeg opisa, iznad cijene. Na telefonu ostaje ispod CTA-a da
+   * dugme ostane visoko – zato se ovo radi redoslijedom, a ne premještanjem u DOM-u.
+   *
+   * Traka je u DOM-u unutar `.product-decision__stack`, pa ne može da preskoči
+   * cijenu dok je tamo zaključana. `display: contents` "rastvara" stack: njegova
+   * djeca (forma i traka) postaju ista flex djeca kolone kao i ostali blokovi,
+   * pa svi mogu u isti redoslijed.
+   *
+   * Tri grupe: 0 = zaglavlje (kategorija, naslov, opis), 1 = traka, 2 = sve ostalo.
+   * Unutar grupe 2 vrijedi redoslijed iz DOM-a, pa ostatak kolone ostaje netaknut.
+   * Novi blok bez `order` pada u grupu 0 – ako se ikad doda, dobije `order: 2`.
+   */
+  .product-decision {
     display: flex;
     flex-direction: column;
   }
 
+  .product-decision__stack {
+    display: contents;
+  }
+
   .product-highlights {
-    order: -1;
-    margin-top: 0;
-    margin-bottom: 26px;
+    order: 1;
+    /* Razmak iznad daje `subname` (24px) + ovo; ispod separiše `.product-sep`. */
+    margin-top: 4px;
+    margin-bottom: 0;
     padding-top: 0;
+    padding-bottom: 0;
     border-top: 0;
-    padding-bottom: 22px;
-    border-bottom: 1px solid var(--color-sand, #DDD5C4);
+    border-bottom: 0;
+  }
+
+  .product-sep,
+  .product-price-block,
+  .product-availability,
+  .product-availability__sub,
+  .product-cta-form,
+  .product-next-steps {
+    order: 2;
+  }
+
+  /*
+   * Flex kolona ne sklapa susjedne margine, pa bi se zatečeni razmaci uvećali.
+   * Dvije korekcije vraćaju ih na staru vrijednost:
+   *   naslov (6px) + opis (1em UA margina) su se sklapali na 13px → sada 0 + 13
+   *   cijena po jedinici (6px) + dostupnost (12px) sklapali su se na 12px → 6 + 6
+   */
+  .product-decision__name {
+    margin-bottom: 0;
+  }
+
+  .product-availability {
+    margin-top: 6px;
   }
 }
 
