@@ -17,7 +17,7 @@ strings inside the snippets are in ijekavica, with no em dash, per Door Expert's
 |---|---|
 | [`01-AUDIT-REPORT.md`](01-AUDIT-REPORT.md) | **Start here.** Summary table of every reusable component, portability verdicts, a prioritized recommendation, per-component detail, red flags, and a bonus tier of things outside the original brief. |
 | [`02-PORT-quote-cart.md`](02-PORT-quote-cart.md) | WooCommerce with payment removed: checkout redirect, inquiry handler that creates a real order, AJAX cart, price-0 purchasability, cart badge hydration. **Highest value, port first.** |
-| [`03-PORT-variations.md`](03-PORT-variations.md) | Variable products: the variation matching engine and the server-side add-to-cart handler that makes a custom pill UI work with WooCommerce at all. |
+| [`03-PORT-variations.md`](03-PORT-variations.md) | **Rewritten against your real code.** Variable products, as a parity checklist for the pill-over-WooCommerce-select bridge you already built, not a port. It corrects the original on its own headline claim: no custom add-to-cart handler is needed on a form POST. Three of its six items are real bugs, and the biggest only appears once the tile collections go in. |
 | [`04-PORT-gallery-lightbox.md`](04-PORT-gallery-lightbox.md) | PhotoSwipe v5 bridge, ES-module enqueue, real image dimensions. |
 | [`05-PORT-tile-calculator.md`](05-PORT-tile-calculator.md) | Tile m² calculator plus, more importantly, the per-m² cart pricing correction. |
 | [`06-DATA-MODEL-custom-fields.md`](06-DATA-MODEL-custom-fields.md) | Every custom field on a Saya product, verified against the **live** site: which six come from JetEngine, which are plain theme code, and which two look alive in the database but are abandoned. Read before `02`–`05`, which reference these keys. |
@@ -26,9 +26,11 @@ strings inside the snippets are in ijekavica, with no em dash, per Door Expert's
 
 Each `PORT-*` document has the same shape: what it does → Saya source with `file:line` →
 dependencies and coupling → data-model mapping → **adapted code** → wiring → what to verify.
-`07` is the exception: nothing needs extracting there, so it is integration advice instead. `08` is
-a parity checklist rather than a port: two of its three items are closed by calling functions that
-already exist in the Door Expert theme.
+There are three exceptions. `07`: nothing needs extracting, so it is integration advice instead.
+`08`: a parity checklist rather than a port, two of whose three items are closed by calling functions
+that already exist in the Door Expert theme. `03`: also a parity checklist now, because the component
+it covers was built before this package was read, and differently from Saya. It quotes the Saya code
+it carries in full rather than pointing at a repo you cannot open.
 
 ## There is a second package
 
@@ -55,10 +57,11 @@ JS files, 37 stylesheets) and 12 custom plugins under `wp-plugins/`.
 
 - **None of the adapted code has ever run inside Door Expert.** These are reviewed drafts, not
   tested code. Every document ends with a verification checklist for exactly this reason.
-- **`00` through `07` were written blind.** The Door Expert repo was not available during the
-  audit, so every assumption about that side is an assumption. `08` is the exception: it was
-  written later, with the repo in hand, and its references to Door Expert files were read rather
-  than guessed. Where the two disagree about Door Expert, `08` wins.
+- **`00`, `01`, `02` and `04` through `07` were written blind.** The Door Expert repo was not
+  available during the audit, so every assumption about that side is an assumption. `08` and the
+  rewritten `03` are the exceptions: both were written later, with the repo in hand, and their
+  references to Door Expert files were read rather than guessed. Where they disagree with the rest
+  about Door Expert, they win. `03` says where and why it overrules the audit; so does `08`.
 - Line numbers drift. Re-check with `grep -n` before trusting an exact number.
 
 ## The one thing not to miss

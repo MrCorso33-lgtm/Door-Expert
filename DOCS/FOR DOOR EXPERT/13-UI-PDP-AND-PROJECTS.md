@@ -76,6 +76,10 @@ A thin bar under the swatches that spells out the selection in words once it is 
 Naturale, 90 × 200, lijeva". On mobile the swatches scroll out of view by the time the customer
 reaches the CTA, so without it they are adding something they can no longer see.
 
+**Skip this one.** Door Expert already has it, and in a better form: a per-row readout in each
+attribute label (`.product-variants__selected`), which says which attribute each value belongs to
+instead of running them together. See [`03-PORT-variations.md`](03-PORT-variations.md) §8.5.
+
 Pair it with the sticky mobile CTA (`product-single.js:1004-1027`, an `IntersectionObserver` on the
 add-to-cart button) and the bottom of a long PDP stops being a dead end.
 

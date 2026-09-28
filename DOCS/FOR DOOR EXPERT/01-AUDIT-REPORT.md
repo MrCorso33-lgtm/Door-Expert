@@ -27,8 +27,8 @@ coupling with `wp_mail()` as the default and leaves the webhook optional.
 | # | Component | Type | Key dependencies | Verdict | Suggested Door Expert home |
 |---|---|---|---|---|---|
 | 1 | **Quote cart** (checkout → inquiry, AJAX cart, badge hydration) | PHP + JS | WooCommerce; **n8n webhook** | `ADAPT (light)` | `inc/quote-cart.php`, `assets/js/cart.js` |
-| 2 | **Variation matching engine** (availability, auto-select, cascade) | JS | none | `ADAPT (light)` | `assets/js/variations.js` |
-| 3 | **Custom variation add-to-cart** | PHP | WooCommerce | `DROP-IN` after renaming | `inc/product-variations.php` |
+| 2 | **Variation matching engine** (availability, auto-select, cascade) | JS | none | ~~`ADAPT (light)`~~ → take the **cascade and grey-out rules only** | **revised**, see [`03-PORT-variations.md`](03-PORT-variations.md) |
+| 3 | **Custom variation add-to-cart** | PHP | WooCommerce | ~~`DROP-IN` after renaming~~ → **do not port** | **superseded**, see [`03-PORT-variations.md`](03-PORT-variations.md) §2 |
 | 4 | **PhotoSwipe lightbox bridge** | JS + PHP | PhotoSwipe 5.4.4 (MIT, vendored) | `DROP-IN` after renaming | `assets/js/pswp-gallery.js` |
 | 5 | **Per-m² cart price correction** | PHP | WooCommerce; `_price_unit`, `_pkg_qty` meta | `ADAPT (light)` | `inc/tile-calculator.php` |
 | 6 | **Tile m² calculator** | JS + PHP | same meta; `sr-RS` locale | `ADAPT (light)` | `assets/js/tile-calculator.js` |
@@ -66,12 +66,20 @@ the notification email is wrong for m²-priced products.
 
 **2. Variation matching engine + custom add-to-cart** → `03-PORT-variations.md`
 
-The add-to-cart handler alone justifies the port. WooCommerce's own AJAX endpoint **cannot** add a
+> **This item has been revised and the paragraph below is kept only as a record of what it said.**
+> Door Expert had already built its variation selector by the time `03` was rewritten, and it built it
+> on WooCommerce's own `variations_form` with a pill layer over real `<select>` elements. On that
+> architecture the add-to-cart argument below **does not apply**: the trap lives in
+> `?wc-ajax=add_to_cart`, and a plain form POST resolves "Any" attributes correctly by itself. Do not
+> port the handler. What is still worth taking is the cascade and the grey-out rules, and `03` carries
+> them in full, rewritten against Door Expert's DOM.
+
+~~The add-to-cart handler alone justifies the port. WooCommerce's own AJAX endpoint **cannot** add a
 variation that has an "Any" attribute from a custom UI; it throws before any filter can intervene.
 Saya's handler resolves that server-side. You will hit this the first time a door has an
-"Any colour" variation, and the failure mode is a confusing "X is a required field" error.
+"Any colour" variation, and the failure mode is a confusing "X is a required field" error.~~
 
-Take the ~90-line matching engine, leave the ~850 lines of Saya-specific UI.
+~~Take the ~90-line matching engine, leave the ~850 lines of Saya-specific UI.~~
 
 ### Port third — polish that shows
 
@@ -203,6 +211,9 @@ already has a stepper; the other two are worth lifting as-is.
 - **Worth reading the comment at `:2743-2748`** — it documents the bug that motivated it (a card
   hardcoded one attribute, so preselection silently failed for every other attribute the client
   later added).
+- **Adapted code is now in [`03-PORT-variations.md`](03-PORT-variations.md) §8.4**, which also notes
+  that Door Expert gets the receiving half for free: `wc_dropdown_variation_attribute_options()`
+  reads `attribute_*` straight out of the request, so the link is all that is missing.
 
 ## 4. Red flags
 
