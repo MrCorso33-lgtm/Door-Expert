@@ -163,7 +163,23 @@ function door_expert_resolve_posted_variation() {
 		$key = 'attribute_' . sanitize_title( $attribute->get_name() );
 
 		if ( empty( $_REQUEST[ $key ] ) ) {
-			return; // Kupac nije izabrao sve; neka WC ispise svoju poruku.
+			/*
+			 * Kupac nije izabrao sve. Ocekivano bi bilo da WC javi svoju gresku, ali
+			 * provjereno POST-om na staging: u ovom slucaju ne javi NISTA - ni gresku ni
+			 * dodavanje. Bez JS-a (kad dugme nije ugaseno) to znaci da kupac klikne,
+			 * stranica se osvjezi i nista se ne desi.
+			 *
+			 * Zato poruku dajemo sami. Sablon je vec ispisuje (wc_print_notices() u
+			 * template-parts/product/single.php).
+			 */
+			if ( function_exists( 'wc_add_notice' ) ) {
+				wc_add_notice(
+					sprintf( 'Izaberite %s prije dodavanja u upit.', wc_attribute_label( $attribute->get_name() ) ),
+					'error'
+				);
+			}
+
+			return;
 		}
 
 		$raw = wp_unslash( $_REQUEST[ $key ] );
