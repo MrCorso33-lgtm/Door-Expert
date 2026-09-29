@@ -161,6 +161,35 @@
     }
   }
 
+  /* ── Mobilna sticky traka: prati stanje glavnog dugmeta ─── */
+  /*
+   * Sticky dugme submituje istu formu preko form="product-cta-form", pa nema svoje
+   * stanje. Kod varijabilnog proizvoda WC glavnom dugmetu dodaje klasu 'disabled'
+   * dok izbor nije kompletan; bez ovoga bi sticky traka nudila dodavanje koje WC
+   * svakako odbija.
+   *
+   * MutationObserver, a ne oslanjanje na WC-ove jQuery dogadjaje: isti kod tada radi
+   * i kad se klasa promijeni bilo gdje drugdje, i ne zavisi od redosljeda skripti.
+   */
+  var mainCta = document.getElementById( 'btn-add-to-cart' );
+  var stickyCta = document.getElementById( 'btn-sticky-add' );
+
+  if ( mainCta && stickyCta && window.MutationObserver ) {
+    var syncSticky = function () {
+      var off = mainCta.classList.contains( 'disabled' ) || mainCta.disabled;
+
+      stickyCta.classList.toggle( 'disabled', off );
+      stickyCta.disabled = off;
+    };
+
+    new window.MutationObserver( syncSticky ).observe( mainCta, {
+      attributes: true,
+      attributeFilter: [ 'class', 'disabled' ]
+    } );
+
+    syncSticky();
+  }
+
   /* ── Varijacije: pilule <-> WC selecti ──────────────────── */
   /*
    * Matching varijacija, cijenu, stanje i variation_id radi WC-ov wc-add-to-cart-variation.js.

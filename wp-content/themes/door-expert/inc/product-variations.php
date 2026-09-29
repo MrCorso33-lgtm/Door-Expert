@@ -115,3 +115,96 @@ function door_expert_variation_stock_data( $data, $product, $variation ) {
 	return $data;
 }
 add_filter( 'woocommerce_available_variation', 'door_expert_variation_stock_data', 10, 3 );
+
+/**
+ * Razrijesi varijaciju iz poslatih atributa kad `variation_id` nije popunjen.
+ *
+ * Bez JavaScripta `variation_id` ostaje 0 (WC-ov skriveni input), pa WooCommerce
+ * pokusava sam da nadje varijaciju iz poslatih atributa. Na ovoj instalaciji ta
+ * pretraga (`find_matching_product_variation()`) vraca 0 iako je atribut poslat
+ * ispravno, pa kupac dobije "Please choose product options" iako JESTE izabrao
+ * dimenziju. Provjereno POST-om: sa rucno postavljenim `variation_id` proizvod ulazi
+ * u korpu, bez njega ne. Ta WC pretraga ide kroz `get_posts()`, pa je moze
+ * poremetiti bilo koji plugin koji filtrira upite.
+ *
+ * Zato varijaciju nalazimo sami, iteracijom po djeci roditelja - bez upita koji neko
+ * moze da filtrira. Ne diramo nista drugo: validaciju, zalihu i upis u korpu i dalje
+ * radi WooCommerce.
+ *
+ * Kaci se na `wp_loaded` prioritet 19 jer WC_Form_Handler::add_to_cart_action() ide
+ * na istom hooku sa prioritetom 20.
+ *
+ * Prazna vrijednost u varijaciji je WC-ov dzoker ("Bilo koja vrijednost"), ne
+ * vrijednost - zato se preskace pri poredjenju.
+ */
+function door_expert_resolve_posted_variation() {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- WC-ov add-to-cart nema nonce; ovdje se samo normalizuje ulaz prije njegove validacije.
+	if ( empty( $_REQUEST['add-to-cart'] ) || ! empty( $_REQUEST['variation_id'] ) ) {
+		return;
+	}
+
+	if ( ! function_exists( 'wc_get_product' ) ) {
+		return;
+	}
+
+	$product = wc_get_product( absint( wp_unslash( $_REQUEST['add-to-cart'] ) ) );
+
+	if ( ! $product instanceof WC_Product || ! $product->is_type( 'variable' ) ) {
+		return;
+	}
+
+	$posted = array();
+
+	foreach ( $product->get_attributes() as $attribute ) {
+		if ( ! $attribute->get_variation() ) {
+			continue;
+		}
+
+		$key = 'attribute_' . sanitize_title( $attribute->get_name() );
+
+		if ( empty( $_REQUEST[ $key ] ) ) {
+			return; // Kupac nije izabrao sve; neka WC ispise svoju poruku.
+		}
+
+		$raw = wp_unslash( $_REQUEST[ $key ] );
+
+		$posted[ $key ] = $attribute->is_taxonomy()
+			? sanitize_title( $raw )
+			: html_entity_decode( wc_clean( $raw ), ENT_QUOTES, get_bloginfo( 'charset' ) );
+	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
+
+	if ( empty( $posted ) ) {
+		return;
+	}
+
+	foreach ( $product->get_children() as $child_id ) {
+		$variation = wc_get_product( $child_id );
+
+		if ( ! $variation instanceof WC_Product_Variation ) {
+			continue;
+		}
+
+		$match = true;
+
+		foreach ( $variation->get_variation_attributes() as $key => $value ) {
+			if ( '' === $value ) {
+				continue; // Dzoker: ovoj varijaciji je svejedno.
+			}
+
+			if ( ! isset( $posted[ $key ] ) || $posted[ $key ] !== $value ) {
+				$match = false;
+				break;
+			}
+		}
+
+		if ( $match ) {
+			// WC cita $_REQUEST, ali ga PHP ne osvjezava sam kad se mijenja $_POST.
+			$_POST['variation_id']    = $child_id;
+			$_REQUEST['variation_id'] = $child_id;
+
+			return;
+		}
+	}
+}
+add_action( 'wp_loaded', 'door_expert_resolve_posted_variation', 19 );

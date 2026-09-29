@@ -1240,19 +1240,70 @@
 
 /* ============================================================
    MOBILE STICKY BAR
-   ============================================================ */
-.product-sticky-mobile {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #FFFFFF;
-  border-top: 1px solid var(--color-sand, #DDD5C4);
-  padding: 12px 20px;
-  z-index: 900;
-  gap: 10px;
-  box-shadow: 0 -4px 20px rgba(30,26,22,0.08);
+   ============================================================
+ * Stranica proizvoda koristi ISTU traku kao ostatak sajta (.mobile-sticky-cta iz
+ * footer.css), samo sa drugim drugim dugmetom: umjesto linka na /korpa/ ide pravi
+ * submit forme, pa proizvod stvarno ulazi u upit.
+ *
+ * Ranije su ovdje bile dvije trake. Globalna se renderuje u footer.php i pojavljuje
+ * se ispod 768px, a ova ispod 900px, obje `position: fixed; bottom: 0; z-index: 900`.
+ * Na telefonu su se dakle crtale jedna preko druge, a globalna je kasnije u DOM-u pa
+ * je pobjeđivala. Kupac je vidio dugme koje vodi u praznu korpu, a ovu traku nikad.
+ * Sada footer.php svoju traku preskače na stranici proizvoda.
+ */
+
+/* Globalna traka se pali ispod 768px; na proizvodu ide ispod 900px, jer se tu
+   raspored ionako lomi u jednu kolonu. Pravilo je u RESPONSIVE bloku niže. */
+
+/* Drugo dugme je <button>, a ne <a> kao na ostalim stranicama; footer.css to ne zna. */
+button.mobile-sticky-cta__btn {
+  cursor: pointer;
+}
+
+/*
+ * OBRNUTA HIJERARHIJA U ODNOSU NA OSTATAK SAJTA, i to namjerno.
+ *
+ * Globalna traka ističe telefon jer na kategorijama i info stranicama nema šta da se
+ * doda u upit, a poziv konvertuje oko 70%. Na stranici proizvoda je obrnuto i tako
+ * stoji u DOCS/CRO/CRO - product.md: primarna svrha stranice je dodavanje u korpu za
+ * upit, poziv je naveden pod sekundarnim ciljevima, a Mobile-Specific CRO izričito
+ * traži da sticky dugme bude "Dodaj u upit".
+ *
+ * Klase u markupu ostaju semantičke (--call je telefon, --quote je upit); mijenja se
+ * samo koja je ispunjena, a koja obrisana.
+ */
+.mobile-sticky-cta--product .mobile-sticky-cta__btn--quote {
+  background: var(--color-jantar, #A07840);
+  color: #fff;
+  border-color: var(--color-jantar, #A07840);
+}
+
+.mobile-sticky-cta--product .mobile-sticky-cta__btn--quote:active {
+  background: var(--color-sampanjac, #C9A96E);
+  border-color: var(--color-sampanjac, #C9A96E);
+  color: #fff;
+  transform: scale(0.97);
+}
+
+.mobile-sticky-cta--product .mobile-sticky-cta__btn--call {
+  background: transparent;
+  color: rgba(255,255,255,0.70);
+  border-color: rgba(255,255,255,0.16);
+}
+
+.mobile-sticky-cta--product .mobile-sticky-cta__btn--call:active {
+  background: transparent;
+  border-color: rgba(201,169,110,0.45);
+  color: var(--color-sampanjac, #C9A96E);
+  transform: scale(0.97);
+}
+
+/* Varijabilni proizvod bez kompletnog izbora: WC gasi glavno dugme, product.js to
+   preslikava ovamo. Bez ovoga bi traka nudila dodavanje koje WC svakako odbija. */
+.mobile-sticky-cta__btn.disabled,
+.mobile-sticky-cta__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
 }
 
 /* ============================================================
@@ -1287,8 +1338,12 @@
   .product-decision {
     padding: 32px 0 0;
   }
-  .product-sticky-mobile {
+  .mobile-sticky-cta--product {
     display: flex;
+  }
+  /* footer.css ovo daje tek ispod 768px, a ovdje je traka vidljiva već od 900px. */
+  body {
+    padding-bottom: 80px;
   }
   .product-cta-group {
     padding-bottom: 80px; /* space for sticky bar */

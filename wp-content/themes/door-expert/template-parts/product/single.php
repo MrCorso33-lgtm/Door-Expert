@@ -245,8 +245,9 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
       ?>
       <div class="product-decision__stack">
 
+      <?php // id="" postoji da bi mobilna sticky traka mogla da submituje ovu formu preko form="". ?>
       <!-- Varijacije + količina + CTA (jedna WC add-to-cart forma) -->
-      <form class="cart product-cta-form<?php echo $de_is_variable ? ' variations_form' : ''; ?>" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $de_product->get_permalink() ) ); ?>"<?php if ( $de_is_variable ) : ?> data-product_id="<?php echo absint( $de_id ); ?>" data-product_variations="<?php echo wc_esc_json( wp_json_encode( $de_var_json ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_esc_json() vec escape-uje za HTML atribut. ?>"<?php endif; ?>>
+      <form id="product-cta-form" class="cart product-cta-form<?php echo $de_is_variable ? ' variations_form' : ''; ?>" method="post" enctype="multipart/form-data" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $de_product->get_permalink() ) ); ?>"<?php if ( $de_is_variable ) : ?> data-product_id="<?php echo absint( $de_id ); ?>" data-product_variations="<?php echo wc_esc_json( wp_json_encode( $de_var_json ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wc_esc_json() vec escape-uje za HTML atribut. ?>"<?php endif; ?>>
 
         <?php if ( $de_is_variable && ! empty( $de_var_attributes ) ) : ?>
           <?php // Skriveni WC selecti = izvor istine. product.js iz njih gradi pilule iz prototipa. ?>
@@ -344,8 +345,20 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
 
           <hr class="product-sep">
 
+          <?php
+          /*
+           * Kod običnog proizvoda `add-to-cart` je ranije stajao kao name/value na samom
+           * dugmetu, pa se slao SAMO kad se klikne to dugme. Mobilna sticky traka submituje
+           * istu formu svojim dugmetom, pa podatak mora biti u formi, a ne na jednom dugmetu.
+           * Varijabilni ovaj isti input već ima niže, uz product_id i variation_id.
+           */
+          ?>
+          <?php if ( ! $de_is_variable ) : ?>
+            <input type="hidden" name="add-to-cart" value="<?php echo absint( $de_id ); ?>" />
+          <?php endif; ?>
+
           <div class="product-cta-group">
-            <button type="submit" class="btn-product-primary<?php echo $de_is_variable ? ' single_add_to_cart_button' : ''; ?>" id="btn-add-to-cart"<?php if ( ! $de_is_variable ) : ?> name="add-to-cart" value="<?php echo esc_attr( (string) $de_id ); ?>"<?php endif; ?>>
+            <button type="submit" class="btn-product-primary<?php echo $de_is_variable ? ' single_add_to_cart_button' : ''; ?>" id="btn-add-to-cart">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
               Dodaj u ponudu
             </button>
@@ -495,16 +508,37 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
     <img class="product-lightbox__img" id="lightbox-img" src="" alt="" />
   </div>
 
-  <!-- MOBILNA STICKY TRAKA -->
-  <div class="product-sticky-mobile" role="toolbar" aria-label="Brze akcije">
-    <a href="tel:+38269234888" class="btn-product-secondary" style="flex:1; height:48px;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-      Pozovi
+  <?php
+  /*
+   * MOBILNA STICKY TRAKA
+   *
+   * Namjerno iste klase kao globalna traka u footer.php (.mobile-sticky-cta): jedan
+   * izgled na cijelom sajtu, jedan izvor stilova u footer.css. Razlika je samo u
+   * drugom dugmetu - ovdje submituje formu proizvoda umjesto da vodi na /korpa/.
+   * footer.php svoju traku na stranici proizvoda preskače, da se ne crtaju obje.
+   */
+  ?>
+  <div class="mobile-sticky-cta mobile-sticky-cta--product" role="toolbar" aria-label="Brze akcije">
+    <a href="tel:+38269234888" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--call">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      Pozovite nas
     </a>
-    <a href="<?php echo esc_url( $de_product->add_to_cart_url() ); ?>" class="btn-product-primary" style="flex:2;" rel="nofollow">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    <?php
+    /*
+     * Submit gornje forme (form="product-cta-form"), ne link. Ranije je ovdje stajao
+     * add_to_cart_url(): WC_Product_Variable ne prepisuje tu metodu, pa je za varijabilni
+     * proizvod vraćala običan permalink i dugme je vodilo na stranicu na kojoj kupac već
+     * jeste. Kod običnog proizvoda je vodila na ?add-to-cart=ID, što ignoriše polje za
+     * količinu, pa je kod pločica u korpu išlo 1 umjesto izračunatih m².
+     *
+     * Namjerno <button form="">, a ne JS koji klikne glavno dugme: ovako radi i bez
+     * JavaScripta.
+     */
+    ?>
+    <button type="submit" form="product-cta-form" class="mobile-sticky-cta__btn mobile-sticky-cta__btn--quote" id="btn-sticky-add">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       Dodaj u ponudu
-    </a>
+    </button>
   </div>
 
 </div><!-- /product-page -->

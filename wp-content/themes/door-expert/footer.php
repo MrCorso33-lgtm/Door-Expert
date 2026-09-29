@@ -136,6 +136,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 </footer>
 <!-- /site-footer -->
 
+<?php
+/*
+ * Stranica proizvoda ima svoju traku (template-parts/product/single.php): iste klase
+ * i isti izgled, ali drugo dugme stvarno dodaje proizvod u upit umjesto da vodi na
+ * korpu. Bez ovog preskoka crtale bi se obje, jedna preko druge, i ova bi pobjeđivala
+ * jer je kasnije u DOM-u - pa bi kupac sa stranice proizvoda odlazio u praznu korpu.
+ */
+?>
+<?php if ( ! ( function_exists( 'is_product' ) && is_product() ) ) : ?>
 <!-- Mobile sticky CTA bar -->
 <!-- Research: Conversion Strategy – max 2 dugmeta, min 44x44px,
      sticky donja traka na mobilnom povecava konverzije 5-25% -->
@@ -149,6 +158,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     Zatražite ponudu
   </a>
 </div>
+<?php endif; ?>
 
 </main>
 
