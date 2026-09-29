@@ -630,6 +630,66 @@ uživo (nema podešenog reda koji ih koristi).
 
 ---
 
+## Mobilna sticky traka — dodavanje u korpu sa PDP-a
+
+**Commit:** `8287283`
+**Fajl(ovi):** `footer.php`, `template-parts/product/single.php`,
+`inc/product-variations.php`, `assets/js/product.js`, `assets/css/product.css`
+
+**Šta radi:**
+- Sticky dugme na telefonu stvarno dodaje proizvod u upit, sa izabranom varijacijom
+  i izabranom količinom. Ranije je bio link koji za varijabilni proizvod vodi na
+  stranicu na kojoj kupac već jeste.
+- Radi i bez JavaScripta: `<button type="submit" form="product-cta-form">`, ne JS proxy.
+- Na stranici proizvoda postoji **samo jedna** traka; `footer.php` svoju preskače.
+
+**Tri kvara koja su bila u lancu (ako se nešto od ovoga vrati, tu je uzrok):**
+1. `add_to_cart_url()` za `WC_Product_Variable` vraća **permalink**, jer ta klasa ne
+   prepisuje baznu metodu. Kod simple proizvoda vraća `?add-to-cart=ID` i ignoriše
+   polje za količinu.
+2. Dvije `position: fixed; bottom: 0; z-index: 900` trake su se crtale jedna preko
+   druge. Globalna (footer, ispod 768px) je pobjeđivala jer je kasnije u DOM-u.
+3. Bez JS-a `variation_id` ostaje 0, a WooCommerce-ov
+   `find_matching_product_variation()` na ovoj instalaciji vraća 0 iako je atribut
+   poslat ispravno → „Please choose product options". Ta pretraga ide kroz
+   `get_posts()`, pa je može poremetiti plugin koji filtrira upite (JetEngine je aktivan).
+
+**Odluke koje se ne vraćaju unazad:**
+- `door_expert_resolve_posted_variation()` varijaciju nalazi **iteracijom po djeci
+  roditelja, bez upita nad bazom**. Namjerno — upit je ono što je i puklo. Kači se na
+  `wp_loaded` prioritet **19**, jer `WC_Form_Handler::add_to_cart_action()` je na 20.
+  Kad JS radi, funkcija odmah izlazi (`variation_id` je već popunjen).
+- Prazna vrijednost atributa varijacije je WC-ov džoker („Bilo koja"), ne vrijednost —
+  zato se preskače pri poređenju.
+- Na PDP-u je **„Dodaj u ponudu" primarno (amber), poziv sekundarno** — obrnuto od
+  ostatka sajta. Po `DOCS/CRO/CRO - product.md`: dodavanje u upit je primarna svrha
+  stranice, poziv je sekundarni cilj, a Mobile-Specific CRO izričito traži sticky
+  „Dodaj u upit". Isti dokument pod A/B prijedlozima ostavlja ovo kao otvoreno za test.
+
+**Provjereno na staging-u:** POST-om (`curl`) i u browseru. Sa izabranom širinom i bez
+JS-a proizvod ulazi u korpu; bez izbora ne ulazi ništa. **Nije provjereno:** simple
+proizvod (katalog ga još nema).
+
+**Poznata rupa, nije uzrokovana ovim radom:** šablon PDP-a nigdje ne ispisuje
+WooCommerce notice-e (`woocommerce_output_all_notices()`), pa bez JS-a klik bez izbora
+prođe **bez ijedne poruke**. Sa JS-om se ne vidi jer je dugme ugašeno.
+
+### Kada se pokvari — šta proveriti
+1. **Sticky dugme ne radi ništa** → u DevTools provjeri da je `<button>` a ne `<a>`, i
+   da `form="product-cta-form"` pogađa postojeći `id` forme
+2. **Dvije trake / vidi se pogrešna** → `footer.php` na serveru je star; provjeri
+   `is_product()` uslov oko `.mobile-sticky-cta`
+3. **„Please choose product options" bez JS-a** → `inc/product-variations.php` je star
+   ili se `door_expert_resolve_posted_variation()` ne izvršava. Testiraj direktno:
+   `curl -X POST <pdp> -d "add-to-cart=ID&variation_id=0&attribute_pa_x=slug&quantity=1"`
+   pa traži tu poruku u odgovoru
+4. **Dodaje pogrešnu varijaciju** → džoker logika; provjeri da se prazna vrijednost
+   preskače, a ne poredi
+5. **Sticky dugme ostaje blijedo iako je sve izabrano** → `product.js` ne prati klasu
+   `disabled` na `#btn-add-to-cart` (MutationObserver), ili je WC promijenio ime klase
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
