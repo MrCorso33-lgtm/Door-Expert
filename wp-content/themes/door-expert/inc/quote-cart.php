@@ -102,6 +102,167 @@ add_filter(
 );
 
 /**
+ * Tekst za proizvod bez cijene, na jednom mjestu.
+ *
+ * Koriste ga i prikaz cijene i redovi upita, a kroz wp_localize_script ide i u
+ * product.js - da se ista stvar ne bi zvala razlicito na tri mjesta.
+ *
+ * @return string
+ */
+function door_expert_price_on_request() {
+	return 'Cijena na upit';
+}
+
+/**
+ * Ukupno za jednu stavku korpe, ili tekst kad cijena nije unesena.
+ *
+ * Korpa je ovo ispisivala kao wc_price( line_total ), a to je za stavku bez cijene
+ * "0,00 €" - isti pogresan broj koji smo uklonili sa kartice i sa PDP-a, samo jedan
+ * nivo nize. Filter nad price_html ovdje ne stize: on mijenja cijenu PROIZVODA, ne
+ * zbir stavke.
+ *
+ * @param array $cart_item Stavka iz WC()->cart->get_cart().
+ * @return string Iznos (HTML) ili tekst "Cijena na upit".
+ */
+function door_expert_cart_line_total( $cart_item ) {
+	$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
+
+	// Kod varijabilnog proizvoda ovdje je sama varijacija, pa je i cijena njena.
+	if ( $product instanceof WC_Product && 0.0 >= (float) $product->get_price() ) {
+		return door_expert_price_on_request();
+	}
+
+	$total = isset( $cart_item['line_total'] ) ? (float) $cart_item['line_total'] : 0.0;
+	$tax   = isset( $cart_item['line_tax'] ) ? (float) $cart_item['line_tax'] : 0.0;
+
+	return wc_price( $total + $tax );
+}
+
+/**
+ * Ima li u korpi ijedna stavka bez cijene.
+ *
+ * Zbir ("Procijenjena vrijednost") takvu stavku racuna kao nulu, pa bez napomene
+ * ispada da je sve uracunato.
+ *
+ * @return bool
+ */
+function door_expert_cart_has_on_request() {
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+		return false;
+	}
+
+	foreach ( WC()->cart->get_cart() as $cart_item ) {
+		$product = isset( $cart_item['data'] ) ? $cart_item['data'] : null;
+
+		if ( $product instanceof WC_Product && 0.0 >= (float) $product->get_price() ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Pregled ponude (stavke + procijenjena vrijednost + napomena), kao HTML.
+ *
+ * Jedan renderer za sablon i za AJAX. Ranije je pregled postojao samo u
+ * template-parts/page/korpa.php, pa se poslije uklanjanja stavke mijenjala tabela
+ * lijevo, a pregled desno je ostajao stari do osvjezavanja stranice.
+ *
+ * Isti obrazac kao door_expert_shop_results() za listing: da AJAX renderuje svoj
+ * markup, prije ili kasnije bi se razisao sa sablonom i to niko ne bi primijetio.
+ *
+ * @return string
+ */
+function door_expert_quote_summary_html() {
+	if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+		return '';
+	}
+
+	ob_start();
+	?>
+	<ul class="korpa-summary__lines" id="summary-lines" aria-label="Pregled stavki">
+		<?php foreach ( WC()->cart->get_cart() as $item ) : ?>
+			<?php if ( ! isset( $item['data'] ) || ! $item['data'] instanceof WC_Product ) { continue; } ?>
+			<li class="korpa-summary__line">
+				<span><?php echo esc_html( $item['data']->get_name() . ' × ' . (int) $item['quantity'] ); ?></span>
+				<span><?php echo wp_kses_post( door_expert_cart_line_total( $item ) ); ?></span>
+			</li>
+		<?php endforeach; ?>
+		<li class="korpa-summary__line korpa-summary__line--total">
+			<span class="korpa-summary__total-label">Procijenjena vrijednost</span>
+			<span class="korpa-summary__total-value" id="grand-total" data-cart-total><?php echo esc_html( html_entity_decode( wp_strip_all_tags( WC()->cart->get_total() ) ) ); ?></span>
+		</li>
+	</ul>
+
+	<p class="korpa-summary__disclaimer">
+		<?php if ( door_expert_cart_has_on_request() ) : ?>
+			<?php // Zbir takvu stavku racuna kao nulu, pa bez ovoga ispada da je sve uracunato. ?>
+			<strong>Stavke sa oznakom „Cijena na upit“ nisu uračunate u procijenjenu vrijednost.</strong>
+		<?php endif; ?>
+		Konačna formalna ponuda (pro forma) stiže mejlom nakon provjere zalihe, dimenzija i uslova isporuke. Cijena može biti korigovana u vašu korist.
+	</p>
+	<?php
+
+	return (string) ob_get_clean();
+}
+
+add_filter( 'woocommerce_get_price_html', 'door_expert_price_html_on_request', 10, 2 );
+/**
+ * Proizvod bez cijene pise "Cijena na upit", nikad "0,00 €".
+ *
+ * Nula ovdje nije cijena nego "jos nije unesena" - filter iznad zato takav proizvod
+ * i drzi kupljivim. Bez ovoga je ista ta nula izlazila kao cijena na kartici u
+ * listingu, na stranici proizvoda prije izbora i u korpi.
+ *
+ * Kod varijabilnog proizvoda raspon koji pocinje od nule ("0,00 € - 355,00 €") je
+ * gori od svih: sugerise da nesto kosta nula. Zato se iz raspona izbacuju varijacije
+ * bez cijene, a ako nijedna nema cijenu, ostaje samo tekst. Kad ih SVE imaju, vracamo
+ * zatecen WC ispis netaknut.
+ *
+ * @param string     $html    Zatecen ispis cijene.
+ * @param WC_Product $product Proizvod.
+ * @return string
+ */
+function door_expert_price_html_on_request( $html, $product ) {
+	if ( ! $product instanceof WC_Product ) {
+		return $html;
+	}
+
+	if ( $product->is_type( 'variable' ) ) {
+		$prices = $product->get_variation_prices( true );
+		$all    = isset( $prices['price'] ) ? (array) $prices['price'] : array();
+		$priced = array();
+
+		foreach ( $all as $price ) {
+			if ( 0.0 < (float) $price ) {
+				$priced[] = (float) $price;
+			}
+		}
+
+		if ( empty( $priced ) ) {
+			return door_expert_price_on_request();
+		}
+
+		if ( count( $priced ) === count( $all ) ) {
+			return $html;
+		}
+
+		$min = min( $priced );
+		$max = max( $priced );
+		$out = $min === $max ? wc_price( $min ) : wc_format_price_range( $min, $max );
+
+		return $out . $product->get_price_suffix();
+	}
+
+	if ( '' === $product->get_price() || 0.0 === (float) $product->get_price() ) {
+		return door_expert_price_on_request();
+	}
+
+	return $html;
+}
+
+/**
  * Ograničenje broja zahtjeva po IP adresi.
  *
  * @param string $prefix Ključ transienta.
@@ -324,10 +485,10 @@ function door_expert_collect_cart_products( $item_notes = array() ) {
 			'kolicina'      => $qty,
 			'cijena'        => null !== $total
 				? html_entity_decode( wp_strip_all_tags( wc_price( $price ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' )
-				: 'Cijena na upit',
+				: door_expert_price_on_request(),
 			'cijena_ukupno' => null !== $total
 				? html_entity_decode( wp_strip_all_tags( wc_price( $total ) ), ENT_QUOTES | ENT_HTML5, 'UTF-8' )
-				: 'Cijena na upit',
+				: door_expert_price_on_request(),
 		);
 	}
 
@@ -472,8 +633,9 @@ function door_expert_update_cart_qty() {
 	$item_subtotal = '';
 
 	if ( 0 < $qty && isset( $cart[ $key ] ) ) {
-		$item          = $cart[ $key ];
-		$item_subtotal = wc_price( $item['line_total'] + ( $item['line_tax'] ?? 0 ) );
+		// Isti racun kao pri ucitavanju stranice, inace bi promjena kolicine vratila
+		// "0,00 €" preko teksta "Cijena na upit".
+		$item_subtotal = door_expert_cart_line_total( $cart[ $key ] );
 	}
 
 	wp_send_json_success(
@@ -481,6 +643,7 @@ function door_expert_update_cart_qty() {
 			'removed'       => 0 === $qty,
 			'item_subtotal' => $item_subtotal,
 			'cart_subtotal' => WC()->cart->get_cart_subtotal(),
+			'summary_html'  => door_expert_quote_summary_html(),
 			'cart_total'    => html_entity_decode( wp_strip_all_tags( WC()->cart->get_total() ) ),
 			'cart_count'    => WC()->cart->get_cart_contents_count(),
 			'cart_empty'    => WC()->cart->is_empty(),
@@ -508,6 +671,7 @@ function door_expert_remove_cart_item() {
 	wp_send_json_success(
 		array(
 			'cart_subtotal' => WC()->cart->get_cart_subtotal(),
+			'summary_html'  => door_expert_quote_summary_html(),
 			'cart_total'    => html_entity_decode( wp_strip_all_tags( WC()->cart->get_total() ) ),
 			'cart_count'    => WC()->cart->get_cart_contents_count(),
 			'cart_empty'    => WC()->cart->is_empty(),

@@ -70,7 +70,10 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
                 $de_pid      = $de_item['product_id'];
                 $de_qty      = (int) $de_item['quantity'];
                 $de_link     = get_permalink( $de_pid );
-                $de_subtotal = wc_price( $de_item['line_total'] + ( $de_item['line_tax'] ?? 0 ) );
+                // Stavka bez cijene daje tekst, ne "0,00 €" (inc/quote-cart.php).
+                $de_subtotal = function_exists( 'door_expert_cart_line_total' )
+                  ? door_expert_cart_line_total( $de_item )
+                  : wc_price( $de_item['line_total'] + ( $de_item['line_tax'] ?? 0 ) );
 
                 // Varijanta / atributi u jednom redu.
                 $de_variant = array();
@@ -135,23 +138,16 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
 
             <h2 class="korpa-summary__title">Pregled ponude</h2>
 
-            <ul class="korpa-summary__lines" id="summary-lines" aria-label="Pregled stavki">
-              <?php foreach ( $de_cart as $de_item ) : ?>
-                <?php if ( ! $de_item['data'] instanceof WC_Product ) { continue; } ?>
-                <li class="korpa-summary__line">
-                  <span><?php echo esc_html( $de_item['data']->get_name() . ' × ' . (int) $de_item['quantity'] ); ?></span>
-                  <span><?php echo wp_kses_post( wc_price( $de_item['line_total'] + ( $de_item['line_tax'] ?? 0 ) ) ); ?></span>
-                </li>
-              <?php endforeach; ?>
-              <li class="korpa-summary__line korpa-summary__line--total">
-                <span class="korpa-summary__total-label">Procijenjena vrijednost</span>
-                <span class="korpa-summary__total-value" id="grand-total" data-cart-total><?php echo esc_html( html_entity_decode( wp_strip_all_tags( WC()->cart->get_total() ) ) ); ?></span>
-              </li>
-            </ul>
-
-            <p class="korpa-summary__disclaimer">
-              Konačna formalna ponuda (pro forma) stiže mejlom nakon provjere zalihe, dimenzija i uslova isporuke. Cijena može biti korigovana u vašu korist.
-            </p>
+            <?php // Isti renderer koji vraca i AJAX poslije izmjene korpe (inc/quote-cart.php). ?>
+            <div data-cart-summary>
+              <?php
+              /*
+               * Bez wp_kses_post(): funkcija escape-uje svaki podatak iznutra, a kses bi
+               * skinuo data-cart-total, na kojem stoji osvjezavanje iznosa iz korpa.js.
+               */
+              echo door_expert_quote_summary_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+              ?>
+            </div>
 
             <form class="korpa-form" id="quote-form" novalidate>
               <div class="korpa-form__title">Vaši kontakt podaci</div>

@@ -215,6 +215,34 @@
       var calcDefaultPrice = calc ? pricePerM2 : 0;
 
       /*
+       * Varijacija bez cijene je u quote modelu validno stanje - korpa za nju vec pise
+       * "Cijena na upit" (inc/quote-cart.php). PDP to nije pratio: blok cijene je
+       * pokazivao opseg roditelja, dakle broj koji za tu dimenziju ne vazi.
+       *
+       * Natpis dugmeta se NE mijenja: radnja je ista bez obzira na cijenu, pa i poziv
+       * na akciju ostaje "Dodaj u ponudu", kako trazi i DOCS/CRO/CRO - product.md.
+       *
+       * Cijena 0 i prazna cijena su ovdje isto, isti kriterijum koji koristi i filter
+       * woocommerce_is_purchasable u inc/quote-cart.php.
+       */
+      function applyPriceState( variation ) {
+        if ( ! priceEl || ! variation ) {
+          return;
+        }
+
+        if ( 0 < parseFloat( variation.display_price ) ) {
+          // Prazan price_html znaci "sve varijacije istu cijenu" - ostaje cijena roditelja.
+          if ( variation.price_html ) {
+            priceEl.innerHTML = variation.price_html;
+          }
+
+          return;
+        }
+
+        priceEl.textContent = ( window.doorExpertPrice && window.doorExpertPrice.onRequest ) || 'Cijena na upit';
+      }
+
+      /*
        * Blok dostupnosti gore pokazuje status RODITELJA. Kod varijabilnih to zna biti
        * suprotno od izabrane dimenzije (zeleno "Na stanju", a 70 cm rasprodato), pa ga
        * vezujemo za varijaciju. Tekstovi dolaze iz PHP-a (door_expert_stock_display).
@@ -616,10 +644,7 @@
       } );
 
       $form.on( 'show_variation', function ( event, variation ) {
-        // price_html je prazan kad su sve varijacije iste cijene – tad ostaje cijena roditelja.
-        if ( priceEl && variation && variation.price_html ) {
-          priceEl.innerHTML = variation.price_html;
-        }
+        applyPriceState( variation );
         if ( variation ) {
           applyStock( variation.door_expert_stock_status || availDefault );
         }

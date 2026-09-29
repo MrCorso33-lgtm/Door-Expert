@@ -36,6 +36,18 @@
 
   /* ── Osvježi totale i badž ──────────────────────────────── */
   function paintTotals( data ) {
+    /*
+     * Pregled ponude dolazi gotov sa servera (isti renderer koji crta i stranicu),
+     * pa se ne prepisuje ovdje rucno. Ide PRVI: stavke, procijenjena vrijednost i
+     * napomena o cijenama na upit su u tom bloku, a red ispod ionako upisuje iste
+     * svjeze vrijednosti u nove elemente.
+     */
+    if ( data.summary_html ) {
+      document.querySelectorAll( '[data-cart-summary]' ).forEach( function ( el ) {
+        el.innerHTML = data.summary_html;
+      } );
+    }
+
     document.querySelectorAll( '[data-cart-total]' ).forEach( function ( el ) {
       el.textContent = data.cart_total;
     } );

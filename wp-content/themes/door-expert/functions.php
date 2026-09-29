@@ -233,6 +233,15 @@ function door_expert_enqueue_assets() {
 					'outofstock'  => door_expert_stock_display( 'outofstock' ),
 				)
 			);
+
+			// Tekst za varijaciju bez cijene – isti izvor kao PHP prikaz (inc/quote-cart.php).
+			if ( function_exists( 'door_expert_price_on_request' ) ) {
+				wp_localize_script(
+					'door-expert-product-js',
+					'doorExpertPrice',
+					array( 'onRequest' => door_expert_price_on_request() )
+				);
+			}
 		}
 	}
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
