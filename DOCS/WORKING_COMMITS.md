@@ -690,6 +690,57 @@ prođe **bez ijedne poruke**. Sa JS-om se ne vidi jer je dugme ugašeno.
 
 ---
 
+## Cijena na upit — proizvod bez unesene cijene
+
+**Commit:** `07b3f1c`
+**Fajl(ovi):** `inc/quote-cart.php`, `template-parts/page/korpa.php`,
+`assets/js/korpa.js`, `assets/js/product.js`, `functions.php`
+
+**Šta radi:**
+- Proizvod bez cijene piše **„Cijena na upit"**, nikad „0,00 €" — na kartici u
+  listingu, na PDP-u prije i poslije izbora, u korpi i u pregledu ponude.
+- Kod varijabilnog proizvoda se iz raspona izbacuju varijacije bez cijene.
+  „0,00 € – 355,00 €" je bio najgori ishod: sugeriše da nešto košta nula.
+- Pregled ponude u korpi se osvježava kroz AJAX, bez ponovnog učitavanja.
+
+**Gdje su tri odvojena puta do iste greške (ako se vrati, provjeri sva tri):**
+1. **Cijena proizvoda** → filter `woocommerce_get_price_html`.
+2. **Zbir stavke u korpi** → `door_expert_cart_line_total()`. Filter iznad ovdje
+   **ne stiže** — to je zaseban račun (`wc_price( line_total )`).
+3. **AJAX pri promjeni količine** → isti helper. Bez njega se tekst vrati u
+   „0,00 €" čim kupac klikne plus ili minus. Ovo je najlakše promašiti.
+
+**Odluke koje se ne vraćaju unazad:**
+- Tekst živi u `door_expert_price_on_request()`, jednom mjestu. U JS stiže kroz
+  `wp_localize_script` (`doorExpertPrice.onRequest`), ne kao drugi literal.
+- **Natpis dugmeta se ne mijenja po cijeni** — radnja je ista, pa ostaje „Dodaj u
+  ponudu". Porting dokument `03` predlaže „Zatražite cijenu"; odbijeno svjesno, po
+  `DOCS/CRO/CRO - product.md` i odluci vlasnika.
+- Kad **sve** varijacije imaju cijenu, zatečeni WooCommerce ispis se ne dira.
+- Pregled ponude crta `door_expert_quote_summary_html()` — **jedan renderer za
+  šablon i za oba AJAX odgovora**, isti obrazac kao `door_expert_shop_results()`.
+  Šablon nema svoju kopiju tog markupa.
+- Taj markup se ispisuje **bez `wp_kses_post()`**: funkcija escape-uje svaki podatak
+  iznutra, a kses bi skinuo `data-cart-total`, na kojem stoji osvježavanje iznosa.
+- Napomena „Stavke sa oznakom Cijena na upit nisu uračunate" ide u **postojeću**
+  napomenu ispod iznosa, samo kad takva stavka stvarno postoji u korpi.
+
+**Provjereno na staging-u:** listing, PDP prije i poslije izbora, korpa, promjena
+količine, uklanjanje stavke, pregled ponude. **Nije provjereno:** tekst u mejlu upita.
+
+### Kada se pokvari — šta proveriti
+1. **„0,00 €" negdje izlazi** → nađi koji od tri puta gore renderuje to mjesto
+2. **Tekst se vrati u „0,00 €" na +/−** → AJAX handler ne koristi
+   `door_expert_cart_line_total()`
+3. **Pregled desno kasni za tabelom** → odgovor nema `summary_html`, ili u markupu
+   fali `data-cart-summary`
+4. **Iznos se ne osvježava poslije izmjene** → `data-cart-total` je pojeden; provjeri
+   da nad `door_expert_quote_summary_html()` niko nije vratio `wp_kses_post()`
+5. **Raspon opet počinje od nule** → filter ne radi; provjeri da proizvod jeste
+   `variable` i da `get_variation_prices()` vraća nulu za tu varijaciju
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
