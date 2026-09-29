@@ -569,14 +569,18 @@
 }
 
 /* Kombinacija nedostupna uz trenutni izbor (WC disable-uje opciju u select-u). */
+/* Nedostupno uz TRENUTNI izbor, ali i dalje klikabilno: klik na ovakvu pilulu
+   oslobađa izbor koji joj smeta (kaskada u product.js). Zato `pointer`, ne
+   `not-allowed` - kursor koji kaže "ne može" lagao bi. */
 .product-variant-pill.is-disabled {
   opacity: 0.35;
-  cursor: not-allowed;
+  cursor: pointer;
   text-decoration: line-through;
 }
 
-.product-variant-pill.is-disabled:hover {
-  border-color: var(--color-sand, #DDD5C4);
+.product-variant-pill.is-disabled:hover,
+.product-variant-pill.is-disabled:focus-visible {
+  opacity: 0.6;
 }
 
 /* ── WC VARIJACIJE (variations_form most) ── */

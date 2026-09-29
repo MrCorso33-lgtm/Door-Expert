@@ -256,8 +256,13 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
               <?php
               $de_attr_label = wc_attribute_label( $de_attr_name, $de_product );
               $de_attr_id    = sanitize_title( $de_attr_name );
+              // Pun spisak opcija; WC iz selecta briše nemoguće, pa se pilule ne smiju
+              // oslanjati na njega (vidi inc/product-variations.php).
+              $de_attr_list = function_exists( 'door_expert_variation_option_list' )
+                ? door_expert_variation_option_list( $de_product, $de_attr_name, $de_attr_options )
+                : array();
               ?>
-              <div class="product-variants" data-attribute="attribute_<?php echo esc_attr( $de_attr_id ); ?>">
+              <div class="product-variants" data-attribute="attribute_<?php echo esc_attr( $de_attr_id ); ?>" data-options="<?php echo esc_attr( wp_json_encode( $de_attr_list ) ); ?>">
                 <div class="product-variants__label">
                   <span><?php echo esc_html( $de_attr_label ); ?></span>
                   <span class="product-variants__selected" aria-hidden="true"></span>
@@ -280,6 +285,18 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
             <?php endforeach; ?>
             <a class="reset_variations" href="#" rel="nofollow">Poništi izbor</a>
           </div>
+
+          <?php
+          /*
+           * Inertni podatak, ne asset: sloj pilula iz njega računa dostupnost kad WC
+           * svoju mapu izostavi (iznad 30 varijacija). Isti razlog i isto svjesno
+           * odstupanje od CLAUDE.md §4 kao kod wp.template() šablona niže.
+           *
+           * JSON_HEX_TAG da `<` koji bi se ikad našao u slugu ne može rano zatvoriti
+           * <script> tag.
+           */
+          ?>
+          <script type="application/json" id="door-expert-variation-map"><?php echo wp_json_encode( door_expert_variation_map( $de_product ), JSON_HEX_TAG ); ?></script>
         <?php endif; ?>
 
         <?php if ( 'plocice' === $de_group ) : ?>

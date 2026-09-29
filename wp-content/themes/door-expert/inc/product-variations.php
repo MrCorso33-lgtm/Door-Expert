@@ -208,3 +208,103 @@ function door_expert_resolve_posted_variation() {
 	}
 }
 add_action( 'wp_loaded', 'door_expert_resolve_posted_variation', 19 );
+
+/**
+ * Kompaktna mapa varijacija za sloj pilula.
+ *
+ * WC svoju mapu (`data-product_variations`) izostavlja iznad 30 varijacija i tada
+ * prestaje da filtrira opcije u selectima. Kolekcija plocica sa 6 boja i 6 formata je
+ * vec preko tog praga, pa pilule moraju imati svoj izvor podataka koji nikad ne
+ * izostane.
+ *
+ * Namjerno NE koristimo get_available_variations(): ona po varijaciji nosi price_html,
+ * availability_html, cijeli image objekat sa srcset-om i sizes-om, plus sve dimenzije i
+ * tezinu. Za 60 varijacija je to preko 100 KB JSON-a u HTML-u, na stranici ciji je LCP
+ * fotografija proizvoda. Ovdje je samo ono sto pilulama treba.
+ *
+ * Prazan string u `attrs` je WC-ov dzoker ("Bilo koja vrijednost"), ne vrijednost.
+ *
+ * @param WC_Product $product Roditeljski proizvod.
+ * @return array<int,array{id:int,attrs:array<string,string>,price:float,stock:string}>
+ */
+function door_expert_variation_map( $product ) {
+	if ( ! $product instanceof WC_Product || ! $product->is_type( 'variable' ) ) {
+		return array();
+	}
+
+	$map = array();
+
+	foreach ( $product->get_children() as $child_id ) {
+		$variation = wc_get_product( $child_id );
+
+		if ( ! $variation instanceof WC_Product_Variation ) {
+			continue;
+		}
+
+		/*
+		 * Namjerno NE koristimo variation_is_visible(): ona je false i kad je cijena
+		 * prazna, pa bi dimenzija kojoj cijena jos nije unesena nestala sa PDP-a. U
+		 * quote modelu je "cijena na upit" validno stanje. Nepublikovana varijacija je
+		 * druga stvar i tu WC ima pravo.
+		 */
+		if ( 'publish' !== get_post_status( $child_id ) ) {
+			continue;
+		}
+
+		$map[] = array(
+			'id'    => $variation->get_id(),
+			'attrs' => $variation->get_variation_attributes(),
+			'price' => (float) $variation->get_price(),
+			'stock' => $variation->get_stock_status(),
+		);
+	}
+
+	return $map;
+}
+
+/**
+ * Pun spisak opcija jednog varijacijskog atributa, sa labelama.
+ *
+ * Pilule se do sada grade iz `select.options`, a WC iz tog selecta BRISE opcije koje
+ * nisu moguce uz trenutni izbor (ne onemogucava ih - brise). Zato pilula nestane
+ * umjesto da posivi, a iznad praga od 30 varijacija se ne desava ni to. Da bi spisak
+ * pilula bio stabilan u oba slucaja, pun spisak ide sa servera.
+ *
+ * Redoslijed se uzima iz same taksonomije (kako je podesen na atributu), ne iz
+ * varijacija - isto sto radi i wc_dropdown_variation_attribute_options().
+ *
+ * @param WC_Product $product  Roditeljski proizvod.
+ * @param string     $taxonomy Naziv atributa (npr. `pa_sirina-vrata`).
+ * @param array      $options  Vrijednosti koje proizvod stvarno nudi.
+ * @return array<int,array{v:string,l:string}>
+ */
+function door_expert_variation_option_list( $product, $taxonomy, $options ) {
+	$list = array();
+
+	if ( ! taxonomy_exists( $taxonomy ) ) {
+		// Lokalni (per-product) atribut: vrijednost je i labela.
+		foreach ( $options as $option ) {
+			$list[] = array(
+				'v' => $option,
+				'l' => $option,
+			);
+		}
+
+		return $list;
+	}
+
+	$terms = wc_get_product_terms( $product->get_id(), $taxonomy, array( 'fields' => 'all' ) );
+
+	foreach ( $terms as $term ) {
+		if ( ! in_array( $term->slug, $options, true ) ) {
+			continue;
+		}
+
+		$list[] = array(
+			'v' => $term->slug,
+			'l' => $term->name,
+		);
+	}
+
+	return $list;
+}

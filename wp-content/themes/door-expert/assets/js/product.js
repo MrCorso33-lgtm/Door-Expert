@@ -271,6 +271,128 @@
         return variationsForm.querySelectorAll( '.product-variants[data-attribute]' );
       }
 
+      /*
+       * IZVOR ISTINE ZA DOSTUPNOST.
+       *
+       * Ranije su se pilule gradile iz select.options i sivjele na opt.disabled. WC
+       * medjutim nemoguce opcije BRISE iz selecta umjesto da ih onemoguci, pa je pilula
+       * nestajala; iznad 30 varijacija WC prestane i to da radi, pa su pilule ostajale
+       * zamrznute kakve su bile pri ucitavanju. Zato pun spisak opcija dolazi iz
+       * data-options, a dostupnost se racuna iz mape koju salje server. Oba izvora
+       * postoje u oba rezima, pa prag od 30 varijacija vise nista ne mijenja.
+       *
+       * Prazan string u attrs je WC-ov dzoker ("Bilo koja vrijednost"), ne vrijednost.
+       */
+      var variationMap = [];
+
+      try {
+        var mapEl = document.getElementById( 'door-expert-variation-map' );
+        variationMap = mapEl ? JSON.parse( mapEl.textContent || '[]' ) : [];
+      } catch ( e ) {
+        variationMap = [];
+      }
+
+      function optionList( wrap ) {
+        var list = [];
+
+        try {
+          list = JSON.parse( wrap.getAttribute( 'data-options' ) || '[]' );
+        } catch ( e ) {
+          list = [];
+        }
+
+        if ( list.length ) {
+          return list;
+        }
+
+        // Stranica iz kesa, bez data-options: bolje stari nacin nego nijedna pilula.
+        return Array.prototype.map.call( wrap.querySelectorAll( 'select option' ), function ( opt ) {
+          return { v: opt.value, l: opt.textContent };
+        } ).filter( function ( option ) {
+          return '' !== option.v;
+        } );
+      }
+
+      // Trenutni izbor svih redova; skipKey izostavlja jedan red iz poredjenja.
+      function currentAttrs( skipKey ) {
+        var attrs = {};
+
+        variantWraps().forEach( function ( wrap ) {
+          var key = wrap.getAttribute( 'data-attribute' );
+          var select = wrap.querySelector( 'select' );
+
+          if ( select && select.value && key !== skipKey ) {
+            attrs[ key ] = select.value;
+          }
+        } );
+
+        return attrs;
+      }
+
+      function matchesVariation( variation, attrs ) {
+        var key;
+
+        for ( key in attrs ) {
+          if ( ! Object.prototype.hasOwnProperty.call( attrs, key ) ) {
+            continue;
+          }
+
+          var value = variation.attrs[ key ];
+
+          if ( undefined !== value && '' !== value && value !== attrs[ key ] ) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+
+      function comboPossible( attrs ) {
+        // Bez mape ne znamo nista, pa radije ne sivimo nista nego da posivimo sve.
+        if ( ! variationMap.length ) {
+          return true;
+        }
+
+        return variationMap.some( function ( variation ) {
+          return matchesVariation( variation, attrs );
+        } );
+      }
+
+      function optionPossible( key, value ) {
+        var test = currentAttrs( key );
+
+        test[ key ] = value;
+
+        return comboPossible( test );
+      }
+
+      /*
+       * WC iz selecta brise opcije koje nisu moguce uz PRETHODNI izbor. Kad kupac klikne
+       * bas takvu pilulu (dozvoljeno, vidi kaskadu u pickValue), jQuery .val() na
+       * nepostojecoj opciji tiho ne uradi nista i klik izgleda kao da ne radi. Zato je
+       * vracamo prije postavljanja. Bezbjedno je: WC svaki select gradi iz svog
+       * netaknutog snimka, nikad iz onoga sto zatekne u DOM-u.
+       */
+      function ensureOption( select, value, label ) {
+        if ( '' === value ) {
+          return;
+        }
+
+        var exists = Array.prototype.some.call( select.options, function ( opt ) {
+          return opt.value === value;
+        } );
+
+        if ( exists ) {
+          return;
+        }
+
+        var opt = document.createElement( 'option' );
+
+        opt.value = value;
+        opt.textContent = label || value;
+        select.appendChild( opt );
+      }
+
       function releaseAutoPicked( exceptKey ) {
         Object.keys( autoPicked ).forEach( function ( key ) {
           if ( key === exceptKey ) {
@@ -294,16 +416,31 @@
             return;
           }
 
-          var free = Array.prototype.filter.call( select.options, function ( o ) {
-            return '' !== o.value && ! o.disabled;
+          var free = optionList( wrap ).filter( function ( option ) {
+            return optionPossible( key, option.v );
           } );
 
           if ( 1 !== free.length ) {
             return;
           }
 
+          /*
+           * Ako nijedna odgovarajuca varijacija ne precizira ovaj atribut (sve imaju
+           * dzoker), atribut je nebitan uz trenutni izbor. Auto-izbor bi tada izmislio
+           * ogranicenje koje kupac nije izrazio, pa ga preskacemo.
+           */
+          var attrs = currentAttrs( key );
+          var specific = variationMap.some( function ( variation ) {
+            return matchesVariation( variation, attrs ) && '' !== ( variation.attrs[ key ] || '' );
+          } );
+
+          if ( variationMap.length && ! specific ) {
+            return;
+          }
+
           autoPicked[ key ] = true;
-          $( select ).val( free[ 0 ].value ).trigger( 'change' );
+          ensureOption( select, free[ 0 ].v, free[ 0 ].l );
+          $( select ).val( free[ 0 ].v ).trigger( 'change' );
         } );
       }
 
@@ -320,6 +457,60 @@
         mainImg.alt = alt || imgDefaultAlt;
       }
 
+      /*
+       * Klik na pilulu. Nedostupna pilula je NAMJERNO klikabilna: kupac koji je izabrao
+       * 90x200 pa hoce orah kojeg u toj dimenziji nema ne smije da dodje do ćorsokaka.
+       *
+       * Kaskada: zadrzavamo svaki drugi izbor koji je i dalje moguc uz novi, a cistimo
+       * samo one koji bi dali nemogucu kombinaciju. Provjera je namjerno u PAROVIMA
+       * (novi protiv jednog po jednog), ne protiv cijelog izbora odjednom: kod tri
+       * atributa dva postojeca izbora mogu svaki ponaosob biti u redu sa novim, a sva
+       * tri zajedno ne - a ciscenje oba kad je dovoljno jedno djeluje kao da se
+       * selektor bori sa kupcem.
+       */
+      function pickValue( wrap, option ) {
+        var key = wrap.getAttribute( 'data-attribute' );
+        var select = wrap.querySelector( 'select' );
+        // Ponovni klik na aktivnu pilulu = poništi izbor (lakše mijenjanje kombinacije).
+        var next = option.v === select.value ? '' : option.v;
+
+        /*
+         * Čovjek je preuzeo ovaj red, pa više nije mašinski izbor. Mašinske izbore u
+         * OSTALIM redovima puštamo da se preracunaju uz novu vrijednost, inace bi red
+         * ostao zakljucan na opciji koja je bila jedina prije ove promjene.
+         */
+        delete autoPicked[ key ];
+        releaseAutoPicked( key );
+
+        // Namjerno ponistavanje ne smije odmah biti ponisteno auto-izborom.
+        manualClearKey = '' === next ? key : null;
+
+        if ( '' !== next ) {
+          variantWraps().forEach( function ( other ) {
+            var otherKey = other.getAttribute( 'data-attribute' );
+            var otherSelect = other.querySelector( 'select' );
+
+            if ( otherKey === key || ! otherSelect || ! otherSelect.value ) {
+              return;
+            }
+
+            var pair = {};
+
+            pair[ key ] = next;
+            pair[ otherKey ] = otherSelect.value;
+
+            if ( ! comboPossible( pair ) ) {
+              otherSelect.value = ''; // Tiho: jedan 'change' okidamo tek na kraju.
+              delete autoPicked[ otherKey ];
+            }
+          } );
+
+          ensureOption( select, option.v, option.l );
+        }
+
+        $( select ).val( next ).trigger( 'change' );
+      }
+
       function buildPills( wrap ) {
         var select = wrap.querySelector( 'select' );
         var pills = wrap.querySelector( '.product-variants__pills' );
@@ -329,54 +520,59 @@
           return;
         }
 
+        var key = wrap.getAttribute( 'data-attribute' );
+        var selectedLabel = '';
+        /*
+         * Pilule se pri svakoj promjeni grade iznova, sto unistava fokusirani element i
+         * baca fokus na <body>. Korisnik tastature bi poslije svakog izbora morao da
+         * tabuje kroz cijeli red iznova, pa pamtimo koja je pilula bila fokusirana.
+         */
+        var focusValue = document.activeElement && pills.contains( document.activeElement )
+          ? document.activeElement.getAttribute( 'data-value' )
+          : null;
+
         pills.innerHTML = '';
 
-        Array.prototype.forEach.call( select.options, function ( opt ) {
-          if ( '' === opt.value ) {
-            return; // "Odaberite opciju" nije pilula.
-          }
-
+        optionList( wrap ).forEach( function ( option ) {
           var pill = document.createElement( 'button' );
+
           pill.type = 'button';
           pill.className = 'product-variant-pill';
-          pill.setAttribute( 'data-value', opt.value );
-          pill.textContent = opt.textContent;
+          pill.setAttribute( 'data-value', option.v );
+          pill.textContent = option.l;
 
-          if ( opt.disabled ) {
-            pill.disabled = true;
+          /*
+           * Nedostupna opcija se SIVI, ne uklanja i ne onemogucava. Uklanjanje pomjera
+           * red pod misem i katalog izgleda manji nego sto jeste ("nemaju orah"), a
+           * onemogucena pilula ne bi mogla da primi klik kojim kupac mijenja izbor.
+           */
+          if ( ! optionPossible( key, option.v ) ) {
             pill.classList.add( 'is-disabled' );
-            pill.title = 'Nedostupno uz trenutni izbor';
+            pill.title = 'Nije dostupno uz trenutni izbor';
           }
 
-          var isActive = opt.value === select.value;
+          var isActive = option.v === select.value;
+
+          if ( isActive ) {
+            selectedLabel = option.l;
+          }
+
           pill.classList.toggle( 'is-active', isActive );
           pill.setAttribute( 'aria-pressed', isActive ? 'true' : 'false' );
 
           pill.addEventListener( 'click', function () {
-            // Ponovni klik na aktivnu pilulu = poništi izbor (lakše mijenjanje kombinacije).
-            var next = opt.value === select.value ? '' : opt.value;
-            var wrapKey = wrap.getAttribute( 'data-attribute' );
-
-            /*
-             * Čovjek je preuzeo ovaj red, pa više nije mašinski izbor. Mašinske izbore u
-             * OSTALIM redovima puštamo da se preracunaju uz novu vrijednost, inace bi red
-             * ostao zakljucan na opciji koja je bila jedina prije ove promjene.
-             */
-            delete autoPicked[ wrapKey ];
-            releaseAutoPicked( wrapKey );
-
-            // Namjerno ponistavanje ne smije odmah biti ponisteno auto-izborom.
-            manualClearKey = '' === next ? wrapKey : null;
-
-            $( select ).val( next ).trigger( 'change' );
+            pickValue( wrap, option );
           } );
 
           pills.appendChild( pill );
+
+          if ( focusValue === option.v ) {
+            pill.focus();
+          }
         } );
 
         if ( selectedOut ) {
-          var current = select.options[ select.selectedIndex ];
-          selectedOut.textContent = current && current.value ? current.textContent : '';
+          selectedOut.textContent = selectedLabel;
         }
 
         // Select skrivamo tek kad pilule postoje – bez JS-a ostaje upotrebljiv dropdown.
@@ -390,11 +586,18 @@
       syncPills();
 
       /*
-       * WC je upravo prepisao opcije ostalih selecta. Prvo prikaz, pa auto-izbor.
-       * autoSelectSingles() sam okida 'change', sto nas vraca ovdje - autoBusy siječe
-       * tu rekurziju; unutrasnji prolaz je ionako vec osvjezio pilule.
+       * Osvjezavanje ide na obican 'change' samih selecta, a NE na WC-ov
+       * 'woocommerce_update_variation_values'. Taj dogadjaj iznad 30 varijacija nikad ne
+       * okine (WC tada iskljuci cijelo filtriranje opcija), pa su pilule ostajale
+       * zamrznute - a to je rezim u koji ulazi svaka kolekcija plocica sa 6 boja i 6
+       * formata. 'change' postoji u oba rezima i jedini je signal na koji se moze
+       * racunati.
+       *
+       * Prvo prikaz, pa auto-izbor. autoSelectSingles() sam okida 'change', sto nas
+       * vraca ovdje - autoBusy siječe tu rekurziju; unutrasnji prolaz je ionako vec
+       * osvjezio pilule.
        */
-      $form.on( 'woocommerce_update_variation_values', function () {
+      $form.on( 'change', '.product-variants select', function () {
         syncPills();
 
         if ( autoBusy ) {
