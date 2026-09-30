@@ -75,7 +75,7 @@ get_header();
           <!-- Research: Trust Signals doc + Business Facts – unclaimed territory -->
           <div class="hero__trust">
             <span class="hero__trust-dot" aria-hidden="true"></span>
-            Vrata na stanju – isporuka odmah. Konkurencija čeka 45+ dana.
+            Vrata na stanju – isporuka odmah.
           </div>
 
         </div>
@@ -227,7 +227,7 @@ get_header();
           <span class="trust-bar__stock-dot" aria-hidden="true"></span>
           Vrata odmah na stanju
         </span>
-        <span class="trust-bar__sub">Konkurencija čeka 45+ dana – mi isporučujemo odmah</span>
+        <span class="trust-bar__sub">Na lageru u Podgorici – isporučujemo odmah</span>
       </div>
     </div>
 

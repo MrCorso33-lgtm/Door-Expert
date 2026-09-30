@@ -120,7 +120,7 @@ function door_expert_product_faq( $group ) {
 			),
 			array(
 				'q' => 'Koliko je rok isporuke?',
-				'a' => 'Vrata su na stanju u našem skladištu u Podgorici – isporuka je odmah, bez čekanja. Naši konkurenti imaju rok čekanja od 45+ dana; mi to ne radimo. Transport do vašeg objekta dogovaramo posebno.',
+				'a' => 'Vrata su na stanju u našem skladištu u Podgorici – isporuka je odmah, bez čekanja. Transport do vašeg objekta dogovaramo posebno.',
 			),
 		),
 		'plocice'   => array(

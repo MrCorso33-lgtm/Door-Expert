@@ -89,7 +89,7 @@ if ( ! defined( 'ABSPATH' ) ) {
       <h2 class="onama-section-title">Pokrenuti iz uvjerenja da Crna Gora zaslužuje bolji izbor</h2>
       <p class="onama-story__para">
         Door Expert je osnovan u avgustu 2023. godine sa jednom jasnom idejom: kupci u Crnoj Gori
-        ne bi trebalo da čekaju 45 dana na vrata koja su dostupna odmah – niti da biraju između
+        ne bi trebalo da čekaju nedjeljama na vrata – niti da biraju između
         malog broja modela koji su slučajno stigli u luku.
       </p>
       <p class="onama-story__para">
@@ -101,8 +101,8 @@ if ( ! defined( 'ABSPATH' ) ) {
       </p>
       <p class="onama-story__para">
         Ono što nas razlikuje nije samo asortiman – to je <strong>vrata na stanju</strong>.
-        Dok konkurencija naručuje po zahtjevu i isporučuje za 45 dana, naš showroom u
-        Podgorici ima sve modele fizički dostupne za pregled i odmah za isporuku.
+        Naš showroom u Podgorici ima sve modele fizički dostupne za pregled i odmah za
+        isporuku.
       </p>
     </div>
     <div class="onama-story__visual-col">
@@ -183,7 +183,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
         <h3 class="onama-values__title">Isporuka odmah</h3>
         <p class="onama-values__desc">
-          Sva vrata su na stanju u Podgorici. Nema čekanja 45 dana kao kod konkurencije.
+          Sva vrata su na stanju u Podgorici.
           Kupite danas – dogovorite isporuku sutra.
         </p>
       </div>

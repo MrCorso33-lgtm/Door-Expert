@@ -132,7 +132,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="mont-step__body">
           <span class="mont-step__who mont-step__who--kupac">Vi</span>
           <h3 class="mont-step__title">Potvrdite i platite robu</h3>
-          <p class="mont-step__desc">Prihvatate ponudu i plaćate robu (gotovina, kartica, virman ili rate). Vrata su na stanju – odmah rezervisana za vas. Nema čekanja 45 dana kao kod konkurencije.</p>
+          <p class="mont-step__desc">Prihvatate ponudu i plaćate robu (gotovina, kartica, virman ili rate). Vrata su na stanju – odmah rezervisana za vas, bez čekanja na narudžbu.</p>
         </div>
       </div>
 
