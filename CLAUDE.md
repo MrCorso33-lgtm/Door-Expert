@@ -161,6 +161,20 @@ hardkodirani ključevi→`wp-config.php` konstante.
 
 - **Bez em dasha (—) na frontendu** — ni kao karakter ni kao `&mdash;`.
 - Posle svake završene celine: mali, čitljivi commit + push (kad korisnik traži).
+- **Kad se završi stranica: provjera naspram CRO i istraživačkih dokumenata.** Za stranicu
+  `{slug}` pročitaj `DOCS/CRO/CRO - {slug}.md` i
+  `DOCS/ISTRAZIVACKA OSNOVA/Istrazivacka-osnova - {slug}.md` i prođi:
+  primarni i sekundarni konverzioni cilj (koji CTA je istaknut, a koji sekundaran),
+  obavezne elemente po sekcijama, Mobile-Specific CRO, trust signale.
+  Korisniku daj kratku listu: **pokriveno / fali / svjesno odstupanje**. Razlike **predloži,
+  ne implementiraj sam.**
+  - Odluke klijenta imaju prednost nad dokumentima. Poznata: **bez poređenja sa
+    konkurencijom** ("konkurencija čeka 45+ dana" i slično) — dokumenti to i dalje
+    preporučuju, ne prenositi.
+  - Sukob dokumenta sa prototipom (§1) prijavi korisniku, ne rješavaj tiho.
+  - Primjer zašto ovo postoji: sticky traka na PDP-u je isticala poziv umjesto
+    "Dodaj u upit", iako `CRO - product.md` izričito kaže suprotno — uhvaćeno tek kad
+    je klijent pitao.
 - **Vodi `DOCS/WORKING_COMMITS.md`** — po završenom/verifikovanom featureu upiši stabilan
   commit, fajlove, šta radi i "ako pukne, šta proveriti". To je rollback referenca
   (`git checkout <hash> -- fajl`), ne changelog. Ažuriraj hash kad feature dobije popravku.
