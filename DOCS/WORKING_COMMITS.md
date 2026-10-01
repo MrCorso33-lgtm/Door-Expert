@@ -809,6 +809,74 @@ u prodavnici i slike kategorija iz admina (vlasnik). **Nije provjereno uživo:**
 
 ---
 
+## Korpa — prazno stanje + širina sadržaja
+
+**Commit:** `30ac23d` (prazno stanje), `03efdb0` (širina)
+**Fajl(ovi):** `template-parts/page/korpa.php`, `assets/css/korpa.css`
+
+**Šta radi:**
+- Prazna korpa kao u prototipu: ikonica, „Korpa je prazna", 4 kategorije, „Idi na početnu stranicu"
+- `.korpa-inner` = `--container-max` (1320px), 16px sa strane na telefonu, `--space-8` od tableta
+
+**Provjereno:** na staging-u (vlasnik).
+
+### Kada se pokvari — šta proveriti
+1. **Prazna korpa pokazuje samo naslov** → fali klasa `visible` na `.korpa-empty`;
+   `korpa.css` ga krije bez nje (u prototipu ga je palio demo JS)
+2. **Korpa uz samu ivicu ekrana** → `.korpa-inner` pravilo u `korpa.css`; prototipski
+   `.container` nema stil nigdje
+
+---
+
+## Lista sačuvanih (wishlist) — srce, header, tab „Sačuvano"
+
+**Commit:** `f3def91` (osnova), `ce3f8fa` (srce uvijek vidljivo), `d2f1b90` (uputstvo
+`#odaberi` na PDP-u), `e38e95b` (obavještenje „Dodato u ponudu" umjesto WC okvira)
+**Fajl(ovi):** `inc/wishlist.php`, `assets/js/wishlist.js`, `assets/css/wishlist.css`,
+`header.php`, `assets/css/header.css`, `template-parts/page/korpa.php`, `assets/js/korpa.js`,
+`assets/css/korpa.css`, `template-parts/shop/product-card.php`, `assets/css/product-card.css`,
+`template-parts/product/single.php`, `assets/js/product.js`, `assets/css/product.css`,
+`inc/quote-cart.php`, `functions.php`
+
+**Šta radi:**
+- `localStorage` (`door_expert_wishlist`) čuva SAMO ID-jeve; kartice za tab crta server
+  (AJAX `door_expert_wishlist_cards`) istom `product-card.php` kao prodavnica
+- Srce na kartici (`data-wishlist`), „Sačuvaj za projekat" na PDP-u, srce sa brojem u headeru
+  (`[data-wishlist-count]`, vodi na `/korpa/#sacuvano`)
+- Tab „Sačuvano": kartica + tekstualni „Ukloni"; prazno stanje „Nemate sačuvanih proizvoda"
+- Dodato u ponudu (bilo odakle) → skinuto sa liste: `woocommerce_add_to_cart` upiše kolačić
+  `door_expert_wishlist_added`, `wishlist.js` ga pokupi, obriše i pokaže „Dodato u ponudu."
+- WC poruka o uspjehu je prazna (`wc_add_to_cart_message_html`), „View cart" ispod dugmeta
+  sakriven; greške (npr. neizabrana dimenzija) i dalje idu u WC okvir
+- Varijabilni proizvod: kartica vodi na PDP sa `#odaberi` → „Prvo izaberite: …" iznad pilula
+
+**Provjereno:** na staging-u (vlasnik): srce na kartici/PDP-u/headeru, filtriranje, tab,
+„Ukloni", dodavanje iz taba (sa i bez varijacija), skidanje sa liste poslije dodavanja,
+uputstvo `#odaberi`, obavještenje. **Nije provjereno:** telefon (320–360px header, obavještenje
+iznad trake), header na ~1130–1320px.
+
+### Kada se pokvari — šta proveriti
+1. **Srce se oboji ali ne pamti** → kartica nema `data-wishlist` (stari `product-card.php` na
+   serveru) ili se `wishlist.js` ne učitava (`functions.php`, globalni blok)
+2. **Srce na nekoj kategoriji mrtvo / klik se poništi** → vraćen demo toggle iz prototipa u
+   `category.js` / `featured.js` / `sigurnosna.js` / `umivaonici.js` (onaj u umivaonici.js ima
+   `stopPropagation`)
+3. **Broj u headeru pokazuje broj iz korpe** → badž sačuvanog mora imati klasu
+   `.header-btn__saved`, ne `.header-btn__badge` (tu klasu svi skriptovi pune brojem korpe)
+4. **Tab „Sačuvano" prazan iako ima sačuvanih** → AJAX `door_expert_wishlist_cards` (nonce
+   `door_expert_wishlist`; korpa se ne kešira pa je nonce svjež) ili `inc/wishlist.php` nije na serveru
+5. **Proizvod ostaje na listi poslije dodavanja u ponudu** → kolačić: `wc_setcookie` sa
+   `httponly = false`, a JS ga briše sa `COOKIEPATH`/`COOKIE_DOMAIN` iz `doorExpertWishlistData.added`
+6. **Opet se vidi „has been added to your cart"** → filter `wc_add_to_cart_message_html` u
+   `inc/quote-cart.php`
+7. **Uputstvo `#odaberi` se ne pojavljuje / ne nestaje** → `product.js` (jQuery blok
+   varijacija), `#variant-hint` u `single.php`; `.product-variants__hint` ne smije imati
+   `display` pravilo (pobijedilo bi atribut `hidden`)
+8. **Povratak na tab „Korpa za ponudu" ne pokazuje novu stavku** → `data-cart-stale` na
+   `.korpa-page` (postavlja ga `added_to_cart` u `korpa.js`)
+
+---
+
 <!--
 Šablon za novi unos (kopiraj iznad ove linije):
 
