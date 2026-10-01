@@ -70,6 +70,54 @@ function door_expert_cat_url( $slug ) {
 	return is_wp_error( $link ) ? home_url( '/' ) : $link;
 }
 
+/**
+ * <img> kategorije iz njenog thumbnaila (Proizvodi → Kategorije → Thumbnail).
+ *
+ * Slika se tako mijenja iz admina, bez koda i bez FTP-a, dolazi sa našeg servera i
+ * dobija srcset, pa telefon ne skida istu sliku kao desktop.
+ *
+ * Dok kategorija nema postavljenu sliku, ide $fallback_url (placeholder iz
+ * prototipa) - da kartica ne ostane prazna dok klijent ne ubaci svoje fotografije.
+ *
+ * Alt: ako je u Medijima upisan alt za sliku, on pobjeđuje; inače ide $alt.
+ *
+ * @param string $slug         Slug product_cat kategorije.
+ * @param string $fallback_url URL slike kad kategorija nema thumbnail.
+ * @param string $alt          Alt tekst kad slika u Medijima nema svoj.
+ * @param array  $attr         Dodatni atributi (class, sizes, loading...).
+ * @return string HTML.
+ */
+function door_expert_cat_image( $slug, $fallback_url, $alt, $attr = array() ) {
+	$attr = wp_parse_args(
+		$attr,
+		array(
+			'loading' => 'lazy',
+		)
+	);
+
+	$term     = get_term_by( 'slug', $slug, 'product_cat' );
+	$image_id = $term instanceof WP_Term ? (int) get_term_meta( $term->term_id, 'thumbnail_id', true ) : 0;
+
+	if ( $image_id && wp_attachment_is_image( $image_id ) ) {
+		$own_alt = trim( (string) get_post_meta( $image_id, '_wp_attachment_image_alt', true ) );
+
+		$attr['alt'] = '' !== $own_alt ? $own_alt : $alt;
+
+		return wp_get_attachment_image( $image_id, 'large', false, $attr );
+	}
+
+	$html = '<img src="' . esc_url( $fallback_url ) . '" alt="' . esc_attr( $alt ) . '"';
+
+	foreach ( $attr as $name => $value ) {
+		if ( 'sizes' === $name || 'srcset' === $name ) {
+			continue; // Placeholder je jedna fiksna slika, sizes bez srcset nema smisla.
+		}
+		$html .= ' ' . esc_attr( $name ) . '="' . esc_attr( $value ) . '"';
+	}
+
+	return $html . ' />';
+}
+
 add_action( 'wp_enqueue_scripts', 'door_expert_enqueue_assets' );
 /**
  * Kondicionalni enqueue – svaka stranica dobija SAMO CSS koji joj treba.
@@ -101,10 +149,18 @@ function door_expert_enqueue_assets() {
 
 	wp_enqueue_script( 'door-expert-header-js', $uri . '/assets/js/header.js', array(), door_expert_ver( '/assets/js/header.js' ), true );
 
+	// Kartica proizvoda (.prod-card) – JEDNA za cijeli sajt. Registruje se ovdje, a
+	// učitava kao zavisnost svuda gdje se kartica pojavljuje (naslovna, kategorije,
+	// prodavnica). Ranije su je stilizovali i category.css i featured.css, pa je
+	// pobjeđivao onaj koji se kasnije učita.
+	wp_register_style( 'door-expert-product-card', $uri . '/assets/css/product-card.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/product-card.css' ) );
+
 	// ── KONDICIONALNO: naslovna ───────────────────────────────
 	// Sekcije sa prototipa (header-demo.html): hero, trust-bar, categories,
 	// featured, promo-banner, room-nav, brand-strip, instagram.
 	if ( is_front_page() ) {
+		wp_enqueue_style( 'door-expert-product-card' ); // "Odabrani za vas" crta istu karticu kao prodavnica.
+
 		$home_styles = array( 'hero', 'trust-bar', 'categories', 'featured', 'promo-banner', 'room-nav', 'brand-strip', 'instagram' );
 		foreach ( $home_styles as $handle ) {
 			$rel = '/assets/css/' . $handle . '.css';
@@ -123,7 +179,7 @@ function door_expert_enqueue_assets() {
 	// Familija-specific (plocice/sigurnosna/umivaonici) SAMO na svom top-level roditelju
 	// (potkategorije i sobna-vrata roditelj koriste samo category.css) – kao u prototipu.
 	if ( function_exists( 'is_product_category' ) && is_product_category() ) {
-		wp_enqueue_style( 'door-expert-category', $uri . '/assets/css/category.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/category.css' ) );
+		wp_enqueue_style( 'door-expert-category', $uri . '/assets/css/category.css', array( 'door-expert-tokens', 'door-expert-product-card' ), door_expert_ver( '/assets/css/category.css' ) );
 		// subcat.css: subcat- stilovi (izvučeni iz inline <style> prototipa) – koristi ih
 		// subcategory.php (sve potkategorije + roditelji bez bespoke parta).
 		wp_enqueue_style( 'door-expert-subcat', $uri . '/assets/css/subcat.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/subcat.css' ) );
@@ -191,9 +247,9 @@ function door_expert_enqueue_assets() {
 	}
 
 	// ── KONDICIONALNO: WooCommerce shop arhiva (Prodavnica) ───
-	// category.css nosi .prod-card/.prod-badge stilove (zavisnost prije prodavnica.css).
+	// Kartica proizvoda stiže iz product-card.css, kao zavisnost category.css.
 	if ( function_exists( 'is_shop' ) && is_shop() ) {
-		wp_enqueue_style( 'door-expert-category', $uri . '/assets/css/category.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/category.css' ) );
+		wp_enqueue_style( 'door-expert-category', $uri . '/assets/css/category.css', array( 'door-expert-tokens', 'door-expert-product-card' ), door_expert_ver( '/assets/css/category.css' ) );
 		wp_enqueue_style( 'door-expert-prodavnica', $uri . '/assets/css/prodavnica.css', array( 'door-expert-category' ), door_expert_ver( '/assets/css/prodavnica.css' ) );
 		wp_enqueue_script( 'door-expert-prodavnica-js', $uri . '/assets/js/prodavnica.js', array(), door_expert_ver( '/assets/js/prodavnica.js' ), true );
 	}
@@ -372,6 +428,8 @@ require_once get_template_directory() . '/inc/product-variations.php';
 // Istaknuti atributi (PDP traka + čipovi na kartici) – podaci iz postojećih WC
 // atributa, izbor iz admina.
 require_once get_template_directory() . '/inc/product-highlights.php';
+// Početna "Odabrani za vas" – kvadratić na proizvodu + upit (posle product-highlights: koristi njegov redoslijed kategorija).
+require_once get_template_directory() . '/inc/home-featured.php';
 if ( is_admin() ) {
 	require_once get_template_directory() . '/inc/product-highlights-admin.php';
 }

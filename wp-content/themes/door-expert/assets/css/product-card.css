@@ -1,0 +1,361 @@
+/*
+ * DOOR EXPERT – Kartica proizvoda (.prod-card), JEDNA za cijeli sajt
+ * ============================================================
+ * Renderuje je samo template-parts/shop/product-card.php, a koriste je prodavnica,
+ * kategorije, AJAX listing i sekcija "Odabrani za vas" na početnoj.
+ *
+ * Ranije su postojale dvije: category.css (prodavnica) i featured.css (početna, sa
+ * lažnim proizvodima iz prototipa). Obje su stilizovale istu klasu .prod-card, pa je
+ * pobjeđivala ona koja se kasnije učita. Sada je kartica jedna, a ovaj fajl se
+ * učitava kao zavisnost svuda gdje se kartica pojavljuje (functions.php).
+ *
+ * Kartica je spoj dvije odluke vlasnika:
+ *   GORNJI DIO (slika)   – iz prodavnice: cio proizvod, bez kropovanja, okvir 2/3.
+ *                          Vidi DOCS/WORKING_COMMITS.md, "PLP kartica – cijela slika".
+ *   DONJI DIO (tekst)    – sa početne: bež pozadina, atributi u jednom redu teksta,
+ *                          obrubljeno dugme preko cijele širine.
+ * Stari donji dio iz prodavnice je na polici: _shelf/prod-card-prodavnica-donji-dio.md
+ *
+ * MOBILE-FIRST (CLAUDE.md §3): baza je telefon, @media (min-width) nadograđuje.
+ */
+
+/* ── Okvir kartice ───────────────────────────────────────────── */
+.prod-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-alabaster, #F0EBE0);
+  border-radius: 4px;
+  transition: transform 240ms cubic-bezier(0.23,1,0.32,1),
+              box-shadow 240ms cubic-bezier(0.23,1,0.32,1);
+}
+
+/* ============================================================
+   GORNJI DIO – slika (iz prodavnice)
+   ============================================================ */
+
+/* 2/3 (a ne 4/3 kao na staroj početnoj): fotografije vrata su vrlo uske i visoke
+   (npr. 1283x2930 = 1:2.3), pa viši okvir znači da se cio proizvod vidi krupnije
+   uz contain. Odnos je isti za sve kategorije da bi kartice u istom redu grida
+   bile poravnate. */
+.prod-card__img-wrap {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  background: var(--color-alabaster, #F0EBE0);
+}
+
+/* Slika je u <a> omotaču (link na proizvod). Anchor se apsolutno rasteže preko okvira:
+   tako mu je visina definisana (inset), pa procentualne/max visine na slici imaju
+   na šta da se oslone. Flex centrira sliku, padding joj daje malo vazduha. */
+.prod-card__img-wrap > a {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3, 0.75rem) var(--space-2, 0.5rem);
+}
+
+/* Cio proizvod, bez kropovanja. max-width/max-height (a ne width/height 100%)
+   je pouzdanije od object-fit – slika se uklapa i kad joj klasa ne prođe kroz WP.
+   Prazan prostor kod neusklađenog odnosa strana popunjava pozadina okvira. */
+.prod-card__img-wrap img,
+.prod-card__img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: transform 500ms cubic-bezier(0.23,1,0.32,1);
+}
+
+/* ── Bedževi ─────────────────────────────────────────────────── */
+.prod-card__badges {
+  position: absolute;
+  top: var(--space-3, 0.75rem);
+  left: var(--space-3, 0.75rem);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1, 0.25rem);
+}
+
+.prod-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm, 2px);
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.prod-badge--stock {
+  background: rgba(76,175,80,0.92);
+  color: #fff;
+}
+
+.prod-badge--new {
+  background: var(--color-jantar, #A07840);
+  color: #fff;
+}
+
+.prod-badge--sale {
+  background: #C0392B;
+  color: #fff;
+}
+
+.prod-badge--order {
+  background: rgba(90,82,72,0.85);
+  color: #fff;
+}
+
+/* ── Lista želja ─────────────────────────────────────────────── */
+/* Baza (telefon): uvijek vidljivo, jer dodir nema hover. Sakriva se do hovera tek
+   na uređajima koji hover stvarno imaju – vidi @media (hover: hover) niže. */
+.prod-card__wishlist {
+  position: absolute;
+  top: var(--space-3, 0.75rem);
+  right: var(--space-3, 0.75rem);
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.90);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 180ms ease, transform 180ms ease, background 180ms ease;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.08));
+}
+
+.prod-card__wishlist:hover {
+  background: #fff;
+}
+
+.prod-card__wishlist svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--color-antracit, #1E1A16);
+  fill: none;
+  transition: fill 180ms ease, stroke 180ms ease;
+}
+
+.prod-card__wishlist.active svg {
+  fill: #C0392B;
+  stroke: #C0392B;
+}
+
+/* ============================================================
+   DONJI DIO – tekst (sa početne)
+   ============================================================ */
+.prod-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+  padding: var(--space-4, 1rem) var(--space-4, 1rem) var(--space-5, 1.25rem);
+}
+
+.prod-card__cat {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-jantar, #A07840);
+}
+
+.prod-card__name {
+  margin: 0;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-antracit, #1E1A16);
+}
+
+/* Naslov je link, ali vizuelno ostaje običan tekst (bez underline/visited boje). */
+.prod-card__name a,
+.prod-card__name a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+.prod-card__name a:hover,
+.prod-card__name a:focus-visible {
+  color: var(--color-jantar, #A07840);
+}
+
+/* Atributi jedan ispod drugog, sa labelama ("Materijal: Puno drvo"). Tipografija
+   sa početne (mali, prigušen tekst); samo je raspored vertikalan umjesto u redu. */
+.prod-card__attrs {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--color-antracit-soft, #6B6560);
+}
+
+.prod-card__attr-key {
+  font-weight: 600;
+}
+
+/* ── Cijena ──────────────────────────────────────────────────── */
+/* margin-top: auto gura cijenu i dugme na dno, pa su u istom redu grida poravnati
+   i kad jedna kartica ima duži naziv ili više atributa. */
+.prod-card__price-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2, 0.5rem);
+  margin-top: auto;
+  padding-top: var(--space-3, 0.75rem);
+}
+
+.prod-card__price {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-antracit, #1E1A16);
+}
+
+.prod-card__price-old {
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-antracit-soft, #6B6560);
+  text-decoration: line-through;
+}
+
+.prod-card__price-save {
+  margin-left: auto;
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #C0392B;
+}
+
+/* ── Dugme "Dodaj u ponudu" ──────────────────────────────────── */
+/* Pravi WooCommerce add-to-cart (klase add_to_cart_button / ajax_add_to_cart), ne
+   demo. Baza je telefonska veličina; desktop dobija veći natpis niže. */
+.prod-card__add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 44px; /* tap-meta, CLAUDE.md §3 */
+  margin-top: var(--space-3, 0.75rem);
+  padding: 8px var(--space-3, 0.75rem);
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-antracit, #1E1A16);
+  text-decoration: none;
+  background: transparent;
+  border: 1.5px solid var(--color-antracit, #1E1A16);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.prod-card__add svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.prod-card__add:hover,
+.prod-card__add:focus-visible {
+  background: var(--color-antracit, #1E1A16);
+  border-color: var(--color-antracit, #1E1A16);
+  color: #fff;
+}
+
+.prod-card__add:active {
+  transform: scale(0.97);
+}
+
+/* WooCommerce stanja tokom i poslije AJAX dodavanja. */
+.prod-card__add.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.prod-card__add.added {
+  background: var(--color-antracit, #1E1A16);
+  border-color: var(--color-antracit, #1E1A16);
+  color: #fff;
+}
+
+/* WC poslije dodavanja ubaci link "Pogledaj korpu" odmah iza dugmeta. */
+.prod-card .added_to_cart {
+  display: block;
+  margin-top: var(--space-2, 0.5rem);
+  font-family: var(--font-ui, 'DM Sans', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-jantar, #A07840);
+}
+
+/* ============================================================
+   NADOGRADNJE NAVIŠE
+   ============================================================ */
+@media (min-width: 641px) {
+  .prod-card__add {
+    padding: 9px var(--space-4, 1rem);
+    font-size: 0.8125rem;
+  }
+}
+
+/* Hover efekti samo gdje hover postoji – na telefonu bi "zaglavili" poslije dodira. */
+@media (hover: hover) {
+  .prod-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+  }
+
+  .prod-card:hover .prod-card__img {
+    transform: scale(1.04);
+  }
+
+  .prod-card__wishlist {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+
+  .prod-card:hover .prod-card__wishlist,
+  .prod-card__wishlist:focus-visible,
+  .prod-card__wishlist.active {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prod-card,
+  .prod-card__img,
+  .prod-card__wishlist,
+  .prod-card__add {
+    transition: none;
+  }
+}

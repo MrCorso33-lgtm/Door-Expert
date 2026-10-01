@@ -256,30 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── Add to cart ── */
-  document.querySelectorAll('.prod-card__btn-cart').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const originalText = btn.innerHTML;
-      btn.classList.add('added');
-      btn.innerHTML = `
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-        Dodano
-      `;
-      // Update cart badge in header
-      const cartBadge = document.querySelector('.header-cart-badge');
-      if (cartBadge) {
-        const current = parseInt(cartBadge.textContent) || 0;
-        cartBadge.textContent = current + 1;
-        cartBadge.style.display = 'flex';
-      }
-      setTimeout(() => {
-        btn.classList.remove('added');
-        btn.innerHTML = originalText;
-      }, 2000);
-    });
-  });
+  /*
+   * Ovdje je bio demo "dodaj u korpu" iz prototipa (natpis "Dodato" + brojac +1,
+   * bez ikakvog upisa u korpu). Kartica sada ima pravo WooCommerce dodavanje
+   * (.prod-card__add + ajax_add_to_cart), a brojac osvjezava header.js.
+   */
 
   /* ── Utility: debounce ── */
   function debounce(fn, delay) {

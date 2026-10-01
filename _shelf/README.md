@@ -21,3 +21,4 @@ u budućnosti. Ništa iz ovog foldera se ne renderuje niti učitava — sve je v
 |---|---|---|
 | [home-hero-category-strip.md](home-hero-category-strip.md) | Hero traka sa 4 kategorije (naslovna) | `front-page.php` — hero slide 1 |
 | [plocice-kalkulator-kategorija.md](plocice-kalkulator-kategorija.md) | m² kalkulator pločica (kategorijska stranica) | `template-parts/category/parent/keramicke-plocice.php` — između grida i FAQ-a |
+| [prod-card-prodavnica-donji-dio.md](prod-card-prodavnica-donji-dio.md) | Donji dio kartice proizvoda iz prodavnice (čipovi, amber dugme + oko) | `template-parts/shop/product-card.php` — `.prod-card__body` |

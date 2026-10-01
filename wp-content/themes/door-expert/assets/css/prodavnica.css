@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    PRODAVNICA (shop / arhiva svih proizvoda)
    Izvučeno iz inline <style> prototipa prodavnica.html, mobile-first.
-   .prod-card / .prod-badge stilovi dolaze iz category.css (učitan kao zavisnost).
+   .prod-card / .prod-badge stilovi dolaze iz product-card.css (zavisnost category.css).
    ═══════════════════════════════════════════════════════════ */
 
 /* ── SHOP HERO ───────────────────────────────────────────── */

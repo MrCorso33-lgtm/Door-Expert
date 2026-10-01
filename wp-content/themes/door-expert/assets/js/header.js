@@ -216,4 +216,14 @@
   updateCartBadge();
   document.addEventListener('de:cart:updated', updateCartBadge);
 
+  /*
+   * WooCommerce AJAX dodavanje (kartice u prodavnici, kategorijama i na početnoj)
+   * javlja se jQuery dogadjajem 'added_to_cart' na body-ju, a ne nasim
+   * 'de:cart:updated' – koji niko nije slao. Bez ovoga je brojac stajao na starom
+   * broju sve do sljedeceg ucitavanja stranice.
+   */
+  if (window.jQuery) {
+    window.jQuery(document.body).on('added_to_cart removed_from_cart', updateCartBadge);
+  }
+
 })();

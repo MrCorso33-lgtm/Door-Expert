@@ -114,9 +114,24 @@ $de_img    = $de_img_id
 <article class="prod-card" data-cat="<?php echo esc_attr( $de_data_cat ); ?>">
   <div class="prod-card__img-wrap">
     <a href="<?php echo esc_url( $de_link ); ?>" aria-label="<?php echo esc_attr( $product->get_name() ); ?>"><?php echo $de_img; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- wp_get_attachment_image je već escaped. ?></a>
+    <?php
+    /*
+     * Popust i zaliha za bedževe. Popust radi i za varijabilni proizvod (inc/product.php):
+     * "-6%" kad je cijeli proizvod snižen isto, "do -6%" kad je snižen samo dio varijacija.
+     *
+     * Zaliha čita SIROVI status, ne is_in_stock(): inc/product-variations.php namjerno
+     * drži vrata uvijek naručljivim, pa je is_in_stock() za vrata uvijek true i kartica
+     * je pisala "Na stanju" i za rasprodata. Isto pravilo kao na PDP-u.
+     */
+    $de_discount       = function_exists( 'door_expert_product_discount' ) ? door_expert_product_discount( $product ) : null;
+    $de_discount_label = $de_discount ? ( $de_discount['uniform'] ? '' : 'do ' ) . '-' . $de_discount['pct'] . '%' : '';
+    ?>
     <div class="prod-card__badges">
-      <?php if ( $product->is_in_stock() ) : ?>
-        <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
+      <?php if ( $de_discount ) : ?>
+        <span class="prod-badge prod-badge--sale"><?php echo esc_html( $de_discount_label ); ?></span>
+      <?php endif; ?>
+      <?php if ( 'instock' === $product->get_stock_status() ) : ?>
+        <span class="prod-badge prod-badge--stock"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Na stanju</span>
       <?php else : ?>
         <span class="prod-badge prod-badge--order">Po narudžbi</span>
       <?php endif; ?>
@@ -132,35 +147,42 @@ $de_img    = $de_img_id
     <?php endif; ?>
     <h3 class="prod-card__name"><a href="<?php echo esc_url( $de_link ); ?>"><?php echo esc_html( $product->get_name() ); ?></a></h3>
     <?php if ( ! empty( $de_attrs ) ) : ?>
-      <div class="prod-card__attrs">
+      <?php
+      /*
+       * Atributi jedan ispod drugog, sa labelama ("Materijal: Puno drvo"). Lista, jer to
+       * i jeste spisak osobina. Markup u jednom redu po stavci: prelom unutar <li>
+       * bi dodao razmak ispred vrijednosti.
+       */
+      ?>
+      <ul class="prod-card__attrs">
         <?php foreach ( $de_attrs as $de_attr ) : ?>
-          <?php // Bez prelamanja reda unutar čipa: prazan prostor u markupu bi se ispisao kao razmak uz padding. ?>
-          <span class="prod-card__attr"><?php if ( '' !== $de_attr['label'] ) : ?><span class="prod-card__attr-key"><?php echo esc_html( $de_attr['label'] ); ?>:</span> <?php endif; ?><?php echo esc_html( $de_attr['value'] ); ?></span>
+          <li class="prod-card__attr"><?php if ( '' !== $de_attr['label'] ) : ?><span class="prod-card__attr-key"><?php echo esc_html( $de_attr['label'] ); ?>:</span> <?php endif; ?><?php echo esc_html( $de_attr['value'] ); ?></li>
         <?php endforeach; ?>
-      </div>
+      </ul>
     <?php endif; ?>
     <div class="prod-card__price-row">
-      <?php if ( $product->is_on_sale() && '' !== (string) $product->get_regular_price() && '' !== (string) $product->get_sale_price() ) : ?>
-        <?php
-        $de_reg  = (float) $product->get_regular_price();
-        $de_sale = (float) $product->get_sale_price();
-        $de_pct  = ( $de_reg > 0 ) ? (int) round( ( ( $de_reg - $de_sale ) / $de_reg ) * 100 ) : 0;
-        ?>
-        <span class="prod-card__price-old"><?php echo wp_kses_post( wc_price( $de_reg ) ); ?></span>
-        <span class="prod-card__price"><?php echo wp_kses_post( wc_price( $de_sale ) ); ?></span>
-        <?php if ( $de_pct > 0 ) : ?>
-          <span class="prod-card__price-save">-<?php echo esc_html( (string) $de_pct ); ?>%</span>
-        <?php endif; ?>
+      <?php if ( $de_discount && $de_discount['single'] ) : ?>
+        <?php // Jedna cijena za cijeli proizvod: nova, pa precrtana stara, kao u prototipu. ?>
+        <span class="prod-card__price"><?php echo wp_kses_post( wc_price( $de_discount['price'] ) ); ?></span>
+        <span class="prod-card__price-old"><?php echo wp_kses_post( wc_price( $de_discount['regular'] ) ); ?></span>
       <?php else : ?>
+        <?php // Raspon (varijacije sa različitim cijenama) ili cijena bez popusta; "Cijena na upit" rješava filter u inc/quote-cart.php. ?>
         <span class="prod-card__price"><?php echo wp_kses_post( $product->get_price_html() ); ?></span>
       <?php endif; ?>
+      <?php if ( $de_discount ) : ?>
+        <span class="prod-card__price-save"><?php echo esc_html( $de_discount_label ); ?></span>
+      <?php endif; ?>
     </div>
-    <div class="prod-card__cta">
-      <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-quantity="1" data-product_id="<?php echo esc_attr( (string) $de_id ); ?>" class="prod-card__btn-cart add_to_cart_button<?php echo $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock() ? ' ajax_add_to_cart' : ''; ?>" rel="nofollow">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        Dodaj u ponudu
-      </a>
-      <a href="<?php echo esc_url( $de_link ); ?>" class="prod-card__btn-view" aria-label="Pogledaj <?php echo esc_attr( $product->get_name() ); ?>"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
-    </div>
+    <?php
+    /*
+     * Pravo WooCommerce dodavanje (add_to_cart_button + ajax_add_to_cart), izgled sa
+     * početne. Varijabilni proizvod AJAX ne podržava, pa ga ovo dugme vodi na PDP gdje
+     * se bira dimenzija – to je WC ponašanje add_to_cart_url().
+     */
+    ?>
+    <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-quantity="1" data-product_id="<?php echo esc_attr( (string) $de_id ); ?>" class="prod-card__add add_to_cart_button<?php echo $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock() ? ' ajax_add_to_cart' : ''; ?>" rel="nofollow">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
+      Dodaj u ponudu
+    </a>
   </div>
 </article>

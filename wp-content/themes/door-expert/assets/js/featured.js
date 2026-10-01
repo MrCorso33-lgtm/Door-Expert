@@ -1,91 +1,160 @@
 /**
- * DOOR EXPERT – Featured Products: Tab Filter + Wishlist
- * ============================================================
+ * Početna – "Odabrani za vas ovog mjeseca": tabovi + "Prikaži više".
+ *
+ * Server renderuje sve istaknute proizvode (template-parts/home/featured.php); ovdje
+ * se samo odlučuje koji su vidljivi. Obrazac iz Saya projekta
+ * (js/homepage-featured-products.js):
+ *   - prikazuje se prvih N (data-visible na sekciji, 4),
+ *   - "Prikaži više" otkriva još N, a kad je sve prikazano postaje "Prikaži manje"
+ *     i vraća na N,
+ *   - tab resetuje na N.
+ * Bez AJAX-a. Sakrivene kartice imaju loading="lazy", pa slike ne skidaju dok se ne
+ * pokažu. Bez JavaScripta se vidi sve, što je ispravno ponašanje.
+ *
+ * Ranije je ovdje bio demo iz prototipa: lažno "dodaj u korpu" (natpis "Dodano u
+ * korpu" + brojač +1, bez upisa u korpu) nad lažnim karticama. Kartice su sada prave
+ * i dodavanje radi WooCommerce.
  */
-
-(function () {
+( function () {
   'use strict';
 
-  // ── Tab filter ──────────────────────────────────────────────
-  const tabs = document.querySelectorAll('.featured__tab');
-  const cards = document.querySelectorAll('.prod-card[data-cat]');
+  var section = document.querySelector( '.featured[data-visible]' );
+  var grid = document.getElementById( 'featured-grid' );
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('is-active'));
-      tab.classList.add('is-active');
+  if ( ! section || ! grid ) {
+    return;
+  }
 
-      const filter = tab.dataset.filter;
+  var items = Array.prototype.slice.call( grid.querySelectorAll( '.featured__item' ) );
 
-      cards.forEach(card => {
-        if (filter === 'sve' || card.dataset.cat === filter) {
-          card.style.display = '';
-          // small entrance animation
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(8px)';
-          requestAnimationFrame(() => {
-            card.style.transition = 'opacity 220ms ease, transform 220ms cubic-bezier(0.23,1,0.32,1)';
-            card.style.opacity = '1';
-            card.style.transform = 'translateY(0)';
-          });
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
+  if ( ! items.length ) {
+    return;
+  }
 
-  // ── Wishlist toggle ─────────────────────────────────────────
-  const wishlistBtns = document.querySelectorAll('.prod-card__wishlist');
+  var moreBtn = document.getElementById( 'featured-more' );
+  var tabs = Array.prototype.slice.call( section.querySelectorAll( '.featured__tab' ) );
+  var visible = parseInt( section.getAttribute( 'data-visible' ), 10 ) || 4;
+  var filter = 'sve';
+  var limit = visible;
+  var total = 0;
 
-  wishlistBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      btn.classList.toggle('is-saved');
-      const saved = btn.classList.contains('is-saved');
-      btn.setAttribute('aria-label', saved ? 'Ukloni iz liste želja' : 'Sačuvaj u listu želja');
+  function matches( item ) {
+    return 'sve' === filter || filter === item.getAttribute( 'data-cat' );
+  }
 
-      // Micro-bounce
-      btn.style.transform = 'scale(1.25)';
-      setTimeout(() => { btn.style.transform = ''; }, 160);
-    });
-  });
+  function render( animate ) {
+    var shown = 0;
 
-  // ── Add to cart ─────────────────────────────────────────────
-  const addBtns = document.querySelectorAll('.prod-card__add');
+    total = 0;
 
-  addBtns.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const originalText = btn.innerHTML;
-      btn.innerHTML = `
-        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
-          <polyline points="20 6 9 17 4 12"/>
-        </svg>
-        Dodano u korpu
-      `;
-      btn.style.background = 'var(--color-antracit)';
-      btn.style.color = '#fff';
-
-      // Update cart badge count (demo)
-      const badge = document.querySelector('.header__cart-badge');
-      if (badge) {
-        const current = parseInt(badge.textContent) || 0;
-        badge.textContent = current + 1;
-        badge.style.display = 'flex';
-        badge.style.transform = 'scale(1.4)';
-        setTimeout(() => { badge.style.transform = ''; }, 200);
+    items.forEach( function ( item ) {
+      if ( ! matches( item ) ) {
+        item.hidden = true;
+        return;
       }
 
-      setTimeout(() => {
-        btn.innerHTML = originalText;
-        btn.style.background = '';
-        btn.style.color = '';
-      }, 2000);
-    });
-  });
+      total++;
 
-})();
+      if ( shown >= limit ) {
+        item.hidden = true;
+        return;
+      }
+
+      var wasHidden = item.hidden;
+
+      item.hidden = false;
+
+      if ( animate && wasHidden ) {
+        item.classList.remove( 'is-entering' );
+        void item.offsetWidth; // Restart animacije.
+        item.style.animationDelay = ( ( shown % visible ) * 40 ) + 'ms';
+        item.classList.add( 'is-entering' );
+      }
+
+      shown++;
+    } );
+
+    if ( ! moreBtn ) {
+      return;
+    }
+
+    if ( total <= visible ) {
+      moreBtn.hidden = true;
+      return;
+    }
+
+    var allShown = limit >= total;
+
+    moreBtn.hidden = false;
+    moreBtn.textContent = allShown ? 'Prikaži manje' : 'Prikaži više';
+    moreBtn.setAttribute( 'aria-expanded', allShown ? 'true' : 'false' );
+  }
+
+  tabs.forEach( function ( tab, index ) {
+    tab.addEventListener( 'click', function () {
+      if ( filter === tab.getAttribute( 'data-filter' ) ) {
+        return;
+      }
+
+      filter = tab.getAttribute( 'data-filter' );
+      limit = visible;
+
+      tabs.forEach( function ( other ) {
+        var on = other === tab;
+
+        other.classList.toggle( 'is-active', on );
+        other.setAttribute( 'aria-selected', on ? 'true' : 'false' );
+      } );
+
+      render( true );
+    } );
+
+    // Strelice lijevo/desno mijenjaju tab, kao kod nativnih tablist kontrola.
+    tab.addEventListener( 'keydown', function ( e ) {
+      if ( 'ArrowRight' !== e.key && 'ArrowLeft' !== e.key ) {
+        return;
+      }
+
+      e.preventDefault();
+
+      var step = 'ArrowRight' === e.key ? 1 : -1;
+      var next = tabs[ ( index + step + tabs.length ) % tabs.length ];
+
+      next.focus();
+      next.click();
+    } );
+  } );
+
+  if ( moreBtn ) {
+    moreBtn.addEventListener( 'click', function () {
+      if ( limit < total ) {
+        limit = Math.min( limit + visible, total );
+        render( true );
+        return;
+      }
+
+      limit = visible;
+      render( false );
+      // Poslije "Prikaži manje" kupac bi ostao daleko ispod sekcije.
+      section.scrollIntoView( { behavior: 'smooth', block: 'start' } );
+    } );
+  }
+
+  /*
+   * Lista želja na karticama. U prodavnici je ovo u category.js, koji se na
+   * početnoj ne učitava, pa bi dugme ovdje bilo mrtvo. Isto ponašanje kao tamo.
+   */
+  grid.addEventListener( 'click', function ( e ) {
+    var btn = e.target.closest( '.prod-card__wishlist' );
+
+    if ( ! btn ) {
+      return;
+    }
+
+    e.preventDefault();
+    btn.classList.toggle( 'active' );
+    btn.setAttribute( 'aria-label', btn.classList.contains( 'active' ) ? 'Ukloni iz liste želja' : 'Dodaj u listu želja' );
+  } );
+
+  render( false );
+}() );

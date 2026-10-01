@@ -91,6 +91,93 @@ function door_expert_stock_display( $status ) {
 }
 
 /**
+ * Popust proizvoda za karticu: procenat i da li važi za cijeli proizvod.
+ *
+ * Kod običnog proizvoda je jednostavno: redovna i akcijska cijena. Kod varijabilnog
+ * roditelj NEMA svoju cijenu (ima je svaka varijacija), pa je ranija provjera nad
+ * get_regular_price()/get_sale_price() roditelja uvijek padala i kartica nije
+ * pokazivala nikakav popust, čak ni kad je varijacija na akciji.
+ *
+ * Vraća:
+ *   pct      najveći popust u procentima (zaokružen)
+ *   uniform  true kad je SVAKA varijacija snižena za isti procenat; inače kartica piše
+ *            "do -6%", jer "-6%" bi sugerisalo da je cijeli proizvod jeftiniji, a
+ *            snižena je možda samo jedna širina
+ *   single   true kad sve varijacije imaju istu redovnu i istu trenutnu cijenu, pa
+ *            kartica može da pokaže jednu staru i jednu novu cijenu umjesto raspona
+ *   regular  redovna cijena (za prikaz kad je single)
+ *   price    trenutna cijena (za prikaz kad je single)
+ *
+ * Cijene su "za prikaz" (sa ili bez PDV-a, kako je podešeno u WooCommerce-u), isto
+ * kao get_price_html(), da se broj na kartici ne razlikuje od broja u rasponu.
+ * Varijacije bez cijene ("Cijena na upit") ne ulaze u računicu popusta.
+ *
+ * @param WC_Product $product Proizvod.
+ * @return array{pct:int,uniform:bool,single:bool,regular:float,price:float}|null
+ */
+function door_expert_product_discount( $product ) {
+	if ( ! $product instanceof WC_Product || ! $product->is_on_sale() ) {
+		return null;
+	}
+
+	$pairs = array();
+
+	if ( $product->is_type( 'variable' ) ) {
+		$prices = $product->get_variation_prices( true );
+
+		foreach ( (array) $prices['price'] as $id => $price ) {
+			$regular = isset( $prices['regular_price'][ $id ] ) ? (float) $prices['regular_price'][ $id ] : 0.0;
+			$pairs[] = array( $regular, (float) $price );
+		}
+	} else {
+		$pairs[] = array(
+			(float) wc_get_price_to_display( $product, array( 'price' => $product->get_regular_price() ) ),
+			(float) wc_get_price_to_display( $product ),
+		);
+	}
+
+	$pcts           = array();
+	$all_discounted = true;
+
+	foreach ( $pairs as $pair ) {
+		list( $regular, $price ) = $pair;
+
+		if ( 0.0 < $regular && 0.0 < $price && $price < $regular ) {
+			$pct = (int) round( ( ( $regular - $price ) / $regular ) * 100 );
+
+			if ( 0 < $pct ) {
+				$pcts[] = $pct;
+				continue;
+			}
+		}
+
+		$all_discounted = false;
+	}
+
+	if ( empty( $pcts ) ) {
+		return null;
+	}
+
+	$first  = $pairs[0];
+	$single = true;
+
+	foreach ( $pairs as $pair ) {
+		if ( $pair[0] !== $first[0] || $pair[1] !== $first[1] ) {
+			$single = false;
+			break;
+		}
+	}
+
+	return array(
+		'pct'     => max( $pcts ),
+		'uniform' => $all_discounted && 1 === count( array_unique( $pcts ) ),
+		'single'  => $single,
+		'regular' => $first[0],
+		'price'   => $first[1],
+	);
+}
+
+/**
  * FAQ stavke za PDP – dijeljene + po grupi. Tekst vjeran prototipu product.html.
  *
  * @param string $group 'vrata' | 'plocice' | 'umivaonik' | ''.

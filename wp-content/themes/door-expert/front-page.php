@@ -297,18 +297,31 @@ get_header();
       </a>
     </div>
 
+    <?php
+    /*
+     * Slike kartica dolaze iz thumbnaila kategorije (Proizvodi → Kategorije →
+     * Thumbnail), preko door_expert_cat_image() u functions.php. Unsplash URL je
+     * samo rezerva dok kategorija nema postavljenu sliku. Bedževi i podkategorije
+     * ostaju u kodu - odluka vlasnika.
+     */
+    ?>
     <div class="categories__grid">
 
       <!-- 1. SOBNA VRATA -->
       <!-- Visual research line 83: door pages lead with model families,
            finishes, opening types – sub-tags reflect this -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="cat-card" aria-label="Sobna vrata – pogledaj kolekciju">
-        <img
-          class="cat-card__img"
-          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80"
-          alt="Moderna sobna vrata u elegantnom enterijeru"
-          loading="lazy"
-        />
+        <?php
+        echo door_expert_cat_image( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escape-uje funkcija.
+          'sobna-vrata',
+          'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+          'Moderna sobna vrata u elegantnom enterijeru',
+          array(
+            'class' => 'cat-card__img',
+            'sizes' => '(min-width: 1025px) 25vw, 50vw',
+          )
+        );
+        ?>
         <div class="cat-card__overlay" aria-hidden="true"></div>
         <span class="cat-card__badge">Odmah dostupno</span>
         <div class="cat-card__body">
@@ -329,12 +342,17 @@ get_header();
       <!-- Visual research line 18: "security doors as architectural
            products" – darker badge, trust/authority treatment -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'sigurnosna-vrata' ) ); ?>" class="cat-card cat-card--security" aria-label="Sigurnosna vrata – pogledaj modele">
-        <img
-          class="cat-card__img"
-          src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80"
-          alt="Sigurnosna vrata za stan i kuću"
-          loading="lazy"
-        />
+        <?php
+        echo door_expert_cat_image( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escape-uje funkcija.
+          'sigurnosna-vrata',
+          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80',
+          'Sigurnosna vrata za stan i kuću',
+          array(
+            'class' => 'cat-card__img',
+            'sizes' => '(min-width: 1025px) 25vw, 50vw',
+          )
+        );
+        ?>
         <div class="cat-card__overlay" aria-hidden="true"></div>
         <span class="cat-card__badge">Sertifikovana zaštita</span>
         <div class="cat-card__body">
@@ -355,12 +373,17 @@ get_header();
       <!-- Visual research line 83: tile pages more exploratory,
            sub-tags show breadth of 7 sub-categories -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'keramicke-plocice' ) ); ?>" class="cat-card" aria-label="Keramičke pločice – pogledaj kolekcije">
-        <img
-          class="cat-card__img"
-          src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&q=80"
-          alt="Španske keramičke pločice u modernom kupatilu"
-          loading="lazy"
-        />
+        <?php
+        echo door_expert_cat_image( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escape-uje funkcija.
+          'keramicke-plocice',
+          'https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=600&q=80',
+          'Španske keramičke pločice u modernom kupatilu',
+          array(
+            'class' => 'cat-card__img',
+            'sizes' => '(min-width: 1025px) 25vw, 50vw',
+          )
+        );
+        ?>
         <div class="cat-card__overlay" aria-hidden="true"></div>
         <span class="cat-card__badge">Španski brendovi</span>
         <div class="cat-card__body">
@@ -382,12 +405,17 @@ get_header();
       <!-- Visual research line 19: "decorative washbasins more
            emotional and editorial – art-object framing" -->
       <a href="<?php echo esc_url( door_expert_cat_url( 'umivaonici' ) ); ?>" class="cat-card" aria-label="Dekorativni umivaonici – pogledaj kolekciju">
-        <img
-          class="cat-card__img"
-          src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80"
-          alt="Dekorativni umivaonik Bathco u kupatilu"
-          loading="lazy"
-        />
+        <?php
+        echo door_expert_cat_image( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escape-uje funkcija.
+          'umivaonici',
+          'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&q=80',
+          'Dekorativni umivaonik Bathco u kupatilu',
+          array(
+            'class' => 'cat-card__img',
+            'sizes' => '(min-width: 1025px) 25vw, 50vw',
+          )
+        );
+        ?>
         <div class="cat-card__overlay" aria-hidden="true"></div>
         <span class="cat-card__badge">Bathco Španija</span>
         <div class="cat-card__body">
@@ -415,151 +443,14 @@ get_header();
      Research: Visual research (line 87, 91), UX Research (line 71, 83),
      Zapisnik (p.8), Business Facts (real prices, quote cart, discounts)
 ════════════════════════════════════════════════ -->
-<section class="featured" aria-label="Istaknuti proizvodi">
-  <div class="featured__inner">
-
-    <div class="featured__header">
-      <div>
-        <p class="featured__eyebrow">Novo i istaknuto</p>
-        <h2 class="featured__title">Odabrani za vas ovog mjeseca</h2>
-      </div>
-      <a href="<?php echo esc_url( door_expert_cat_url( 'sobna-vrata' ) ); ?>" class="featured__view-all">
-        Cijeli katalog
-        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-
-    <!-- Tab filter: all / by category -->
-    <div class="featured__tabs" role="tablist" aria-label="Filter po kategoriji">
-      <button class="featured__tab is-active" data-filter="sve" role="tab" aria-selected="true">Sve</button>
-      <button class="featured__tab" data-filter="sobna" role="tab" aria-selected="false">Sobna vrata</button>
-      <button class="featured__tab" data-filter="sigurnosna" role="tab" aria-selected="false">Sigurnosna vrata</button>
-      <button class="featured__tab" data-filter="keramika" role="tab" aria-selected="false">Keramičke pločice</button>
-      <button class="featured__tab" data-filter="umivaonici" role="tab" aria-selected="false">Umivaonici</button>
-    </div>
-
-    <div class="featured__grid">
-
-      <!-- CARD 1: Sobna vrata – new model -->
-      <article class="prod-card" data-cat="sobna">
-        <div class="prod-card__img-wrap">
-          <img class="prod-card__img"
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80"
-            alt="Sobna vrata Milano bela mat"
-            loading="lazy" />
-          <div class="prod-card__badges">
-            <span class="prod-badge prod-badge--new">Novo</span>
-            <span class="prod-badge prod-badge--stock">Na stanju</span>
-          </div>
-          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </button>
-        </div>
-        <div class="prod-card__body">
-          <span class="prod-card__cat">Sobna vrata</span>
-          <h3 class="prod-card__name">Milano – Bijela mat</h3>
-          <p class="prod-card__attrs">2000 × 800 mm &middot; MDF &middot; 3 dimenzije</p>
-          <div class="prod-card__price-row">
-            <span class="prod-card__price">189 €</span>
-          </div>
-          <button class="prod-card__add">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
-            Dodaj u korpu za ponudu
-          </button>
-        </div>
-      </article>
-
-      <!-- CARD 2: Sigurnosna vrata – on sale -->
-      <article class="prod-card" data-cat="sigurnosna">
-        <div class="prod-card__img-wrap">
-          <img class="prod-card__img"
-            src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=500&q=80"
-            alt="Sigurnosna vrata Forte antracit"
-            loading="lazy" />
-          <div class="prod-card__badges">
-            <span class="prod-badge prod-badge--sale">-15%</span>
-          </div>
-          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </button>
-        </div>
-        <div class="prod-card__body">
-          <span class="prod-card__cat">Sigurnosna vrata</span>
-          <h3 class="prod-card__name">Forte – Antracit</h3>
-          <p class="prod-card__attrs">Za stan &middot; Klasa 3 &middot; RC3 sertifikat</p>
-          <div class="prod-card__price-row">
-            <span class="prod-card__price">680 €</span>
-            <span class="prod-card__price-old">800 €</span>
-            <span class="prod-card__discount">-15%</span>
-          </div>
-          <button class="prod-card__add">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
-            Dodaj u korpu za ponudu
-          </button>
-        </div>
-      </article>
-
-      <!-- CARD 3: Keramičke pločice – new collection -->
-      <article class="prod-card" data-cat="keramika">
-        <div class="prod-card__img-wrap">
-          <img class="prod-card__img"
-            src="https://images.unsplash.com/photo-1615971677499-5467cbab01c0?w=500&q=80"
-            alt="Tau Ceramica Travertino pločice"
-            loading="lazy" />
-          <div class="prod-card__badges">
-            <span class="prod-badge prod-badge--new">Nova kolekcija</span>
-          </div>
-          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </button>
-        </div>
-        <div class="prod-card__body">
-          <span class="prod-card__cat">Keramičke pločice &middot; Tau Ceramica</span>
-          <h3 class="prod-card__name">Travertino Beige</h3>
-          <p class="prod-card__attrs">60 × 120 cm &middot; Podne &middot; Mat</p>
-          <div class="prod-card__price-row">
-            <span class="prod-card__price">28 €/m²</span>
-          </div>
-          <button class="prod-card__add">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
-            Dodaj u korpu za ponudu
-          </button>
-        </div>
-      </article>
-
-      <!-- CARD 4: Umivaonik – art-object framing -->
-      <article class="prod-card" data-cat="umivaonici">
-        <div class="prod-card__img-wrap">
-          <img class="prod-card__img"
-            src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=500&q=80"
-            alt="Bathco kameni umivaonik"
-            loading="lazy" />
-          <div class="prod-card__badges">
-            <span class="prod-badge prod-badge--new">Novo</span>
-          </div>
-          <button class="prod-card__wishlist" aria-label="Sačuvaj u listu želja">
-            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-          </button>
-        </div>
-        <div class="prod-card__body">
-          <span class="prod-card__cat">Umivaonici &middot; Bathco</span>
-          <h3 class="prod-card__name">Mueble Oval – Kameni</h3>
-          <p class="prod-card__attrs">Prirodni kamen &middot; Oval oblik &middot; Bijeli</p>
-          <div class="prod-card__price-row">
-            <span class="prod-card__price">320 €</span>
-            <span class="prod-card__price-old">380 €</span>
-            <span class="prod-card__discount">-16%</span>
-          </div>
-          <button class="prod-card__add">
-            <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
-            Dodaj u korpu za ponudu
-          </button>
-        </div>
-      </article>
-
-    </div><!-- /featured__grid -->
-  </div><!-- /featured__inner -->
-</section>
+<?php
+/*
+ * Pravi istaknuti proizvodi (kvadratić na proizvodu), ista kartica kao prodavnica.
+ * Ranije: četiri izmišljene kartice iz prototipa sa cijenama kojih nema u katalogu.
+ * Ako ništa nije čekirano, sekcija se ne crta. Vidi template-parts/home/featured.php.
+ */
+get_template_part( 'template-parts/home/featured' );
+?>
 <!-- /featured -->
 
 <!-- ════════════════════════════════════════════════
