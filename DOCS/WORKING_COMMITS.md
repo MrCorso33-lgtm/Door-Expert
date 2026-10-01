@@ -7,6 +7,14 @@ Kako da vratiš jedan fajl na stanje iz commita:
 git checkout <commit-hash> -- putanja/do/fajla.php
 ```
 
+> **Prije vraćanja provjeri da li je fajl mijenjan POSLIJE tog commita:**
+> ```
+> git log --oneline <commit-hash>..HEAD -- putanja/do/fajla.php
+> ```
+> Ako lista nije prazna, `checkout` briše i te kasnije izmjene (npr. vraćanje
+> `product-card.php` na `58e4ad3` skida srce za listu sačuvanih). Tada je bolje
+> `git revert <hash-pokvarenog-commita>` ili ručna popravka.
+
 > **Pre svake "kod ne radi" panike — isključi keš iz jednačine.**
 > Vidi `WP_CUSTOM_DEV_BLUEPRINT.md` sekciju 14 (Caching & deploy) i dijagnostiku curl-om.
 >
@@ -849,6 +857,10 @@ u prodavnici i slike kategorija iz admina (vlasnik). **Nije provjereno uživo:**
 - WC poruka o uspjehu je prazna (`wc_add_to_cart_message_html`), „View cart" ispod dugmeta
   sakriven; greške (npr. neizabrana dimenzija) i dalje idu u WC okvir
 - Varijabilni proizvod: kartica vodi na PDP sa `#odaberi` → „Prvo izaberite: …" iznad pilula
+
+**Preklapanje sa starijim stavkama:** ovi commitovi mijenjaju fajlove iz sekcija „PDP",
+„Korpa — quote cart", „PDP varijacije", „Mobilna sticky traka" i „Kartica proizvoda".
+Njihovi hashevi su zato stariji od wishlista: `checkout` po njima ga briše iz tog fajla.
 
 **Provjereno:** na staging-u (vlasnik): srce na kartici/PDP-u/headeru, filtriranje, tab,
 „Ukloni", dodavanje iz taba (sa i bez varijacija), skidanje sa liste poslije dodavanja,
