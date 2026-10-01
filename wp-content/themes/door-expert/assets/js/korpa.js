@@ -58,6 +58,83 @@
       el.textContent = data.cart_count;
       el.style.display = data.cart_count > 0 ? '' : 'none';
     } );
+
+    // Brojač u tabu ostaje vidljiv i na nuli, kao u prototipu.
+    var tabCount = document.getElementById( 'tab-korpa-count' );
+    if ( tabCount ) {
+      tabCount.textContent = data.cart_count;
+    }
+  }
+
+  /* ── Tabovi: korpa / sačuvano ───────────────────────────── */
+  var tabs = root.querySelectorAll( '.korpa-tab' );
+
+  function showTab( name ) {
+    tabs.forEach( function ( tab ) {
+      var on = tab.dataset.tab === name;
+      tab.classList.toggle( 'active', on );
+      tab.setAttribute( 'aria-selected', on ? 'true' : 'false' );
+    } );
+    root.querySelectorAll( '.korpa-panel' ).forEach( function ( panel ) {
+      panel.classList.toggle( 'active', 'panel-' + name === panel.id );
+    } );
+  }
+
+  tabs.forEach( function ( tab ) {
+    tab.addEventListener( 'click', function () {
+      var name = tab.dataset.tab;
+
+      /*
+       * "Premjesti u ponudu" (wishlist.js) doda stavku u korpu, ali panel korpe je
+       * serverski nacrtan. Umjesto da se crta u JS-u, korpa se tada učita ponovo.
+       */
+      if ( 'korpa' === name && root.hasAttribute( 'data-cart-stale' ) ) {
+        // Bez #sacuvano, da se poslije učitavanja otvori baš tab korpe.
+        window.history.replaceState( null, '', window.location.pathname + window.location.search );
+        window.location.reload();
+        return;
+      }
+
+      showTab( name );
+      // Hash čuva tab pri osvježavanju; link "Pogledaj listu" iz obavještenja vodi na #sacuvano.
+      if ( window.history && window.history.replaceState ) {
+        window.history.replaceState( null, '', 'sacuvano' === name ? '#sacuvano' : window.location.pathname + window.location.search );
+      }
+    } );
+  } );
+
+  if ( '#sacuvano' === window.location.hash ) {
+    showTab( 'sacuvano' );
+  }
+
+  // Srce u headeru dok je kupac već u korpi: mijenja se samo hash, bez učitavanja.
+  window.addEventListener( 'hashchange', function () {
+    if ( '#sacuvano' === window.location.hash ) {
+      showTab( 'sacuvano' );
+    }
+  } );
+
+  /*
+   * "Dodaj u ponudu" na kartici u tabu "Sačuvano" je WC AJAX dodavanje (jQuery
+   * događaj added_to_cart). Badž u headeru osvježava header.js; ovdje broj u tabu,
+   * a panel korpe se učita ponovo pri povratku na tab "Korpa za ponudu".
+   */
+  if ( window.jQuery ) {
+    window.jQuery( document.body ).on( 'added_to_cart', function () {
+      root.setAttribute( 'data-cart-stale', '' );
+
+      fetch( doorExpert.ajaxUrl + '?action=door_expert_get_cart_count', { credentials: 'same-origin' } )
+        .then( function ( res ) {
+          return res.json();
+        } )
+        .then( function ( res ) {
+          var tabCount = document.getElementById( 'tab-korpa-count' );
+          if ( res.success && tabCount ) {
+            tabCount.textContent = res.data.count;
+          }
+        } )
+        .catch( function () {} );
+    } );
   }
 
   /* ── Količina i uklanjanje ──────────────────────────────── */

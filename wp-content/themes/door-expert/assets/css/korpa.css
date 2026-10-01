@@ -348,11 +348,60 @@
 /* ─────────────────────────────────────────────
    WISHLIST ITEMS (saved panel)
 ───────────────────────────────────────────── */
+/*
+ * Tab "Sačuvano" crta istu .prod-card kao prodavnica (product-card.css), pa grid
+ * prati njen raspored: 2 kolone na telefonu kao "Odabrani za vas", a šire kolone
+ * od ~240px naviše, da kartica ima istu širinu kao u listingu. Mobile-first.
+ */
 .wishlist-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-6);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
   margin-top: var(--space-4);
+}
+
+@media (min-width: 601px) {
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-5, 1.25rem);
+  }
+}
+
+/* Omotač: kartica + "Ukloni" ispod. Flex da se kartica rastegne na visinu reda,
+   kao .featured__item na početnoj, pa su cijene i dugmad u istom redu poravnati. */
+.wishlist-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.wishlist-item > .prod-card {
+  flex: 1;
+}
+
+/* Tekstualni link, isti jezik kao "Idi na početnu stranicu" (.korpa-thankyou__cta).
+   Visina 44px zbog dodira na telefonu; vizuelno ostaje samo tekst. */
+.wishlist-item__remove {
+  align-self: center;
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-antracit-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--color-sand);
+  text-underline-offset: 4px;
+  transition: color 0.2s, text-decoration-color 0.2s;
+}
+
+.wishlist-item__remove:hover,
+.wishlist-item__remove:focus-visible {
+  color: #C0392B;
+  text-decoration-color: #C0392B;
 }
 
 .wishlist-card {
@@ -1075,11 +1124,6 @@
     justify-content: flex-start;
     padding: 0;
     margin-top: 0;
-  }
-
-  .wishlist-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
   }
 
   .korpa-empty__cats {

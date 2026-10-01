@@ -107,20 +107,7 @@
    * (.prod-card__add + ajax_add_to_cart), a brojac osvjezava header.js.
    */
 
-  // ── Wishlist toggle ──
-  document.querySelectorAll('.prod-card__wishlist').forEach(btn => {
-    btn.addEventListener('click', function() {
-      this.classList.toggle('active');
-      const isActive = this.classList.contains('active');
-      this.style.color = isActive ? 'var(--color-jantar)' : '';
-      this.style.fill = isActive ? 'var(--color-jantar)' : '';
-      const svg = this.querySelector('path');
-      if (svg) {
-        svg.style.fill = isActive ? 'var(--color-jantar)' : 'none';
-        svg.style.stroke = isActive ? 'var(--color-jantar)' : 'currentColor';
-      }
-    });
-  });
+  // Srce na karticama radi assets/js/wishlist.js (ovdje je bio demo toggle iz prototipa).
 
   // ── Dimension variant selection on product cards ──
   document.querySelectorAll('.prod-card__variant').forEach(btn => {

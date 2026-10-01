@@ -450,6 +450,20 @@ if ( ! defined( 'ABSPATH' ) ) {
           </svg>
         </button>
 
+        <?php
+        /*
+         * Sačuvano – vodi na tab "Sačuvano" u korpi. Prototip ovu ikonicu nema (traženo).
+         * Broj upisuje wishlist.js iz memorije pregledača; posebna klasa badža, jer
+         * .header-btn__badge svi skriptovi pune brojem iz korpe.
+         */
+        ?>
+        <a href="<?php echo esc_url( door_expert_cart_url() . '#sacuvano' ); ?>" class="header-btn" aria-label="Sačuvani proizvodi" title="Sačuvano">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+          <span class="header-btn__saved" data-wishlist-count style="display:none;">0</span>
+        </a>
+
         <!-- Cart -->
         <a href="<?php echo esc_url( door_expert_cart_url() ); ?>" class="header-btn" aria-label="Korpa za ponudu">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

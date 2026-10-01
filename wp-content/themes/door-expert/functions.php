@@ -301,7 +301,8 @@ function door_expert_enqueue_assets() {
 		}
 	}
 	if ( function_exists( 'is_cart' ) && is_cart() ) {
-		wp_enqueue_style( 'door-expert-korpa', $uri . '/assets/css/korpa.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/korpa.css' ) );
+		// product-card.css: tab "Sačuvano" crta istu karticu kao prodavnica (inc/wishlist.php).
+		wp_enqueue_style( 'door-expert-korpa', $uri . '/assets/css/korpa.css', array( 'door-expert-tokens', 'door-expert-product-card' ), door_expert_ver( '/assets/css/korpa.css' ) );
 		wp_enqueue_script( 'door-expert-korpa-js', $uri . '/assets/js/korpa.js', array(), door_expert_ver( '/assets/js/korpa.js' ), true );
 
 		// Quote cart AJAX (inc/quote-cart.php): količina, uklanjanje, slanje upita.
@@ -312,6 +313,30 @@ function door_expert_enqueue_assets() {
 				'ajaxUrl'      => admin_url( 'admin-ajax.php' ),
 				'cartNonce'    => wp_create_nonce( 'door_expert_cart' ),
 				'inquiryNonce' => wp_create_nonce( 'door_expert_inquiry_nonce' ),
+			)
+		);
+	}
+
+	// ── GLOBAL: lista sačuvanih (inc/wishlist.php) ────────────
+	// Svuda, jer je srce sa brojem u headeru na svakoj stranici. Uz to: srce na
+	// kartici, dugme na PDP-u, tab "Sačuvano" u korpi. Mali fajlovi (~3 KB gzip).
+	if ( function_exists( 'door_expert_cart_url' ) ) {
+		wp_enqueue_style( 'door-expert-wishlist', $uri . '/assets/css/wishlist.css', array( 'door-expert-tokens' ), door_expert_ver( '/assets/css/wishlist.css' ) );
+		wp_enqueue_script( 'door-expert-wishlist-js', $uri . '/assets/js/wishlist.js', array(), door_expert_ver( '/assets/js/wishlist.js' ), true );
+		wp_localize_script(
+			'door-expert-wishlist-js',
+			'doorExpertWishlistData',
+			array(
+				'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
+				'nonce'    => wp_create_nonce( 'door_expert_wishlist' ),
+				'savedUrl' => door_expert_cart_url() . '#sacuvano',
+				// Kolačić "upravo dodato u ponudu" (inc/wishlist.php) – JS ga čita i briše
+				// sa istom putanjom/domenom kojom ga je WC postavio.
+				'added'    => array(
+					'cookie' => defined( 'DOOR_EXPERT_WISHLIST_ADDED_COOKIE' ) ? DOOR_EXPERT_WISHLIST_ADDED_COOKIE : '',
+					'path'   => COOKIEPATH ? COOKIEPATH : '/',
+					'domain' => COOKIE_DOMAIN ? COOKIE_DOMAIN : '',
+				),
 			)
 		);
 	}
@@ -447,6 +472,8 @@ require_once get_template_directory() . '/inc/filters-seo.php';
 require_once get_template_directory() . '/inc/shop-ajax.php';
 // Quote cart – WooCommerce bez plaćanja: upit pravi WC_Order (on-hold) + AJAX korpa.
 require_once get_template_directory() . '/inc/quote-cart.php';
+// Lista sačuvanih ("Sačuvaj za projekat") – tab "Sačuvano" u korpi. POSLIJE quote-cart.php.
+require_once get_template_directory() . '/inc/wishlist.php';
 
 // Otkači default WC wrappere – naš <main> (header.php/footer.php) kontroliše layout,
 // a taxonomy-product_cat.php sam renderuje sekcije. Bez ovoga WC ubacuje svoj

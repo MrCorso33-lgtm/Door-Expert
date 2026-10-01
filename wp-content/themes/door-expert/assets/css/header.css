@@ -260,8 +260,9 @@
   stroke-width: 1.75;
 }
 
-/* Cart badge */
-.header-btn__badge {
+/* Cart badge + broj sačuvanih (isti izgled, odvojena klasa – vidi header.php) */
+.header-btn__badge,
+.header-btn__saved {
   position: absolute;
   top: 4px;
   right: 4px;

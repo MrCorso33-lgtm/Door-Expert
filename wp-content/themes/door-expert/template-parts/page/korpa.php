@@ -5,9 +5,9 @@
  * Quote model: nema plaćanja. Forma upita je U KORPI (kao u prototipu), šalje se
  * AJAX-om (inc/quote-cart.php) i pravi WC_Order sa statusom on-hold.
  *
- * ODSTUPANJE od prototipa: tabovi "Korpa / Sačuvano" su izostavljeni jer wishlist
- * još ne postoji – prazan tab bi obmanjivao. Vraćaju se kad se portuje wishlist
- * (vidi DOCS/FOR DOOR EXPERT/01-AUDIT-REPORT.md, komponenta 9).
+ * Tabovi "Korpa / Sačuvano" kao u prototipu. Sačuvano živi u pregledaču kupca
+ * (assets/js/wishlist.js + inc/wishlist.php); prebacivanje tabova je u korpa.js.
+ * "Podijeli listu" (link, PDF) iz prototipa još nije urađeno – faza 2.
  *
  * Napomene po stavci se ne šalju kao polja forme (nisu unutar <form>), nego ih
  * korpa.js pokupi pri slanju i doda u payload kao item_note[cart_key].
@@ -46,9 +46,23 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
       <div class="korpa-notices"><?php wc_print_notices(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WC generiše bezbjedan markup. ?></div>
     <?php endif; ?>
 
+    <!-- TABOVI: korpa / sačuvano. Broj sačuvanih upisuje wishlist.js iz memorije pregledača. -->
+    <div class="korpa-tabs" role="tablist" aria-label="Korpa i sačuvano">
+      <button type="button" class="korpa-tab active" role="tab" aria-selected="true" aria-controls="panel-korpa" id="tab-korpa" data-tab="korpa">
+        Korpa za ponudu
+        <span class="korpa-tab__badge" id="tab-korpa-count"><?php echo esc_html( (string) WC()->cart->get_cart_contents_count() ); ?></span>
+      </button>
+      <button type="button" class="korpa-tab" role="tab" aria-selected="false" aria-controls="panel-sacuvano" id="tab-sacuvano" data-tab="sacuvano">
+        Sačuvano
+        <span class="korpa-tab__badge" id="tab-sacuvano-count">0</span>
+      </button>
+    </div>
+
+    <!-- PANEL: KORPA (puna ili prazna) -->
+    <div class="korpa-panel active" id="panel-korpa" role="tabpanel" aria-labelledby="tab-korpa">
+
     <?php if ( ! $de_is_empty ) : ?>
 
-      <div class="korpa-panel active" id="panel-korpa">
         <div class="korpa-layout">
 
           <!-- STAVKE -->
@@ -229,7 +243,6 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
           </aside>
 
         </div>
-      </div>
 
     <?php else : ?>
 
@@ -280,6 +293,32 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
       </div>
 
     <?php endif; ?>
+
+    </div><!-- /panel-korpa -->
+
+    <!-- PANEL: SAČUVANO. Kartice crta server (inc/wishlist.php), a traži ih wishlist.js. -->
+    <div class="korpa-panel" id="panel-sacuvano" role="tabpanel" aria-labelledby="tab-sacuvano">
+
+      <div class="wishlist-grid" id="wishlist-grid" aria-label="Sačuvani proizvodi" aria-busy="true"></div>
+
+      <?php
+      /*
+       * Prazna lista. Prototip ovo stanje nema (demo uvijek ima dvije stavke), pa je
+       * sklopljeno od istih klasa kao prazna korpa. Pali ga wishlist.js.
+       */
+      ?>
+      <div class="korpa-empty" id="wishlist-empty">
+        <div class="korpa-empty__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </div>
+        <h2 class="korpa-empty__title">Nemate sačuvanih proizvoda</h2>
+        <p class="korpa-empty__text">Kliknite srce na proizvodu i sačuvajte ga za svoj projekat.</p>
+        <a href="<?php echo esc_url( function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' ) ); ?>" class="korpa-thankyou__cta">Pogledajte prodavnicu</a>
+      </div>
+
+    </div><!-- /panel-sacuvano -->
 
   </div>
 </div>

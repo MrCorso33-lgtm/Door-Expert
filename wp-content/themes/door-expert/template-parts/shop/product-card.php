@@ -139,7 +139,8 @@ $de_img    = $de_img_id
         <span class="prod-badge prod-badge--new">Novo</span>
       <?php endif; ?>
     </div>
-    <button class="prod-card__wishlist" aria-label="Dodaj u listu želja"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
+    <?php // Stanje i klik: assets/js/wishlist.js (lista sačuvanih u pregledaču). ?>
+    <button type="button" class="prod-card__wishlist" data-wishlist="<?php echo esc_attr( (string) $de_id ); ?>" aria-pressed="false" aria-label="Sačuvaj za projekat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>
   </div>
   <div class="prod-card__body">
     <?php if ( '' !== $de_full_label ) : ?>

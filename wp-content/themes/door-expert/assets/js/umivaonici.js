@@ -120,22 +120,8 @@
    * (.prod-card__add + ajax_add_to_cart), a brojac osvjezava header.js.
    */
 
-  // ─── Wishlist ────────────────────────────────────────────────
-  document.querySelectorAll('.prod-card__wishlist').forEach(btn => {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      this.classList.toggle('active');
-      const svg = this.querySelector('svg');
-      if (this.classList.contains('active')) {
-        svg.style.fill = 'var(--color-jantar)';
-        svg.style.stroke = 'var(--color-jantar)';
-      } else {
-        svg.style.fill = 'none';
-        svg.style.stroke = 'currentColor';
-      }
-    });
-  });
+  // Srce na karticama radi assets/js/wishlist.js (ovdje je bio demo toggle iz prototipa,
+  // čiji stopPropagation bi ga ugasio).
 
   // ─── Mobile filter drawer ────────────────────────────────────
   const openFilterBtn = document.getElementById('open-filter-drawer');

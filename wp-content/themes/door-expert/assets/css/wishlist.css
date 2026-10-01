@@ -1,0 +1,57 @@
+/*
+ * wishlist.css – lista sačuvanih ("Sačuvaj za projekat").
+ *
+ * Obavještenje (.de-toast) prati prototip korpa.js (tamo je bilo inline):
+ * antracit pozadina, bijeli tekst, centrirano iznad mobilne trake.
+ * Kartice u tabu "Sačuvano" su ista .prod-card kao u prodavnici (product-card.css).
+ * Mobile-first.
+ */
+
+.de-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  z-index: 9999;
+  max-width: calc(100% - 32px);
+  transform: translateX(-50%);
+  background: var(--color-antracit);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: center;
+  padding: 0.75rem 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s;
+}
+
+.de-toast.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.de-toast__link {
+  display: inline-block;
+  margin-left: var(--space-3);
+  color: var(--color-white);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.de-toast__link:hover,
+.de-toast__link:focus-visible {
+  color: var(--color-sand);
+}
+
+@media (min-width: 701px) {
+  .de-toast {
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .de-toast {
+    transition: none;
+  }
+}

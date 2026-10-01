@@ -246,15 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── Wishlist toggle ── */
-  document.querySelectorAll('.prod-card__wishlist').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      btn.classList.toggle('active');
-      const isActive = btn.classList.contains('active');
-      btn.setAttribute('aria-label', isActive ? 'Ukloni iz liste želja' : 'Dodaj u listu želja');
-    });
-  });
+  /*
+   * Ovdje je bio demo toggle srca iz prototipa (samo klasa, bez pamćenja).
+   * Srce sada radi assets/js/wishlist.js; dva handlera bi se poništila.
+   */
 
   /*
    * Ovdje je bio demo "dodaj u korpu" iz prototipa (natpis "Dodato" + brojac +1,

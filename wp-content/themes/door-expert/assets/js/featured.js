@@ -140,21 +140,7 @@
     } );
   }
 
-  /*
-   * Lista želja na karticama. U prodavnici je ovo u category.js, koji se na
-   * početnoj ne učitava, pa bi dugme ovdje bilo mrtvo. Isto ponašanje kao tamo.
-   */
-  grid.addEventListener( 'click', function ( e ) {
-    var btn = e.target.closest( '.prod-card__wishlist' );
-
-    if ( ! btn ) {
-      return;
-    }
-
-    e.preventDefault();
-    btn.classList.toggle( 'active' );
-    btn.setAttribute( 'aria-label', btn.classList.contains( 'active' ) ? 'Ukloni iz liste želja' : 'Dodaj u listu želja' );
-  } );
+  // Srce na karticama radi assets/js/wishlist.js (učitava se i na početnoj).
 
   render( false );
 }() );
