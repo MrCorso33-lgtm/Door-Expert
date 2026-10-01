@@ -233,8 +233,13 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
 
     <?php else : ?>
 
-      <!-- PRAZNA KORPA -->
-      <div class="korpa-empty" id="cart-empty" aria-live="polite">
+      <?php
+      /*
+       * PRAZNA KORPA. Klasa "visible" je obavezna: korpa.css krije .korpa-empty
+       * (u prototipu ga je palio demo JS), a ovdje odluku donosi server.
+       */
+      ?>
+      <div class="korpa-empty visible" id="cart-empty" aria-live="polite">
         <div class="korpa-empty__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -267,6 +272,11 @@ $de_tel      = preg_replace( '/[^0-9+]/', '', $de_phone );
             </a>
           <?php endforeach; ?>
         </div>
+
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="korpa-thankyou__cta">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Idi na početnu stranicu
+        </a>
       </div>
 
     <?php endif; ?>
