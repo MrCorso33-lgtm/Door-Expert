@@ -86,6 +86,15 @@ add_filter(
 	2
 );
 
+/*
+ * Bez WC okvira "… has been added to your cart / View cart" poslije dodavanja (traženo).
+ * Umjesto njega ide isto obavještenje kao za listu sačuvanih: "Dodato u ponudu."
+ * (assets/js/wishlist.js, preko kolačića iz door_expert_wishlist_mark_added()).
+ * Prazna poruka = wc_add_notice() je ne upisuje. Greške (npr. neizabrana dimenzija)
+ * idu drugim putem i i dalje se prikazuju.
+ */
+add_filter( 'wc_add_to_cart_message_html', '__return_empty_string' );
+
 /**
  * Proizvodi bez cijene ostaju kupljivi, jer "cijena na upit" mora u korpu.
  */

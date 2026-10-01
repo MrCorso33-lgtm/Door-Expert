@@ -330,6 +330,7 @@ function door_expert_enqueue_assets() {
 				'ajaxUrl'  => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'door_expert_wishlist' ),
 				'savedUrl' => door_expert_cart_url() . '#sacuvano',
+				'cartUrl'  => door_expert_cart_url(),
 				// Kolačić "upravo dodato u ponudu" (inc/wishlist.php) – JS ga čita i briše
 				// sa istom putanjom/domenom kojom ga je WC postavio.
 				'added'    => array(
