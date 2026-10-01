@@ -287,7 +287,12 @@ popunjenog okvira. Posljedica: uske fotke (vrata) imaju prazan prostor lijevo i 
 popunjen bojom `--color-alabaster`.
 
 **Važi i za kategorijske listinge**, ne samo Prodavnicu — `category.css` je zajednički
-izvor `.prod-card` stilova za oba. Homepage ima svoj `.prod-card` u `featured.css`
+izvor `.prod-card` stilova za oba.
+
+> **Zastarjelo od `58e4ad3`:** stilovi kartice više nisu u `category.css` nego u
+> `assets/css/product-card.css`, a donji dio kartice je zamijenjen. Pravila za sliku iz
+> ove sekcije (2/3, contain, anchor `inset: 0`) važe i dalje — prenesena su doslovno.
+> Vidi sekciju „Kartica proizvoda + Odabrani za vas". Homepage ima svoj `.prod-card` u `featured.css`
 sa statičnim slikama iz prototipa i **nije** dirán.
 
 > **Nastavak u `3cdf477` — PDP galerija i cross-sell.** Ova popravka je pokrivala samo
@@ -738,6 +743,69 @@ količine, uklanjanje stavke, pregled ponude. **Nije provjereno:** tekst u mejlu
    da nad `door_expert_quote_summary_html()` niko nije vratio `wp_kses_post()`
 5. **Raspon opet počinje od nule** → filter ne radi; provjeri da proizvod jeste
    `variable` i da `get_variation_prices()` vraća nulu za tu varijaciju
+
+---
+
+## Kartica proizvoda + „Odabrani za vas" + slike kategorija na naslovnoj
+
+**Commit:** `58e4ad3`
+**Fajl(ovi):** `assets/css/product-card.css` (**nov**), `inc/home-featured.php` (**nov**),
+`template-parts/home/featured.php` (**nov**), `template-parts/shop/product-card.php`,
+`inc/product.php`, `functions.php`, `front-page.php`, `assets/css/category.css`,
+`assets/css/featured.css`, `assets/js/featured.js`, `assets/js/header.js`,
+`assets/js/category.js`, `assets/js/sigurnosna.js`, `assets/js/umivaonici.js`
+
+**Šta radi:**
+- **Jedna kartica proizvoda za cijeli sajt** — prodavnica, kategorije, AJAX listing i
+  naslovna. Renderuje je samo `template-parts/shop/product-card.php`, stil je samo u
+  `product-card.css` (mobile-first), koji se učitava kao zavisnost.
+  - gornji dio (slika) iz prodavnice: okvir 2/3, `contain`, cio proizvod
+  - donji dio sa stare naslovne: bež, atributi jedan ispod drugog sa labelama,
+    obrubljeno dugme „Dodaj u ponudu"
+  - stari donji dio iz prodavnice: `_shelf/prod-card-prodavnica-donji-dio.md`
+- **Bedževi:** popust „-6%" / „do -6%" (`door_expert_product_discount()`, radi i za
+  varijacije), „Na stanju"/„Po narudžbi" iz **sirovog** statusa zalihe, „Novo" iz WC
+  zvjezdice.
+- **„Odabrani za vas"** na naslovnoj: kvadratić na proizvodu, 4 vidljiva + „Prikaži
+  više" po 4, tabovi iz kategorija označenih proizvoda. Ništa označeno → sekcije nema.
+- **Slike kategorija** na naslovnoj iz thumbnaila kategorije
+  (`door_expert_cat_image()`), Unsplash kao rezerva.
+
+**Odluke koje se ne vraćaju unazad:**
+1. **Jedan renderer, jedan CSS za karticu.** Dvije verzije `.prod-card` (category.css i
+   featured.css) su se tukle po redoslijedu učitavanja. Svaka popravka kartice (Cijena
+   na upit, istaknuti atributi, pravo dodavanje) važi svuda samo zato što je kartica jedna.
+2. **Kvadratić „Početna — Odabrani za vas" NIJE WC zvjezdica.** Zvjezdica daje bedž
+   „Novo"; dijeljenje bi svaki istaknuti proizvod pretvorilo u „Novo". Isto kao Saya.
+3. **Meta box u kodu, ne JetEngine** — JetEngine podešavanja žive u bazi i morala bi se
+   praviti ručno na svakom okruženju.
+4. **Bez rezerve „najnoviji"** kad ništa nije označeno — naslov kaže „Odabrani za vas".
+5. **„do -X%"** kad nije snižen cijeli proizvod jednako — „-X%" bi tvrdilo više nego što važi.
+6. **Zaliha na kartici = `get_stock_status()`, ne `is_in_stock()`.** Ovo drugo je za vrata
+   uvijek true (`inc/product-variations.php` ih drži naručljivim). Za klasu
+   `ajax_add_to_cart` na dugmetu `is_in_stock()` je ispravan — tamo pita „može li se naručiti".
+7. Nema lažnog „dodaj u korpu" u JS-u. Ako se vrati klasa `.prod-card__btn-cart` ili
+   demo handler iz prototipa, presretaće pravo WC dodavanje.
+
+**Provjereno:** lint; logika popusta na 6 slučajeva (stub); izgled kartice u prodavnici
+na staging-u (vlasnik, screenshot). **Nije provjereno uživo:** sekcija „Odabrani za vas"
+sa označenim proizvodima, „Prikaži više", tabovi, slike kategorija iz admina.
+
+### Kada se pokvari — šta proveriti
+1. **Kartica bez stilova / stari izgled** → `product-card.css` nije na serveru, ili
+   `door-expert-product-card` nije u zavisnostima (`functions.php`, registruje se u
+   globalnom bloku)
+2. **Dvije kartice različito izgledaju** → neko je vratio `.prod-card` pravila u
+   `category.css` ili `featured.css`
+3. **„Odabrani za vas" se ne pojavljuje** → nijedan proizvod nema kvadratić, ili je
+   proizvod sakriven iz kataloga (`is_visible()`); to je namjerno ponašanje
+4. **„Prikaži više" ne sakriva kartice** → `.featured__item[hidden] { display: none; }`
+   fali; `display: flex` na omotaču pobjeđuje atribut `hidden`
+5. **Nema bedža popusta** → `door_expert_product_discount()`; za varijabilni proizvod
+   čita `get_variation_prices()`, ne cijenu roditelja
+6. **„Na stanju" na rasprodatim vratima** → neko je vratio `is_in_stock()` u bedž
+7. **Brojač korpe kasni poslije dodavanja** → `header.js` sluša `added_to_cart` preko
+   jQuery-ja; ako jQuery nije na stranici, nema ni WC AJAX dodavanja
 
 ---
 
