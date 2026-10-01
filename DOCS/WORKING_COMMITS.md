@@ -787,9 +787,9 @@ količine, uklanjanje stavke, pregled ponude. **Nije provjereno:** tekst u mejlu
 7. Nema lažnog „dodaj u korpu" u JS-u. Ako se vrati klasa `.prod-card__btn-cart` ili
    demo handler iz prototipa, presretaće pravo WC dodavanje.
 
-**Provjereno:** lint; logika popusta na 6 slučajeva (stub); izgled kartice u prodavnici
-na staging-u (vlasnik, screenshot). **Nije provjereno uživo:** sekcija „Odabrani za vas"
-sa označenim proizvodima, „Prikaži više", tabovi, slike kategorija iz admina.
+**Provjereno:** lint; logika popusta na 6 slučajeva (stub); na staging-u izgled kartice
+u prodavnici i slike kategorija iz admina (vlasnik). **Nije provjereno uživo:** sekcija
+„Odabrani za vas" sa označenim proizvodima, „Prikaži više", tabovi.
 
 ### Kada se pokvari — šta proveriti
 1. **Kartica bez stilova / stari izgled** → `product-card.css` nije na serveru, ili
