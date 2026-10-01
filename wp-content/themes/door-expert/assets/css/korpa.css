@@ -32,6 +32,23 @@
   padding-bottom: var(--space-20);
 }
 
+/*
+ * Širina sadržaja. Prototip ovdje ima .container bez ikakvog stila, pa je korpa
+ * stajala uz samu ivicu ekrana. Ista širina kao ostale stranice (--container-max).
+ * Mobile-first: 16px sa strane na telefonu, šire od tableta naviše.
+ */
+.korpa-inner {
+  max-width: var(--container-max, 1320px);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 601px) {
+  .korpa-inner {
+    padding: 0 var(--space-8, 2rem);
+  }
+}
+
 .korpa-breadcrumb {
   padding: var(--space-6) 0 var(--space-4);
   font-family: var(--font-ui);
