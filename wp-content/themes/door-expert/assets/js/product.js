@@ -203,6 +203,30 @@
   if ( variationsForm && window.jQuery ) {
     window.jQuery( function ( $ ) {
       var $form = $( variationsForm );
+
+      /*
+       * Došao sa kartice ("Dodaj u ponudu" na varijabilnom proizvodu → #odaberi):
+       * uputstvo iznad izbora + skrol do njega. Gasi se čim je varijacija izabrana.
+       */
+      var hint = document.getElementById( 'variant-hint' );
+      if ( hint && '#odaberi' === window.location.hash ) {
+        var chosen = $form.find( 'input.variation_id' ).val();
+        // Proizvod sa jednom opcijom WC/pilule izaberu sami – tada uputstvo ne treba.
+        if ( ! chosen || '0' === chosen ) {
+          hint.hidden = false;
+          hint.scrollIntoView( { behavior: 'smooth', block: 'center' } );
+        }
+        // Bez hasha osvježavanje ne vraća uputstvo.
+        if ( window.history && window.history.replaceState ) {
+          window.history.replaceState( null, '', window.location.pathname + window.location.search );
+        }
+      }
+      $form.on( 'show_variation', function () {
+        if ( hint ) {
+          hint.hidden = true;
+        }
+      } );
+
       var priceEl = document.getElementById( 'product-price-current' );
       var priceDefault = priceEl ? priceEl.innerHTML : '';
 

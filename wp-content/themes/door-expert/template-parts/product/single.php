@@ -252,6 +252,20 @@ $de_related_ids = function_exists( 'wc_get_related_products' ) ? wc_get_related_
         <?php if ( $de_is_variable && ! empty( $de_var_attributes ) ) : ?>
           <?php // Skriveni WC selecti = izvor istine. product.js iz njih gradi pilule iz prototipa. ?>
           <div class="variations">
+            <?php
+            /*
+             * Uputstvo kad kupac dođe sa kartice ("Dodaj u ponudu" na varijabilnom
+             * proizvodu vodi ovamo sa #odaberi). Pali ga product.js, gasi prvi izbor.
+             * Nazivi atributa kao lista, ne u rečenici – padež bi se lomio ("Boja" / "boju").
+             */
+            $de_hint_labels = array();
+            foreach ( array_keys( $de_var_attributes ) as $de_hint_attr ) {
+              $de_hint_labels[] = wc_attribute_label( $de_hint_attr, $de_product );
+            }
+            ?>
+            <p class="product-variants__hint" id="variant-hint" role="status" hidden>
+              Prvo izaberite: <strong><?php echo esc_html( implode( ', ', $de_hint_labels ) ); ?></strong>. Zatim dodajte u ponudu.
+            </p>
             <?php foreach ( $de_var_attributes as $de_attr_name => $de_attr_options ) : ?>
               <?php
               $de_attr_label = wc_attribute_label( $de_attr_name, $de_product );

@@ -181,7 +181,18 @@ $de_img    = $de_img_id
      * se bira dimenzija – to je WC ponašanje add_to_cart_url().
      */
     ?>
-    <a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-quantity="1" data-product_id="<?php echo esc_attr( (string) $de_id ); ?>" class="prod-card__add add_to_cart_button<?php echo $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock() ? ' ajax_add_to_cart' : ''; ?>" rel="nofollow">
+    <?php
+    /*
+     * #odaberi: PDP tada iznad izbora kaže kupcu šta prvo da izabere (product.js),
+     * umjesto da ga samo prebaci bez objašnjenja. Hash, ne query: isti URL za
+     * pretraživače i keš.
+     */
+    $de_add_url = $product->add_to_cart_url();
+    if ( $product->is_type( 'variable' ) ) {
+      $de_add_url .= '#odaberi';
+    }
+    ?>
+    <a href="<?php echo esc_url( $de_add_url ); ?>" data-quantity="1" data-product_id="<?php echo esc_attr( (string) $de_id ); ?>" class="prod-card__add add_to_cart_button<?php echo $product->supports( 'ajax_add_to_cart' ) && $product->is_purchasable() && $product->is_in_stock() ? ' ajax_add_to_cart' : ''; ?>" rel="nofollow">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.95-1.57l1.65-8.42H6"/></svg>
       Dodaj u ponudu
     </a>

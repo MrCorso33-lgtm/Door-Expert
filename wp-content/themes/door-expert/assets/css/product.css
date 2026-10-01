@@ -516,6 +516,26 @@
   margin: 20px 0;
 }
 
+/*
+ * Uputstvo "Prvo izaberite: …" kad kupac dođe sa kartice (#odaberi, product.js).
+ * Isti jezik kao .product-next-steps (pearl pozadina) + jantar linija lijevo da se
+ * vidi iz skrola. Bez display pravila – inače atribut hidden ne bi sakrivao.
+ */
+.product-variants__hint {
+  margin: 20px 0 0;
+  padding: 12px 16px;
+  background: var(--color-pearl, #F7F3EC);
+  border-left: 3px solid var(--color-jantar, #A07840);
+  font-family: var(--font-body, 'DM Sans', sans-serif);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-antracit, #1E1A16);
+}
+
+.product-variants__hint strong {
+  font-weight: 600;
+}
+
 .product-variants__label {
   font-family: var(--font-body, 'DM Sans', sans-serif);
   font-size: 10px;
