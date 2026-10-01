@@ -116,8 +116,8 @@
 }
 
 /* ── Lista želja ─────────────────────────────────────────────── */
-/* Baza (telefon): uvijek vidljivo, jer dodir nema hover. Sakriva se do hovera tek
-   na uređajima koji hover stvarno imaju – vidi @media (hover: hover) niže. */
+/* Uvijek vidljivo, i na telefonu i na računaru. Na uređajima sa hoverom je samo
+   prigušeno dok kursor nije na kartici – vidi @media (hover: hover) niže. */
 .prod-card__wishlist {
   position: absolute;
   top: var(--space-3, 0.75rem);
@@ -338,16 +338,19 @@
     transform: scale(1.04);
   }
 
+  /*
+   * ODSTUPANJE OD PROTOTIPA: srce se ne krije do hovera. Jedini je znak da se
+   * proizvod može sačuvati (header nema ikonicu), pa mora biti uočljivo pri
+   * skeniranju listinga. Bez hovera je samo prigušeno; sačuvano je uvijek puno.
+   */
   .prod-card__wishlist {
-    opacity: 0;
-    transform: scale(0.85);
+    opacity: 0.75;
   }
 
   .prod-card:hover .prod-card__wishlist,
   .prod-card__wishlist:focus-visible,
   .prod-card__wishlist.active {
     opacity: 1;
-    transform: scale(1);
   }
 }
 
