@@ -91,13 +91,14 @@ isprazniti Trash pa ponoviti. Poslije kreiranja: Settings → Permalinks → Sav
 
 | Pitanje | Stanje |
 |---|---|
-| **Varijacije: Simple ili Variable?** | ✅ Riješeno: **Variable**, implementirano (`69c63a1`, `8eae453`). ⏳ **Čeka provjeru na staging-u** — kod nije nijednom pokrenut. Test lista i jedan nepokriven rubni slučaj: vidi §5 |
+| **Varijacije: Simple ili Variable?** | ✅ Riješeno: **Variable**, implementirano (`69c63a1`, `8eae453`). Dijelom potvrđeno na staging-u 1.10. (pilule širine, dodavanje varijante u korpu). Ostatak test liste i jedan nepokriven rubni slučaj: vidi §5 |
 | **Vrata rasprodata u cjelini** | Ako *sve* varijacije jednog proizvoda odu na nulu, WC i roditelju postavi `outofstock`. Nije provjereno da li tada naš `woocommerce_product_is_in_stock` filter i dalje pušta upit. Ako je scenario realan, treba pokriti |
 | **Prave vrijednosti boja / dimenzija** | Nisu definisane. Prototipske su Manus placeholder. Swatch mapa slug→hex u `filters.php` pokriva par boja, ostalo pada na neutralnu sivu |
-| **Wishlist** | Faza 1 urađena: srce sa brojem u headeru (vodi na `/korpa/#sacuvano`), srce na kartici, "Sačuvaj za projekat" na PDP-u, tabovi "Korpa / Sačuvano" u korpi (tab crta istu karticu kao prodavnica, umjesto prototipske sa "Premjesti u ponudu"). Samo `localStorage` (ID-jevi), kartice crta server (`inc/wishlist.php`). ⏳ Čeka provjeru na staging-u. **Faza 2 (dogovoreno):** "Kopiraj link" (lista u URL-u) + "Preuzmi PDF" preko štampe iz pregledača. Akcije stranica još ima demo kartice sa svojim srcem (`akcije.js`, ključ `de_wishlist`) – nije povezana |
+| **Wishlist** | ✅ Faza 1 urađena i provjerena na staging-u (desktop), 1.10. Detalji i rollback: `WORKING_COMMITS.md`. ⏳ **Fali provjera:** telefon (320–360px header, obavještenje iznad trake) i header na ~1130–1320px. **Faza 2 (dogovoreno):** "Kopiraj link" (lista u URL-u) + "Preuzmi PDF" preko štampe iz pregledača. Akcije stranica još ima demo kartice sa svojim srcem (`akcije.js`, ključ `de_wishlist`) – nije povezana |
+| **„Odabrani za vas" (naslovna)** | Urađeno (`58e4ad3`), ⏳ **nije viđeno uživo sa označenim proizvodima**. Klijent treba da označi kvadratić „Početna – Odabrani za vas" na proizvodima |
 | **Cijena po m² za keramiku** | PDP prikazuje cijenu kako je unijeta. Korekcija u korpi nije portovana (vidi red portovanja) |
 | **Pretraga** | Ne postoji nigdje. Search UI na 404 stoji ali je neaktivan; header šalje na nepostojeći `/pretraga/`. Logika se eksportuje iz Saye naknadno |
-| **Thumbnail-i kategorija** | Nisu postavljeni → kartice na 404 prikazuju WooCommerce placeholder. Čim se postave u wp-adminu, slike se pojave same (bez izmjene koda) |
+| **Thumbnail-i kategorija** | ✅ Postavljeni u wp-adminu; naslovna ih čita (`door_expert_cat_image()`), provjereno na staging-u 1.10. Kategorija bez slike pada na Unsplash rezervu (naslovna) / WC placeholder (404, prazna korpa) |
 
 ---
 
@@ -117,6 +118,7 @@ provjeren ali **nikad pokrenut ovdje** — nacrti, ne testiran kod.
 | 7 | Ambient-first kartica + zamjena slike po boji | `12-UI-PRODUCT-CARD.md` | Nije početo |
 | 8 | SEO noindex/canonical za filtrirane URL-ove | `01-AUDIT-REPORT.md` §5 (bonus) | **Relevantno** — naši filteri prave mnogo GET kombinacija |
 | 9 | Pretraga (six passes) | `01-AUDIT-REPORT.md` §16 | **Kod nije izvučen** — treba eksportovati iz Saye (vidi ispod) |
+| 10 | Wishlist | `01-AUDIT-REPORT.md` komponenta 9 | ✅ **Portovano (faza 1)** uz izmjene: samo ID-jevi u pregledaču, kartice crta server, bez spajanja sa nalogom |
 
 **Ne portovati:** filtere (imamo svoje), product card (naš postoji), **varijacioni matching engine
 i custom add-to-cart handler** iz `03-PORT-variations.md`.
@@ -171,6 +173,9 @@ stvarnim top upitima iz logovanja, ne izmišljenim.
   `woocommerce_product_is_in_stock` da bi vrata bila naručljiva i van lagera (quote model). Prikaz
   zato mora čitati sirovi `get_stock_status()`. Hvata se na `is_in_stock()` jer
   `WC_Cart::add_to_cart()` baci izuzetak **prije** `woocommerce_add_to_cart_validation`.
+- **Prototipski JS ima demo handlere** (srce koje samo mijenja boju, "dodaj u korpu" koje ispiše
+  "Dodato" bez upisa u korpu). Pri konverziji preostalih stranica **ne prenositi ih** – sudaraju
+  se sa pravim `wishlist.js` i WC dodavanjem (jedan je imao `stopPropagation` i gasio srce).
 
 ### Test lista za PDP varijacije (nije još odrađena)
 
